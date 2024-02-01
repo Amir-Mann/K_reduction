@@ -336,6 +336,16 @@ def init_domain(d):
         return d
 
 parser = argparse.ArgumentParser(description='ERAN Example',  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+# amir omer noa START
+
+parser.add_argument('--failing_origins_num', type=int, default=50, help='number of failing origins for spesific image and K1(failing origin group size)')
+parser.add_argument('--delta_sub_k', type=int, default=1, help='delta between sub ks(sub group sizes) that getting tested after a failing origin is found')
+parser.add_argument('--samples_per_sub_k', type=int, default=100, help='number of groups tested for each sub k(sub group sizes)')
+parser.add_argument('--k1_lst', type=int, nargs='+', default=[50], help='list of k(group sizes) of failing origins')
+parser.add_argument('--stats_file', type=str, help='exported stats will be added to json_stats/netname/stats_file.json')
+
+# amir omer noa END
+
 parser.add_argument('--netname', type=isnetworkfile, default=config.netname, help='the network name, the extension can be only .pb, .pyt, .tf, .meta, and .onnx')
 parser.add_argument('--epsilon', type=float, default=config.epsilon, help='the epsilon for L_infinity perturbation')
 parser.add_argument('--zonotope', type=str, default=config.zonotope, help='file to specify the zonotope matrix')
@@ -1362,10 +1372,22 @@ else:
 
     # amir omer noa START
     failing_origins_per_network = []
+    modified_netname = config.netname[config.netname.rfind("/") + 1:]
+    if config.stats_file is None:
+        json_file_name = f"json_stats/{modified_netname}/{config.dataset}"
+    else:
+        json_file_name = f"json_stats/{modified_netname}/{config.stats_file}"
+    if os.path.isfile(f"{json_file_name}.json"):
+        version = 1
+        while os.path.isfile(f"{json_file_name}({version}).json"):
+            version += 1
+        json_file_name = f"{json_file_name}({version}).json"
+    else:
+        json_file_name = f"{json_file_name}.json"
     # amir omer noa END
     for i, test in enumerate(tests):
         # amir omer noa START
-        OAN_DEBUG = True
+        OAN_DEBUG = False
         if OAN_DEBUG:
             if i != 2:
                 continue
@@ -1506,20 +1528,12 @@ else:
             else:
                 if domain.endswith("poly"):
                     # amir omer noa START
-                    ENCODING_OF_VERSION = "new_append_json_test"
-                    modified_netname = config.netname[config.netname.rfind("/") + 1:]
-                    json_file_name = f"json_stats/{ENCODING_OF_VERSION}--{config.dataset}--{modified_netname}.json"
 
-                    list_of_K1s = [50]
-                    for K1 in list_of_K1s:
-                        NUM_FAILING_ORIGINS = 100
+                    for K1 in config.k1_lst:
                         NUM_ATTEMPTS_AT_FINDING_FAILING_ORIGINS = 50000
 
-                        DELTA_SUB_K = 1
-                        NUM_SAMPLES = 500
-
                         failing_origins_per_K1 = []
-                        for repeat_of_K1 in range(NUM_FAILING_ORIGINS):
+                        for repeat_of_K1 in range(config.failing_origins_num):
                             failed_origin_found = False
 
                             # find a failing origin
@@ -1552,11 +1566,11 @@ else:
                             # create FailingOrigin with proper parameters
                             failing_origin = l0_stats.FailingOriginStats(config.dataset, config.netname, i, K1, chosen_pixels, label, nlb[-1], nub[-1])
 
-                            # go over each sub K with DELTA_SUB_K intervals
-                            for sub_k in range(DELTA_SUB_K, K1, DELTA_SUB_K):
+                            # go over each sub K with config.delta_sub_k intervals
+                            for sub_k in range(config.delta_sub_k, K1, config.delta_sub_k):
                                 # loop SAMPLES times over the sub K, and calculate the success rate
                                 successes = 0
-                                for sample_num in range(NUM_SAMPLES):
+                                for sample_num in range(config.samples_per_sub_k):
                                     # get a random sample of size sub_k
                                     _, specLB, specUB = l0_stats.get_rnd_sample(image, sub_k, chosen_pixels)
                                     perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB, "deeppoly",
@@ -1577,8 +1591,8 @@ else:
                                     # print("nlb ", nlb[-1], " nub ", nub[-1],"adv labels ", failed_labels)
                                     if perturbed_label == label:
                                         successes += 1
-                                success_rate = successes / NUM_SAMPLES
-                                failing_origin.update_stats(sub_k, NUM_SAMPLES, success_rate)
+                                success_rate = successes / config.samples_per_sub_k
+                                failing_origin.update_stats(sub_k, config.samples_per_sub_k, success_rate)
                                 # print(f"sub-k = {sub_k}, K1 = {K1}, img_num = {i}")
 
                             # adding FailedOrigin object to the list of failed origins
