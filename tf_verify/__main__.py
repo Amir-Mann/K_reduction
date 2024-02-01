@@ -13,6 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 """
+#amir omer noa to run write :
+# /root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --dataset mnist --netname models/mnist_relu_3_50.onnx --domain deeppoly --epsilon 0.01 --num_tests 20 --from_test 0 --k1_lst 50 --failing_origins_num 20 --delta_sub_k 1 --samples_per_sub_k 100 --stats_file file_name
 
 
 import sys
