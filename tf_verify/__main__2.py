@@ -1633,7 +1633,7 @@ else:
                             SK_AMOUNT_OF_CONSECUTIVES_NEEDED = 3
                             SK_SKIP_RATE_1 = max(5, config.delta_sub_k)
                             SK_SAFE_BACKTRACK = True
-                            # SK_SAMPLING_RATE_WHEN_SKIPPING = SK_AMOUNT_OF_SAMPLES
+                            SK_SAMPLING_RATE_WHEN_SKIPPING = 10
                             sk_reached_100s = False
                             sk_reached_0s = False
                             sk_is_skipping = False
@@ -1648,11 +1648,14 @@ else:
                                 if sk_current_sub_k in sk_skip_over_list:
                                     sk_current_sub_k += config.delta_sub_k
                                     continue
+                                if sk_current_sub_k < 0:
+                                    sk_current_sub_k = 0
 
                                 # --------------------- Gathering the Statistics ---------------------------------
                                 # loop SAMPLES times over the sub K, and calculate the success rate
                                 successes = 0
-                                for sample_num in range(config.samples_per_sub_k):
+                                sampling_amount = SK_AMOUNT_OF_SAMPLES if not sk_is_skipping else SK_SAMPLING_RATE_WHEN_SKIPPING
+                                for sample_num in range(sampling_amount):
                                     # get a random sample of size sub_k
                                     _, specLB, specUB = l0_stats.get_rnd_sample(image, sk_current_sub_k, chosen_pixels)
                                     perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB,
@@ -1677,7 +1680,7 @@ else:
                                         successes += 1
 
                                 #updating success rate in FailingOrigin object
-                                success_rate = successes / config.samples_per_sub_k
+                                success_rate = successes / sampling_amount
                                 failing_origin.update_stats(sk_current_sub_k, config.samples_per_sub_k, success_rate)
 
                                 # ------------------------------------------------------------------
@@ -1691,7 +1694,8 @@ else:
                                 if not sk_reached_100s and sk_consecutive_100s >= SK_AMOUNT_OF_CONSECUTIVES_NEEDED :
                                     sk_is_skipping = True
                                     sk_reached_100s = True
-                                if not sk_reached_0s and sk_consecutive_0s >= SK_AMOUNT_OF_CONSECUTIVES_NEEDED:
+                                # todo change free 3 to something else
+                                if not sk_reached_0s and sk_consecutive_0s >= SK_AMOUNT_OF_CONSECUTIVES_NEEDED * 3:
                                     sk_is_skipping = True
                                     sk_reached_0s = True
                                 if 0 < success_rate < 1 and sk_is_skipping:
