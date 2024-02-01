@@ -13,7 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 """
-
+#amir omer noa to run write :
+# /root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --dataset mnist --netname models/mnist_relu_3_50.onnx --domain deeppoly --epsilon 0.01 --num_tests 20 --from_test 0 --k1_lst 50 --failing_origins_num 20 --delta_sub_k 1 --samples_per_sub_k 100 --stats_file file_name
 import sys
 import os
 
@@ -1633,7 +1634,8 @@ else:
                             SK_SKIP_RATE_1 = max(5, config.delta_sub_k)
                             SK_SAFE_BACKTRACK = True
                             # SK_SAMPLING_RATE_WHEN_SKIPPING = SK_AMOUNT_OF_SAMPLES
-                            sk_reached_zeroes = False
+                            sk_reached_100s = False
+                            sk_reached_0s = False
                             sk_is_skipping = False
                             sk_consecutive_100s = 0
                             sk_consecutive_0s = 0
@@ -1652,7 +1654,7 @@ else:
                                 successes = 0
                                 for sample_num in range(config.samples_per_sub_k):
                                     # get a random sample of size sub_k
-                                    _, specLB, specUB = l0_stats.get_rnd_sample(image, sub_k, chosen_pixels)
+                                    _, specLB, specUB = l0_stats.get_rnd_sample(image, sk_current_sub_k, chosen_pixels)
                                     perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB,
                                                                                                       "deeppoly", config.timeout_lp,
                                                                                                       config.timeout_milp,
@@ -1676,7 +1678,8 @@ else:
 
                                 #updating success rate in FailingOrigin object
                                 success_rate = successes / config.samples_per_sub_k
-                                failing_origin.update_stats(sub_k, config.samples_per_sub_k, success_rate)
+                                failing_origin.update_stats(sk_current_sub_k, config.samples_per_sub_k, success_rate)
+
                                 # ------------------------------------------------------------------
 
                                 # updating sk_current_sub_k
@@ -1685,13 +1688,15 @@ else:
                                 sk_consecutive_0s = (sk_consecutive_0s + 1 if success_rate == 0 else 0)
 
                                 # checkin whether I should be skipping
-                                if sk_consecutive_100s >= SK_AMOUNT_OF_CONSECUTIVES_NEEDED:
+                                if not sk_reached_100s and sk_consecutive_100s >= SK_AMOUNT_OF_CONSECUTIVES_NEEDED :
                                     sk_is_skipping = True
-                                if sk_consecutive_0s >= SK_AMOUNT_OF_CONSECUTIVES_NEEDED:
+                                    sk_reached_100s = True
+                                if not sk_reached_0s and sk_consecutive_0s >= SK_AMOUNT_OF_CONSECUTIVES_NEEDED:
                                     sk_is_skipping = True
+                                    sk_reached_0s = True
                                 if 0 < success_rate < 1 and sk_is_skipping:
                                     sk_is_skipping = False
-                                    sk_current_sub_k -= 2*SK_SKIP_RATE_1
+                                    sk_current_sub_k -= SK_SKIP_RATE_1 * (2 if SK_SAFE_BACKTRACK else 1)
 
                                 # setting the current_sub_k
                                 sk_current_sub_k += (config.delta_sub_k if not sk_is_skipping else SK_SKIP_RATE_1)
@@ -1702,7 +1707,6 @@ else:
                             print(f"K1 = {K1}, repeat_of_K1 = {repeat_of_K1},  img_num = {i}")
                             failing_origins_per_K1.append(failing_origin)
 
-                            # TODO append to json
                             # print(failing_origins_per_K1)
                             l0_stats.append_json([failing_origin], json_file_name)
 
