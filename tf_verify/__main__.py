@@ -16,6 +16,33 @@
 #amir omer noa to run write :
 # /root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --dataset mnist --netname models/mnist_relu_3_50.onnx --domain deeppoly --epsilon 0.01 --num_tests 20 --from_test 0 --k1_lst 50 --failing_origins_num 20 --delta_sub_k 1 --samples_per_sub_k 100 --stats_file file_name
 
+"""
+DONE:
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 47 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/mnist_relu_3_50.onnx --dataset mnist --from_test 0 --num_tests 1 --stats_file stat1.json
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 30 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/mnist_relu_3_50.onnx --dataset mnist --from_test 0 --num_tests 10 --stats_file stat3.json
+
+RAN PARTIALLY:
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 50 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/MNIST_convSmall_NO_PGD.onnx --dataset mnist --from_test 0 --num_tests 1 --stats_file stat1
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 50 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/128_0.005_94_92_0.5_0.1.onnx --dataset mnist --from_test 0 --num_tests 1 --stats_file stat1
+
+CHECK RESULTS
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 20 --failing_origins_num 50 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/mnist_relu_3_50.onnx --dataset mnist --from_test 1 --num_tests 1 --stats_file stat2.json
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 20 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/MNIST_convSmall_NO_PGD.onnx --dataset mnist --from_test 1 --num_tests 20 --stats_file stat2.json
+
+
+RUNNING:
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 50 --delta_sub_k 1 --samples_per_sub_k 80 --netname models/MNIST_convSmall_NO_PGD.onnx --dataset mnist --from_test 0 --num_tests 1 --stats_file stat1
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 50 --delta_sub_k 1 --samples_per_sub_k 80 --netname models/128_0.005_94_92_0.5_0.1.onnx --dataset mnist --from_test 5 --num_tests 1 --stats_file stat1
+
+TODO:
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 100 --failing_origins_num 30 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/mnist_relu_3_50.onnx --dataset mnist --from_test 2 --num_tests 1 --stats_file stat4
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 20 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/128_0.005_94_92_0.5_0.1.onnx --dataset mnist --from_test 1 --num_tests 20 --stats_file stat2
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 50 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/MNIST_6x200_128_0.004_97_97_0.5_0.1.onnx --dataset mnist --from_test 0 --num_tests 1 --stats_file stat1
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 20 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/MNIST_6x200_128_0.004_97_97_0.5_0.1.onnx --dataset mnist --from_test 1 --num_tests 20 --stats_file stat2
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 100 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx --dataset mnist --from_test 0 --num_tests 1 --stats_file stat1
+/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --domain deeppoly --epsilon 0.01 --k1_lst 50 --failing_origins_num 20 --delta_sub_k 1 --samples_per_sub_k 100 --netname models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx --dataset mnist --from_test 1 --num_tests 20 --stats_file stat2
+"""
+
 
 import sys
 import os
@@ -1554,7 +1581,7 @@ else:
                                                                                               partial_milp=0,
                                                                                               max_milp_neurons=0,
                                                                                               approx_k=0)
-                                print("nlb ", nlb[-1], " nub ", nub[-1],"adv labels ", failed_labels)
+                                #print("nlb ", nlb[-1], " nub ", nub[-1],"adv labels ", failed_labels)
 
                                 # we found a failing origin
                                 if perturbed_label != label:
@@ -1564,7 +1591,7 @@ else:
                             # exit if haven't found a failing origin of size K1
                             if not failed_origin_found:
                                 break
-
+                            print("Found FO.", end="")
                             # create FailingOrigin with proper parameters
                             failing_origin = l0_stats.FailingOriginStats(config.dataset, config.netname, i, K1, chosen_pixels, label, nlb[-1], nub[-1])
 
