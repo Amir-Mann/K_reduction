@@ -1719,7 +1719,6 @@ else:
                                         sk_is_skipping_low = True
                                     elif sk_is_skipping_high and success_rate < 1:
                                         sk_is_skipping_high = False
-                                        sk_is_skipping_low = False
                                         sk_careful_mode = (True, sk_current_sub_k)
                                         sk_current_sub_k -= (SK_SUBK_SKIP_RATE + SK_REGULAR_DELTA_SUBK)
                                     elif sk_is_skipping_low and success_rate > 0:
@@ -1735,7 +1734,7 @@ else:
                                         sk_current_sub_k -= (SK_SUBK_SKIP_RATE + SK_REGULAR_DELTA_SUBK)
 
                                 # setting the current_sub_k
-                                sk_current_sub_k += (config.delta_sub_k if not sk_is_skipping_high else SK_SUBK_SKIP_RATE)
+                                sk_current_sub_k += (config.delta_sub_k if not sk_is_skipping else SK_SUBK_SKIP_RATE)
 
                             # adding FailedOrigin object to the list of failed origins
                             print(f"K1 = {K1}, repeat_of_K1 = {repeat_of_K1},  img_num = {i}")
