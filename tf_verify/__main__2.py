@@ -1702,10 +1702,12 @@ else:
                                     sk_is_skipping = False
                                     sk_current_sub_k -= SK_SKIP_RATE_1 * (2 if SK_SAFE_BACKTRACK else 1)
 
+                                print(f"sub-k = {sk_current_sub_k}, success_rate = {success_rate}, repeat_of_K1 = {repeat_of_K1}, K1 = {K1}, img_num = {i}")
+
                                 # setting the current_sub_k
                                 sk_current_sub_k += (config.delta_sub_k if not sk_is_skipping else SK_SKIP_RATE_1)
 
-                                print(f"sub-k = {sk_current_sub_k}, K1 = {K1}, img_num = {i}")
+
 
                             # adding FailedOrigin object to the list of failed origins
                             print(f"K1 = {K1}, repeat_of_K1 = {repeat_of_K1},  img_num = {i}")
