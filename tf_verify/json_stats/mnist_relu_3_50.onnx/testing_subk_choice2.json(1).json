@@ -1,0 +1,252 @@
+[
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 0,
+        "k": 50,
+        "pixels_index": [
+            14,
+            19,
+            28,
+            33,
+            91,
+            105,
+            112,
+            124,
+            127,
+            174,
+            181,
+            192,
+            202,
+            236,
+            237,
+            239,
+            241,
+            252,
+            256,
+            265,
+            266,
+            269,
+            282,
+            300,
+            335,
+            346,
+            372,
+            384,
+            394,
+            443,
+            456,
+            490,
+            515,
+            516,
+            519,
+            521,
+            550,
+            578,
+            589,
+            590,
+            592,
+            611,
+            616,
+            650,
+            652,
+            655,
+            694,
+            700,
+            722,
+            759
+        ],
+        "label": 7,
+        "Lbounds": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            5.915598001151347,
+            7.893987657004379,
+            12.984997078884117,
+            12.547612825016985,
+            7.501103598805265,
+            9.804867224361146,
+            1.813410633862062,
+            19.56003964971462,
+            7.175048579311359,
+            11.441430319894746
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 100,
+                "success": 1.0
+            },
+            {
+                "sub_k": 2,
+                "samples": 100,
+                "success": 1.0
+            },
+            {
+                "sub_k": 3,
+                "samples": 100,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 23,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 28,
+                "samples": 10,
+                "success": 0.9
+            },
+            {
+                "sub_k": 19,
+                "samples": 100,
+                "success": 1.0
+            },
+            {
+                "sub_k": 20,
+                "samples": 100,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 100,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 100,
+                "success": 1.0
+            },
+            {
+                "sub_k": 24,
+                "samples": 100,
+                "success": 1.0
+            },
+            {
+                "sub_k": 25,
+                "samples": 100,
+                "success": 1.0
+            },
+            {
+                "sub_k": 26,
+                "samples": 100,
+                "success": 1.0
+            },
+            {
+                "sub_k": 27,
+                "samples": 100,
+                "success": 0.9800000000000001
+            },
+            {
+                "sub_k": 29,
+                "samples": 100,
+                "success": 0.7400000000000001
+            },
+            {
+                "sub_k": 30,
+                "samples": 100,
+                "success": 0.68
+            },
+            {
+                "sub_k": 31,
+                "samples": 100,
+                "success": 0.45
+            },
+            {
+                "sub_k": 32,
+                "samples": 100,
+                "success": 0.16
+            },
+            {
+                "sub_k": 33,
+                "samples": 100,
+                "success": 0.060000000000000005
+            },
+            {
+                "sub_k": 34,
+                "samples": 100,
+                "success": 0.0
+            },
+            {
+                "sub_k": 35,
+                "samples": 100,
+                "success": 0.01
+            },
+            {
+                "sub_k": 36,
+                "samples": 100,
+                "success": 0.0
+            },
+            {
+                "sub_k": 37,
+                "samples": 100,
+                "success": 0.0
+            },
+            {
+                "sub_k": 38,
+                "samples": 100,
+                "success": 0.0
+            },
+            {
+                "sub_k": 39,
+                "samples": 100,
+                "success": 0.0
+            },
+            {
+                "sub_k": 40,
+                "samples": 100,
+                "success": 0.0
+            },
+            {
+                "sub_k": 41,
+                "samples": 100,
+                "success": 0.0
+            },
+            {
+                "sub_k": 42,
+                "samples": 100,
+                "success": 0.0
+            },
+            {
+                "sub_k": 43,
+                "samples": 100,
+                "success": 0.0
+            },
+            {
+                "sub_k": 44,
+                "samples": 100,
+                "success": 0.0
+            },
+            {
+                "sub_k": 49,
+                "samples": 10,
+                "success": 0.0
+            }
+        ]
+    }
+]
