@@ -1382,7 +1382,7 @@ elif config.spatial:
         )
         end = time.time()
 
-        print(f'nlb {nlb[-1]} nub {nub[-1]} adv labels {failed_labels}')
+        #print(f'nlb {nlb[-1]} nub {nub[-1]} adv labels {failed_labels}')
 
         if perturbed_label == label:
             print(f'img {idx} verified {label}')
@@ -1612,7 +1612,7 @@ else:
                                                                                                   partial_milp=0,
                                                                                                   max_milp_neurons=0,
                                                                                                   approx_k=0)
-                                print("nlb ", nlb[-1], " nub ", nub[-1], "adv labels ", failed_labels)
+                                #print("nlb ", nlb[-1], " nub ", nub[-1], "adv labels ", failed_labels)
 
                                 # we found a failing origin
                                 if perturbed_label != label:
@@ -1621,8 +1621,9 @@ else:
 
                             # exit if we haven't found a failing origin of size K1
                             if not failed_origin_found:
+                                print(f"Cound't found any FO with {NUM_ATTEMPTS_AT_FINDING_FAILING_ORIGINS} attempts.")
                                 break
-
+                            print("Found FO.", end=" ")
                             # create FailingOrigin with proper parameters
                             failing_origin = l0_stats.FailingOriginStats(config.dataset, config.netname, i, K1,
                                                                          chosen_pixels, label, nlb[-1], nub[-1])
@@ -1698,7 +1699,7 @@ else:
 
                                 # ------------------------------------------------------------------
 
-                                print(f"sub-k = {sk_current_sub_k}, success_rate = {success_rate}, repeat_of_K1 = {repeat_of_K1}, K1 = {K1}, img_num = {i}")
+                                # print(f"sub-k = {sk_current_sub_k}, success_rate = {success_rate}, repeat_of_K1 = {repeat_of_K1}, K1 = {K1}, img_num = {i}")
 
                                 # updating sk_current_sub_k
                                 if not sk_is_skipping:
@@ -1763,7 +1764,7 @@ else:
                                                                                       partial_milp=config.partial_milp,
                                                                                       max_milp_neurons=config.max_milp_neurons,
                                                                                       approx_k=config.approx_k)
-                    print("nlb ", nlb[-1], " nub ", nub[-1], "adv labels ", failed_labels)
+                    #print("nlb ", nlb[-1], " nub ", nub[-1], "adv labels ", failed_labels)
                 if (perturbed_label == label):
                     print("img", i, "Verified", label)
                     verified_images += 1

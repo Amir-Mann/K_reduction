@@ -63,19 +63,19 @@ def create_json(data_lst, path):
         data_lst_dicts = [data.get_dict() for data in data_lst]
         json.dump(data_lst_dicts, f, indent=4)
 
+
 def append_json(new_data_lst, path):
     assert len(new_data_lst) != 0
     if not os.path.isfile(path):
         create_json(new_data_lst, path)
         return
 
-    with open(path,'r+') as file:
+    with open(path, 'rb+') as file:
         new_data_lst_dict = [data.get_dict() for data in new_data_lst]
+        json_str = "," + json.dumps(new_data_lst_dict, indent=4)[1:]
+        file.seek(-1, os.SEEK_END)
+        file.write(json_str.encode())
 
-        file_data = json.load(file)
-        file_data += new_data_lst_dict
-        file.seek(0)
-        json.dump(file_data, file, indent=4)
 
 def get_rnd_sample(image, k, indices=None):
     if indices is None:
