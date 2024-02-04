@@ -15,25 +15,9 @@
 """
 #amir omer noa to run write :
 # /root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --dataset mnist --netname models/mnist_relu_3_50.onnx --domain deeppoly --epsilon 0.01 --num_tests 20 --from_test 0 --k1_lst 50 --failing_origins_num 20 --delta_sub_k 1 --samples_per_sub_k 100 --stats_file file_name
-
-"""
-DONE:
-
-RAN PARTIALLY:
-
-CHECK RESULTS
-
-RUNNING:
-/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main2__.py --domain deeppoly --epsilon 0.01 --k1_lst 784 --failing_origins_num 1 --delta_sub_k 1 --samples_per_sub_k 500 --netname models/mnist_relu_3_50.onnx --dataset mnist --from_test 0 --num_tests 3 --stats_file all_image
-/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main2__.py --domain deeppoly --epsilon 0.01 --k1_lst 784 --failing_origins_num 1 --delta_sub_k 1 --samples_per_sub_k 500 --netname models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx --dataset mnist --from_test 0 --num_tests 3 --stats_file all_image
-/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main2__.py --domain deeppoly --epsilon 0.01 --k1_lst 784 --failing_origins_num 1 --delta_sub_k 1 --samples_per_sub_k 500 --netname models/MNIST_convSmall_NO_PGD.onnx --dataset mnist --from_test 0 --num_tests 3 --stats_file all_image
-
-TODO:
-"""
-
-
 import sys
 import os
+
 cpu_affinity = os.sched_getaffinity(0)
 sys.path.insert(0, '../ELINA/python_interface/')
 sys.path.insert(0, '../deepg/code/')
@@ -67,13 +51,13 @@ from refine_gpupoly import *
 from utils import parse_vnn_lib_prop, translate_output_constraints, translate_input_to_box, negate_cstr_or_list_old
 import l0_stats
 
-#ZONOTOPE_EXTENSION = '.zt'
-EPS = 10**(-9)
+# ZONOTOPE_EXTENSION = '.zt'
+EPS = 10 ** (-9)
 
-is_tf_version_2=tf.__version__[0]=='2'
+is_tf_version_2 = tf.__version__[0] == '2'
 
 if is_tf_version_2:
-    tf= tf.compat.v1
+    tf = tf.compat.v1
 
 
 def str2bool(v):
@@ -87,22 +71,21 @@ def str2bool(v):
 
 def isnetworkfile(fname):
     _, ext = os.path.splitext(fname)
-    if ext not in ['.pyt', '.meta', '.tf','.onnx', '.pb']:
+    if ext not in ['.pyt', '.meta', '.tf', '.onnx', '.pb']:
         raise argparse.ArgumentTypeError('only .pyt, .tf, .onnx, .pb, and .meta formats supported')
     return fname
-
 
 
 def parse_input_box(text):
     intervals_list = []
     for line in text.split('\n'):
-        if line!="":
+        if line != "":
             interval_strings = re.findall("\[-?\d*\.?\d+, *-?\d*\.?\d+\]", line)
             intervals = []
             for interval in interval_strings:
                 interval = interval.replace('[', '')
                 interval = interval.replace(']', '')
-                [lb,ub] = interval.split(",")
+                [lb, ub] = interval.split(",")
                 intervals.append((np.double(lb), np.double(ub)))
             intervals_list.append(intervals)
 
@@ -116,10 +99,10 @@ def show_ascii_spec(lb, ub, n_rows, n_cols, n_channels):
     for i in range(n_rows):
         print('  ', end='')
         for j in range(n_cols):
-            print('#' if lb[n_cols*n_channels*i+j*n_channels] >= 0.5 else ' ', end='')
+            print('#' if lb[n_cols * n_channels * i + j * n_channels] >= 0.5 else ' ', end='')
         print('  |  ', end='')
         for j in range(n_cols):
-            print('#' if ub[n_cols*n_channels*i+j*n_channels] >= 0.5 else ' ', end='')
+            print('#' if ub[n_cols * n_channels * i + j * n_channels] >= 0.5 else ' ', end='')
         print('  |  ')
     print('==================================================================')
 
@@ -129,28 +112,27 @@ def normalize(image, means, stds, dataset):
     if len(means) == len(image):
         for i in range(len(image)):
             image[i] -= means[i]
-            if stds!=None:
+            if stds != None:
                 image[i] /= stds[i]
-    elif dataset == 'mnist'  or dataset == 'fashion':
+    elif dataset == 'mnist' or dataset == 'fashion':
         for i in range(len(image)):
-            image[i] = (image[i] - means[0])/stds[0]
-    elif(dataset=='cifar10'):
+            image[i] = (image[i] - means[0]) / stds[0]
+    elif (dataset == 'cifar10'):
         count = 0
         tmp = np.zeros(3072)
         for i in range(1024):
-            tmp[count] = (image[count] - means[0])/stds[0]
+            tmp[count] = (image[count] - means[0]) / stds[0]
             count = count + 1
-            tmp[count] = (image[count] - means[1])/stds[1]
+            tmp[count] = (image[count] - means[1]) / stds[1]
             count = count + 1
-            tmp[count] = (image[count] - means[2])/stds[2]
+            tmp[count] = (image[count] - means[2]) / stds[2]
             count = count + 1
 
-        
-        is_gpupoly = (domain=='gpupoly' or domain=='refinegpupoly')
+        is_gpupoly = (domain == 'gpupoly' or domain == 'refinegpupoly')
         if is_conv and not is_gpupoly:
             for i in range(3072):
                 image[i] = tmp[i]
-            #for i in range(1024):
+            # for i in range(1024):
             #    image[i*3] = tmp[i]
             #    image[i*3+1] = tmp[i+1024]
             #    image[i*3+2] = tmp[i+2048]
@@ -158,11 +140,11 @@ def normalize(image, means, stds, dataset):
             count = 0
             for i in range(1024):
                 image[i] = tmp[count]
-                count = count+1
-                image[i+1024] = tmp[count]
-                count = count+1
-                image[i+2048] = tmp[count]
-                count = count+1
+                count = count + 1
+                image[i + 1024] = tmp[count]
+                count = count + 1
+                image[i + 2048] = tmp[count]
+                count = count + 1
 
 
 def normalize_plane(plane, mean, std, channel, is_constant):
@@ -176,7 +158,8 @@ def normalize_plane(plane, mean, std, channel, is_constant):
     return plane_
 
 
-def normalize_poly(num_params, lexpr_cst, lexpr_weights, lexpr_dim, uexpr_cst, uexpr_weights, uexpr_dim, means, stds, dataset):
+def normalize_poly(num_params, lexpr_cst, lexpr_weights, lexpr_dim, uexpr_cst, uexpr_weights, uexpr_dim, means, stds,
+                   dataset):
     # normalization taken out of the network
     if dataset == 'mnist' or dataset == 'fashion':
         for i in range(len(lexpr_cst)):
@@ -195,18 +178,18 @@ def normalize_poly(num_params, lexpr_cst, lexpr_weights, lexpr_dim, uexpr_cst, u
 
 
 def denormalize(image, means, stds, dataset):
-    if dataset == 'mnist'  or dataset == 'fashion':
+    if dataset == 'mnist' or dataset == 'fashion':
         for i in range(len(image)):
-            image[i] = image[i]*stds[0] + means[0]
-    elif(dataset=='cifar10'):
+            image[i] = image[i] * stds[0] + means[0]
+    elif (dataset == 'cifar10'):
         count = 0
         tmp = np.zeros(3072)
         for i in range(1024):
-            tmp[count] = image[count]*stds[0] + means[0]
+            tmp[count] = image[count] * stds[0] + means[0]
             count = count + 1
-            tmp[count] = image[count]*stds[1] + means[1]
+            tmp[count] = image[count] * stds[1] + means[1]
             count = count + 1
-            tmp[count] = image[count]*stds[2] + means[2]
+            tmp[count] = image[count] * stds[2] + means[2]
             count = count + 1
 
         for i in range(3072):
@@ -217,7 +200,8 @@ def model_predict(base, input):
     if is_onnx:
         pred = base.run(input)
     else:
-        pred = base.run(base.graph.get_operation_by_name(model.op.name).outputs[0], {base.graph.get_operations()[0].name + ':0': input})
+        pred = base.run(base.graph.get_operation_by_name(model.op.name).outputs[0],
+                        {base.graph.get_operations()[0].name + ':0': input})
     return pred
 
 
@@ -226,7 +210,8 @@ def estimate_grads(specLB, specUB, dim_samples=3, input_shape=[1]):
     # Very computationally costly
     specLB = np.array(specLB, dtype=np.float32)
     specUB = np.array(specUB, dtype=np.float32)
-    inputs = [(((dim_samples - i) * specLB + i * specUB) / dim_samples).reshape(*input_shape) for i in range(dim_samples + 1)]
+    inputs = [(((dim_samples - i) * specLB + i * specUB) / dim_samples).reshape(*input_shape) for i in
+              range(dim_samples + 1)]
     diffs = np.zeros(len(specLB))
 
     # refactor this out of this method
@@ -243,13 +228,15 @@ def estimate_grads(specLB, specUB, dim_samples=3, input_shape=[1]):
 
         for index in range(len(specLB)):
             if sample < dim_samples:
-                l_input = [m if i != index else u for i, m, u in zip(range(len(specLB)), inputs[sample], inputs[sample+1])]
+                l_input = [m if i != index else u for i, m, u in
+                           zip(range(len(specLB)), inputs[sample], inputs[sample + 1])]
                 l_input = np.array(l_input, dtype=np.float32)
                 l_i_pred = model_predict(runnable, l_input)
             else:
                 l_i_pred = pred
             if sample > 0:
-                u_input = [m if i != index else l for i, m, l in zip(range(len(specLB)), inputs[sample], inputs[sample-1])]
+                u_input = [m if i != index else l for i, m, l in
+                           zip(range(len(specLB)), inputs[sample], inputs[sample - 1])]
                 u_input = np.array(u_input, dtype=np.float32)
                 u_i_pred = model_predict(runnable, u_input)
             else:
@@ -259,17 +246,19 @@ def estimate_grads(specLB, specUB, dim_samples=3, input_shape=[1]):
     return diffs / dim_samples
 
 
-
 progress = 0.0
+
+
 def print_progress(depth):
     if config.debug:
         global progress, rec_start
-        progress += np.power(2.,-depth)
-        sys.stdout.write('\r%.10f percent, %.02f s\n' % (100 * progress, time.time()-rec_start))
+        progress += np.power(2., -depth)
+        sys.stdout.write('\r%.10f percent, %.02f s\n' % (100 * progress, time.time() - rec_start))
 
 
 def acasxu_recursive(specLB, specUB, max_depth=10, depth=0):
-    hold,nn,nlb,nub,_,_ = eran.analyze_box(specLB, specUB, domain, config.timeout_lp, config.timeout_milp, config.use_default_heuristic, constraints)
+    hold, nn, nlb, nub, _, _ = eran.analyze_box(specLB, specUB, domain, config.timeout_lp, config.timeout_milp,
+                                                config.use_default_heuristic, constraints)
     global failed_already
     if hold:
         print_progress(depth)
@@ -281,20 +270,22 @@ def acasxu_recursive(specLB, specUB, max_depth=10, depth=0):
             except Exception as ex:
                 print(f"{ex}Exception occured for the following inputs:")
                 print(specLB, specUB, max_depth, depth)
-                #verified_flag, adv_examples, _ = verify_network_with_milp(nn, specLB, specUB, nlb, nub, constraints)
+                # verified_flag, adv_examples, _ = verify_network_with_milp(nn, specLB, specUB, nlb, nub, constraints)
                 raise ex
             print_progress(depth)
             found_adex = False
             if verified_flag == False:
-                if adv_examples!=None:
-                    #print("adv image ", adv_image)
+                if adv_examples != None:
+                    # print("adv image ", adv_image)
                     for adv_image in adv_examples:
                         for or_list in constraints:
                             if found_adex: break
                             negated_cstr = negate_cstr_or_list_old(or_list)
-                            hold_adex,_,nlb,nub,_,_ = eran.analyze_box(adv_image, adv_image, domain, config.timeout_lp, config.timeout_milp, config.use_default_heuristic, negated_cstr)
+                            hold_adex, _, nlb, nub, _, _ = eran.analyze_box(adv_image, adv_image, domain,
+                                                                            config.timeout_lp, config.timeout_milp,
+                                                                            config.use_default_heuristic, negated_cstr)
                             found_adex = hold_adex or found_adex
-                        #print("hold ", hold, "domain", domain)
+                        # print("hold ", hold, "domain", domain)
                         if found_adex:
                             print("property violated at ", adv_image, "output_score", nlb[-1])
                             failed_already.value = 0
@@ -307,23 +298,25 @@ def acasxu_recursive(specLB, specUB, max_depth=10, depth=0):
         # # grads + small epsilon so if gradient estimation becomes 0 it will divide the biggest interval.
         # smears = np.multiply(grads + 0.00001, [u-l for u, l in zip(specUB, specLB)])
 
-        #start = time.time()
+        # start = time.time()
         nn.set_last_weights(constraints)
         grads_lower, grads_upper = nn.back_propagate_gradient(nlb, nub)
-        smears = [max(-grad_l, grad_u) * (u-l) for grad_l, grad_u, l, u in zip(grads_lower, grads_upper, specLB, specUB)]
+        smears = [max(-grad_l, grad_u) * (u - l) for grad_l, grad_u, l, u in
+                  zip(grads_lower, grads_upper, specLB, specUB)]
 
         index = np.argmax(smears)
-        m = (specLB[index]+specUB[index])/2
+        m = (specLB[index] + specUB[index]) / 2
 
-        result_a, adex_a = acasxu_recursive(specLB, [ub if i != index else m for i, ub in enumerate(specUB)], max_depth, depth + 1)
+        result_a, adex_a = acasxu_recursive(specLB, [ub if i != index else m for i, ub in enumerate(specUB)], max_depth,
+                                            depth + 1)
         if adex_a is None:
-            result_b, adex_b = acasxu_recursive([lb if i != index else m for i, lb in enumerate(specLB)], specUB, max_depth, depth + 1)
+            result_b, adex_b = acasxu_recursive([lb if i != index else m for i, lb in enumerate(specLB)], specUB,
+                                                max_depth, depth + 1)
         else:
             adex_b = None
             result_b = False
         adex = adex_a if adex_a is not None else (adex_b if adex_b is not None else None)
         return failed_already.value and result_a and result_b, adex
-
 
 
 def get_tests(dataset, geometric):
@@ -337,7 +330,7 @@ def get_tests(dataset, geometric):
                 csvfile = open('../data/{}_test.csv'.format(dataset), 'r')
                 print("Only the first 100 samples are available.")
         else:
-            filename = '../data/'+ dataset+ '_test_' + config.subset + '.csv'
+            filename = '../data/' + dataset + '_test_' + config.subset + '.csv'
             csvfile = open(filename, 'r')
     tests = csv.reader(csvfile, delimiter=',')
 
@@ -352,44 +345,64 @@ def init_domain(d):
     else:
         return d
 
-parser = argparse.ArgumentParser(description='ERAN Example',  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+parser = argparse.ArgumentParser(description='ERAN Example', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 # amir omer noa START
 
-parser.add_argument('--failing_origins_num', type=int, default=50, help='number of failing origins for spesific image and K1(failing origin group size)')
-parser.add_argument('--delta_sub_k', type=int, default=1, help='delta between sub ks(sub group sizes) that getting tested after a failing origin is found')
-parser.add_argument('--samples_per_sub_k', type=int, default=100, help='number of groups tested for each sub k(sub group sizes)')
+parser.add_argument('--failing_origins_num', type=int, default=50,
+                    help='number of failing origins for spesific image and K1(failing origin group size)')
+parser.add_argument('--delta_sub_k', type=int, default=1,
+                    help='delta between sub ks(sub group sizes) that getting tested after a failing origin is found')
+parser.add_argument('--samples_per_sub_k', type=int, default=100,
+                    help='number of groups tested for each sub k(sub group sizes)')
 parser.add_argument('--k1_lst', type=int, nargs='+', default=[50], help='list of k(group sizes) of failing origins')
 parser.add_argument('--stats_file', type=str, help='exported stats will be added to json_stats/netname/stats_file.json')
 
 # amir omer noa END
 
-parser.add_argument('--netname', type=isnetworkfile, default=config.netname, help='the network name, the extension can be only .pb, .pyt, .tf, .meta, and .onnx')
+parser.add_argument('--netname', type=isnetworkfile, default=config.netname,
+                    help='the network name, the extension can be only .pb, .pyt, .tf, .meta, and .onnx')
 parser.add_argument('--epsilon', type=float, default=config.epsilon, help='the epsilon for L_infinity perturbation')
 parser.add_argument('--zonotope', type=str, default=config.zonotope, help='file to specify the zonotope matrix')
-parser.add_argument('--subset', type=str, default=config.subset, help='suffix of the file to specify the subset of the test dataset to use')
+parser.add_argument('--subset', type=str, default=config.subset,
+                    help='suffix of the file to specify the subset of the test dataset to use')
 parser.add_argument('--target', type=str, default=config.target, help='file specify the targets for the attack')
 parser.add_argument('--epsfile', type=str, default=config.epsfile, help='file specify the epsilons for the L_oo attack')
-parser.add_argument('--vnn_lib_spec', type=str, default=config.vnn_lib_spec, help='VNN_LIB spec file, defining input and output constraints')
-parser.add_argument('--specnumber', type=int, default=config.specnumber, help='the property number for the acasxu networks')
-parser.add_argument('--domain', type=str, default=config.domain, help='the domain name can be either deepzono, refinezono, deeppoly, refinepoly, gpupoly, refinegpupoly')
-parser.add_argument('--dataset', type=str, default=config.dataset, help='the dataset, can be either mnist, cifar10, acasxu, or fashion')
-parser.add_argument('--complete', type=str2bool, default=config.complete,  help='flag specifying where to use complete verification or not')
-parser.add_argument('--timeout_lp', type=float, default=config.timeout_lp,  help='timeout for the LP solver')
-parser.add_argument('--timeout_final_lp', type=float, default=config.timeout_final_lp,  help='timeout for the final LP solver')
-parser.add_argument('--timeout_milp', type=float, default=config.timeout_milp,  help='timeout for the MILP solver')
-parser.add_argument('--timeout_final_milp', type=float, default=config.timeout_final_lp,  help='timeout for the final MILP solver')
-parser.add_argument('--timeout_complete', type=float, default=None,  help='Cumulative timeout for the complete verifier, superseeds timeout_final_milp if set')
-parser.add_argument('--max_milp_neurons', type=int, default=config.max_milp_neurons,  help='number of layers to encode using MILP.')
-parser.add_argument('--partial_milp', type=int, default=config.partial_milp,  help='Maximum number of neurons to use for partial MILP encoding')
+parser.add_argument('--vnn_lib_spec', type=str, default=config.vnn_lib_spec,
+                    help='VNN_LIB spec file, defining input and output constraints')
+parser.add_argument('--specnumber', type=int, default=config.specnumber,
+                    help='the property number for the acasxu networks')
+parser.add_argument('--domain', type=str, default=config.domain,
+                    help='the domain name can be either deepzono, refinezono, deeppoly, refinepoly, gpupoly, refinegpupoly')
+parser.add_argument('--dataset', type=str, default=config.dataset,
+                    help='the dataset, can be either mnist, cifar10, acasxu, or fashion')
+parser.add_argument('--complete', type=str2bool, default=config.complete,
+                    help='flag specifying where to use complete verification or not')
+parser.add_argument('--timeout_lp', type=float, default=config.timeout_lp, help='timeout for the LP solver')
+parser.add_argument('--timeout_final_lp', type=float, default=config.timeout_final_lp,
+                    help='timeout for the final LP solver')
+parser.add_argument('--timeout_milp', type=float, default=config.timeout_milp, help='timeout for the MILP solver')
+parser.add_argument('--timeout_final_milp', type=float, default=config.timeout_final_lp,
+                    help='timeout for the final MILP solver')
+parser.add_argument('--timeout_complete', type=float, default=None,
+                    help='Cumulative timeout for the complete verifier, superseeds timeout_final_milp if set')
+parser.add_argument('--max_milp_neurons', type=int, default=config.max_milp_neurons,
+                    help='number of layers to encode using MILP.')
+parser.add_argument('--partial_milp', type=int, default=config.partial_milp,
+                    help='Maximum number of neurons to use for partial MILP encoding')
 
-parser.add_argument('--numproc', type=int, default=config.numproc,  help='number of processes for MILP / LP / k-ReLU')
-parser.add_argument('--sparse_n', type=int, default=config.sparse_n,  help='Number of variables to group by k-ReLU')
-parser.add_argument('--use_default_heuristic', type=str2bool, default=config.use_default_heuristic,  help='whether to use the area heuristic for the DeepPoly ReLU approximation or to always create new noise symbols per relu for the DeepZono ReLU approximation')
-parser.add_argument('--use_milp', type=str2bool, default=config.use_milp,  help='whether to use milp or not')
-parser.add_argument('--refine_neurons', action='store_true', default=config.refine_neurons, help='whether to refine intermediate neurons')
+parser.add_argument('--numproc', type=int, default=config.numproc, help='number of processes for MILP / LP / k-ReLU')
+parser.add_argument('--sparse_n', type=int, default=config.sparse_n, help='Number of variables to group by k-ReLU')
+parser.add_argument('--use_default_heuristic', type=str2bool, default=config.use_default_heuristic,
+                    help='whether to use the area heuristic for the DeepPoly ReLU approximation or to always create new noise symbols per relu for the DeepZono ReLU approximation')
+parser.add_argument('--use_milp', type=str2bool, default=config.use_milp, help='whether to use milp or not')
+parser.add_argument('--refine_neurons', action='store_true', default=config.refine_neurons,
+                    help='whether to refine intermediate neurons')
 parser.add_argument('--n_milp_refine', type=int, default=config.n_milp_refine, help='Number of milp refined layers')
-parser.add_argument('--mean', nargs='+', type=float, default=config.mean, help='the mean used to normalize the data with')
-parser.add_argument('--std', nargs='+', type=float, default=config.std, help='the standard deviation used to normalize the data with')
+parser.add_argument('--mean', nargs='+', type=float, default=config.mean,
+                    help='the mean used to normalize the data with')
+parser.add_argument('--std', nargs='+', type=float, default=config.std,
+                    help='the standard deviation used to normalize the data with')
 parser.add_argument('--data_dir', type=str, default=config.data_dir, help='data location')
 parser.add_argument('--geometric_config', type=str, default=config.geometric_config, help='config location')
 parser.add_argument('--num_params', type=int, default=config.num_params, help='Number of transformation parameters')
@@ -397,24 +410,30 @@ parser.add_argument('--num_tests', type=int, default=config.num_tests, help='Num
 parser.add_argument('--from_test', type=int, default=config.from_test, help='Number of images to test')
 parser.add_argument('--debug', type=str2bool, default=config.debug, help='Whether to display debug info')
 parser.add_argument('--attack', action='store_true', default=config.attack, help='Whether to attack')
-parser.add_argument('--geometric', '-g', dest='geometric', default=config.geometric, action='store_true', help='Whether to do geometric analysis')
-parser.add_argument('--input_box', default=config.input_box,  help='input box to use')
-parser.add_argument('--output_constraints', default=config.output_constraints, help='custom output constraints to check')
-parser.add_argument('--normalized_region', type=str2bool, default=config.normalized_region, help='Whether to normalize the adversarial region')
-parser.add_argument('--spatial', action='store_true', default=config.spatial, help='whether to do vector field analysis')
+parser.add_argument('--geometric', '-g', dest='geometric', default=config.geometric, action='store_true',
+                    help='Whether to do geometric analysis')
+parser.add_argument('--input_box', default=config.input_box, help='input box to use')
+parser.add_argument('--output_constraints', default=config.output_constraints,
+                    help='custom output constraints to check')
+parser.add_argument('--normalized_region', type=str2bool, default=config.normalized_region,
+                    help='Whether to normalize the adversarial region')
+parser.add_argument('--spatial', action='store_true', default=config.spatial,
+                    help='whether to do vector field analysis')
 parser.add_argument('--t-norm', type=str, default=config.t_norm, help='vector field norm (1, 2, or inf)')
 parser.add_argument('--delta', type=float, default=config.delta, help='vector field displacement magnitude')
 parser.add_argument('--gamma', type=float, default=config.gamma, help='vector field smoothness constraint')
 parser.add_argument('--k', type=int, default=config.k, help='refine group size')
 parser.add_argument('--s', type=int, default=config.s, help='refine group sparsity parameter')
-parser.add_argument('--quant_step', type=float, default=config.quant_step, help='Quantization step for quantized networks')
-parser.add_argument("--approx_k", type=str2bool, default=config.approx_k, help="Use approximate fast k neuron constraints")
-
+parser.add_argument('--quant_step', type=float, default=config.quant_step,
+                    help='Quantization step for quantized networks')
+parser.add_argument("--approx_k", type=str2bool, default=config.approx_k,
+                    help="Use approximate fast k neuron constraints")
 
 # Logging options
-parser.add_argument('--logdir', type=str, default=None, help='Location to save logs to. If not specified, logs are not saved and emitted to stdout')
-parser.add_argument('--logname', type=str, default=None, help='Directory of log files in `logdir`, if not specified timestamp is used')
-
+parser.add_argument('--logdir', type=str, default=None,
+                    help='Location to save logs to. If not specified, logs are not saved and emitted to stdout')
+parser.add_argument('--logname', type=str, default=None,
+                    help='Directory of log files in `logdir`, if not specified timestamp is used')
 
 args = parser.parse_args()
 for k, v in vars(args).items():
@@ -430,7 +449,7 @@ if config.specnumber and not config.input_box and not config.output_constraints:
 
 assert config.netname, 'a network has to be provided for analysis.'
 
-#if len(sys.argv) < 4 or len(sys.argv) > 5:
+# if len(sys.argv) < 4 or len(sys.argv) > 5:
 #    print('usage: python3.6 netname epsilon domain dataset')
 #    exit(1)
 
@@ -438,19 +457,19 @@ netname = config.netname
 assert os.path.isfile(netname), f"Model file not found. Please check \"{netname}\" is correct."
 filename, file_extension = os.path.splitext(netname)
 
-is_trained_with_pytorch = file_extension==".pyt"
-is_saved_tf_model = file_extension==".meta"
-is_pb_file = file_extension==".pb"
-is_tensorflow = file_extension== ".tf"
+is_trained_with_pytorch = file_extension == ".pyt"
+is_saved_tf_model = file_extension == ".meta"
+is_pb_file = file_extension == ".pb"
+is_tensorflow = file_extension == ".tf"
 is_onnx = file_extension == ".onnx"
 assert is_trained_with_pytorch or is_saved_tf_model or is_pb_file or is_tensorflow or is_onnx, "file extension not supported"
 
 epsilon = config.epsilon
-#assert (epsilon >= 0) and (epsilon <= 1), "epsilon can only be between 0 and 1"
+# assert (epsilon >= 0) and (epsilon <= 1), "epsilon can only be between 0 and 1"
 
 zonotope_file = config.zonotope
 zonotope = None
-zonotope_bool = (zonotope_file!=None)
+zonotope_bool = (zonotope_file != None)
 if zonotope_bool:
     zonotope = read_zonotope(zonotope_file)
 
@@ -459,24 +478,29 @@ domain = config.domain
 if zonotope_bool:
     assert domain in ['deepzono', 'refinezono'], "domain name can be either deepzono or refinezono"
 elif not config.geometric:
-    assert domain in ['deepzono', 'refinezono', 'deeppoly', 'refinepoly', 'gpupoly', 'refinegpupoly'], "domain name can be either deepzono, refinezono, deeppoly, refinepoly, gpupoly, refinegpupoly"
+    assert domain in ['deepzono', 'refinezono', 'deeppoly', 'refinepoly', 'gpupoly',
+                      'refinegpupoly'], "domain name can be either deepzono, refinezono, deeppoly, refinepoly, gpupoly, refinegpupoly"
 
 dataset = config.dataset
 
-if zonotope_bool==False:
-   assert dataset in ['mnist', 'cifar10', 'acasxu', 'fashion'], "only mnist, cifar10, acasxu, and fashion datasets are supported"
+if zonotope_bool == False:
+    assert dataset in ['mnist', 'cifar10', 'acasxu',
+                       'fashion'], "only mnist, cifar10, acasxu, and fashion datasets are supported"
 
 mean = 0
 std = 0
 
-complete = (config.complete==True)
+complete = (config.complete == True)
 
-if(dataset=='acasxu'):
-    print("netname ", netname, " specnumber ", config.specnumber, " domain ", domain, " dataset ", dataset, "args complete ", config.complete, " complete ",complete, " timeout_lp ",config.timeout_lp)
+if (dataset == 'acasxu'):
+    print("netname ", netname, " specnumber ", config.specnumber, " domain ", domain, " dataset ", dataset,
+          "args complete ", config.complete, " complete ", complete, " timeout_lp ", config.timeout_lp)
 else:
-    print("netname ", netname, " epsilon ", epsilon, " domain ", domain, " dataset ", dataset, "args complete ", config.complete, " complete ",complete, " timeout_lp ",config.timeout_lp)
+    print("netname ", netname, " epsilon ", epsilon, " domain ", domain, " dataset ", dataset, "args complete ",
+          config.complete, " complete ", complete, " timeout_lp ", config.timeout_lp)
 
-non_layer_operation_types = ['NoOp', 'Assign', 'Const', 'RestoreV2', 'SaveV2', 'PlaceholderWithDefault', 'IsVariableInitialized', 'Placeholder', 'Identity']
+non_layer_operation_types = ['NoOp', 'Assign', 'Const', 'RestoreV2', 'SaveV2', 'PlaceholderWithDefault',
+                             'IsVariableInitialized', 'Placeholder', 'Identity']
 
 sess = None
 if is_saved_tf_model or is_pb_file:
@@ -487,7 +511,7 @@ if is_saved_tf_model or is_pb_file:
     sess = tf.Session()
     if is_saved_tf_model:
         saver = tf.train.import_meta_graph(netname)
-        saver.restore(sess, tf.train.latest_checkpoint(netfolder+'/'))
+        saver.restore(sess, tf.train.latest_checkpoint(netfolder + '/'))
     else:
         with tf.gfile.GFile(netname, "rb") as f:
             graph_def = tf.GraphDef()
@@ -503,18 +527,19 @@ if is_saved_tf_model or is_pb_file:
     eran = ERAN(model, sess)
 
 else:
-    if(zonotope_bool==True):
+    if (zonotope_bool == True):
         num_pixels = len(zonotope)
-    elif(dataset=='mnist'):
+    elif (dataset == 'mnist'):
         num_pixels = 784
-    elif (dataset=='cifar10'):
+    elif (dataset == 'cifar10'):
         num_pixels = 3072
-    elif(dataset=='acasxu'):
+    elif (dataset == 'acasxu'):
         num_pixels = 5
     if is_onnx:
         model, is_conv = read_onnx_net(netname)
     else:
-        model, is_conv, means, stds = read_tensorflow_net(netname, num_pixels, is_trained_with_pytorch, (domain == 'gpupoly' or domain == 'refinegpupoly'))
+        model, is_conv, means, stds = read_tensorflow_net(netname, num_pixels, is_trained_with_pytorch,
+                                                          (domain == 'gpupoly' or domain == 'refinegpupoly'))
     if domain == 'gpupoly' or domain == 'refinegpupoly':
         if is_onnx:
             translator = ONNXTranslator(model, True)
@@ -523,8 +548,8 @@ else:
         operations, resources = translator.translate()
         optimizer = Optimizer(operations, resources)
         nn = layers()
-        network, relu_layers, num_gpu_layers = optimizer.get_gpupoly(nn) 
-    else:    
+        network, relu_layers, num_gpu_layers = optimizer.get_gpupoly(nn)
+    else:
         eran = ERAN(model, is_onnx=is_onnx)
 
 if not is_trained_with_pytorch:
@@ -547,7 +572,7 @@ if config.mean is not None:
     means = config.mean
     stds = config.std
 
-os.sched_setaffinity(0,cpu_affinity)
+os.sched_setaffinity(0, cpu_affinity)
 
 correctly_classified_images = 0
 verified_images = 0
@@ -571,11 +596,13 @@ else:
         tests = open(config.input_box, 'r').read()
         boxes = parse_input_box(tests)
 
+
 def init(args):
     global failed_already
     failed_already = args
 
-if dataset=='acasxu':
+
+if dataset == 'acasxu':
     use_parallel_solve = True
     failed_already = Value('i', 1)
     if config.debug:
@@ -595,7 +622,9 @@ if dataset=='acasxu':
         rec_start = time.time()
         # start = time.time()
 
-        verified_flag, nn, nlb, nub, _ , x_adex = eran.analyze_box(specLB, specUB, init_domain(domain), config.timeout_lp, config.timeout_milp, config.use_default_heuristic, constraints)
+        verified_flag, nn, nlb, nub, _, x_adex = eran.analyze_box(specLB, specUB, init_domain(domain),
+                                                                  config.timeout_lp, config.timeout_milp,
+                                                                  config.use_default_heuristic, constraints)
         if not verified_flag and x_adex is not None:
             for or_list in constraints:
                 if found_adex: break
@@ -612,67 +641,68 @@ if dataset=='acasxu':
             nn.set_last_weights(constraints)
             grads_lower, grads_upper = nn.back_propagate_gradient(nlb, nub)
 
-            smears = [max(-grad_l, grad_u) * (u-l) for grad_l, grad_u, l, u in zip(grads_lower, grads_upper, specLB, specUB)]
+            smears = [max(-grad_l, grad_u) * (u - l) for grad_l, grad_u, l, u in
+                      zip(grads_lower, grads_upper, specLB, specUB)]
             split_multiple = 20 / np.sum(smears)
 
             num_splits = [int(np.ceil(smear * split_multiple)) for smear in smears]
             step_size = []
             for i in range(5):
-                if num_splits[i]==0:
+                if num_splits[i] == 0:
                     num_splits[i] = 1
-                step_size.append((specUB[i]-specLB[i])/num_splits[i])
-            #sorted_indices = np.argsort(widths)
-            #input_to_split = sorted_indices[0]
-            #print("input to split ", input_to_split)
+                step_size.append((specUB[i] - specLB[i]) / num_splits[i])
+            # sorted_indices = np.argsort(widths)
+            # input_to_split = sorted_indices[0]
+            # print("input to split ", input_to_split)
 
-            #step_size = widths/num_splits
-            #print("step size", step_size,num_splits)
+            # step_size = widths/num_splits
+            # print("step size", step_size,num_splits)
             start_val = np.copy(specLB)
             end_val = np.copy(specUB)
 
             # _,nn,_,_,_,_ = eran.analyze_box(specLB, specUB, init_domain(domain), config.timeout_lp, config.timeout_milp, config.use_default_heuristic, constraints)
-            #complete_list = []
+            # complete_list = []
             multi_bounds = []
             for i in range(num_splits[0]):
                 if not holds: break
-                specLB[0] = start_val[0] + i*step_size[0]
-                specUB[0] = np.fmin(end_val[0],start_val[0]+ (i+1)*step_size[0])
+                specLB[0] = start_val[0] + i * step_size[0]
+                specUB[0] = np.fmin(end_val[0], start_val[0] + (i + 1) * step_size[0])
 
                 for j in range(num_splits[1]):
                     if not holds: break
-                    specLB[1] = start_val[1] + j*step_size[1]
-                    specUB[1] = np.fmin(end_val[1],start_val[1]+ (j+1)*step_size[1])
+                    specLB[1] = start_val[1] + j * step_size[1]
+                    specUB[1] = np.fmin(end_val[1], start_val[1] + (j + 1) * step_size[1])
 
                     for k in range(num_splits[2]):
                         if not holds: break
-                        specLB[2] = start_val[2] + k*step_size[2]
-                        specUB[2] = np.fmin(end_val[2],start_val[2]+ (k+1)*step_size[2])
+                        specLB[2] = start_val[2] + k * step_size[2]
+                        specUB[2] = np.fmin(end_val[2], start_val[2] + (k + 1) * step_size[2])
 
                         for l in range(num_splits[3]):
                             if not holds: break
-                            specLB[3] = start_val[3] + l*step_size[3]
-                            specUB[3] = np.fmin(end_val[3],start_val[3]+ (l+1)*step_size[3])
+                            specLB[3] = start_val[3] + l * step_size[3]
+                            specUB[3] = np.fmin(end_val[3], start_val[3] + (l + 1) * step_size[3])
                             for m in range(num_splits[4]):
-                                specLB[4] = start_val[4] + m*step_size[4]
-                                specUB[4] = np.fmin(end_val[4],start_val[4]+ (m+1)*step_size[4])
+                                specLB[4] = start_val[4] + m * step_size[4]
+                                specUB[4] = np.fmin(end_val[4], start_val[4] + (m + 1) * step_size[4])
 
                                 if use_parallel_solve:
                                     # add bounds to input for multiprocessing map
                                     multi_bounds.append((specLB.copy(), specUB.copy()))
                                 else:
-                                    res = acasxu_recursive(specLB.copy(),specUB.copy())
-                                    #print("RES ", res, res[0]==True,type(res)==tuple)
-                                    if type(res)==tuple and res[0]==False:
+                                    res = acasxu_recursive(specLB.copy(), specUB.copy())
+                                    # print("RES ", res, res[0]==True,type(res)==tuple)
+                                    if type(res) == tuple and res[0] == False:
                                         verified_flag = False
                                         break
-                                    elif res==False:
+                                    elif res == False:
                                         verified_flag = False
                                         break
-                                    #print("verified flag", verified_flag)
+                                    # print("verified flag", verified_flag)
                                     # --- VERSION WITHOUT MULTIPROCESSING ---
-                                    #holds, _, nlb, nub, _, x_adex = eran.analyze_box(specLB, specUB, domain, config.timeout_lp, config.timeout_milp, config.use_default_heuristic, constraints)
+                                    # holds, _, nlb, nub, _, x_adex = eran.analyze_box(specLB, specUB, domain, config.timeout_lp, config.timeout_milp, config.use_default_heuristic, constraints)
 
-                                    #if not holds:
+                                    # if not holds:
                                     #    if x_adex is not None:
                                     #        adex_holds, _, _, _, _, _ = eran.analyze_box(x_adex, x_adex, "deeppoly", config.timeout_lp, config.timeout_milp, config.use_default_heuristic, constraints)
                                     #        if not adex_holds:
@@ -680,18 +710,18 @@ if dataset=='acasxu':
                                     #            break
                                     #    if complete:
                                     #        holds, adv_image, adv_val = verify_network_with_milp(nn, specLB, specUB, nlb, nub, constraints)
-                                            #complete_list.append((i,j,k,l,m))
+                                    # complete_list.append((i,j,k,l,m))
                                     #        if not holds:
                                     #            verified_flag = False
                                     #            break
                                     #    else:
                                     #        verified_flag = False
                                     #        break
-                                    #if config.debug:
+                                    # if config.debug:
                                     #   sys.stdout.write('\rsplit %i, %i, %i, %i, %i %.02f sec\n' % (i, j, k, l, m, time.time()-rec_start))
 
-            #print(time.time() - rec_start, "seconds")
-            #print("LENGTH ", len(multi_bounds))
+            # print(time.time() - rec_start, "seconds")
+            # print("LENGTH ", len(multi_bounds))
             if use_parallel_solve:
                 failed_already = Value('i', 1)
                 try:
@@ -699,11 +729,13 @@ if dataset=='acasxu':
                         pool_return = pool.starmap(acasxu_recursive, multi_bounds)
                     res = [x[0] for x in pool_return]
                     adex = [x[1] for x in pool_return if x[1] is not None]
-                    for x_adex in adex: # Should be redundant as only confirmed counterexamples should be returned.
+                    for x_adex in adex:  # Should be redundant as only confirmed counterexamples should be returned.
                         for or_list in constraints:
                             if found_adex: break
                             negated_cstr = negate_cstr_or_list_old(or_list)
-                            hold_adex,_,nlb,nub,_,_ = eran.analyze_box(x_adex, x_adex, "deeppoly", config.timeout_lp, config.timeout_milp, config.use_default_heuristic, negated_cstr)
+                            hold_adex, _, nlb, nub, _, _ = eran.analyze_box(x_adex, x_adex, "deeppoly",
+                                                                            config.timeout_lp, config.timeout_milp,
+                                                                            config.use_default_heuristic, negated_cstr)
                             found_adex = hold_adex or found_adex
                         # adex_holds, _, _, _, _, _ = eran.analyze_box(x_adex, x_adex, "deeppoly", config.timeout_lp,
                         #                                          config.timeout_milp, config.use_default_heuristic,
@@ -727,30 +759,33 @@ if dataset=='acasxu':
         if e is None:
             print("AcasXu property", config.specnumber, f"{ver_str} for Box", box_index, "out of", len(boxes))
         else:
-            print("AcasXu property", config.specnumber, "Failed for Box", box_index, "out of", len(boxes), "because of an exception ", e)
+            print("AcasXu property", config.specnumber, "Failed for Box", box_index, "out of", len(boxes),
+                  "because of an exception ", e)
 
         print(time.time() - rec_start, "seconds")
     print("Total time needed:", time.time() - total_start, "seconds")
 
 elif zonotope_bool:
-    perturbed_label, nn, nlb, nub,_,_ = eran.analyze_zonotope(zonotope, domain, config.timeout_lp, config.timeout_milp, config.use_default_heuristic)
-    print("nlb ",nlb[-1])
-    print("nub ",nub[-1])
-    if(perturbed_label!=-1):
+    perturbed_label, nn, nlb, nub, _, _ = eran.analyze_zonotope(zonotope, domain, config.timeout_lp,
+                                                                config.timeout_milp, config.use_default_heuristic)
+    print("nlb ", nlb[-1])
+    print("nub ", nub[-1])
+    if (perturbed_label != -1):
         print("Verified")
-    elif(complete==True):
+    elif (complete == True):
         constraints = get_constraints_for_dominant_label(perturbed_label, 10)
         verified_flag, adv_image, _ = verify_network_with_milp(nn, zonotope, [], nlb, nub, constraints)
-        if(verified_flag==True):
+        if (verified_flag == True):
             print("Verified")
         else:
             print("Failed")
     else:
-         print("Failed")
+        print("Failed")
 
 
 elif config.geometric:
     from geometric_constraints import *
+
     total, attacked, standard_correct, tot_time = 0, 0, 0, 0
     correct_box, correct_poly = 0, 0
     cver_box, cver_poly = [], []
@@ -779,8 +814,9 @@ elif config.geometric:
             normalize(spec_lb, means, stds, config.dataset)
             normalize(spec_ub, means, stds, config.dataset)
 
-            label, nn, nlb, nub,_,_ = eran.analyze_box(spec_lb, spec_ub, 'deeppoly', config.timeout_lp, config.timeout_milp,
-                                                   config.use_default_heuristic)
+            label, nn, nlb, nub, _, _ = eran.analyze_box(spec_lb, spec_ub, 'deeppoly', config.timeout_lp,
+                                                         config.timeout_milp,
+                                                         config.use_default_heuristic)
             print('Label: ', label)
 
             begtime = time.time()
@@ -972,9 +1008,10 @@ elif config.geometric:
 
             normalize(spec_lb, means, stds, config.dataset)
             normalize(spec_ub, means, stds, config.dataset)
-            
-            label, nn, nlb, nub, _, _ = eran.analyze_box(spec_lb, spec_ub, 'deeppoly', config.timeout_lp, config.timeout_milp,
-                                                   config.use_default_heuristic)
+
+            label, nn, nlb, nub, _, _ = eran.analyze_box(spec_lb, spec_ub, 'deeppoly', config.timeout_lp,
+                                                         config.timeout_milp,
+                                                         config.use_default_heuristic)
             print('Label: ', label)
 
             begtime = time.time()
@@ -1104,7 +1141,7 @@ elif config.geometric:
                             print('Running the analysis...')
 
                         t_begin = time.time()
-                        perturbed_label_poly, _, _, _ , _, _ = eran.analyze_box(
+                        perturbed_label_poly, _, _, _, _, _ = eran.analyze_box(
                             spec_lb, spec_ub, 'deeppoly',
                             config.timeout_lp, config.timeout_milp, config.use_default_heuristic, None,
                             lexpr_weights, lexpr_cst, lexpr_dim,
@@ -1166,7 +1203,8 @@ elif config.input_box is not None:
         specUB = [interval[1] for interval in box]
         normalize(specLB, means, stds, dataset)
         normalize(specUB, means, stds, dataset)
-        hold, nn, nlb, nub, _, _ = eran.analyze_box(specLB, specUB, domain, config.timeout_lp, config.timeout_milp, config.use_default_heuristic, constraints)
+        hold, nn, nlb, nub, _, _ = eran.analyze_box(specLB, specUB, domain, config.timeout_lp, config.timeout_milp,
+                                                    config.use_default_heuristic, constraints)
         if hold:
             print('constraints hold for box ' + str(index) + ' out of ' + str(sum([1 for b in boxes])))
             correct += 1
@@ -1194,18 +1232,21 @@ elif config.spatial:
         if (config.num_tests is not None) and (config.from_test + config.num_tests == idx):
             break
 
-        image = torch.from_numpy(np.float64(test[1:len(test)]) / np.float64(255)).reshape(1, height, width, channels).permute(0, 3, 1, 2).to(device)
+        image = torch.from_numpy(np.float64(test[1:len(test)]) / np.float64(255)).reshape(1, height, width,
+                                                                                          channels).permute(0, 3, 1,
+                                                                                                            2).to(
+            device)
         label = np.int(test[0])
 
         specLB = image.clone().permute(0, 2, 3, 1).flatten().cpu()
         specUB = image.clone().permute(0, 2, 3, 1).flatten().cpu()
-        
+
         normalize(specLB, means, stds, dataset)
         normalize(specUB, means, stds, dataset)
 
         predicted_label, nn, nlb, nub, _, _ = eran.analyze_box(
-            specLB=specLB, specUB=specUB, domain=init_domain(domain), 
-            timeout_lp=config.timeout_lp, timeout_milp=config.timeout_milp, 
+            specLB=specLB, specUB=specUB, domain=init_domain(domain),
+            timeout_lp=config.timeout_lp, timeout_milp=config.timeout_milp,
             use_default_heuristic=config.use_default_heuristic
         )
 
@@ -1295,8 +1336,8 @@ elif config.spatial:
                 deeppoly_spatial_constraints[key] = val.cpu()
 
             milp_spatial_constraints = {
-                'delta': config.delta, 'gamma': config.gamma, 
-                'channels': image.shape[1], 'lower_planes': lower_planes, 
+                'delta': config.delta, 'gamma': config.gamma,
+                'channels': image.shape[1], 'lower_planes': lower_planes,
                 'upper_planes': upper_planes,
                 'add_norm_constraints': transformer.add_norm_constraints,
                 'neighboring_indices': transformer.flow_constraint_pairs
@@ -1315,11 +1356,11 @@ elif config.spatial:
             uexpr_cst = deepcopy(upper_planes[0]) + flows_UB.tolist()
 
             lexpr_weights = [
-                v for p in zip(lower_planes[1], lower_planes[2]) for v in p
-            ] + torch.zeros(2 * num_flows).tolist()
+                                v for p in zip(lower_planes[1], lower_planes[2]) for v in p
+                            ] + torch.zeros(2 * num_flows).tolist()
             uexpr_weights = [
-                v for p in zip(upper_planes[1], upper_planes[2]) for v in p
-            ] + torch.zeros(2 * num_flows).tolist()
+                                v for p in zip(upper_planes[1], upper_planes[2]) for v in p
+                            ] + torch.zeros(2 * num_flows).tolist()
 
             lexpr_dim = torch.cat([
                 num_pixels + torch.arange(num_flows),
@@ -1335,13 +1376,13 @@ elif config.spatial:
             timeout_lp=config.timeout_lp, timeout_milp=config.timeout_milp,
             use_default_heuristic=config.use_default_heuristic,
             label=label, lexpr_weights=lexpr_weights, lexpr_cst=lexpr_cst,
-            lexpr_dim=lexpr_dim, uexpr_weights=uexpr_weights, 
+            lexpr_dim=lexpr_dim, uexpr_weights=uexpr_weights,
             uexpr_cst=uexpr_cst, uexpr_dim=uexpr_dim, expr_size=expr_size,
             spatial_constraints=deeppoly_spatial_constraints
         )
         end = time.time()
 
-        print(f'nlb {nlb[-1]} nub {nub[-1]} adv labels {failed_labels}')
+        #print(f'nlb {nlb[-1]} nub {nub[-1]} adv labels {failed_labels}')
 
         if perturbed_label == label:
             print(f'img {idx} verified {label}')
@@ -1378,9 +1419,8 @@ else:
         targetfile = open(config.target, 'r')
         targets = csv.reader(targetfile, delimiter=',')
         for i, val in enumerate(targets):
-            target = val   
-   
-   
+            target = val
+
     if config.epsfile != None:
         epsfile = open(config.epsfile, 'r')
         epsilons = csv.reader(epsfile, delimiter=',')
@@ -1415,51 +1455,52 @@ else:
 
         if config.num_tests is not None and i >= config.from_test + config.num_tests:
             break
-        image= np.float64(test[1:len(test)])/np.float64(255)
+        image = np.float64(test[1:len(test)]) / np.float64(255)
         specLB = np.copy(image)
         specUB = np.copy(image)
         if config.quant_step:
-            specLB = np.round(specLB/config.quant_step)
-            specUB = np.round(specUB/config.quant_step)
-        #cifarfile = open('/home/gagandeepsi/eevbnn/input.txt', 'r')
-        
-        #cifarimages = csv.reader(cifarfile, delimiter=',')
-        #for _, image in enumerate(cifarimages):
+            specLB = np.round(specLB / config.quant_step)
+            specUB = np.round(specUB / config.quant_step)
+        # cifarfile = open('/home/gagandeepsi/eevbnn/input.txt', 'r')
+
+        # cifarimages = csv.reader(cifarfile, delimiter=',')
+        # for _, image in enumerate(cifarimages):
         #    specLB = np.float64(image)
-        #specUB = np.copy(specLB)
+        # specUB = np.copy(specLB)
         normalize(specLB, means, stds, dataset)
         normalize(specUB, means, stds, dataset)
 
-        #print("specLB ", len(specLB), "specUB ", specUB)
+        # print("specLB ", len(specLB), "specUB ", specUB)
         is_correctly_classified = False
         start = time.time()
         if domain == 'gpupoly' or domain == 'refinegpupoly':
-            #specLB = np.reshape(specLB, (32,32,3))#np.ascontiguousarray(specLB, dtype=np.double)
-            #specUB = np.reshape(specUB, (32,32,3))
-            #print("specLB ", specLB)
+            # specLB = np.reshape(specLB, (32,32,3))#np.ascontiguousarray(specLB, dtype=np.double)
+            # specUB = np.reshape(specUB, (32,32,3))
+            # print("specLB ", specLB)
             is_correctly_classified = network.test(specLB, specUB, int(test[0]), True)
         else:
-            label,nn,nlb,nub,_,_ = eran.analyze_box(specLB, specUB, init_domain(domain), config.timeout_lp, config.timeout_milp, config.use_default_heuristic)
+            label, nn, nlb, nub, _, _ = eran.analyze_box(specLB, specUB, init_domain(domain), config.timeout_lp,
+                                                         config.timeout_milp, config.use_default_heuristic)
             print("concrete ", nlb[-1])
             if label == int(test[0]):
                 is_correctly_classified = True
-        #for number in range(len(nub)):
+        # for number in range(len(nub)):
         #    for element in range(len(nub[number])):
         #        if(nub[number][element]<=0):
         #            print('False')
         #        else:
         #            print('True')
-        if config.epsfile!= None:
+        if config.epsfile != None:
             epsilon = np.float64(eps_array[i])
 
-        #if(label == int(test[0])):
+        # if(label == int(test[0])):
         if is_correctly_classified == True:
             label = int(test[0])
             perturbed_label = None
-            correctly_classified_images +=1
-            if config.normalized_region==True:
-                specLB = np.clip(image - epsilon,0,1)
-                specUB = np.clip(image + epsilon,0,1)
+            correctly_classified_images += 1
+            if config.normalized_region == True:
+                specLB = np.clip(image - epsilon, 0, 1)
+                specUB = np.clip(image + epsilon, 0, 1)
                 normalize(specLB, means, stds, dataset)
                 normalize(specUB, means, stds, dataset)
             else:
@@ -1467,20 +1508,20 @@ else:
                 specUB = specUB + epsilon
 
             if config.quant_step:
-                specLB = np.round(specLB/config.quant_step)
-                specUB = np.round(specUB/config.quant_step)
+                specLB = np.round(specLB / config.quant_step)
+                specUB = np.round(specUB / config.quant_step)
 
             if config.target == None:
                 prop = -1
             else:
                 prop = int(target[i])
 
-            if domain == 'gpupoly' or domain =='refinegpupoly':
+            if domain == 'gpupoly' or domain == 'refinegpupoly':
                 is_verified = network.test(specLB, specUB, int(test[0]))
-                #print("res ", res)
+                # print("res ", res)
                 if is_verified:
                     print("img", i, "Verified", int(test[0]))
-                    verified_images+=1
+                    verified_images += 1
                 elif domain == 'refinegpupoly':
                     num_outputs = len(nn.weights[-1])
 
@@ -1490,8 +1531,8 @@ else:
                     diffMatrix = diffMatrix.astype(np.float64)
 
                     # gets the values from GPUPoly.
-                    res = network.evalAffineExpr(diffMatrix, back_substitute=network.BACKSUBSTITUTION_WHILE_CONTAINS_ZERO)
-
+                    res = network.evalAffineExpr(diffMatrix,
+                                                 back_substitute=network.BACKSUBSTITUTION_WHILE_CONTAINS_ZERO)
 
                     labels_to_be_verified = []
                     var = 0
@@ -1499,18 +1540,18 @@ else:
                     nn.specUB = specUB
                     nn.predecessors = []
 
-                    for pred in range(0, nn.numlayer+1):
+                    for pred in range(0, nn.numlayer + 1):
                         predecessor = np.zeros(1, dtype=np.int)
-                        predecessor[0] = int(pred-1)
+                        predecessor[0] = int(pred - 1)
                         nn.predecessors.append(predecessor)
-                    #print("predecessors ", nn.predecessors[0][0])
+                    # print("predecessors ", nn.predecessors[0][0])
                     for labels in range(num_outputs):
-                        #print("num_outputs ", num_outputs, nn.numlayer, len(nn.weights[-1]))
+                        # print("num_outputs ", num_outputs, nn.numlayer, len(nn.weights[-1]))
                         if labels != int(test[0]):
                             if res[var][0] < 0:
                                 labels_to_be_verified.append(labels)
-                            var = var+1
-                    #print("relu layers", relu_layers)
+                            var = var + 1
+                    # print("relu layers", relu_layers)
 
                     is_verified, x = refine_gpupoly_results(nn, network, num_gpu_layers, relu_layers, int(test[0]),
                                                             labels_to_be_verified, K=config.k, s=config.s,
@@ -1529,9 +1570,9 @@ else:
                     else:
                         if x != None:
                             adv_image = np.array(x)
-                            res = np.argmax((network.eval(adv_image))[:,0])
-                            if res!=int(test[0]):
-                                denormalize(x,means, stds, dataset)
+                            res = np.argmax((network.eval(adv_image))[:, 0])
+                            if res != int(test[0]):
+                                denormalize(x, means, stds, dataset)
                                 # print("img", i, "Verified unsafe with adversarial image ", adv_image, "cex label", cex_label, "correct label ", int(test[0]))
                                 print("img", i, "Verified unsafe against label ", res, "correct label ", int(test[0]))
                                 unsafe_images += 1
@@ -1556,45 +1597,13 @@ else:
                             # find a failing origin
                             for t in range(NUM_ATTEMPTS_AT_FINDING_FAILING_ORIGINS):
                                 chosen_pixels, specLB, specUB = l0_stats.get_rnd_sample(image, K1)
-                                perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB, "deeppoly",
-                                                                                              config.timeout_lp,
-                                                                                              config.timeout_milp,
-                                                                                              config.use_default_heuristic,
-                                                                                              label=label, prop=prop, K=0, s=0,
-                                                                                              timeout_final_lp=config.timeout_final_lp,
-                                                                                              timeout_final_milp=config.timeout_final_milp,
-                                                                                              use_milp=False,
-                                                                                              complete=False,
-                                                                                              terminate_on_failure=not config.complete,
-                                                                                              partial_milp=0,
-                                                                                              max_milp_neurons=0,
-                                                                                              approx_k=0)
-                                #print("nlb ", nlb[-1], " nub ", nub[-1],"adv labels ", failed_labels)
-
-                                # we found a failing origin
-                                if perturbed_label != label:
-                                    failed_origin_found = True
-                                    break
-
-                            # exit if haven't found a failing origin of size K1
-                            if not failed_origin_found:
-                                break
-                            print("Found FO.", end="")
-                            # create FailingOrigin with proper parameters
-                            failing_origin = l0_stats.FailingOriginStats(config.dataset, config.netname, i, K1, chosen_pixels, label, nlb[-1], nub[-1])
-
-                            # go over each sub K with config.delta_sub_k intervals
-                            for sub_k in range(config.delta_sub_k, K1, config.delta_sub_k):
-                                # loop SAMPLES times over the sub K, and calculate the success rate
-                                successes = 0
-                                for sample_num in range(config.samples_per_sub_k):
-                                    # get a random sample of size sub_k
-                                    _, specLB, specUB = l0_stats.get_rnd_sample(image, sub_k, chosen_pixels)
-                                    perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB, "deeppoly",
+                                perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB,
+                                                                                                  "deeppoly",
                                                                                                   config.timeout_lp,
                                                                                                   config.timeout_milp,
                                                                                                   config.use_default_heuristic,
-                                                                                                  label=label, prop=prop, K=0, s=0,
+                                                                                                  label=label,
+                                                                                                  prop=prop, K=0, s=0,
                                                                                                   timeout_final_lp=config.timeout_final_lp,
                                                                                                   timeout_final_milp=config.timeout_final_milp,
                                                                                                   use_milp=False,
@@ -1603,20 +1612,135 @@ else:
                                                                                                   partial_milp=0,
                                                                                                   max_milp_neurons=0,
                                                                                                   approx_k=0)
+                                #print("nlb ", nlb[-1], " nub ", nub[-1], "adv labels ", failed_labels)
+
+                                # we found a failing origin
+                                if perturbed_label != label:
+                                    failed_origin_found = True
+                                    break
+
+                            # exit if we haven't found a failing origin of size K1
+                            if not failed_origin_found:
+                                print(f"Cound't found any FO with {NUM_ATTEMPTS_AT_FINDING_FAILING_ORIGINS} attempts.")
+                                break
+                            print("Found FO.", end=" ")
+                            # create FailingOrigin with proper parameters
+                            failing_origin = l0_stats.FailingOriginStats(config.dataset, config.netname, i, K1,
+                                                                         chosen_pixels, label, nlb[-1], nub[-1])
+
+
+                            # smart sub_k choosing, variable initialization
+                            SK_REGULAR_SAMPLING_RATE = config.samples_per_sub_k
+                            SK_SAMPLING_RATE_WHEN_SKIPPING = 10
+
+                            SK_SUBK_SKIP_RATE = max(5, config.delta_sub_k)  # works best if delta_sub_k is 1
+                            SK_REGULAR_DELTA_SUBK = config.delta_sub_k
+
+                            SK_AMOUNT_OF_CONSECUTIVES_NEEDED = 3
+                            # SK_SAFE_BACKTRACK = True
+
+                            sk_is_skipping_high = True
+                            sk_is_skipping_low = False
+                            sk_careful_mode = (False, 0)
+                            sk_consecutive_100s = 0
+                            sk_consecutive_0s = 0
+                            sk_skip_over_list = []
+                            sk_partially_done_list = []
+
+                            # go over each sub K with config.delta_sub_k intervals
+                            sk_current_sub_k = SK_REGULAR_DELTA_SUBK
+                            while sk_current_sub_k <= K1:
+                                sk_is_skipping = sk_is_skipping_high or sk_is_skipping_low
+                                # in case we already sampled this sub_k, skip it
+                                if sk_current_sub_k in sk_skip_over_list:
+                                    sk_current_sub_k += SK_REGULAR_DELTA_SUBK
+                                    continue
+                                if sk_current_sub_k < 0:
+                                    sk_current_sub_k = 0
+
+                                # --------------------- Gathering the Statistics ---------------------------------
+                                # loop SAMPLES times over the sub K, and calculate the success rate
+                                successes = 0
+
+                                # calculating sampling amount
+                                sampling_amount = SK_REGULAR_SAMPLING_RATE if not sk_is_skipping else SK_SAMPLING_RATE_WHEN_SKIPPING
+                                if sk_current_sub_k in sk_partially_done_list:
+                                    sampling_amount -= SK_SAMPLING_RATE_WHEN_SKIPPING
+                                if sampling_amount == 0:
+                                    continue
+
+                                for sample_num in range(sampling_amount):
+                                    # get a random sample of size sub_k
+                                    _, specLB, specUB = l0_stats.get_rnd_sample(image, sk_current_sub_k, chosen_pixels)
+                                    perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB,
+                                                                                                      "deeppoly", config.timeout_lp,
+                                                                                                      config.timeout_milp,
+                                                                                                      config.use_default_heuristic,
+                                                                                                      label=label,
+                                                                                                      prop=prop, K=0,
+                                                                                                      s=0,
+                                                                                                      timeout_final_lp=config.timeout_final_lp,
+                                                                                                      timeout_final_milp=config.timeout_final_milp,
+                                                                                                      use_milp=False,
+                                                                                                      complete=False,
+                                                                                                      terminate_on_failure=not config.complete,
+                                                                                                      partial_milp=0,
+                                                                                                      max_milp_neurons=0,
+                                                                                                      approx_k=0)
                                     # print(f"sample = {sample_num}, sub-k = {sub_k}, K1 = {K1}, img_num = {i}",end="\t")
                                     # print()
                                     # print("nlb ", nlb[-1], " nub ", nub[-1],"adv labels ", failed_labels)
                                     if perturbed_label == label:
                                         successes += 1
-                                success_rate = successes / config.samples_per_sub_k
-                                failing_origin.update_stats(sub_k, config.samples_per_sub_k, success_rate)
-                                # print(f"sub-k = {sub_k}, K1 = {K1}, img_num = {i}")
+
+                                #updating success rate in FailingOrigin object
+                                success_rate = successes / sampling_amount
+                                failing_origin.update_stats(sk_current_sub_k, sampling_amount, success_rate)
+
+                                # ------------------------------------------------------------------
+
+                                # print(f"sub-k = {sk_current_sub_k}, success_rate = {success_rate}, repeat_of_K1 = {repeat_of_K1}, K1 = {K1}, img_num = {i}")
+
+                                # updating sk_current_sub_k
+                                if not sk_is_skipping:
+                                    sk_skip_over_list.append(sk_current_sub_k)
+                                else:
+                                    sk_partially_done_list.append(sk_current_sub_k)
+                                sk_consecutive_100s = (sk_consecutive_100s + 1 if success_rate == 1 else 0)
+                                sk_consecutive_0s = (sk_consecutive_0s + 1 if success_rate == 0 else 0)
+
+                                # checking whether I should be skipping
+                                if not sk_careful_mode[0]:
+                                    # If I'm not in careful mode, I should
+                                    if sk_consecutive_100s >= SK_AMOUNT_OF_CONSECUTIVES_NEEDED:
+                                        sk_is_skipping_high = True
+                                    elif sk_consecutive_0s >= SK_AMOUNT_OF_CONSECUTIVES_NEEDED * 2:
+                                        # making a separate condition because I want a safety margin before AND after
+                                        # the interesting part
+                                        sk_is_skipping_low = True
+                                    elif sk_is_skipping_high and success_rate < 1:
+                                        sk_is_skipping_high = False
+                                        sk_careful_mode = (True, sk_current_sub_k)
+                                        sk_current_sub_k -= (SK_SUBK_SKIP_RATE + SK_REGULAR_DELTA_SUBK)
+                                    elif sk_is_skipping_low and success_rate > 0:
+                                        sk_is_skipping_low = False
+                                        sk_current_sub_k -= (2 * SK_SUBK_SKIP_RATE + SK_REGULAR_DELTA_SUBK)
+                                        # no careful mode because that's only compatible with skipping high
+                                else:
+                                    if sk_current_sub_k >= sk_careful_mode[1]:
+                                        sk_careful_mode = (False, 0)
+                                        sk_consecutive_100s = 0
+                                        sk_consecutive_0s = 0
+                                    elif success_rate < 1:
+                                        sk_current_sub_k -= (SK_SUBK_SKIP_RATE + SK_REGULAR_DELTA_SUBK)
+
+                                # setting the current_sub_k
+                                sk_current_sub_k += (config.delta_sub_k if not sk_is_skipping else SK_SUBK_SKIP_RATE)
 
                             # adding FailedOrigin object to the list of failed origins
                             print(f"K1 = {K1}, repeat_of_K1 = {repeat_of_K1},  img_num = {i}")
                             failing_origins_per_K1.append(failing_origin)
 
-                            # TODO append to json
                             # print(failing_origins_per_K1)
                             l0_stats.append_json([failing_origin], json_file_name)
 
@@ -1625,7 +1749,7 @@ else:
 
                 # amir omer noa END
 
-                if not domain.endswith("poly") or not (perturbed_label==label):
+                if not domain.endswith("poly") or not (perturbed_label == label):
                     perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB, domain,
                                                                                       config.timeout_lp,
                                                                                       config.timeout_milp,
@@ -1640,26 +1764,31 @@ else:
                                                                                       partial_milp=config.partial_milp,
                                                                                       max_milp_neurons=config.max_milp_neurons,
                                                                                       approx_k=config.approx_k)
-                    print("nlb ", nlb[-1], " nub ", nub[-1], "adv labels ", failed_labels)
-                if (perturbed_label==label):
+                    #print("nlb ", nlb[-1], " nub ", nub[-1], "adv labels ", failed_labels)
+                if (perturbed_label == label):
                     print("img", i, "Verified", label)
                     verified_images += 1
                 else:
-                    if complete==True and failed_labels is not None:
+                    if complete == True and failed_labels is not None:
                         failed_labels = list(set(failed_labels))
                         constraints = get_constraints_for_dominant_label(label, failed_labels)
-                        verified_flag, adv_image, adv_val = verify_network_with_milp(nn, specLB, specUB, nlb, nub, constraints)
-                        if(verified_flag==True):
+                        verified_flag, adv_image, adv_val = verify_network_with_milp(nn, specLB, specUB, nlb, nub,
+                                                                                     constraints)
+                        if (verified_flag == True):
                             print("img", i, "Verified as Safe using MILP", label)
                             verified_images += 1
                         else:
                             if adv_image != None:
-                                cex_label,_,_,_,_,_ = eran.analyze_box(adv_image[0], adv_image[0], 'deepzono', config.timeout_lp, config.timeout_milp, config.use_default_heuristic, approx_k=config.approx_k)
-                                if(cex_label!=label):
+                                cex_label, _, _, _, _, _ = eran.analyze_box(adv_image[0], adv_image[0], 'deepzono',
+                                                                            config.timeout_lp, config.timeout_milp,
+                                                                            config.use_default_heuristic,
+                                                                            approx_k=config.approx_k)
+                                if (cex_label != label):
                                     denormalize(adv_image[0], means, stds, dataset)
                                     # print("img", i, "Verified unsafe with adversarial image ", adv_image, "cex label", cex_label, "correct label ", label)
-                                    print("img", i, "Verified unsafe against label ", cex_label, "correct label ", label)
-                                    unsafe_images+=1
+                                    print("img", i, "Verified unsafe against label ", cex_label, "correct label ",
+                                          label)
+                                    unsafe_images += 1
                                 else:
                                     print("img", i, "Failed with MILP, without a adeversarial example")
                             else:
@@ -1667,10 +1796,13 @@ else:
                     else:
 
                         if x != None:
-                            cex_label,_,_,_,_,_ = eran.analyze_box(x,x,'deepzono',config.timeout_lp, config.timeout_milp, config.use_default_heuristic, approx_k=config.approx_k)
+                            cex_label, _, _, _, _, _ = eran.analyze_box(x, x, 'deepzono', config.timeout_lp,
+                                                                        config.timeout_milp,
+                                                                        config.use_default_heuristic,
+                                                                        approx_k=config.approx_k)
                             print("cex label ", cex_label, "label ", label)
-                            if(cex_label!=label):
-                                denormalize(x,means, stds, dataset)
+                            if (cex_label != label):
+                                denormalize(x, means, stds, dataset)
                                 # print("img", i, "Verified unsafe with adversarial image ", x, "cex label ", cex_label, "correct label ", label)
                                 print("img", i, "Verified unsafe against label ", cex_label, "correct label ", label)
                                 unsafe_images += 1
@@ -1680,16 +1812,16 @@ else:
                             print("img", i, "Failed")
 
             end = time.time()
-            cum_time += end - start # only count samples where we did try to certify
+            cum_time += end - start  # only count samples where we did try to certify
         else:
-            print("img",i,"not considered, incorrectly classified")
+            print("img", i, "not considered, incorrectly classified")
             end = time.time()
 
         print(f"progress: {1 + i - config.from_test}/{config.num_tests}, "
               f"correct:  {correctly_classified_images}/{1 + i - config.from_test}, "
               f"verified: {verified_images}/{correctly_classified_images}, "
               f"unsafe: {unsafe_images}/{correctly_classified_images}, ",
-              f"time: {end - start:.3f}; {0 if cum_time==0 else cum_time / correctly_classified_images:.3f}; {cum_time:.3f}")
+              f"time: {end - start:.3f}; {0 if cum_time == 0 else cum_time / correctly_classified_images:.3f}; {cum_time:.3f}")
 
         # amir omer noa START
         # update failing origins per image
@@ -1703,4 +1835,4 @@ else:
 
     # l0_stats.create_json(failing_origins_per_network, json_file_name)
 
-    print('analysis precision ',verified_images,'/ ', correctly_classified_images)
+    print('analysis precision ', verified_images, '/ ', correctly_classified_images)
