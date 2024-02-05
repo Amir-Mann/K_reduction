@@ -116,8 +116,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -200,8 +199,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -329,8 +327,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -413,8 +410,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -497,8 +493,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -631,8 +626,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -760,8 +754,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -889,8 +882,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -988,8 +980,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1087,8 +1078,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1171,8 +1161,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1305,8 +1294,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1389,8 +1377,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1508,8 +1495,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1592,8 +1578,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1676,8 +1661,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1805,8 +1789,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1929,8 +1912,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2013,8 +1995,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2147,8 +2128,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2266,8 +2246,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2350,8 +2329,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2474,8 +2452,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2603,8 +2580,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2727,8 +2703,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2861,8 +2836,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2995,8 +2969,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3119,8 +3092,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3203,8 +3175,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3302,8 +3273,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3386,8 +3356,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3515,8 +3484,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3634,8 +3602,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3763,8 +3730,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3897,8 +3863,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4016,8 +3981,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4100,8 +4064,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4229,8 +4192,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4313,8 +4275,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4432,8 +4393,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4516,8 +4476,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4635,8 +4594,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4719,8 +4677,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4838,8 +4795,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4922,8 +4878,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -5046,8 +5001,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -5130,8 +5084,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -5214,8 +5167,7 @@
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -5348,8 +5300,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -5403,6 +5354,5316 @@
             5.377501706080079,
             2.7893499818947247,
             2.454867045705981,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            21,
+            54,
+            55,
+            127,
+            230,
+            256,
+            271,
+            293,
+            319,
+            338,
+            354,
+            368,
+            435,
+            457,
+            464,
+            476,
+            531,
+            585,
+            598,
+            653,
+            661,
+            682,
+            758
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.0694490271906094,
+            5.133740760535947,
+            1.8706484122647737,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.1087619665853319,
+            5.511117305728826,
+            11.589809512546672,
+            6.663402984719024,
+            0.0,
+            1.5965636582787088,
+            3.264469336966853,
+            2.9899304183052124,
+            2.0514936525440723,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            17,
+            115,
+            190,
+            209,
+            296,
+            327,
+            382,
+            385,
+            429,
+            446,
+            448,
+            466,
+            486,
+            506,
+            519,
+            523,
+            573,
+            595,
+            637,
+            641,
+            668,
+            680,
+            775
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            2.1623896971020575,
+            7.200093081631769,
+            2.190789682179425,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.0,
+            5.607218155619194,
+            12.805067189896423,
+            8.53147024692547,
+            0.0,
+            2.1687711408074826,
+            2.5007136745947753,
+            3.001735113852819,
+            1.7490542054024587,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            126,
+            150,
+            179,
+            210,
+            239,
+            323,
+            328,
+            392,
+            423,
+            453,
+            485,
+            486,
+            492,
+            506,
+            542,
+            543,
+            544,
+            550,
+            551,
+            573,
+            696,
+            744,
+            758
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.7639760663595458,
+            5.97646152913156,
+            1.1789710508668503,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.5547903371814,
+            5.688211712173298,
+            12.004775958279126,
+            7.89877476912435,
+            0.0,
+            2.4379070447346423,
+            4.679242247339032,
+            2.8520227033606838,
+            1.9081096119508758,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.7680000000000002
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9620000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.268
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            52,
+            74,
+            102,
+            118,
+            123,
+            126,
+            178,
+            242,
+            260,
+            273,
+            289,
+            298,
+            304,
+            315,
+            471,
+            542,
+            547,
+            569,
+            652,
+            756,
+            758,
+            766,
+            770
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.5189769165041175,
+            4.126840070586593,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            3.299848178266762,
+            5.654889172452791,
+            12.287014661662937,
+            6.729834603769841,
+            0.0,
+            1.5798361629989006,
+            5.682551012576244,
+            2.9114935595169924,
+            2.476964729707333,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.8520000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9720000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.49200000000000005
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            66,
+            103,
+            135,
+            145,
+            160,
+            164,
+            227,
+            266,
+            274,
+            318,
+            344,
+            358,
+            436,
+            446,
+            505,
+            572,
+            591,
+            607,
+            614,
+            650,
+            664,
+            720,
+            779
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.38138617843464107,
+            4.411573300373254,
+            0.08287790294900498,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.1310082200624803,
+            5.711315520520269,
+            12.027852536726849,
+            5.828513071228774,
+            0.0,
+            2.486741566372859,
+            5.975848145664808,
+            3.0266252720107447,
+            2.027466307753229,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.7840000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9480000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.9940000000000001
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.42000000000000004
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            13,
+            41,
+            57,
+            142,
+            161,
+            256,
+            359,
+            401,
+            411,
+            440,
+            466,
+            482,
+            538,
+            558,
+            561,
+            567,
+            604,
+            652,
+            679,
+            708,
+            748,
+            749,
+            760
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.3069963853030626,
+            6.144153789291454,
+            2.1622764734194657,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.6204185547017762,
+            5.2581432400417345,
+            11.934630663020055,
+            7.519428453490046,
+            0.0,
+            0.9062555780320152,
+            3.761885243960181,
+            2.88505285663348,
+            1.6633615940258586,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            52,
+            62,
+            73,
+            190,
+            222,
+            327,
+            361,
+            373,
+            405,
+            521,
+            522,
+            621,
+            637,
+            640,
+            656,
+            671,
+            678,
+            682,
+            683,
+            705,
+            710,
+            742,
+            768
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.6590720711244615,
+            6.459084637134546,
+            2.1146749459989342,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.5002407161410468,
+            5.426251792518014,
+            11.90942069807973,
+            7.891888690625573,
+            0.0,
+            1.8368183208665638,
+            2.455839224922004,
+            2.5996054890437494,
+            1.6161339244462911,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.9440000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9960000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.6180000000000001
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            49,
+            136,
+            166,
+            186,
+            207,
+            209,
+            228,
+            246,
+            250,
+            258,
+            262,
+            275,
+            318,
+            329,
+            378,
+            427,
+            459,
+            499,
+            573,
+            604,
+            685,
+            701,
+            763
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.132547936024104,
+            5.182027139951734,
+            0.548129469059829,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.8573868039886265,
+            5.117041662578924,
+            12.388380676192646,
+            7.342782169995454,
+            0.0,
+            1.2891244562290658,
+            3.5964455296799787,
+            3.4961953405123385,
+            3.433933831284405,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            31,
+            36,
+            119,
+            180,
+            241,
+            255,
+            258,
+            274,
+            289,
+            318,
+            357,
+            396,
+            397,
+            424,
+            438,
+            462,
+            568,
+            580,
+            581,
+            635,
+            718,
+            731,
+            762
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.9346335432599543,
+            4.458904557652962,
+            0.09826482149688692,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.2572397237793784,
+            5.832202960904141,
+            12.030424641347029,
+            5.790204423536002,
+            0.0,
+            1.6348988639099975,
+            6.063456222798022,
+            3.2007670676682576,
+            1.840532032182379,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.49000000000000016
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.792
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9960000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.9860000000000001
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.928
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.198
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            17,
+            30,
+            139,
+            166,
+            248,
+            261,
+            289,
+            290,
+            317,
+            339,
+            359,
+            386,
+            396,
+            465,
+            496,
+            511,
+            529,
+            566,
+            605,
+            611,
+            635,
+            735,
+            772
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.8657863446509175,
+            4.425969195052976,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.846014120214616,
+            5.191763294735436,
+            12.409125942525398,
+            5.501368526717913,
+            0.0,
+            1.1420781946406389,
+            7.176327011842717,
+            2.6587453964289587,
+            2.5052226811986094,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 0.9520000000000002
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.18400000000000008
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.404
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 0.9940000000000001
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.896
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.762
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.6060000000000001
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.0
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            15,
+            100,
+            102,
+            106,
+            123,
+            178,
+            249,
+            262,
+            329,
+            342,
+            343,
+            346,
+            355,
+            363,
+            510,
+            672,
+            677,
+            719,
+            724,
+            732,
+            737,
+            743,
+            749
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.3027590478872288,
+            4.767108093714678,
+            0.4855264579375366,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.9606924322060837,
+            5.730903089130512,
+            12.022266476208864,
+            5.323786450245687,
+            0.0,
+            0.6689738860656914,
+            5.716461667403513,
+            2.9312776906207505,
+            1.9620393239587468,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            34,
+            139,
+            150,
+            171,
+            184,
+            185,
+            190,
+            235,
+            266,
+            283,
+            294,
+            454,
+            459,
+            486,
+            489,
+            513,
+            591,
+            610,
+            687,
+            710,
+            716,
+            754,
+            755
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.8609653837037754,
+            6.456420664357867,
+            1.601975498785232,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.0,
+            6.157662100390333,
+            11.949304069487685,
+            8.171768693119375,
+            0.0,
+            2.8780330317967198,
+            3.890823440532248,
+            3.1876230527625373,
+            1.7351689853144223,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            1,
+            22,
+            47,
+            76,
+            87,
+            173,
+            189,
+            209,
+            219,
+            301,
+            315,
+            340,
+            346,
+            352,
+            373,
+            403,
+            433,
+            448,
+            459,
+            582,
+            593,
+            615,
+            683
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.3393825997318456,
+            4.751742517546582,
+            1.8279910878370278,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.0701769968919062,
+            5.448189089476975,
+            12.370677343056096,
+            7.619757802736098,
+            0.0,
+            2.4000024044827444,
+            3.2070244995123627,
+            3.004746010688607,
+            1.997485103925885,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.8240000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9760000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.5
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            60,
+            107,
+            146,
+            157,
+            163,
+            188,
+            304,
+            315,
+            317,
+            324,
+            333,
+            397,
+            406,
+            418,
+            494,
+            568,
+            593,
+            596,
+            598,
+            607,
+            623,
+            643,
+            748
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.0776342948615025,
+            4.584637813345032,
+            0.8607190900135442,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.7787631989484478,
+            5.926977112754981,
+            12.42937271767083,
+            5.738405551558815,
+            0.0,
+            1.4732763744158939,
+            5.854843931888188,
+            2.937859863049813,
+            1.8090449358655694,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            24,
+            126,
+            208,
+            219,
+            231,
+            246,
+            265,
+            303,
+            345,
+            352,
+            381,
+            396,
+            430,
+            431,
+            447,
+            467,
+            494,
+            507,
+            654,
+            686,
+            687,
+            742,
+            747
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.5734430575829537,
+            5.409581081875255,
+            2.107679692601535,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.15278435374766025,
+            5.505057418980562,
+            11.873840765780328,
+            7.550499033845042,
+            0.0,
+            2.393898032239383,
+            3.5846552513584373,
+            2.9165677878575846,
+            1.5683426274688717,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.9760000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.64
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            40,
+            43,
+            46,
+            75,
+            142,
+            193,
+            205,
+            313,
+            318,
+            343,
+            355,
+            358,
+            399,
+            446,
+            459,
+            511,
+            517,
+            543,
+            593,
+            655,
+            765,
+            771,
+            774
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.08936950552560641,
+            4.84874492851317,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            3.020010231800977,
+            5.5541113360560015,
+            12.015213313138744,
+            5.7424963901167745,
+            0.0,
+            1.3583899568077973,
+            6.599496017711597,
+            2.658672002081781,
+            1.7195188026125057,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.6600000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.876
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.9960000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.9700000000000001
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.29200000000000004
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            6,
+            95,
+            114,
+            220,
+            221,
+            320,
+            327,
+            346,
+            380,
+            405,
+            408,
+            435,
+            438,
+            487,
+            521,
+            559,
+            571,
+            580,
+            589,
+            615,
+            694,
+            702,
+            736
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.3350376216755846,
+            5.232999711723586,
+            1.4965686573717556,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.886163498949627,
+            5.147376550345803,
+            12.298862562085382,
+            6.904337643105193,
+            0.0,
+            2.2671034059729456,
+            4.3823328220163456,
+            3.169498082241094,
+            1.6780676826842773,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            33,
+            143,
+            167,
+            183,
+            186,
+            213,
+            233,
+            328,
+            333,
+            345,
+            381,
+            428,
+            442,
+            465,
+            466,
+            485,
+            486,
+            586,
+            670,
+            678,
+            690,
+            725,
+            769
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.0643905056032075,
+            6.4574541211470065,
+            1.24121638771479,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.916387368343303,
+            5.497069915093201,
+            11.69193026569712,
+            8.600203144964162,
+            0.0,
+            2.0578248355923185,
+            3.2740752366812966,
+            2.729109382732441,
+            1.3113741057514872,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 0.9780000000000002
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.36800000000000016
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.6200000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 0.9920000000000001
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9420000000000001
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.884
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.75
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.14200000000000002
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            114,
+            120,
+            126,
+            201,
+            203,
+            219,
+            229,
+            254,
+            287,
+            291,
+            315,
+            346,
+            378,
+            394,
+            412,
+            441,
+            457,
+            500,
+            523,
+            642,
+            658,
+            671,
+            759
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.9784435563084113,
+            4.535217930002299,
+            1.099633178968754,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.131163924419562,
+            5.551696521430023,
+            12.61099414440842,
+            7.810588761487531,
+            0.0,
+            2.26265300227484,
+            3.9874505164407434,
+            3.3580957143601013,
+            2.3758617671030318,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.9060000000000002
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9900000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.5740000000000001
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            12,
+            114,
+            136,
+            142,
+            152,
+            174,
+            177,
+            243,
+            263,
+            271,
+            360,
+            439,
+            468,
+            486,
+            491,
+            528,
+            540,
+            566,
+            581,
+            631,
+            635,
+            714,
+            766
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.4310626321453228,
+            6.269872482532185,
+            0.9136660881457043,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.0744866600048133,
+            5.989108980032713,
+            12.231095401699577,
+            8.004620684157915,
+            0.0,
+            1.8591532017442942,
+            3.232940564255616,
+            2.9199250096455254,
+            1.877845465560917,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.9360000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.5880000000000001
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            76,
+            169,
+            177,
+            196,
+            249,
+            334,
+            368,
+            450,
+            485,
+            489,
+            515,
+            520,
+            521,
+            536,
+            585,
+            598,
+            637,
+            659,
+            678,
+            682,
+            756,
+            772,
+            776
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.5252952289968937,
+            6.1226091432714655,
+            1.2720595179015044,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.8538482984334698,
+            5.3940782840038946,
+            12.061795756129246,
+            7.358731072387284,
+            0.0,
+            2.0853290949648247,
+            3.548714619298223,
+            2.5548247078186703,
+            2.022651141724239,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.8540000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.5
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            11,
+            41,
+            62,
+            64,
+            88,
+            115,
+            134,
+            215,
+            246,
+            355,
+            360,
+            405,
+            442,
+            459,
+            474,
+            512,
+            571,
+            612,
+            628,
+            635,
+            642,
+            723,
+            766
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.0791029806976986,
+            5.8302152050224265,
+            2.035641808617116,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.1564909674244115,
+            5.531096987037863,
+            11.962505025926719,
+            7.362093030383227,
+            0.0,
+            2.0839599006484724,
+            2.597805846253721,
+            2.795387233389132,
+            1.2296591310339042,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            40,
+            73,
+            77,
+            78,
+            134,
+            136,
+            150,
+            217,
+            240,
+            266,
+            270,
+            271,
+            288,
+            290,
+            298,
+            322,
+            379,
+            570,
+            602,
+            609,
+            624,
+            644,
+            697
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.718940373725223,
+            4.625877504497116,
+            0.058057575338705904,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.486530615438063,
+            5.67629130141903,
+            11.861765253008786,
+            5.6268081938566645,
+            0.0,
+            2.9876595224367146,
+            5.519474524145328,
+            2.303127096236155,
+            2.9260035595130307,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            8,
+            26,
+            148,
+            151,
+            175,
+            183,
+            241,
+            268,
+            282,
+            290,
+            316,
+            327,
+            344,
+            360,
+            473,
+            490,
+            502,
+            556,
+            563,
+            602,
+            646,
+            662,
+            694
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.068780799230669,
+            5.6677156652092915,
+            0.11529540910260935,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.9352151210110438,
+            6.018716933283809,
+            12.771904054847848,
+            5.878422588332598,
+            0.0,
+            1.235215794374244,
+            6.411259161311581,
+            3.1141396692628,
+            1.843253690427764,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            97,
+            133,
+            156,
+            199,
+            208,
+            220,
+            237,
+            248,
+            268,
+            269,
+            333,
+            358,
+            370,
+            416,
+            424,
+            475,
+            497,
+            518,
+            545,
+            592,
+            598,
+            639,
+            659
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.108899832793461,
+            4.779019623320762,
+            0.614324307719929,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.021412213928126,
+            5.728875764406998,
+            12.728510482163468,
+            5.689732010861697,
+            0.0,
+            1.3272290699261633,
+            5.732597690933145,
+            2.8318165760014775,
+            1.8033567874394143,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            102,
+            193,
+            211,
+            219,
+            266,
+            288,
+            315,
+            328,
+            370,
+            392,
+            395,
+            396,
+            428,
+            439,
+            454,
+            455,
+            462,
+            463,
+            497,
+            564,
+            626,
+            631,
+            689
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.7666273215972966,
+            4.716531845944207,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.46187356189394,
+            5.596247975567155,
+            12.013320083340426,
+            6.0889768377691365,
+            0.0,
+            2.2342364194386746,
+            6.272400408406485,
+            2.844133684992353,
+            2.010384632130063,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.8560000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9940000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.42000000000000004
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            69,
+            128,
+            148,
+            188,
+            192,
+            264,
+            279,
+            333,
+            353,
+            379,
+            418,
+            445,
+            458,
+            467,
+            486,
+            622,
+            638,
+            654,
+            656,
+            659,
+            687,
+            704,
+            711
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            2.208031606385384,
+            5.502294189039426,
+            1.3846498329026673,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.5250125876124293,
+            5.697593314873851,
+            11.603927196223612,
+            7.578105607610857,
+            0.0,
+            2.756023758981165,
+            3.339340683037291,
+            2.8204360733886924,
+            1.6105632819247262,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            19,
+            152,
+            163,
+            185,
+            203,
+            230,
+            239,
+            264,
+            290,
+            304,
+            326,
+            356,
+            368,
+            373,
+            374,
+            438,
+            446,
+            552,
+            558,
+            607,
+            609,
+            723,
+            732
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.0,
+            3.0516312691934444,
+            0.6378260189717387,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.3468039725230523,
+            5.801136677176046,
+            11.8896881367322,
+            6.097467693146955,
+            0.0,
+            2.517418242029204,
+            5.568715489342826,
+            2.612787443326649,
+            2.5334210283641854,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.20600000000000007
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.6180000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9960000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.9720000000000001
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.888
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.0
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            10,
+            64,
+            87,
+            103,
+            105,
+            108,
+            170,
+            234,
+            245,
+            275,
+            304,
+            340,
+            420,
+            432,
+            458,
+            472,
+            485,
+            486,
+            561,
+            707,
+            709,
+            710,
+            760
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            2.0466078892596284,
+            6.411567354065677,
+            1.9005209639902847,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.5447471206726673,
+            6.113658698617498,
+            12.179859526175663,
+            8.993685023780404,
+            0.0,
+            2.6798764175276415,
+            3.5513918368116584,
+            3.253844988490477,
+            1.8029562340731007,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 0.9960000000000003
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9720000000000001
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.886
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.686
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.398
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.192
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.094
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            17,
+            19,
+            157,
+            168,
+            279,
+            299,
+            305,
+            323,
+            346,
+            352,
+            354,
+            381,
+            420,
+            436,
+            453,
+            468,
+            493,
+            499,
+            614,
+            658,
+            689,
+            695,
+            768
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.1844277874558158,
+            5.21182344054877,
+            1.86291254397238,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.3333017100900348,
+            5.447306807300608,
+            11.838903319420528,
+            7.114068131683493,
+            0.0,
+            2.418114706263913,
+            3.45121367443077,
+            2.5002015457282014,
+            1.6570505482811615,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.9480000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9940000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.8720000000000001
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            88,
+            121,
+            142,
+            157,
+            169,
+            200,
+            217,
+            289,
+            290,
+            294,
+            299,
+            336,
+            371,
+            405,
+            488,
+            516,
+            552,
+            569,
+            572,
+            593,
+            606,
+            608,
+            611
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.717046747818248,
+            4.237309113948212,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.454717010804261,
+            5.59557464655662,
+            12.672221056453774,
+            6.063092954259908,
+            0.0,
+            2.1707641400927895,
+            6.505919898827737,
+            2.927384597252343,
+            2.544171736766148,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.8160000000000002
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9800000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.23
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            3,
+            31,
+            120,
+            132,
+            169,
+            201,
+            274,
+            290,
+            318,
+            319,
+            379,
+            380,
+            381,
+            435,
+            443,
+            588,
+            598,
+            668,
+            720,
+            726,
+            729,
+            735,
+            750
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.1426576474410073,
+            4.496699811287727,
+            1.07200408324505,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.6545679269979963,
+            5.490854267553268,
+            11.478152577695246,
+            6.985058279363302,
+            0.0,
+            1.400725480063982,
+            5.319937418490087,
+            2.807063013662349,
+            1.743142163962601,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            61,
+            64,
+            108,
+            271,
+            273,
+            298,
+            300,
+            331,
+            345,
+            348,
+            389,
+            419,
+            429,
+            485,
+            486,
+            531,
+            538,
+            542,
+            554,
+            585,
+            617,
+            630,
+            776
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.176299829578,
+            6.005778969795388,
+            1.219005942449895,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.6959134393014206,
+            6.393756871575161,
+            12.74347069707528,
+            7.953135558549089,
+            0.0,
+            1.8519414196253332,
+            3.560827124417916,
+            3.531842932286698,
+            1.8372517550199863,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.8900000000000002
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.92
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.9940000000000001
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.792
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            14,
+            28,
+            41,
+            76,
+            93,
+            106,
+            110,
+            166,
+            227,
+            270,
+            295,
+            420,
+            447,
+            461,
+            471,
+            486,
+            509,
+            515,
+            541,
+            585,
+            683,
+            714,
+            771
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            2.0048543313136005,
+            6.726018958837508,
+            1.476379567136976,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.3411924179273643,
+            5.937691740038906,
+            12.25898922134998,
+            7.868160790563742,
+            0.0,
+            1.886056362809211,
+            2.9788354102978944,
+            3.0130988520975794,
+            1.5975511845616566,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            289,
+            290,
+            299,
+            316,
+            332,
+            333,
+            368,
+            379,
+            386,
+            431,
+            449,
+            461,
+            491,
+            521,
+            545,
+            590,
+            636,
+            643,
+            663,
+            681,
+            684,
+            709,
+            780
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.8390507411105627,
+            4.3239205055388314,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.9395456892359717,
+            5.727833431338253,
+            12.696177266744888,
+            6.225990776554825,
+            0.0,
+            1.3962704918604623,
+            5.550859545164718,
+            3.203481503516509,
+            2.083640621358354,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            66,
+            122,
+            156,
+            167,
+            215,
+            294,
+            297,
+            319,
+            371,
+            430,
+            437,
+            477,
+            486,
+            498,
+            499,
+            522,
+            591,
+            611,
+            633,
+            638,
+            684,
+            691,
+            764
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.8670574464602161,
+            5.119303737314252,
+            0.7960024456240354,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.4095119776215814,
+            5.514614943694953,
+            12.680996760654295,
+            8.22744006583988,
+            0.0,
+            2.7074282441120525,
+            4.304520404405595,
+            3.1189871733403582,
+            1.8905134542866968,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            51,
+            69,
+            113,
+            232,
+            272,
+            307,
+            314,
+            359,
+            470,
+            486,
+            514,
+            529,
+            551,
+            592,
+            595,
+            602,
+            604,
+            656,
+            691,
+            692,
+            710,
+            720,
+            776
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.5767587064988082,
+            6.481919265097981,
+            1.283625225039586,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.0779113585669693,
+            5.504124781220562,
+            12.829869890367432,
+            7.956984333511442,
+            0.0,
+            1.7534976483242493,
+            3.3716293458905584,
+            2.7889473411209917,
+            2.157850556421658,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            35,
+            171,
+            175,
+            193,
+            201,
+            263,
+            303,
+            321,
+            346,
+            350,
+            353,
+            359,
+            374,
+            423,
+            466,
+            472,
+            486,
+            509,
+            523,
+            556,
+            568,
+            598,
+            749
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.221101695387253,
+            5.1482024499122705,
+            0.973531040346233,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.9018540433524127,
+            5.827968922786941,
+            13.245090878822404,
+            7.888289303890337,
+            0.0,
+            1.7204719322465032,
+            4.1751308570826255,
+            3.5842774257540557,
+            2.0666830972033075,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 0.9980000000000002
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.37200000000000016
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.672
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9920000000000001
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.9500000000000001
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.88
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.192
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            47,
+            97,
+            134,
+            162,
+            179,
+            246,
+            266,
+            277,
+            342,
+            346,
+            359,
+            460,
+            466,
+            469,
+            479,
+            532,
+            555,
+            614,
+            622,
+            666,
+            744,
+            748,
+            768
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.385068885803255,
+            4.896329720984592,
+            0.8760106119720777,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.43548796688181834,
+            5.202109047793014,
+            11.724906944303847,
+            7.043070802082014,
+            0.0,
+            2.526513741066613,
+            4.66218389339083,
+            2.632215433058572,
+            2.1838068604705123,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.7700000000000002
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9500000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.336
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            51,
+            83,
+            92,
+            172,
+            197,
+            209,
+            272,
+            277,
+            292,
+            334,
+            338,
+            354,
+            439,
+            444,
+            451,
+            463,
+            470,
+            486,
+            488,
+            522,
+            577,
+            669,
+            682
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            2.162487886977466,
+            6.591900130863296,
+            2.15375804911458,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.08250932697029044,
+            5.990488909277152,
+            12.925599643223403,
+            8.358637467905634,
+            0.0,
+            2.0604753479821407,
+            3.4178224428064525,
+            3.357990121153004,
+            1.135397325379744,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            56,
+            189,
+            206,
+            222,
+            322,
+            360,
+            364,
+            365,
+            369,
+            394,
+            441,
+            449,
+            486,
+            514,
+            524,
+            528,
+            595,
+            600,
+            621,
+            679,
+            684,
+            752,
+            753
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            2.31917335143129,
+            6.480161651629643,
+            2.523507221635477,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.0,
+            5.800974944129741,
+            12.17881262350004,
+            7.610880190278389,
+            0.0,
+            2.405586517558636,
+            2.529349622691158,
+            2.533529656219522,
+            1.4687648727204783,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.8200000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9820000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.9960000000000001
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.462
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            25,
+            55,
+            78,
+            144,
+            162,
+            224,
+            274,
+            345,
+            374,
+            469,
+            485,
+            486,
+            548,
+            578,
+            586,
+            606,
+            610,
+            654,
+            673,
+            705,
+            720,
+            739,
+            759
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.766247211170321,
+            6.026792825007276,
+            1.6128866251772256,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.0640403338682949,
+            5.605371933989626,
+            11.556883772230918,
+            8.687798169384061,
+            0.0,
+            1.7988173518544095,
+            3.5712183768467005,
+            2.882059744491673,
+            1.441482517703785,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.5020000000000002
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.67
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9920000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.9660000000000001
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.8640000000000001
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.23
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            11,
+            59,
+            88,
+            172,
+            178,
+            185,
+            224,
+            261,
+            290,
+            294,
+            346,
+            357,
+            373,
+            398,
+            399,
+            430,
+            452,
+            460,
+            533,
+            580,
+            649,
+            713,
+            744
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.2747737613395281,
+            3.9544213730468827,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.56074799703028,
+            5.5268495071957355,
+            11.605637566054565,
+            6.696228640199116,
+            0.0,
+            2.4096944230276574,
+            6.576187706651957,
+            2.694753118149972,
+            2.078944409205005,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 0.9980000000000002
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.30200000000000016
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.658
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.9660000000000001
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.8660000000000001
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.09200000000000001
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            0,
+            1,
+            6,
+            98,
+            123,
+            162,
+            229,
+            280,
+            320,
+            343,
+            384,
+            386,
+            399,
+            436,
+            443,
+            517,
+            578,
+            597,
+            601,
+            683,
+            705,
+            736,
+            752
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.32432145700971526,
+            4.785789428149883,
+            0.8203712699890265,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            2.2602253900401243,
+            5.380265670464979,
+            12.226247974058529,
+            5.800049523694324,
+            0.0,
+            0.9218701910253795,
+            5.941137495224407,
+            3.3483485123470365,
+            1.51963696528496,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            11,
+            19,
+            59,
+            88,
+            113,
+            180,
+            208,
+            220,
+            256,
+            275,
+            281,
+            341,
+            449,
+            456,
+            458,
+            464,
+            486,
+            495,
+            545,
+            604,
+            610,
+            625,
+            653
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.69422390993119,
+            6.357326940573562,
+            2.001339723349153,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.9618976990145679,
+            5.428797640051443,
+            12.040860949544271,
+            7.914589661826819,
+            0.0,
+            2.01905364710532,
+            3.2144996094834513,
+            2.895973523121254,
+            1.6815131706154856,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 10,
+                "success": 1.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            71,
+            152,
+            189,
+            204,
+            219,
+            241,
+            263,
+            271,
+            280,
+            289,
+            343,
+            386,
+            390,
+            397,
+            398,
+            440,
+            445,
+            462,
+            607,
+            615,
+            663,
+            674,
+            760
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.5155166586620197,
+            4.554598589389243,
+            0.06055476886309927,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            3.155450963749648,
+            5.659713741420238,
+            12.210316573053664,
+            5.941798685320708,
+            0.0,
+            1.3259189230734167,
+            5.762060019416026,
+            2.9842035739261847,
+            1.9107804058850184,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.5900000000000002
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.8640000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9960000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.9840000000000001
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.9400000000000001
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.24800000000000003
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            8,
+            23,
+            57,
+            58,
+            88,
+            210,
+            307,
+            321,
+            373,
+            381,
+            400,
+            404,
+            460,
+            465,
+            487,
+            523,
+            540,
+            557,
+            572,
+            585,
+            699,
+            707,
+            760
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            1.6200332938490187,
+            5.84741189640658,
+            1.6212335330033125,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.5962640025231783,
+            5.68101805291937,
+            12.671188840672004,
+            7.788924058626069,
+            0.0,
+            1.5921545246605442,
+            3.588480769018192,
+            3.298467771393772,
+            1.7107769566012783,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.7260000000000003
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.9560000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.34
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            23,
+            68,
+            100,
+            103,
+            121,
+            179,
+            325,
+            326,
+            341,
+            345,
+            411,
+            438,
+            455,
+            466,
+            469,
+            485,
+            572,
+            600,
+            632,
+            707,
+            712,
+            716,
+            729
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.35016085310247325,
+            5.093174351200693,
+            2.1650324278865636,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.0639611115788898,
+            5.449851555898033,
+            11.374114950939827,
+            7.593495534718598,
+            0.0,
+            2.168079319944738,
+            3.8177096511296176,
+            2.6296270825450407,
+            2.1238816561158873,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 0.9940000000000002
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.03600000000000001
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.27
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9420000000000001
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.8480000000000001
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.562
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.0
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            10,
+            32,
+            68,
+            99,
+            107,
+            115,
+            129,
+            168,
+            205,
+            211,
+            306,
+            340,
+            439,
+            445,
+            485,
+            486,
+            598,
+            650,
+            653,
+            674,
+            710,
+            733,
+            777
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            2.562192769620854,
+            6.896791490954184,
+            1.5083252439114658,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            0.0,
+            5.727655470276383,
+            12.207635478719679,
+            8.833947818283885,
+            0.0,
+            2.6550942070524277,
+            3.31401697142928,
+            2.8111857542828393,
+            1.5167617482653293,
+            0.0
+        ],
+        "statistics": [
+            {
+                "sub_k": 1,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 6,
+                "samples": 10,
+                "success": 1.0
+            },
+            {
+                "sub_k": 11,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 0.9960000000000002
+            },
+            {
+                "sub_k": 21,
+                "samples": 500,
+                "success": 0.35600000000000015
+            },
+            {
+                "sub_k": 20,
+                "samples": 500,
+                "success": 0.676
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9940000000000001
+            },
+            {
+                "sub_k": 18,
+                "samples": 500,
+                "success": 0.9660000000000001
+            },
+            {
+                "sub_k": 19,
+                "samples": 500,
+                "success": 0.8740000000000001
+            },
+            {
+                "sub_k": 22,
+                "samples": 500,
+                "success": 0.136
+            },
+            {
+                "sub_k": 23,
+                "samples": 500,
+                "success": 0.0
+            }
+        ]
+    },
+    {
+        "dataset": "mnist",
+        "network": "models/mnist_relu_3_50.onnx",
+        "image": 1,
+        "k": 23,
+        "pixels_index": [
+            13,
+            20,
+            40,
+            111,
+            136,
+            150,
+            198,
+            218,
+            220,
+            232,
+            269,
+            270,
+            283,
+            372,
+            374,
+            412,
+            460,
+            486,
+            524,
+            554,
+            560,
+            574,
+            682
+        ],
+        "label": 2,
+        "Lbounds": [
+            0.0,
+            0.5908309024444067,
+            5.166899473816441,
+            0.761242449010869,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Ubounds": [
+            1.5158235759119962,
+            5.260464280407244,
+            12.132378588959813,
+            7.582832819061049,
+            0.0,
+            2.1566995446926382,
+            4.245302845393508,
+            2.9640892911544325,
+            2.413271435307217,
             0.0
         ],
         "statistics": [
