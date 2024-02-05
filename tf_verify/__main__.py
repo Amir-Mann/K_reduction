@@ -18,15 +18,15 @@
 
 """
 DONE:
-
-RAN PARTIALLY:
-
-CHECK RESULTS
-
-RUNNING:
 /root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main2__.py --domain deeppoly --epsilon 0.01 --k1_lst 784 --failing_origins_num 1 --delta_sub_k 1 --samples_per_sub_k 500 --netname models/mnist_relu_3_50.onnx --dataset mnist --from_test 0 --num_tests 3 --stats_file all_image
 /root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main2__.py --domain deeppoly --epsilon 0.01 --k1_lst 784 --failing_origins_num 1 --delta_sub_k 1 --samples_per_sub_k 500 --netname models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx --dataset mnist --from_test 0 --num_tests 3 --stats_file all_image
 /root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main2__.py --domain deeppoly --epsilon 0.01 --k1_lst 784 --failing_origins_num 1 --delta_sub_k 1 --samples_per_sub_k 500 --netname models/MNIST_convSmall_NO_PGD.onnx --dataset mnist --from_test 0 --num_tests 3 --stats_file all_image
+
+RAN PARTIALLY:
+
+CHECK RESULTS:
+
+RUNNING:
 
 TODO:
 """
