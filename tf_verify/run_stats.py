@@ -2,14 +2,13 @@ import sys
 import os
 import time
 
-STATS_RUN_OUT_DIR = "/root/OUR_WORK/tf_verify/stats_run_output"
+STATS_RUN_OUT_DIR = "stats_run_output"
 PYTHON = "python3"
-SCRIPT = "/root/OUR_WORK/tf_verify/__main2__.py"
+SCRIPT = "__main2__.py"
 MODELS = "models"
 
 def get_running_line(table_line):
     args = table_line.split()
-    time_str = time.strftime("%Y%m%d-%H%M%S")
     run_line = PYTHON + " " + SCRIPT
     run_line += " --domain deeppoly --epsilon 0.01 --dataset mnist"
     run_line += " --k1_lst " + args[0]
@@ -26,6 +25,7 @@ def get_running_line(table_line):
 
 
 if __name__ == '__main__':
+    time_str = time.strftime("%Y%m%d-%H%M%S")
     file_path = sys.argv[1]
     pid_to_output_file = {}
     with open(file_path, 'r') as file:
