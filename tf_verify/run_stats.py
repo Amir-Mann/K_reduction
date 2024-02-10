@@ -19,7 +19,7 @@ def get_running_line(table_line):
     run_line += " --from_test " + args[5]
     run_line += " --num_test " + args[6]
     run_line += " --stats_file " + args[7]
-    output_path = STATS_RUN_OUT_DIR + "/" + args[7] + time_str
+    output_path = STATS_RUN_OUT_DIR + "/" + args[7] + "_" + args[4] + time_str
     run_line += " &> " + output_path
     return run_line, output_path
 
