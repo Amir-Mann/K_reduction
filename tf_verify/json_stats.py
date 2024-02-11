@@ -49,15 +49,37 @@ def get_biggest_k_for_success_rate(json_path, success):
         failing_origins = json.load(file)
         for fo in failing_origins:
             for stat in fo["statistics"]:
-
                 if stat["success"] > success and (fo["image"] not in images or images[fo["image"]][0] < stat["sub_k"]):
                     images[fo["image"]] = [stat["sub_k"], stat["success"]]
     return images
 
+# unite every file.json with the file(i).json for i 1 until cant find such file
+def unite_files(folder_path):
+    for file_name in os.listdir(folder_path):
+        file_path = os.path.join(folder_path, file_name)
+        if os.path.isfile(file_path):
+            i = 1
+            file_name_split = os.path.splitext(file_name)
+            file_to_add_path = os.path.join(folder_path, file_name_split[0] + "(" + str(i) + ")" + file_name_split[1])
+            while os.path.isfile(file_to_add_path):
+                add_lst = []
+                with open(file_to_add_path, 'r') as file:
+                    add_lst = json.load(file)
+                with open(file_path, 'rb+') as file:
+                    json_str = "," + json.dumps(add_lst, indent=4)[1:]
+                    file.seek(-1, os.SEEK_END)
+                    file.write(json_str.encode())
+                print(file_to_add_path, "added to", file_path)
+                with open(file_to_add_path, "a") as file:
+                    file.write("content added to " + file_path)
+                i += 1
+                file_to_add_path = os.path.join(folder_path, file_name_split[0] + "(" + str(i) + ")" + file_name_split[1])
+
 if __name__ == '__main__':
-    nets = get_fo_number("json_stats")
-    for network in nets:
-        network.print()
+    unite_files("json_stats/MNIST_convSmall_NO_PGD.onnx")
+    # nets = get_fo_number("json_stats")
+    # for network in nets:
+    #     network.print()
 
     # ps = [0.8, 0.9, 0.99]
     # # print("MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx")
