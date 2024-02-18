@@ -1,6 +1,6 @@
 import json
 import os
-
+import re
 
 class Network:
     def __init__(self, name):
@@ -75,8 +75,25 @@ def unite_files(folder_path):
                 i += 1
                 file_to_add_path = os.path.join(folder_path, file_name_split[0] + "(" + str(i) + ")" + file_name_split[1])
 
+def split_image_bounds_stats(file_path):
+    images = [[],[],[],[]]
+    with open(file_path, 'r') as file:
+        lst = json.load(file)
+    for obj in lst:
+        print(type(obj))
+        print(obj["image"])
+        images[obj["image"]].append(obj)
+
+    for i,img in enumerate(images):
+        if len(img) != 0:
+            new_path = re.sub("IMG[0-9]+(-[0-9]+)?","IMG"+i, file_path)
+            with open(new_path, 'w') as f:
+                json.dump(img, f, indent=4)
+
+
 if __name__ == '__main__':
-    unite_files("json_stats/MNIST_convSmall_NO_PGD.onnx")
+    split_image_bounds_stats("image_bounds_stats/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx/IMG0-2_K1-250_SAMPALES50.json")
+    # unite_files("json_stats/MNIST_convSmall_NO_PGD.onnx")
     # nets = get_fo_number("json_stats")
     # for network in nets:
     #     network.print()

@@ -63,7 +63,6 @@ def create_json(data_lst, path):
         data_lst_dicts = [data.get_dict() for data in data_lst]
         json.dump(data_lst_dicts, f, indent=4)
 
-
 def append_json(new_data_lst, path):
     assert len(new_data_lst) != 0
     if not os.path.isfile(path):

@@ -13,13 +13,21 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 """
-#This file is meant to collect u_bounds and l_bounds for the entire pic
-# RUNNING:
-# python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/mnist_relu_3_50.onnx --domain deeppoly --epsilon 0.01 --num_tests 3 --from_test 0 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG0-2_K1-250_SAMPALES50
-# python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx --domain deeppoly --epsilon 0.01 --num_tests 3 --from_test 0 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG0-2_K1-250_SAMPALES50
-# python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_NO_PGD.onnx --domain deeppoly --epsilon 0.01 --num_tests 2 --from_test 0 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG0-1_K1-250_SAMPALES50
-# python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_NO_PGD.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 3 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG3_K1-250_SAMPALES50
+"""
+This file is meant to collect u_bounds and l_bounds for the entire pic
+RUNNING:
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/mnist_relu_3_50.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 0 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG0_K1-250_SAMPALES50 &
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/mnist_relu_3_50.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 1 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG1_K1-250_SAMPALES50 &
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/mnist_relu_3_50.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 2 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG2_K1-250_SAMPALES50 &
 
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 0 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG0_K1-250_SAMPALES50 &
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 1 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG1_K1-250_SAMPALES50 &
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 2 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG2_K1-250_SAMPALES50 &
+
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_NO_PGD.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 0 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG0_K1-250_SAMPALES50 &
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_NO_PGD.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 1 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG1_K1-250_SAMPALES50 &
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_NO_PGD.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 3 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG3_K1-250_SAMPALES50 &
+"""
 
 
 
@@ -1563,7 +1571,7 @@ else:
                                 json.dump([k_obj], f, indent=4)
                         else:
                             with open(json_file_name, 'rb+') as file:
-                                json_str = "," + json.dumps([samples_per_k], indent=4)[1:]
+                                json_str = "," + json.dumps([k_obj], indent=4)[1:]
                                 file.seek(-1, os.SEEK_END)
                                 file.write(json_str.encode())
                         print(config.num_samples, "samples of k", K1, "added to", json_file_name)
