@@ -15,7 +15,7 @@ data = {}
 for root, dirs, files in os.walk(stats_folder):
     for fname in files:
         # if filter_out_all_image and "all_image" in fname:
-            # continue
+        # continue
         fpath = os.path.join(root, fname)
         with open(fpath, "r") as f:
             try:
@@ -29,21 +29,23 @@ for root, dirs, files in os.walk(stats_folder):
             dataset_to_add_to = data
 
         if filter_out_perfect_data:
-            dataset_to_add_to[net_name + "_" + fname[:-5]] = [fo for fo in new_data if len([subk for subk in fo["statistics"] if subk["success"] != 1]) > 0]
+            dataset_to_add_to[net_name + "_" + fname[:-5]] = [fo for fo in new_data if
+                                                              len([subk for subk in fo["statistics"] if
+                                                                   subk["success"] != 1]) > 0]
         else:
             dataset_to_add_to[net_name + "_" + fname[:-5]] = new_data
 
-
-print(len(data))
-for value in data.values():
-    print(len(value), end=", ")
-print("\b\b")
-
-print(full_image_data)
+# print(len(data))
+# for value in data.values():
+#     print(len(value), end=", ")
+# print("\b\b")
+#
+# print(full_image_data)
 
 # functions for the d
 functions_for_d = [
-    ("L_inf", lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"]+1:]) - sample["Lbounds"][sample["label"]]),
+    ("L_inf", lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"] + 1:]) -
+                             sample["Lbounds"][sample["label"]]),
     # ("L_2", lambda sample: d_power(sample, 2)),
     ("L_10", lambda sample: d_power(sample, 10)),
     # ("L_8", lambda sample: d_power(sample, 8)),
@@ -56,19 +58,21 @@ functions_for_d = [
 
 # functions for the y
 functions_for_y = [
-    ("50th percentile",lambda sample: get_k_of_specified_percentile(sample, 0.50)),
+    ("50th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.50)),
     ("80th percentile", get_k_of_80_precntile),
-    ("90th percentile",lambda sample: get_k_of_specified_percentile(sample, 0.90)),
-    ("99th percentile",lambda sample: get_k_of_specified_percentile(sample, 0.99)),
+    ("90th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.90)),
+    ("99th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.99)),
     # ("Avg of 1st and 99th %ile", lambda sample: (get_k_of_specified_percentile(sample, 0.99)+get_k_of_specified_percentile(sample, 0.01)) / 2),
     # ("Avg of 90th, 95th, 100th %ile", lambda sample: (
-        # get_k_of_specified_percentile(sample, 1)+
-        # get_k_of_specified_percentile(sample, 0.9)+
-        # get_k_of_specified_percentile(sample, 0.95)
-        # ) / 3),
-    ("Avg of 70th and 90th %ile", lambda sample: (get_k_of_specified_percentile(sample, 0.9)+get_k_of_specified_percentile(sample, 0.7)) / 2),
+    # get_k_of_specified_percentile(sample, 1)+
+    # get_k_of_specified_percentile(sample, 0.9)+
+    # get_k_of_specified_percentile(sample, 0.95)
+    # ) / 3),
+    ("Avg of 70th and 90th %ile",
+     lambda sample: (get_k_of_specified_percentile(sample, 0.9) + get_k_of_specified_percentile(sample, 0.7)) / 2),
     ("Average success rate", get_average_success_rate),
 ]
+
 
 def check_correlation(functions_for_d, functions_for_y, file_names):
     FILE_NAMES = file_names
@@ -115,7 +119,7 @@ def check_correlation(functions_for_d, functions_for_y, file_names):
         x_means = []
         for j in range(len(functions_for_d)):
             mean = 0
-            assert(len(FILE_NAMES) > 0)
+            assert (len(FILE_NAMES) > 0)
             for k in range(len(FILE_NAMES)):
                 mean += r_squared_per_xyfunc[k][i][j]
             mean /= len(FILE_NAMES)
@@ -125,14 +129,16 @@ def check_correlation(functions_for_d, functions_for_y, file_names):
     # printing results
     print("\nMeans of R^2 per yfunc (how to judge the 'dropdown' given an FO), xfunc (how to calculate d):")
     pretty_yx_means = [["Y \ X"] + [name for name, func in functions_for_d]] + yx_means
-    for i in range(1, len(yx_means)+1):
-        pretty_yx_means[i] = [functions_for_y[i-1][0]] + yx_means[i-1]
+    for i in range(1, len(yx_means) + 1):
+        pretty_yx_means[i] = [functions_for_y[i - 1][0]] + yx_means[i - 1]
     pretty_print(pretty_yx_means)
 
     best_mean_index = max_index_of_matrix(yx_means)
     best_mean = yx_means[best_mean_index[0]][best_mean_index[1]]
 
-    print(f"\nBest mean functions: Y = {functions_for_y[best_mean_index[0]][0]}, X = {functions_for_d[best_mean_index[1]][0]}, with mean R^2 {best_mean}")
+    print(
+        f"\nBest mean functions: Y = {functions_for_y[best_mean_index[0]][0]}, X = {functions_for_d[best_mean_index[1]][0]}, with mean R^2 {best_mean}")
+
 
 # for key, value in data.items():
 #     print(key, len(value))
@@ -145,7 +151,6 @@ def check_correlation(functions_for_d, functions_for_y, file_names):
 # list_of_file_names_in_RELU = [str for str in list(data.keys()) if "relu" in str]
 # FILE_NAME = list_of_file_names_in_RELU[3]
 # print(f"NUM OF FILES IN \"RELU\": {len(list_of_file_names_in_RELU)}")
-
 
 
 if False:
@@ -163,11 +168,14 @@ def get_full_image_data_from_FO(sample):
             return fo
     return None
 
+
 def get_dataset_network_image_string(sample):
     return f'{sample["dataset"]} -- {sample["network"]} -- {sample["image"]}'
 
+
 def get_dataset_network_image_string_K(sample):
     return f'{sample["dataset"]} -- {sample["network"]} -- {sample["image"]} -- {sample["k"]}'
+
 
 def generate_feature_info(func_for_d):
     """
@@ -185,8 +193,8 @@ def generate_feature_info(func_for_d):
     for file_name in file_names:
         samples_in_use += data[file_name]
 
-    feature_datas = [] # list of feature_data
-    feature_data_names = [] #
+    feature_datas = []  # list of feature_data
+    feature_data_names = []  #
 
     ys = []
     y_names = []
@@ -236,18 +244,18 @@ def generate_feature_info(func_for_d):
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
         datapoints = [
             ([img_vars[0], img_vars[1], img_k, img_d], "a_img, b_img, k, d"),
-            ([img_k],                                   "k"),
-            # ([img_d_normalized_per_img],                "d/sum(ds_in_img)") ,
-            # ([img_d_normalized_per_K],                  "d/sum(ds_in_K)"),
-            # ([img_k, img_d_normalized_per_img],         "k, d/sum(ds_in_img)"),
-            # ([img_k, img_d_normalized_per_K],           "k, d/sum(ds_in_K)"),
-            ([img_k * img_vars[1]],                     "k * img_b"),
-            ([img_vars[1] / img_k],                     "img_b / k"),
-            ([img_vars[1] / img_k],                     "img_b / k"),
-            ([img_k / img_vars[1]],                     "k / img_b"),
-            ([img_vars[1]],                             "img_b"),
-            ([1 / img_vars[1]],                         "1 / img_b"),
-            ([np.log(img_vars[1])],                     "ln(img_b)")
+            ([img_k], "k"),
+            ([img_d_normalized_per_img],                "d/sum(ds_in_img)") ,
+            ([img_d_normalized_per_K],                  "d/sum(ds_in_K)"),
+            ([img_k, img_d_normalized_per_img],         "k, d/sum(ds_in_img)"),
+            ([img_k, img_d_normalized_per_K],           "k, d/sum(ds_in_K)"),
+            # ([img_k * img_vars[1]], "k * img_b"),
+            # ([img_vars[1] / img_k], "img_b / k"),
+            # ([img_vars[1] / img_k], "img_b / k"),
+            # ([img_k / img_vars[1]], "k / img_b"),
+            # ([img_vars[1]], "img_b"),
+            # ([1 / img_vars[1]], "1 / img_b"),
+            # ([np.log(img_vars[1])], "ln(img_b)")
             ## example datapoint : ([alpha_img, FO_k], "alpha_img, FO_K") ---- Dont forget to add a feature name!
         ]
 
@@ -268,18 +276,22 @@ def generate_feature_info(func_for_d):
         img_b = img_vars[1]
         s = 0
         if first:
-            ys += [[],[],[]]
+            ys += [[], [], []]
             y_names += ["a", "b", "a/b"]
-        ys[s].append(a); s+=1
-        ys[s].append(b); s+=1
-        ys[s].append(a / b); s+=1
+        ys[s].append(a);
+        s += 1
+        ys[s].append(b);
+        s += 1
+        ys[s].append(a / b);
+        s += 1
         # print((784*b) / (img_b * img_k))
         values = range(2, 7, 2)
         for i in values:
             if first:
                 ys += [[]]
                 y_names += [f"-(a+{i})/b"]
-            ys[s].append( -(a+i)/b ); s+=1
+            ys[s].append(-(a + i) / b);
+            s += 1
 
         first = False
     return (feature_datas, feature_data_names, ys, y_names, samples_in_use)
@@ -309,7 +321,6 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
     # poly = PolynomialFeatures(4)
     # poly_feature_data = pd.DataFrame(poly.fit_transform(feature_data))
 
-
     ## --------------- Fitting and scoring the regressors ----------------------
 
     scores = []
@@ -328,9 +339,9 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
                 # Calculating scores
                 ROUNDING_PRECISION = 5
                 prediction = regressor.predict(feature_data)
-                score1 = regressor.score(feature_data, y) # R^2
-                score2 = np.sum(np.abs(prediction - y)) / len(y) # L_1 / len(y)
-                score3 = (np.sum((prediction - y)**2) ** (1/2)) / len(y) # L_2 / len(y)
+                score1 = regressor.score(feature_data, y)  # R^2
+                score2 = np.sum(np.abs(prediction - y)) / len(y)  # L_1 / len(y)
+                score3 = (np.sum((prediction - y) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
 
                 temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
                 scores_per_y.append(list(temp_scores))
@@ -351,17 +362,16 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
             a4Divb = predictions[i][j][y_names.index("-(a+4)/b")]
             b = np.divide(-4, np.add(aDivb, a4Divb))
             a = np.multiply(aDivb, b)
-            score1 = -1 # R^2
-            score2 = np.sum(np.abs(a - ys[y_names.index("a")])) / len(y) # L_1 / len(y)
-            score3 = (np.sum((a - ys[y_names.index("a")])**2) ** (1/2)) / len(y) # L_2 / len(y)
+            score1 = -1  # R^2
+            score2 = np.sum(np.abs(a - ys[y_names.index("a")])) / len(y)  # L_1 / len(y)
+            score3 = (np.sum((a - ys[y_names.index("a")]) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
             temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
             scores[i][j].append(temp_scores)
-            score1 = -1 # R^2
-            score2 = np.sum(np.abs(b - ys[y_names.index("b")])) / len(y) # L_1 / len(y)
-            score3 = (np.sum((b - ys[y_names.index("b")])**2) ** (1/2)) / len(y) # L_2 / len(y)
+            score1 = -1  # R^2
+            score2 = np.sum(np.abs(b - ys[y_names.index("b")])) / len(y)  # L_1 / len(y)
+            score3 = (np.sum((b - ys[y_names.index("b")]) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
             temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
             scores[i][j].append(temp_scores)
-
 
     # printing out the results
     print("--- Fitting model to (alpha_img, beta_img, K, d) ---")
@@ -377,24 +387,110 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
             matrix = [[f"-> {y_names[r]}", scores[i][j][r]] for r in range(len(ys))]
             pretty_print(matrix)
 
-fit_regressor_to_data()
 
-vec = [0,1,3]
-print(np.divide(4,vec))
+def fit_regressor_to_data2(feature_info=None, func_for_d=None):
+    ## Configuration
+    if func_for_d == None:
+        func_for_d = lambda sample: d_power(sample, 6)
+        # func_for_d = lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"]+1:]) - sample["Lbounds"][sample["label"]]
 
-file_names = data.keys()
-file_names = [file_name for file_name in data.keys() if ("" in file_name and "" in file_name)]
-SIG_functions_for_y = [
-    ("alpha_of_FO", lambda sample: (sigmoid_weighted_least_squares(sample))[0]),
-    ("beta_of_FO", lambda sample: (sigmoid_weighted_least_squares(sample))[1]),
-    ("alpha_over_beta", lambda sample: (sigmoid_weighted_least_squares(sample))[0] / (sigmoid_weighted_least_squares(sample))[1]),
-    ("alpha+1_over_beta", lambda sample: ((sigmoid_weighted_least_squares(sample))[0]+1) / (sigmoid_weighted_least_squares(sample))[1]),
-    ("alpha+2_over_beta", lambda sample: ((sigmoid_weighted_least_squares(sample))[0]+2) / (sigmoid_weighted_least_squares(sample))[1]),
-    ("alpha+5_over_beta", lambda sample: ((sigmoid_weighted_least_squares(sample))[0]+5) / (sigmoid_weighted_least_squares(sample))[1]),
-]
-visualize_K_and_y_funcs(SIG_functions_for_y, file_names)
+    regressors = [LinearRegression()]
+    regressor_names = ["Linear"]
 
-for file_name in file_names:
-    visualize_d_and_y_funcs(functions_for_d, SIG_functions_for_y, [file_name])
+    if feature_info == None:
+        feature_datas, feature_data_names, ys, y_names, fo_samples = generate_feature_info(func_for_d)
+    else:
+        feature_datas, feature_data_names, ys, y_names, fo_samples = feature_info
 
-check_correlation(functions_for_d, SIG_functions_for_y, file_names)
+    ## ------------------ Scaling the features -------------------
+    # feature_data = pd.DataFrame(feature_data)
+    # scaler = StandardScaler()
+    # scaler.fit(feature_data)
+    # feature_data = scaler.transform(feature_data)
+
+    ## Making the polynomial feature
+    # poly = PolynomialFeatures(4)
+    # poly_feature_data = pd.DataFrame(poly.fit_transform(feature_data))
+
+    ## --------------- Fitting and scoring the regressors ----------------------
+
+    scores = []
+    predictions = []
+    for i, regressor in enumerate(regressors):
+        predictions_per_feature_data = []
+        for j, feature_data in enumerate(feature_datas):
+            predictions_per_y = []
+            for k, y in enumerate(ys):
+                if len(y) == 0:
+                    continue
+                regressor.fit(feature_data, y)
+                prediction = regressor.predict(feature_data)
+                predictions_per_y.append(prediction)
+            predictions_per_feature_data.append(predictions_per_y)
+        predictions.append(predictions_per_feature_data)
+
+    ## ------------------ getting a, b -------------------
+    ab_formulas = [{"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor",
+                    "func_for_a": lambda a, b: a,
+                    "func_for_b": lambda a, b: b},
+                   {"x1_name": "a/b", "x2_name": "-(a+4)/b",
+                    "func_for_a": lambda aDivb, aDivb4: (-4 * aDivb) / (aDivb + aDivb4),
+                    "func_for_b": lambda aDivb, aDivb4: (-4) / (aDivb + aDivb4)}]
+    ab = {}
+    for i in range(len(regressors)):
+        regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
+        ab[regressor_name] = {}
+        for j in range(len(feature_datas)):
+            feature_names = feature_data_names[j] if len(feature_data_names) > j else "FEATURE NOT NAMED"
+            ab[regressor_name][feature_names] = []
+            for formula in ab_formulas:
+                a, b = get_a_b(predictions[i][j][y_names.index(formula["x1_name"])],
+                               predictions[i][j][y_names.index(formula["x2_name"])],
+                               formula["func_for_a"],
+                               formula["func_for_b"])
+                scores = avg_successrate_scores(fo_samples, a, b)
+                name = formula["x1_name"] + ", " + formula["x2_name"]
+                if "comment" in formula:
+                    name += " (" + formula["comment"] + ")"
+                ab[regressor_name][feature_names].append({"name": name, "scores": scores})
+
+    print("Training data scores:")
+    print("evaluating a, b")
+    for regressor in ab.keys():
+        for feature in ab[regressor].keys():
+            print("---------------------------------------------------")
+            print("Regressor: " + regressor + ", Feature: " + feature)
+            best_formula = {}
+            for ab_formula in ab[regressor][feature]:
+                for name, score in ab_formula["scores"].items():
+                    if name not in best_formula or score < best_formula[name][1]:
+                        best_formula[name] = [ab_formula["name"], score]
+                print("  " + ab_formula["name"] + ": " + str(ab_formula["scores"]))
+            for name, score in best_formula.items():
+                print("for score" + name + "Best formula: " + score[0] + ": " + str(score[1]))
+
+
+
+
+# fit_regressor_to_data()
+fit_regressor_to_data2()
+# file_names = data.keys()
+# file_names = [file_name for file_name in data.keys() if ("" in file_name and "" in file_name)]
+# SIG_functions_for_y = [
+#     ("alpha_of_FO", lambda sample: (sigmoid_weighted_least_squares(sample))[0]),
+#     ("beta_of_FO", lambda sample: (sigmoid_weighted_least_squares(sample))[1]),
+#     ("alpha_over_beta",
+#      lambda sample: (sigmoid_weighted_least_squares(sample))[0] / (sigmoid_weighted_least_squares(sample))[1]),
+#     ("alpha+1_over_beta",
+#      lambda sample: ((sigmoid_weighted_least_squares(sample))[0] + 1) / (sigmoid_weighted_least_squares(sample))[1]),
+#     ("alpha+2_over_beta",
+#      lambda sample: ((sigmoid_weighted_least_squares(sample))[0] + 2) / (sigmoid_weighted_least_squares(sample))[1]),
+#     ("alpha+5_over_beta",
+#      lambda sample: ((sigmoid_weighted_least_squares(sample))[0] + 5) / (sigmoid_weighted_least_squares(sample))[1]),
+# ]
+# visualize_K_and_y_funcs(SIG_functions_for_y, file_names)
+#
+# for file_name in file_names:
+#     visualize_d_and_y_funcs(functions_for_d, SIG_functions_for_y, [file_name])
+#
+# check_correlation(functions_for_d, SIG_functions_for_y, file_names)
