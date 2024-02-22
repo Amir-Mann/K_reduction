@@ -102,15 +102,28 @@ def calc_weight_for_s(s, lower_bound=0, upper_bound=1, weight_important_points=5
     return weight_important_points if s < upper_bound and s > lower_bound else 1
 
 
-# you can now run sigmoid_weighted_least_squares(fo, lower_bound=0.5) and it will only give weight to above 0.5 points
+sigmoid_weighted_least_squares_dict = {}
 def sigmoid_weighted_least_squares(failing_origin, **kwargs_for_weights_calc):
+    run_info = f"{failing_origin=} {kwargs_for_weights_calc=}"
+    if run_info not in sigmoid_weighted_least_squares_dict:
+        sigmoid_weighted_least_squares_dict[run_info] = sigmoid_weighted_least_squares_aux(failing_origin, **kwargs_for_weights_calc)
+    return sigmoid_weighted_least_squares_dict[run_info]
+
+
+# you can now run sigmoid_weighted_least_squares(fo, lower_bound=0.5) and it will only give weight to above 0.5 points
+def sigmoid_weighted_least_squares_aux(failing_origin, **kwargs_for_weights_calc):
     subks = failing_origin["statistics"]  # sorted([subk for subk in fo["statistics"]], key= lambda subk: subk["sub_k"])
     weights = np.array([calc_weight_for_s(subk["success"], **kwargs_for_weights_calc) for subk in subks])
     x = np.array([subk["sub_k"] for subk in subks])
     y = np.array([subk["success"] for subk in subks])
+    if sum(y) == len(y):
+        print(y)
+        np.append(y, 0)
+        np.append(x, failing_origin["k"])
     vars = np.array([20, -0.5])
-    result = scipy.optimize.least_squares(classic_ls_problem, vars, args=(x, y, weights))
-    # print(result)
+    bbound = (500 * 4 * 4) ** 2 
+    result = scipy.optimize.least_squares(classic_ls_problem, vars, args=(x, y, weights), 
+                                          bounds=((-bbound, -bbound), (bbound, bbound)))
     return result["x"]
 
 
