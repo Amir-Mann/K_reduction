@@ -297,31 +297,122 @@ def generate_feature_info(func_for_d):
     return (feature_datas, feature_data_names, ys, y_names, samples_in_use)
 
 
+# def fit_regressor_to_data(feature_info=None, func_for_d=None):
+#     ## Configuration
+#     if func_for_d == None:
+#         func_for_d = lambda sample: d_power(sample, 6)
+#         # func_for_d = lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"]+1:]) - sample["Lbounds"][sample["label"]]
+#
+#     regressors = [LinearRegression()]
+#     regressor_names = ["Linear"]
+#
+#     if feature_info == None:
+#         feature_datas, feature_data_names, ys, y_names, fo_samples = generate_feature_info(func_for_d)
+#     else:
+#         feature_datas, feature_data_names, ys, y_names, fo_samples = feature_info
+#
+#     ## ------------------ Scaling the features -------------------
+#     # feature_data = pd.DataFrame(feature_data)
+#     # scaler = StandardScaler()
+#     # scaler.fit(feature_data)
+#     # feature_data = scaler.transform(feature_data)
+#
+#     ## Making the polynomial feature
+#     # poly = PolynomialFeatures(4)
+#     # poly_feature_data = pd.DataFrame(poly.fit_transform(feature_data))
+#
+#     ## --------------- Fitting and scoring the regressors ----------------------
+#
+#     scores = []
+#     predictions = []
+#     for i, regressor in enumerate(regressors):
+#         scores_per_feature_data = []
+#         predictions_per_feature_data = []
+#         for j, feature_data in enumerate(feature_datas):
+#             scores_per_y = []
+#             predictions_per_y = []
+#             for k, y in enumerate(ys):
+#                 if len(y) == 0:
+#                     continue
+#                 regressor.fit(feature_data, y)
+#
+#                 # Calculating scores
+#                 ROUNDING_PRECISION = 5
+#                 prediction = regressor.predict(feature_data)
+#                 score1 = regressor.score(feature_data, y)  # R^2
+#                 score2 = np.sum(np.abs(prediction - y)) / len(y)  # L_1 / len(y)
+#                 score3 = (np.sum((prediction - y) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
+#
+#                 temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
+#                 scores_per_y.append(list(temp_scores))
+#                 predictions_per_y.append(prediction)
+#             scores_per_feature_data.append(scores_per_y)
+#             predictions_per_feature_data.append(predictions_per_y)
+#         scores.append(scores_per_feature_data)
+#         predictions.append(predictions_per_feature_data)
+#
+#     # calc a and b
+#     y_names.append("a2")
+#     y_names.append("b2")
+#     ys.append(ys[y_names.index("a")])
+#     ys.append(ys[y_names.index("b")])
+#     for i, regressor in enumerate(regressors):
+#         for j, feature in enumerate(feature_datas):
+#             aDivb = predictions[i][j][y_names.index("a/b")]
+#             a4Divb = predictions[i][j][y_names.index("-(a+4)/b")]
+#             b = np.divide(-4, np.add(aDivb, a4Divb))
+#             a = np.multiply(aDivb, b)
+#             score1 = -1  # R^2
+#             score2 = np.sum(np.abs(a - ys[y_names.index("a")])) / len(y)  # L_1 / len(y)
+#             score3 = (np.sum((a - ys[y_names.index("a")]) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
+#             temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
+#             scores[i][j].append(temp_scores)
+#             score1 = -1  # R^2
+#             score2 = np.sum(np.abs(b - ys[y_names.index("b")])) / len(y)  # L_1 / len(y)
+#             score3 = (np.sum((b - ys[y_names.index("b")]) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
+#             temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
+#             scores[i][j].append(temp_scores)
+#
+#     # printing out the results
+#     print("--- Fitting model to (alpha_img, beta_img, K, d) ---")
+#     print("Training data scores:")
+#     for i in range(len(regressors)):
+#         regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
+#         for j in range(len(feature_datas)):
+#             feature_names = feature_data_names[j] if len(feature_data_names) > j else "FEATURE NOT NAMED"
+#             print(f"______________________________________________\n")
+#             print(f"Features:\t[{feature_names}]")
+#             print(f"Regressor:\t{regressor_names[i]}")
+#             print(f"Scores:\t\t[R^2, L_1, L_2]\n")
+#             matrix = [[f"-> {y_names[r]}", scores[i][j][r]] for r in range(len(ys))]
+#             pretty_print(matrix)
+
+
 def fit_regressor_to_data(feature_info=None, func_for_d=None):
-    ## Configuration
-    if func_for_d == None:
+    # Configuration
+    if func_for_d is None:
         func_for_d = lambda sample: d_power(sample, 6)
         # func_for_d = lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"]+1:]) - sample["Lbounds"][sample["label"]]
 
     regressors = [LinearRegression()]
     regressor_names = ["Linear"]
 
-    if feature_info == None:
+    if feature_info is None:
         feature_datas, feature_data_names, ys, y_names, fo_samples = generate_feature_info(func_for_d)
     else:
         feature_datas, feature_data_names, ys, y_names, fo_samples = feature_info
 
-    ## ------------------ Scaling the features -------------------
+    # ------------------ Scaling the features -------------------
     # feature_data = pd.DataFrame(feature_data)
     # scaler = StandardScaler()
     # scaler.fit(feature_data)
     # feature_data = scaler.transform(feature_data)
 
-    ## Making the polynomial feature
+    # Making the polynomial feature
     # poly = PolynomialFeatures(4)
     # poly_feature_data = pd.DataFrame(poly.fit_transform(feature_data))
 
-    ## --------------- Fitting and scoring the regressors ----------------------
+    # --------------- Fitting and scoring the regressors ----------------------
 
     scores = []
     predictions = []
@@ -351,85 +442,21 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
         scores.append(scores_per_feature_data)
         predictions.append(predictions_per_feature_data)
 
-    # calc a and b
-    y_names.append("a2")
-    y_names.append("b2")
-    ys.append(ys[y_names.index("a")])
-    ys.append(ys[y_names.index("b")])
-    for i, regressor in enumerate(regressors):
-        for j, feature in enumerate(feature_datas):
-            aDivb = predictions[i][j][y_names.index("a/b")]
-            a4Divb = predictions[i][j][y_names.index("-(a+4)/b")]
-            b = np.divide(-4, np.add(aDivb, a4Divb))
-            a = np.multiply(aDivb, b)
-            score1 = -1  # R^2
-            score2 = np.sum(np.abs(a - ys[y_names.index("a")])) / len(y)  # L_1 / len(y)
-            score3 = (np.sum((a - ys[y_names.index("a")]) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
-            temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
-            scores[i][j].append(temp_scores)
-            score1 = -1  # R^2
-            score2 = np.sum(np.abs(b - ys[y_names.index("b")])) / len(y)  # L_1 / len(y)
-            score3 = (np.sum((b - ys[y_names.index("b")]) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
-            temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
-            scores[i][j].append(temp_scores)
+        # printing out the results
+        print("--- Fitting model to (alpha_img, beta_img, K, d) ---")
+        print("Training data scores:")
+        for i in range(len(regressors)):
+            regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
+            for j in range(len(feature_datas)):
+                feature_names = feature_data_names[j] if len(feature_data_names) > j else "FEATURE NOT NAMED"
+                print(f"______________________________________________\n")
+                print(f"Features:\t[{feature_names}]")
+                print(f"Regressor:\t{regressor_names[i]}")
+                print(f"Scores:\t\t[R^2, L_1, L_2]\n")
+                matrix = [[f"-> {y_names[r]}", scores[i][j][r]] for r in range(len(ys))]
+                pretty_print(matrix)
 
-    # printing out the results
-    print("--- Fitting model to (alpha_img, beta_img, K, d) ---")
-    print("Training data scores:")
-    for i in range(len(regressors)):
-        regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
-        for j in range(len(feature_datas)):
-            feature_names = feature_data_names[j] if len(feature_data_names) > j else "FEATURE NOT NAMED"
-            print(f"______________________________________________\n")
-            print(f"Features:\t[{feature_names}]")
-            print(f"Regressor:\t{regressor_names[i]}")
-            print(f"Scores:\t\t[R^2, L_1, L_2]\n")
-            matrix = [[f"-> {y_names[r]}", scores[i][j][r]] for r in range(len(ys))]
-            pretty_print(matrix)
-
-
-def fit_regressor_to_data2(feature_info=None, func_for_d=None):
-    ## Configuration
-    if func_for_d == None:
-        func_for_d = lambda sample: d_power(sample, 6)
-        # func_for_d = lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"]+1:]) - sample["Lbounds"][sample["label"]]
-
-    regressors = [LinearRegression()]
-    regressor_names = ["Linear"]
-
-    if feature_info == None:
-        feature_datas, feature_data_names, ys, y_names, fo_samples = generate_feature_info(func_for_d)
-    else:
-        feature_datas, feature_data_names, ys, y_names, fo_samples = feature_info
-
-    ## ------------------ Scaling the features -------------------
-    # feature_data = pd.DataFrame(feature_data)
-    # scaler = StandardScaler()
-    # scaler.fit(feature_data)
-    # feature_data = scaler.transform(feature_data)
-
-    ## Making the polynomial feature
-    # poly = PolynomialFeatures(4)
-    # poly_feature_data = pd.DataFrame(poly.fit_transform(feature_data))
-
-    ## --------------- Fitting and scoring the regressors ----------------------
-
-    scores = []
-    predictions = []
-    for i, regressor in enumerate(regressors):
-        predictions_per_feature_data = []
-        for j, feature_data in enumerate(feature_datas):
-            predictions_per_y = []
-            for k, y in enumerate(ys):
-                if len(y) == 0:
-                    continue
-                regressor.fit(feature_data, y)
-                prediction = regressor.predict(feature_data)
-                predictions_per_y.append(prediction)
-            predictions_per_feature_data.append(predictions_per_y)
-        predictions.append(predictions_per_feature_data)
-
-    ## ------------------ getting a, b -------------------
+    # ------------------ getting a, b -------------------
     ab_formulas = [{"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor",
                     "func_for_a": lambda a, b: a,
                     "func_for_b": lambda a, b: b},
@@ -444,36 +471,34 @@ def fit_regressor_to_data2(feature_info=None, func_for_d=None):
             feature_names = feature_data_names[j] if len(feature_data_names) > j else "FEATURE NOT NAMED"
             ab[regressor_name][feature_names] = []
             for formula in ab_formulas:
-                a, b = get_a_b(predictions[i][j][y_names.index(formula["x1_name"])],
-                               predictions[i][j][y_names.index(formula["x2_name"])],
-                               formula["func_for_a"],
-                               formula["func_for_b"])
+                if "func_for_a" not in formula or "func_for_b" not in formula:
+                    a = predictions[i][j][y_names.index(formula["x1_name"])]
+                    b = predictions[i][j][y_names.index(formula["x2_name"])]
+                else:
+                    a, b = get_a_b(predictions[i][j][y_names.index(formula["x1_name"])],
+                                   predictions[i][j][y_names.index(formula["x2_name"])],
+                                   formula["func_for_a"],
+                                   formula["func_for_b"])
                 scores = avg_successrate_scores(fo_samples, a, b)
                 name = formula["x1_name"] + ", " + formula["x2_name"]
                 if "comment" in formula:
                     name += " (" + formula["comment"] + ")"
                 ab[regressor_name][feature_names].append({"name": name, "scores": scores})
 
-    print("Training data scores:")
+    # ------------------ printing out ab results -------------------
     print("evaluating a, b")
     for regressor in ab.keys():
         for feature in ab[regressor].keys():
             print("---------------------------------------------------")
             print("Regressor: " + regressor + ", Feature: " + feature)
-            best_formula = {}
-            for ab_formula in ab[regressor][feature]:
-                for name, score in ab_formula["scores"].items():
-                    if name not in best_formula or score < best_formula[name][1]:
-                        best_formula[name] = [ab_formula["name"], score]
-                print("  " + ab_formula["name"] + ": " + str(ab_formula["scores"]))
-            for name, score in best_formula.items():
-                print("for score" + name + "Best formula: " + score[0] + ": " + str(score[1]))
+            matrix = [["", *ab[regressor][feature][0]["scores"].keys()]]
+            matrix += [[ab_formula["name"], *[format(score, ".4f") for score in ab_formula["scores"].values()]] for ab_formula in ab[regressor][feature]]
+            matrix += [["best: ", *[format(min([ab_formula["scores"][name] for ab_formula in ab[regressor][feature]]), ".4f") for name in ab[regressor][feature][0]["scores"].keys()]]]
+            pretty_print(matrix)
 
 
+fit_regressor_to_data()
 
-
-# fit_regressor_to_data()
-fit_regressor_to_data2()
 # file_names = data.keys()
 # file_names = [file_name for file_name in data.keys() if ("" in file_name and "" in file_name)]
 # SIG_functions_for_y = [
