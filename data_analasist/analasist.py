@@ -5,9 +5,9 @@ from fo_funcs import *
 from utils import *
 from sklearn.linear_model import LinearRegression, Ridge
 
-stats_folder = "../tf_verify/json_stats"
+stats_folder = "../tf_verify/fixed_json_stats"
 
-filter_out_perfect_data = True
+filter_out_perfect_data = False
 filter_out_all_image = True
 
 full_image_data = {}
@@ -244,14 +244,15 @@ def generate_feature_info(func_for_d):
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
         datapoints = [
             ([img_vars[0], img_vars[1], k, img_d], "a_img, b_img, k, d"),
-            ([k], "k"),
+            #([k], "k"),
             # ([img_d_normalized_per_img],                "d/sum(ds_in_img)") ,
             # ([img_d_normalized_per_K],                  "d/sum(ds_in_K)"),
             ([k, img_d_normalized_per_img],         "k, d/sum(ds_in_img)"),
             #([k, img_d_normalized_per_K],           "k, d/sum(ds_in_K)"),
             # ([img_b*784/k],                          "img_b*784/k"),
+            ([img_b/k, k, img_d_normalized_per_img], "img_b/k, k, img_d_normalized_per_img"),
             #([img_b/k, k, img_d_normalized_per_img], "img_b/k, k, d/sum(ds_in_img)"),
-            #([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in img_vars + [k]], "Overfit"),
+            ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in img_vars + [k]], "Overfit"),
             # ([k * img_vars[1]], "k * img_b"),
             # ([img_vars[1] / k], "img_b / k"),
             # ([img_vars[1] / k], "img_b / k"),

@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import scipy
 import numpy as np
 
@@ -127,6 +128,7 @@ def sigmoid_weighted_least_squares_aux(failing_origin, **kwargs_for_weights_calc
     return result["x"]
 
 
+plot=False
 def successrate_scores(failing_origin, estimated_alpha, estimated_beta, score_type=None, **kwargs_for_weights_calc):
     """
     Returns scores which are based on calculating the diffrences between the estimated sucess rate un best fit sucess rate.
@@ -134,9 +136,13 @@ def successrate_scores(failing_origin, estimated_alpha, estimated_beta, score_ty
     alpha, beta = sigmoid_weighted_least_squares(failing_origin, **kwargs_for_weights_calc)
     subks = failing_origin["statistics"]  # sorted([subk for subk in fo["statistics"]], key= lambda subk: subk["sub_k"])
     weights = np.array([calc_weight_for_s(subk["success"], **kwargs_for_weights_calc) for subk in subks])
-    x = np.array([subk["sub_k"] for subk in subks])
-    ground_trueth = sigmoid_array(alpha - beta * x)
+    x = np.array(sorted([subk["sub_k"] for subk in subks]))
+    ground_trueth = sigmoid_array(alpha + beta * x)
     estimated = sigmoid_array(estimated_alpha + estimated_beta * x)
+    if plot:
+        plt.plot(x, ground_trueth, color="green")
+        plt.plot(x, estimated, color="purple")
+        plt.show()
     residuals = ground_trueth - estimated
     scores = {
         "max": max(np.abs(residuals)),
