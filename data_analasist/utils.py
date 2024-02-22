@@ -36,11 +36,9 @@ def max_index_of_matrix(matrix):
     return y_max_index
 
 
-def get_a_b(x1, x2, func_for_a, func_for_b):
+def get_y(x1, x2, y_func):
     assert len(x1) == len(x2)
-    a = []
-    b = []
+    y = []
     for i in range(len(x1)):
-        a.append(func_for_a(x1[i], x2[i]))
-        b.append(func_for_b(x1[i], x2[i]))
-    return a, b
+        y.append(y_func(x1[i], x2[i]))
+    return y

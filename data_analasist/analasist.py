@@ -234,25 +234,27 @@ def generate_feature_info(func_for_d):
         full_image_fo = get_full_image_data_from_FO(sample)
 
         img_vars = sigmoid_weighted_least_squares(full_image_fo)
-        img_k = sample["k"]
+        k = sample["k"]
         img_d = func_for_d(sample)
         img_d_normalized_per_K = img_d / average_d_per_K[get_dataset_network_image_string_K(sample)]
         img_d_normalized_per_img = img_d / average_d_per_img[get_dataset_network_image_string(sample)]
 
         current_feature_index = 0
-
+        img_b = img_vars[1]
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
         datapoints = [
-            ([img_vars[0], img_vars[1], img_k, img_d], "a_img, b_img, k, d"),
-            ([img_k], "k"),
-            ([img_d_normalized_per_img],                "d/sum(ds_in_img)") ,
-            ([img_d_normalized_per_K],                  "d/sum(ds_in_K)"),
-            ([img_k, img_d_normalized_per_img],         "k, d/sum(ds_in_img)"),
-            ([img_k, img_d_normalized_per_K],           "k, d/sum(ds_in_K)"),
-            # ([img_k * img_vars[1]], "k * img_b"),
-            # ([img_vars[1] / img_k], "img_b / k"),
-            # ([img_vars[1] / img_k], "img_b / k"),
-            # ([img_k / img_vars[1]], "k / img_b"),
+            ([img_vars[0], img_vars[1], k, img_d], "a_img, b_img, k, d"),
+            ([k], "k"),
+            # ([img_d_normalized_per_img],                "d/sum(ds_in_img)") ,
+            # ([img_d_normalized_per_K],                  "d/sum(ds_in_K)"),
+            ([k, img_d_normalized_per_img],         "k, d/sum(ds_in_img)"),
+            ([k, img_d_normalized_per_K],           "k, d/sum(ds_in_K)"),
+            # ([img_b*784/k],                          "img_b*784/k"),
+            ([img_b/k, k, img_d_normalized_per_img], "img_b/k, k, d/sum(ds_in_img)"),
+            # ([k * img_vars[1]], "k * img_b"),
+            # ([img_vars[1] / k], "img_b / k"),
+            # ([img_vars[1] / k], "img_b / k"),
+            # ([k / img_vars[1]], "k / img_b"),
             # ([img_vars[1]], "img_b"),
             # ([1 / img_vars[1]], "1 / img_b"),
             # ([np.log(img_vars[1])], "ln(img_b)")
@@ -278,14 +280,13 @@ def generate_feature_info(func_for_d):
         if first:
             ys += [[], [], []]
             y_names += ["a", "b", "a/b"]
-        ys[s].append(a);
+        ys[s].append(a)
         s += 1
-        ys[s].append(b);
+        ys[s].append(b)
         s += 1
-        ys[s].append(a / b);
+        ys[s].append(a / b)
         s += 1
-        # print((784*b) / (img_b * img_k))
-        values = range(2, 7, 2)
+        values = [4]
         for i in values:
             if first:
                 ys += [[]]
@@ -457,12 +458,16 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
                 pretty_print(matrix)
 
     # ------------------ getting a, b -------------------
-    ab_formulas = [{"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor",
-                    "func_for_a": lambda a, b: a,
-                    "func_for_b": lambda a, b: b},
+    ab_formulas = [{"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor"},
                    {"x1_name": "a/b", "x2_name": "-(a+4)/b",
-                    "func_for_a": lambda aDivb, aDivb4: (-4 * aDivb) / (aDivb + aDivb4),
-                    "func_for_b": lambda aDivb, aDivb4: (-4) / (aDivb + aDivb4)}]
+                    "a_func": lambda aDivb, a4Divb: (-4 * aDivb) / (aDivb + a4Divb),
+                    "b_func": lambda aDivb, a4Divb: (-4) / (aDivb + a4Divb)},
+                   # {"x1_name": "-(a+6)/b", "x2_name": "-(a+4)/b",
+                   #  "a_func": lambda x1, x2: (4*x1 - 6*x2)/(x2 - x1),
+                   #  "b_func": lambda x1, x2: -((4*x1 - 6*x2)/(x2 - x1) + 4) / x2},
+                   {"x1_name": "a/b", "x2_name": "b",
+                    "a_func": lambda x1, x2: x1 * x2}
+                   ]
     ab = {}
     for i in range(len(regressors)):
         regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
@@ -471,14 +476,16 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
             feature_names = feature_data_names[j] if len(feature_data_names) > j else "FEATURE NOT NAMED"
             ab[regressor_name][feature_names] = []
             for formula in ab_formulas:
-                if "func_for_a" not in formula or "func_for_b" not in formula:
-                    a = predictions[i][j][y_names.index(formula["x1_name"])]
-                    b = predictions[i][j][y_names.index(formula["x2_name"])]
+                x1 = predictions[i][j][y_names.index(formula["x1_name"])] if "x1_name" in formula else None
+                x2 = predictions[i][j][y_names.index(formula["x2_name"])] if "x2_name" in formula else None
+                if "a_func" in formula:
+                    a = get_y(x1, x2, formula["a_func"])
                 else:
-                    a, b = get_a_b(predictions[i][j][y_names.index(formula["x1_name"])],
-                                   predictions[i][j][y_names.index(formula["x2_name"])],
-                                   formula["func_for_a"],
-                                   formula["func_for_b"])
+                    a = predictions[i][j][y_names.index(formula["x1_name"])]
+                if "b_func" in formula:
+                    b = get_y(x1, x2, formula["b_func"])
+                else:
+                    b = predictions[i][j][y_names.index(formula["x2_name"])]
                 scores = avg_successrate_scores(fo_samples, a, b)
                 name = formula["x1_name"] + ", " + formula["x2_name"]
                 if "comment" in formula:
