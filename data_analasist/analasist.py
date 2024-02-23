@@ -392,16 +392,19 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
                 pretty_print(matrix)
 
     # ------------------ getting a, b -------------------
-    ab_formulas = [{"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor"},
-                   {"x1_name": "a/b", "x2_name": "-(a+4)/b",
-                    "a_func": lambda aDivb, a4Divb: (-4 * aDivb) / (aDivb + a4Divb),
-                    "b_func": lambda aDivb, a4Divb: (-4) / (aDivb + a4Divb)},
-                   # {"x1_name": "-(a+6)/b", "x2_name": "-(a+4)/b",
-                   #  "a_func": lambda x1, x2: (4*x1 - 6*x2)/(x2 - x1),
-                   #  "b_func": lambda x1, x2: -((4*x1 - 6*x2)/(x2 - x1) + 4) / x2},
-                   {"x1_name": "a/b", "x2_name": "b",
-                    "a_func": lambda x1, x2: x1 * x2},
-                   ]
+    ab_formulas = [
+        {"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor"},
+        {"x1_name": "a/b", "x2_name": "-(a+4)/b",
+         "a_func": lambda aDivb, a4Divb: (-4 * aDivb) / (aDivb + a4Divb),
+         "b_func": lambda aDivb, a4Divb: (-4) / (aDivb + a4Divb)},
+        # {"x1_name": "-(a+6)/b", "x2_name": "-(a+4)/b",
+        #  "a_func": lambda x1, x2: (4*x1 - 6*x2)/(x2 - x1),
+        #  "b_func": lambda x1, x2: -((4*x1 - 6*x2)/(x2 - x1) + 4) / x2},
+        {"x1_name": "a/b", "x2_name": "b",
+         "a_func": lambda x1, x2: x1 * x2},
+        {"x1_name": "a/b", "x2_name": "1/b",
+         "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
+    ]
     ab = {}
     for i in range(len(regressors)):
         regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
