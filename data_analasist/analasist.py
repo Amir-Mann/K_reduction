@@ -390,6 +390,16 @@ def generate_feature_info(func_for_d):
 #             matrix = [[f"-> {y_names[r]}", scores[i][j][r]] for r in range(len(ys))]
 #             pretty_print(matrix)
 
+def get_all_fnr_sigmoid(fo_samples, **kwargs_for_weights_calc):
+    alphas = []
+    betas = []
+    for fo in fo_samples:
+        img_fo = get_full_image_data_from_FO(fo)
+        alpha, beta = get_fnr_sigmoid(img_fo, fo["k"], **kwargs_for_weights_calc)
+        alphas.append(alpha)
+        betas.append(beta)
+    return alphas, betas
+
 
 def fit_regressor_to_data(feature_info=None, func_for_d=None):
     # Configuration
@@ -468,7 +478,7 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
                    #  "a_func": lambda x1, x2: (4*x1 - 6*x2)/(x2 - x1),
                    #  "b_func": lambda x1, x2: -((4*x1 - 6*x2)/(x2 - x1) + 4) / x2},
                    {"x1_name": "a/b", "x2_name": "b",
-                    "a_func": lambda x1, x2: x1 * x2}
+                    "a_func": lambda x1, x2: x1 * x2},
                    ]
     ab = {}
     for i in range(len(regressors)):
@@ -493,6 +503,10 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
                 if "comment" in formula:
                     name += " (" + formula["comment"] + ")"
                 ab[regressor_name][feature_names].append({"name": name, "scores": scores})
+
+            a, b = get_all_fnr_sigmoid(fo_samples)
+            scores = avg_successrate_scores(fo_samples, a, b)
+            ab[regressor_name][feature_names].append({"name": "fnr", "scores": scores})
 
     # ------------------ printing out ab results -------------------
     print("evaluating a, b")
