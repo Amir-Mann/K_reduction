@@ -95,7 +95,14 @@ def sigmoid_array(x):
 
 
 def classic_ls_problem(vars, x, y, weights):
-    return ((1 / (1 + np.exp(- vars[0] - vars[1] * x))) - y) * weights
+    # I want to change what's inside sigmoid to np.float128 to avoid , but it's not working
+    # https://bobbyhadz.com/blog/runtime-warning-overflow-encountered-in-exp-in-python#:~:text=The%20NumPy%20%22RuntimeWarning%3A%20overflow%20encountered,float128%20before%20calling%20exp()%20.
+    # returns inf, which actually seems to be fine
+    inside_sigmoid = - vars[0] - vars[1] * x
+    exponent = np.exp(inside_sigmoid)
+    value_to_return = ((1 / (1 + exponent)) - y) * weights
+    # original_value = ((1 / (1 + np.exp(- vars[0] - vars[1] * x))) - y) * weights
+    return value_to_return
 
 
 def calc_weight_for_s(s, lower_bound=0, upper_bound=1, weight_important_points=5):

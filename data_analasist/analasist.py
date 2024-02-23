@@ -136,21 +136,13 @@ def check_correlation(functions_for_d, functions_for_y, file_names):
     best_mean_index = max_index_of_matrix(yx_means)
     best_mean = yx_means[best_mean_index[0]][best_mean_index[1]]
 
-    print(
-        f"\nBest mean functions: Y = {functions_for_y[best_mean_index[0]][0]}, X = {functions_for_d[best_mean_index[1]][0]}, with mean R^2 {best_mean}")
+    print(f"\nBest mean functions: Y = {functions_for_y[best_mean_index[0]][0]}, X = {functions_for_d[best_mean_index[1]][0]}, with mean R^2 {best_mean}")
 
 
 # for key, value in data.items():
 #     print(key, len(value))
 
 ## ------ Visualization of data ------------- ##
-
-# ------ Configuration ----------
-
-# Which data we're using
-# list_of_file_names_in_RELU = [str for str in list(data.keys()) if "relu" in str]
-# FILE_NAME = list_of_file_names_in_RELU[3]
-# print(f"NUM OF FILES IN \"RELU\": {len(list_of_file_names_in_RELU)}")
 
 
 if False:
@@ -168,18 +160,19 @@ def get_full_image_data_from_FO(sample):
             return fo
     return None
 
-
-def get_dataset_network_image_string(sample):
+# Returns a string that's unique for each (dataset, network, image) 3-tuple
+def get_string_for_image(sample):
     return f'{sample["dataset"]} -- {sample["network"]} -- {sample["image"]}'
 
 
-def get_dataset_network_image_string_K(sample):
+# Returns a string that's unique for each (dataset, network, image, k) 4-tuple
+def get_string_for_k(sample):
     return f'{sample["dataset"]} -- {sample["network"]} -- {sample["image"]} -- {sample["k"]}'
 
 
 def generate_feature_info(func_for_d):
     """
-    paramters:
+    parameters:
         fuc_for_d: the function used to calculate d, of the format "func(sample) -> number"
 
     returns:
@@ -203,29 +196,51 @@ def generate_feature_info(func_for_d):
 
     # TODO calculate the proper normalization
     # caluculating the average D in each (network, img, K) 3-tuple
-    average_d_per_K = {}
-    for file_name in file_names:
-        current_sum = 0
-        for sample in data[file_name]:
-            current_sum += func_for_d(sample)
-        current_sum /= len(data[file_name])
-        file_name_in_sample = get_dataset_network_image_string_K(data[file_name][0])
-        average_d_per_K[file_name_in_sample] = current_sum
+    # average_d_per_K = {}
+    # for file_name in file_names:
+    #     current_sum = 0
+    #     for sample in data[file_name]:
+    #         current_sum += func_for_d(sample)
+    #     current_sum /= len(data[file_name])
+    #     file_name_in_sample = get_dataset_network_image_string_K(data[file_name][0])
+    #     average_d_per_K[file_name_in_sample] = current_sum
 
     # caluculating the average D in each (network, img) 2-tuple
-    average_d_per_img = {}
+    # average_d_per_img = {}
+    # for file_name in file_names:
+    #     file_name_in_sample = get_dataset_network_image_string(data[file_name][0])
+    #     current_sum = 0
+    #     for sample in data[file_name]:
+    #         current_sum += func_for_d(sample)
+    #     if file_name_in_sample not in average_d_per_img:
+    #         average_d_per_img[file_name_in_sample] = (current_sum, len(data[file_name]))
+    #     else:
+    #         tup = average_d_per_img[file_name_in_sample]
+    #         average_d_per_img[file_name_in_sample] = (tup[0] + current_sum, tup[1] + len(data[file_name]))
+    # for key in average_d_per_img:
+    #     average_d_per_img[key] = (average_d_per_img[key][0] / average_d_per_img[key][1])
+
+    list_of_ds_per_k = {}
+    list_of_ds_per_img = {}
     for file_name in file_names:
-        file_name_in_sample = get_dataset_network_image_string(data[file_name][0])
-        current_sum = 0
+        file_name_per_k = get_string_for_k(data[file_name][0])
+        file_name_per_img = get_string_for_image(data[file_name][0])
+        if file_name_per_k not in list_of_ds_per_k:
+            list_of_ds_per_k[file_name_per_k] = []
+        if file_name_per_img not in list_of_ds_per_img:
+            list_of_ds_per_img[file_name_per_img] = []
         for sample in data[file_name]:
-            current_sum += func_for_d(sample)
-        if file_name_in_sample not in average_d_per_img:
-            average_d_per_img[file_name_in_sample] = (current_sum, len(data[file_name]))
-        else:
-            tup = average_d_per_img[file_name_in_sample]
-            average_d_per_img[file_name_in_sample] = (tup[0] + current_sum, tup[1] + len(data[file_name]))
-    for key in average_d_per_img:
-        average_d_per_img[key] = (average_d_per_img[key][0] / average_d_per_img[key][1])
+            list_of_ds_per_k[file_name_per_k].append(func_for_d(sample))
+        list_of_ds_per_img[file_name_per_img] += list_of_ds_per_k[file_name_per_k]
+
+    mean_and_variance_per_k = {}
+    mean_and_variance_per_img = {}
+    for key in list_of_ds_per_k:
+        mean_and_variance_per_k[key] = (np.mean(list_of_ds_per_k[key]), np.var(list_of_ds_per_k[key]))
+    for key in list_of_ds_per_img:
+        mean_and_variance_per_img[key] = (np.mean(list_of_ds_per_img[key]), np.var(list_of_ds_per_img[key]))
+
+
 
     # -------------- Creating the datas for the features, and the ys --------------------
     first = True
@@ -233,162 +248,68 @@ def generate_feature_info(func_for_d):
         # initializing variables that will be used
         full_image_fo = get_full_image_data_from_FO(sample)
 
-        img_vars = sigmoid_weighted_least_squares(full_image_fo)
-        k = sample["k"]
+        img_a, img_b = sigmoid_weighted_least_squares(full_image_fo)
+        img_k = sample["k"]
         img_d = func_for_d(sample)
-        img_d_normalized_per_K = img_d / average_d_per_K[get_dataset_network_image_string_K(sample)]
-        img_d_normalized_per_img = img_d / average_d_per_img[get_dataset_network_image_string(sample)]
 
-        current_feature_index = 0
-        img_b = img_vars[1]
+        # ----------normalization -------------
+        # initializing stats per image
+        d_mean_per_image, d_variance_per_image = mean_and_variance_per_img[get_string_for_image(sample)]
+        d_min_per_image = min(list_of_ds_per_img[get_string_for_image(sample)])
+        d_max_per_image = max(list_of_ds_per_img[get_string_for_image(sample)])
+
+        d_mean, d_variance = d_mean_per_image, d_variance_per_image
+        d_min, d_max = d_min_per_image, d_max_per_image
+
+        # getting the normalized values
+        img_d_normalized = {
+            "standard": (img_d - d_mean) / d_variance,
+            "div_by_mean": img_d / d_mean,
+            "min_max": (img_d - d_min) / (d_max - d_min),
+        }
+
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
         datapoints = [
-            ([img_vars[0], img_vars[1], k, img_d], "a_img, b_img, k, d"),
-            #([k], "k"),
-            # ([img_d_normalized_per_img],                "d/sum(ds_in_img)") ,
-            # ([img_d_normalized_per_K],                  "d/sum(ds_in_K)"),
-            ([k, img_d_normalized_per_img],         "k, d/sum(ds_in_img)"),
-            #([k, img_d_normalized_per_K],           "k, d/sum(ds_in_K)"),
-            # ([img_b*784/k],                          "img_b*784/k"),
-            ([img_b/k, k, img_d_normalized_per_img], "img_b/k, k, img_d_normalized_per_img"),
-            #([img_b/k, k, img_d_normalized_per_img], "img_b/k, k, d/sum(ds_in_img)"),
-            ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in img_vars + [k]], "Overfit"),
-            # ([k * img_vars[1]], "k * img_b"),
-            # ([img_vars[1] / k], "img_b / k"),
-            # ([img_vars[1] / k], "img_b / k"),
+            ([img_a, img_b, img_k, img_d], "a_img, b_img, k, d"),
+            ([img_k],                                           "k"),
+            ([img_k, img_d],                                "k , d"),
+            ([img_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
+            ([img_k, img_d_normalized["div_by_mean"]],         "k, d_normalized[\"div_by_mean\"]"),
+            ([img_k, img_d_normalized["min_max"]],           "k, d_normalized[\"min_max\"]"),
+
+            # ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in img_vars + [k]], "Overfit"),
             # ([k / img_vars[1]], "k / img_b"),
             # ([img_vars[1]], "img_b"),
             # ([1 / img_vars[1]], "1 / img_b"),
             # ([np.log(img_vars[1])], "ln(img_b)")
-            ## example datapoint : ([alpha_img, FO_k], "alpha_img, FO_K") ---- Dont forget to add a feature name!
+            # example datapoint : ([alpha_img, FO_k], "alpha_img, FO_K") ---- Dont forget to add a feature name!
         ]
 
-        # adding the data to feature_datas
-        if first:
-            for k in range(len(datapoints)):
-                feature_datas.append([])
-                feature_data_names.append(datapoints[k][1])
-        for datapoint in datapoints:
-            feature_datas[current_feature_index].append(datapoint[0])
-            current_feature_index += 1
+        sample_a, sample_b = sigmoid_weighted_least_squares(sample)
 
-        # adding the alpha to the ys
-        sample_vars = sigmoid_weighted_least_squares(sample)
-        a = sample_vars[0]
-        b = sample_vars[1]
-        img_a = img_vars[0]
-        img_b = img_vars[1]
-        s = 0
-        if first:
-            ys += [[], [], []]
-            y_names += ["a", "b", "a/b"]
-        ys[s].append(a)
-        s += 1
-        ys[s].append(b)
-        s += 1
-        ys[s].append(a / b)
-        s += 1
-        values = [4]
-        for i in values:
+        # y predictors
+        y_predictors = [
+            (sample_a, "a"),
+            (sample_b, "b"),
+            (sample_a / sample_b, "a/b"),
+            (1 / sample_b, "1/b"),
+        ]
+        for i in range(2, 7, 2):
+            y_predictors.append((-(sample_a + i) / sample_b, f"-(a+{i})/b"))
+
+        # adding the datapoints to the feature_data and the y_predictors to the ys
+        adding_lists = [(datapoints, feature_datas, feature_data_names), (y_predictors, ys, y_names)]
+        for given_data, list_to_add_to, names in adding_lists:
             if first:
-                ys += [[]]
-                y_names += [f"-(a+{i})/b"]
-            ys[s].append(-(a + i) / b);
-            s += 1
+                for t in range(len(given_data)):
+                    list_to_add_to.append([])
+                    names.append(given_data[t][1])
+            for t, element in enumerate(given_data):
+                list_to_add_to[t].append(element[0])
 
         first = False
-    return (feature_datas, feature_data_names, ys, y_names, samples_in_use)
+    return feature_datas, feature_data_names, ys, y_names, samples_in_use
 
-
-# def fit_regressor_to_data(feature_info=None, func_for_d=None):
-#     ## Configuration
-#     if func_for_d == None:
-#         func_for_d = lambda sample: d_power(sample, 6)
-#         # func_for_d = lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"]+1:]) - sample["Lbounds"][sample["label"]]
-#
-#     regressors = [LinearRegression()]
-#     regressor_names = ["Linear"]
-#
-#     if feature_info == None:
-#         feature_datas, feature_data_names, ys, y_names, fo_samples = generate_feature_info(func_for_d)
-#     else:
-#         feature_datas, feature_data_names, ys, y_names, fo_samples = feature_info
-#
-#     ## ------------------ Scaling the features -------------------
-#     # feature_data = pd.DataFrame(feature_data)
-#     # scaler = StandardScaler()
-#     # scaler.fit(feature_data)
-#     # feature_data = scaler.transform(feature_data)
-#
-#     ## Making the polynomial feature
-#     # poly = PolynomialFeatures(4)
-#     # poly_feature_data = pd.DataFrame(poly.fit_transform(feature_data))
-#
-#     ## --------------- Fitting and scoring the regressors ----------------------
-#
-#     scores = []
-#     predictions = []
-#     for i, regressor in enumerate(regressors):
-#         scores_per_feature_data = []
-#         predictions_per_feature_data = []
-#         for j, feature_data in enumerate(feature_datas):
-#             scores_per_y = []
-#             predictions_per_y = []
-#             for k, y in enumerate(ys):
-#                 if len(y) == 0:
-#                     continue
-#                 regressor.fit(feature_data, y)
-#
-#                 # Calculating scores
-#                 ROUNDING_PRECISION = 5
-#                 prediction = regressor.predict(feature_data)
-#                 score1 = regressor.score(feature_data, y)  # R^2
-#                 score2 = np.sum(np.abs(prediction - y)) / len(y)  # L_1 / len(y)
-#                 score3 = (np.sum((prediction - y) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
-#
-#                 temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
-#                 scores_per_y.append(list(temp_scores))
-#                 predictions_per_y.append(prediction)
-#             scores_per_feature_data.append(scores_per_y)
-#             predictions_per_feature_data.append(predictions_per_y)
-#         scores.append(scores_per_feature_data)
-#         predictions.append(predictions_per_feature_data)
-#
-#     # calc a and b
-#     y_names.append("a2")
-#     y_names.append("b2")
-#     ys.append(ys[y_names.index("a")])
-#     ys.append(ys[y_names.index("b")])
-#     for i, regressor in enumerate(regressors):
-#         for j, feature in enumerate(feature_datas):
-#             aDivb = predictions[i][j][y_names.index("a/b")]
-#             a4Divb = predictions[i][j][y_names.index("-(a+4)/b")]
-#             b = np.divide(-4, np.add(aDivb, a4Divb))
-#             a = np.multiply(aDivb, b)
-#             score1 = -1  # R^2
-#             score2 = np.sum(np.abs(a - ys[y_names.index("a")])) / len(y)  # L_1 / len(y)
-#             score3 = (np.sum((a - ys[y_names.index("a")]) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
-#             temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
-#             scores[i][j].append(temp_scores)
-#             score1 = -1  # R^2
-#             score2 = np.sum(np.abs(b - ys[y_names.index("b")])) / len(y)  # L_1 / len(y)
-#             score3 = (np.sum((b - ys[y_names.index("b")]) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
-#             temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
-#             scores[i][j].append(temp_scores)
-#
-#     # printing out the results
-#     print("--- Fitting model to (alpha_img, beta_img, K, d) ---")
-#     print("Training data scores:")
-#     for i in range(len(regressors)):
-#         regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
-#         for j in range(len(feature_datas)):
-#             feature_names = feature_data_names[j] if len(feature_data_names) > j else "FEATURE NOT NAMED"
-#             print(f"______________________________________________\n")
-#             print(f"Features:\t[{feature_names}]")
-#             print(f"Regressor:\t{regressor_names[i]}")
-#             print(f"Scores:\t\t[R^2, L_1, L_2]\n")
-#             matrix = [[f"-> {y_names[r]}", scores[i][j][r]] for r in range(len(ys))]
-#             pretty_print(matrix)
 
 def get_all_fnr_sigmoid(fo_samples, **kwargs_for_weights_calc):
     alphas = []
@@ -520,25 +441,7 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
             pretty_print(matrix)
 
 
-fit_regressor_to_data()
+if __name__ == "__main__":
+    fit_regressor_to_data()
 
-# file_names = data.keys()
-# file_names = [file_name for file_name in data.keys() if ("" in file_name and "" in file_name)]
-# SIG_functions_for_y = [
-#     ("alpha_of_FO", lambda sample: (sigmoid_weighted_least_squares(sample))[0]),
-#     ("beta_of_FO", lambda sample: (sigmoid_weighted_least_squares(sample))[1]),
-#     ("alpha_over_beta",
-#      lambda sample: (sigmoid_weighted_least_squares(sample))[0] / (sigmoid_weighted_least_squares(sample))[1]),
-#     ("alpha+1_over_beta",
-#      lambda sample: ((sigmoid_weighted_least_squares(sample))[0] + 1) / (sigmoid_weighted_least_squares(sample))[1]),
-#     ("alpha+2_over_beta",
-#      lambda sample: ((sigmoid_weighted_least_squares(sample))[0] + 2) / (sigmoid_weighted_least_squares(sample))[1]),
-#     ("alpha+5_over_beta",
-#      lambda sample: ((sigmoid_weighted_least_squares(sample))[0] + 5) / (sigmoid_weighted_least_squares(sample))[1]),
-# ]
-# visualize_K_and_y_funcs(SIG_functions_for_y, file_names)
-#
-# for file_name in file_names:
-#     visualize_d_and_y_funcs(functions_for_d, SIG_functions_for_y, [file_name])
-#
-# check_correlation(functions_for_d, SIG_functions_for_y, file_names)
+
