@@ -92,16 +92,16 @@ def split_image_bounds_stats(file_path):
 
 
 if __name__ == '__main__':
-    split_image_bounds_stats("image_bounds_stats/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx/IMG0-2_K1-250_SAMPALES50.json")
+    # split_image_bounds_stats("image_bounds_stats/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx/IMG0-2_K1-250_SAMPALES50.json")
     # unite_files("json_stats/MNIST_convSmall_NO_PGD.onnx")
     # nets = get_fo_number("json_stats")
     # for network in nets:
     #     network.print()
 
-    # ps = [0.8, 0.9, 0.99]
-    # # print("MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx")
-    # for p in ps:
-    #     images = get_biggest_k_for_success_rate("json_stats/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx/all_image.json", p)
-    #     print("largest k with success rate", p, images)
-    #     # for image, (k, success) in zip(images.keys(), images.values()):
-    #     #     print("last k with success rate", p, "for image ", image, "")
+    ps = [0.8, 0.9, 0.99]
+    # print("mnist_relu_3_50.onnx")
+    for p in ps:
+        images = get_biggest_k_for_success_rate("json_stats/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx/all_image_4.json", p)
+        print("largest k with success rate", p, images)
+        # for image, (k, success) in zip(images.keys(), images.values()):
+        #     print("last k with success rate", p, "for image ", image, "")

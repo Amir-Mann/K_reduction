@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import scipy
 import numpy as np
 
-
 ## -------- Functions for d ---------------- ##
 def d_power(sample, power):
     l = sample["Lbounds"][sample["label"]]
@@ -172,3 +171,38 @@ def avg_successrate_scores(fo_samples, estimated_alphas, estimated_betas, score_
     for score_name in scores_sum.keys():
         scores_avg[score_name] = scores_sum[score_name] / len(fo_samples)
     return scores_avg
+
+
+def get_fnr_sigmoid(img_sample, k, **kwargs_for_weights_calc):
+    fnr_as_fo = get_fnr_as_fo(img_sample, k)
+    alpha, beta = sigmoid_weighted_least_squares(fnr_as_fo, **kwargs_for_weights_calc)
+    return alpha, beta
+
+
+def get_fnr_as_fo(img_sample, k):
+    fnr = get_all_fnr_for_k(img_sample, k)
+    return {"dataset": img_sample["dataset"], "k": k,
+            "network": img_sample["network"], "image": img_sample["image"],
+            "statistics": [{"sub_k": sub_k, "success": 1-fnr[sub_k]} for sub_k in fnr.keys()]}
+
+
+def get_all_fnr_for_k(img_sample, k):
+    samples = img_sample["statistics"]
+    sr = {sample["sub_k"]: sample["success"] for sample in samples if sample["sub_k"] <= k}
+    k_sr = sr[k]
+    fnr = {}
+    for sub_k in sorted(sr.keys()):
+        if sub_k == k:
+            continue
+        fnr[sub_k] = (1 - sr[sub_k]) / (1 - k_sr)
+    return fnr
+
+
+def get_fnr(origin_sample, k, sub_k):
+    samples = origin_sample["statistics"]
+    for sample in samples:
+        if sample["sub_k"] == sub_k:
+            sr_sub_k = sample["success"]
+        if sample["sub_k"] == k:
+            sr_k = sample["success"]
+    return (1 - sr_sub_k) / (1 - sr_k)
