@@ -249,7 +249,7 @@ def generate_feature_info(func_for_d, file_names):
             ([img_k, img_d_normalized["div_by_mean"]],         "k, d_normalized[\"div_by_mean\"]"),
             ([img_k, img_d_normalized["min_max"]],           "k, d_normalized[\"min_max\"]"),
 
-            # ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in img_vars + [k]], "Overfit"),
+            ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in [img_a, img_b, img_k]], "Overfit"),
             # ([k / img_vars[1]], "k / img_b"),
             # ([img_vars[1]], "img_b"),
             # ([1 / img_vars[1]], "1 / img_b"),
@@ -307,12 +307,12 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
     rest_of_file_names = [file_name for file_name in data.keys() if file_name not in file_names]
     if feature_info is None:
         train_data = generate_feature_info(func_for_d, file_names)
-        # test_data = generate_feature_info(func_for_d, rest_of_file_names)
+        test_data = generate_feature_info(func_for_d, rest_of_file_names)
     else:
         train_data = feature_info
-        # test_data = None
+        test_data = None
     feature_datas, feature_data_names, ys, y_names, fo_samples = train_data
-    # test_feature_datas, _, test_ys, _, _ = test_data
+    test_feature_datas, _, test_ys, _, _ = test_data
 
     # ------------------ Scaling the features -------------------
     # feature_data = pd.DataFrame(feature_data)
@@ -328,12 +328,15 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
 
     scores = []
     predictions = []
+    test_scores = []
     for i, regressor in enumerate(regressors):
         scores_per_feature_data = []
         predictions_per_feature_data = []
+        test_scores_per_feature_data = []
         for j, feature_data in enumerate(feature_datas):
             scores_per_y = []
             predictions_per_y = []
+            test_scores_per_y = []
             for k, y in enumerate(ys):
                 if len(y) == 0:
                     continue
@@ -347,25 +350,31 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
                 score3 = (np.sum((prediction - y) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
 
                 # test scores!
-                # test_feature_data = test_feature_datas[j]
-                # test_y = test_ys[k]
-                # test_prediction = regressor.predict(test_feature_data)
-                # test_score1 = regressor.score(test_feature_data, test_y)
-                # test_score2 = np.sum(np.abs(test_prediction - test_y)) / len(test_y)
-                # test_score3 = (np.sum((test_prediction - test_y) ** 2) ** (1 / 2)) / len(test_y)
+                test_feature_data = test_feature_datas[j]
+                test_y = test_ys[k]
+                test_prediction = regressor.predict(test_feature_data)
+                test_score1 = regressor.score(test_feature_data, test_y)
+                test_score2 = np.sum(np.abs(test_prediction - test_y)) / len(test_y)
+                test_score3 = (np.sum((test_prediction - test_y) ** 2) ** (1 / 2)) / len(test_y)
 
                 # adding and rounding scores
                 temp_scores = [score1, score2, score3]
-                # temp_scores += [test_score1, test_score2, test_score3]
-                temp_scores = np.array(temp_scores).round(ROUNDING_PRECISION)
-                scores_per_y.append(list(temp_scores))
+                temp_scores = list(np.array(temp_scores).round(ROUNDING_PRECISION))
+                scores_per_y.append(temp_scores)
+
+                temp_test_scores = [test_score1, test_score2, test_score3]
+                temp_test_scores = list(np.array(temp_test_scores).round(ROUNDING_PRECISION))
+                test_scores_per_y.append(temp_test_scores)
+
                 predictions_per_y.append(prediction)
 
             scores_per_feature_data.append(scores_per_y)
             predictions_per_feature_data.append(predictions_per_y)
+            test_scores_per_feature_data.append(test_scores_per_y)
 
         scores.append(scores_per_feature_data)
         predictions.append(predictions_per_feature_data)
+        test_scores.append(test_scores_per_feature_data)
 
         # printing out the results
         print("--- Fitting model to (alpha_img, beta_img, K, d) ---")
@@ -374,11 +383,12 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
             regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
             for j in range(len(feature_datas)):
                 feature_names = feature_data_names[j] if len(feature_data_names) > j else "FEATURE NOT NAMED"
-                print(f"______________________________________________\n")
+                print(f"-------------------------------------------")
                 print(f"Features:\t[{feature_names}]")
                 print(f"Regressor:\t{regressor_names[i]}")
                 print(f"Scores:\t\t[R^2, L_1, L_2]\n")
-                matrix = [[f"-> {y_names[r]}", scores[i][j][r]] for r in range(len(ys))]
+                matrix = [[f"-> {y_names[r]}", scores[i][j][r], test_scores[i][j][r]] for r in range(len(ys))]
+                matrix = [["__ Y __", "__ Train __", "__ Test __"]] + matrix
                 pretty_print(matrix)
 
     # ------------------ getting a, b -------------------
