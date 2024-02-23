@@ -170,7 +170,7 @@ def get_string_for_k(sample):
     return f'{sample["dataset"]} -- {sample["network"]} -- {sample["image"]} -- {sample["k"]}'
 
 
-def generate_feature_info(func_for_d):
+def generate_feature_info(func_for_d, file_names):
     """
     parameters:
         fuc_for_d: the function used to calculate d, of the format "func(sample) -> number"
@@ -180,7 +180,7 @@ def generate_feature_info(func_for_d):
     """
 
     # ------------ configuration -------------------
-    file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
+    # file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
 
     samples_in_use = []
     for file_name in file_names:
@@ -193,32 +193,6 @@ def generate_feature_info(func_for_d):
     y_names = []
 
     # --------------- pre-calculations ; currently calculating normalization for d -------------
-
-    # TODO calculate the proper normalization
-    # caluculating the average D in each (network, img, K) 3-tuple
-    # average_d_per_K = {}
-    # for file_name in file_names:
-    #     current_sum = 0
-    #     for sample in data[file_name]:
-    #         current_sum += func_for_d(sample)
-    #     current_sum /= len(data[file_name])
-    #     file_name_in_sample = get_dataset_network_image_string_K(data[file_name][0])
-    #     average_d_per_K[file_name_in_sample] = current_sum
-
-    # caluculating the average D in each (network, img) 2-tuple
-    # average_d_per_img = {}
-    # for file_name in file_names:
-    #     file_name_in_sample = get_dataset_network_image_string(data[file_name][0])
-    #     current_sum = 0
-    #     for sample in data[file_name]:
-    #         current_sum += func_for_d(sample)
-    #     if file_name_in_sample not in average_d_per_img:
-    #         average_d_per_img[file_name_in_sample] = (current_sum, len(data[file_name]))
-    #     else:
-    #         tup = average_d_per_img[file_name_in_sample]
-    #         average_d_per_img[file_name_in_sample] = (tup[0] + current_sum, tup[1] + len(data[file_name]))
-    # for key in average_d_per_img:
-    #     average_d_per_img[key] = (average_d_per_img[key][0] / average_d_per_img[key][1])
 
     list_of_ds_per_k = {}
     list_of_ds_per_img = {}
@@ -239,8 +213,6 @@ def generate_feature_info(func_for_d):
         mean_and_variance_per_k[key] = (np.mean(list_of_ds_per_k[key]), np.var(list_of_ds_per_k[key]))
     for key in list_of_ds_per_img:
         mean_and_variance_per_img[key] = (np.mean(list_of_ds_per_img[key]), np.var(list_of_ds_per_img[key]))
-
-
 
     # -------------- Creating the datas for the features, and the ys --------------------
     first = True
@@ -331,10 +303,16 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
     regressors = [LinearRegression()]
     regressor_names = ["Linear"]
 
+    file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
+    rest_of_file_names = [file_name for file_name in data.keys() if file_name not in file_names]
     if feature_info is None:
-        feature_datas, feature_data_names, ys, y_names, fo_samples = generate_feature_info(func_for_d)
+        train_data = generate_feature_info(func_for_d, file_names)
+        # test_data = generate_feature_info(func_for_d, rest_of_file_names)
     else:
-        feature_datas, feature_data_names, ys, y_names, fo_samples = feature_info
+        train_data = feature_info
+        # test_data = None
+    feature_datas, feature_data_names, ys, y_names, fo_samples = train_data
+    # test_feature_datas, _, test_ys, _, _ = test_data
 
     # ------------------ Scaling the features -------------------
     # feature_data = pd.DataFrame(feature_data)
@@ -361,18 +339,31 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
                     continue
                 regressor.fit(feature_data, y)
 
-                # Calculating scores
+                # Calculating train scores
                 ROUNDING_PRECISION = 5
                 prediction = regressor.predict(feature_data)
                 score1 = regressor.score(feature_data, y)  # R^2
                 score2 = np.sum(np.abs(prediction - y)) / len(y)  # L_1 / len(y)
                 score3 = (np.sum((prediction - y) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
 
-                temp_scores = np.array([score1, score2, score3]).round(ROUNDING_PRECISION)
+                # test scores!
+                # test_feature_data = test_feature_datas[j]
+                # test_y = test_ys[k]
+                # test_prediction = regressor.predict(test_feature_data)
+                # test_score1 = regressor.score(test_feature_data, test_y)
+                # test_score2 = np.sum(np.abs(test_prediction - test_y)) / len(test_y)
+                # test_score3 = (np.sum((test_prediction - test_y) ** 2) ** (1 / 2)) / len(test_y)
+
+                # adding and rounding scores
+                temp_scores = [score1, score2, score3]
+                # temp_scores += [test_score1, test_score2, test_score3]
+                temp_scores = np.array(temp_scores).round(ROUNDING_PRECISION)
                 scores_per_y.append(list(temp_scores))
                 predictions_per_y.append(prediction)
+
             scores_per_feature_data.append(scores_per_y)
             predictions_per_feature_data.append(predictions_per_y)
+
         scores.append(scores_per_feature_data)
         predictions.append(predictions_per_feature_data)
 
