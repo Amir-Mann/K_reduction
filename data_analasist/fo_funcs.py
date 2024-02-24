@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import scipy
 import numpy as np
+import math
 
 ## -------- Functions for d ---------------- ##
 def d_power(sample, power):
@@ -173,9 +174,19 @@ def avg_successrate_scores(fo_samples, estimated_alphas, estimated_betas, score_
     return scores_avg
 
 
+drawn_fnrs = set()
+draw_fnrs = True
 def get_fnr_sigmoid(img_sample, k, **kwargs_for_weights_calc):
     fnr_as_fo = get_fnr_as_fo(img_sample, k)
     alpha, beta = sigmoid_weighted_least_squares(fnr_as_fo, **kwargs_for_weights_calc)
+    sr_from_fnr = [sub_k["success"] for sub_k in fnr_as_fo["statistics"]]
+    if str(sr_from_fnr) not in drawn_fnrs and draw_fnrs:
+        drawn_fnrs.add(str(sr_from_fnr))
+        x = [sub_k["sub_k"] for sub_k in fnr_as_fo["statistics"]]
+        sr_from_best_fit_of_fnr = sigmoid_array(alpha + beta * np.array(x))
+        plt.plot(x, sr_from_fnr)
+        plt.plot(x, sr_from_best_fit_of_fnr)
+        plt.show()
     return alpha, beta
 
 
@@ -183,12 +194,17 @@ def get_fnr_as_fo(img_sample, k):
     fnr = get_all_fnr_for_k(img_sample, k)
     return {"dataset": img_sample["dataset"], "k": k,
             "network": img_sample["network"], "image": img_sample["image"],
-            "statistics": [{"sub_k": sub_k, "success": 1-fnr[sub_k]} for sub_k in fnr.keys()]}
+            "statistics": [{"sub_k": sub_k, "success": 1 - fnr[sub_k]} for sub_k in fnr.keys()]}
 
 
 def get_all_fnr_for_k(img_sample, k):
     samples = img_sample["statistics"]
-    sr = {sample["sub_k"]: sample["success"] for sample in samples if sample["sub_k"] <= k}
+    alpha, beta = sigmoid_weighted_least_squares(img_sample)
+    def get_sr(sample):
+        if sample["success"] < 0.97:
+            return sample["success"]
+        return 1 - 1 / (1 + math.exp(alpha + beta * sample["sub_k"]))
+    sr = {sample["sub_k"]: get_sr(sample) for sample in samples if sample["sub_k"] <= k}
     k_sr = sr[k]
     fnr = {}
     for sub_k in sorted(sr.keys()):
