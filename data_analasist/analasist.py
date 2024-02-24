@@ -8,7 +8,7 @@ from sklearn.linear_model import LinearRegression, Ridge
 stats_folder = "../tf_verify/fixed_json_stats"
 
 filter_out_perfect_data = False
-filter_out_all_image = True
+# filter_out_all_image = True
 
 full_image_data = {}
 data = {}
@@ -174,6 +174,7 @@ def generate_feature_info(func_for_d, file_names):
     """
     parameters:
         fuc_for_d: the function used to calculate d, of the format "func(sample) -> number"
+        file_names: the names of the files to use
 
     returns:
         (feature_datas, feature_names, ys, y_names)
@@ -209,10 +210,10 @@ def generate_feature_info(func_for_d, file_names):
 
     mean_and_variance_per_k = {}
     mean_and_variance_per_img = {}
-    for key in list_of_ds_per_k:
-        mean_and_variance_per_k[key] = (np.mean(list_of_ds_per_k[key]), np.var(list_of_ds_per_k[key]))
-    for key in list_of_ds_per_img:
-        mean_and_variance_per_img[key] = (np.mean(list_of_ds_per_img[key]), np.var(list_of_ds_per_img[key]))
+    for file_name in list_of_ds_per_k:
+        mean_and_variance_per_k[file_name] = (np.mean(list_of_ds_per_k[file_name]), np.var(list_of_ds_per_k[file_name]))
+    for file_name in list_of_ds_per_img:
+        mean_and_variance_per_img[file_name] = (np.mean(list_of_ds_per_img[file_name]), np.var(list_of_ds_per_img[file_name]))
 
     # -------------- Creating the datas for the features, and the ys --------------------
     first = True
@@ -242,12 +243,12 @@ def generate_feature_info(func_for_d, file_names):
 
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
         datapoints = [
-            ([img_a, img_b, img_k, img_d], "a_img, b_img, k, d"),
-            ([img_k],                                           "k"),
+            ([img_a, img_b, img_k, img_d],                  "a_img, b_img, k, d"),
+            ([img_k],                                       "k"),
             ([img_k, img_d],                                "k , d"),
             ([img_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
-            ([img_k, img_d_normalized["div_by_mean"]],         "k, d_normalized[\"div_by_mean\"]"),
-            ([img_k, img_d_normalized["min_max"]],           "k, d_normalized[\"min_max\"]"),
+            ([img_k, img_d_normalized["div_by_mean"]],      "k, d_normalized[\"div_by_mean\"]"),
+            ([img_k, img_d_normalized["min_max"]],          "k, d_normalized[\"min_max\"]"),
 
             ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in [img_a, img_b, img_k]], "Overfit"),
             # ([k / img_vars[1]], "k / img_b"),
@@ -304,7 +305,10 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
     regressor_names = ["Linear"]
 
     file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
+    file_names = [file_name for file_name in data.keys()]
+    file_names = file_names[:-1]
     rest_of_file_names = [file_name for file_name in data.keys() if file_name not in file_names]
+    # rest_of_file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
     if feature_info is None:
         train_data = generate_feature_info(func_for_d, file_names)
         test_data = generate_feature_info(func_for_d, rest_of_file_names)

@@ -122,14 +122,14 @@ def sigmoid_weighted_least_squares_aux(failing_origin, **kwargs_for_weights_calc
     subks = failing_origin["statistics"]  # sorted([subk for subk in fo["statistics"]], key= lambda subk: subk["sub_k"])
     x = np.array([subk["sub_k"] for subk in subks])
     y = np.array([subk["success"] for subk in subks])
-    if sum(y) == len(y):  # TODO maybe always add subk = k to the data
-        # print(y)
+    if failing_origin["k"] not in x:
         x = np.append(x, failing_origin["k"])
         y = np.append(y, 0)
     weights = np.array([calc_weight_for_s(value_in_y, **kwargs_for_weights_calc) for value_in_y in y])
 
     vars = np.array([20, -0.5])
-    bbound = (500 * 4 * 4) ** 2 
+    # bbound = (500 * 4 * 4) ** 2
+    bbound = (500 * 4 * 2) ** 2
     result = scipy.optimize.least_squares(classic_ls_problem, vars, args=(x, y, weights), 
                                           bounds=((-bbound, -bbound), (bbound, bbound)))
     return result["x"]
