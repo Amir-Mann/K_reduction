@@ -27,14 +27,12 @@ for root, dirs, files in os.walk(stats_folder):
             dataset_to_add_to = full_image_data
         else:
             dataset_to_add_to = data
-
         if filter_out_perfect_data:
             dataset_to_add_to[net_name + "_" + fname[:-5]] = [fo for fo in new_data if
                                                               len([subk for subk in fo["statistics"] if
                                                                    subk["success"] != 1]) > 0]
         else:
             dataset_to_add_to[net_name + "_" + fname[:-5]] = new_data
-
 # print(len(data))
 # for value in data.values():
 #     print(len(value), end=", ")
@@ -158,6 +156,7 @@ def get_full_image_data_from_FO(sample):
     for fo in full_image_data[key_name]:
         if (fo["image"] == sample["image"]):
             return fo
+    print(full_image_data.keys())
     return None
 
 # Returns a string that's unique for each (dataset, network, image) 3-tuple
@@ -243,15 +242,17 @@ def generate_feature_info(func_for_d, file_names):
 
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
         datapoints = [
-            ([img_a, img_b, img_k, img_d],                  "a_img, b_img, k, d"),
+            #([img_a, img_b, img_k, img_d],                  "a_img, b_img, k, d"),
             ([img_k],                                       "k"),
-            ([img_k, img_d],                                "k , d"),
+            #([img_k, img_d],                                "k , d"),
             ([img_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
-            ([img_a, img_b, img_k, img_d_normalized["standard"]],         "a_img, b_img, k, d_normalized[\"standard\"]"),
+            ([img_k, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s"),
+            ([img_a, img_b, img_k, img_d_normalized["standard"]],         "a_img, b_img, k, |d|s"),
+            ([img_k, img_a/img_b, 1/img_b, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s, a/b, 1/b"),
             ([img_a, img_b, img_k, img_d_normalized["div_by_mean"]],      "a_img, b_img, k, d_normalized[\"div_by_mean\"]"),
             ([img_a, img_b, img_k, img_d_normalized["min_max"]],          "a_img, b_img, k, d_normalized[\"min_max\"]"),
 
-            ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in [img_a, img_b, img_k]], "Overfit"),
+            #([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in [img_a, img_b, img_k]], "Overfit"),
             # ([k / img_vars[1]], "k / img_b"),
             # ([img_vars[1]], "img_b"),
             # ([1 / img_vars[1]], "1 / img_b"),
@@ -266,10 +267,11 @@ def generate_feature_info(func_for_d, file_names):
             (sample_a, "a"),
             (sample_b, "b"),
             (sample_a / sample_b, "a/b"),
+            (-(sample_a + 4) / sample_b, "-(a+4)/b"),
             (1 / sample_b, "1/b"),
         ]
-        for i in range(2, 7, 2):
-            y_predictors.append((-(sample_a + i) / sample_b, f"-(a+{i})/b"))
+        #for i in range(2, 7, 2):
+        #    y_predictors.append((-(sample_a + i) / sample_b, f"-(a+{i})/b"))
 
         # adding the datapoints to the feature_data and the y_predictors to the ys
         adding_lists = [(datapoints, feature_datas, feature_data_names), (y_predictors, ys, y_names)]
@@ -305,9 +307,7 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
     regressors = [LinearRegression()]
     regressor_names = ["Linear"]
 
-    file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
-    file_names = [file_name for file_name in data.keys()]
-    file_names = file_names[:-1]
+    file_names = [file_name for file_name in data.keys() if "IMG4" not in file_name]
     rest_of_file_names = [file_name for file_name in data.keys() if file_name not in file_names]
     # rest_of_file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
     if feature_info is None:
@@ -413,8 +413,8 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
         #  "b_func": lambda x1, x2: -((4*x1 - 6*x2)/(x2 - x1) + 4) / x2},
         {"x1_name": "a/b", "x2_name": "b",
          "a_func": lambda x1, x2: x1 * x2},
-        {"x1_name": "a/b", "x2_name": "1/b",
-         "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
+        #{"x1_name": "a/b", "x2_name": "1/b",
+        # "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
     ]
 
     ab_scores = get_ab_train_and_test_scores(regressors, regressor_names, feature_datas, feature_data_names, train_predictions, test_predictions, y_names, ab_formulas, fo_samples)
