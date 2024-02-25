@@ -333,6 +333,7 @@ def fit_regressor_to_data(func_for_d=None):
     train_predictions = []
     test_predictions = []
     test_scores = []
+    # predictions_and_scores = {"scores": [], "predictions": [], "test_scores": [], "test_predictions": []}
     for i, regressor in enumerate(regressors):
         scores_per_feature_data = []
         train_predictions_per_feature_data = []
