@@ -118,3 +118,67 @@
 # check_correlation(functions_for_d, SIG_functions_for_y, file_names)
 
 
+
+def check_correlation(functions_for_d, functions_for_y, file_names):
+    FILE_NAMES = file_names
+    best_rsquare_per_file = []
+
+    r_squared_per_xyfunc = []
+
+    for k, file_name in enumerate(FILE_NAMES):
+        samples_in_use = data[file_name]
+
+        # calculating the points
+        ys_for_plot = [[y_func(sample) for sample in samples_in_use] for name, y_func in functions_for_y]
+        xs_for_plot = [[x_func(sample) for sample in samples_in_use] for name, x_func in functions_for_d]
+
+        table_r_squared = []
+        for i, y_func_tup in enumerate(functions_for_y):
+            y = ys_for_plot[i]
+            lst_r_squared_xfunc = []
+            for j, x_func_tup in enumerate(functions_for_d):
+                x = xs_for_plot[j]
+                r_squared, = gather_statistics(x, y)
+                lst_r_squared_xfunc.append(r_squared)
+            table_r_squared.append(lst_r_squared_xfunc)
+        r_squared_per_xyfunc.append(table_r_squared)
+
+        # print stats on interpretaions
+        max_r_squared = table_r_squared[0][0]
+        for row in table_r_squared:
+            for entry in row:
+                if entry > max_r_squared:
+                    max_r_squared = entry
+
+        # updating overall max and min
+        # print(f"MAX R^2 = {max_r_squared}")
+        best_rsquare_per_file.append(max_r_squared)
+
+    # finding the best square per file
+    index_of_best_file = np.argmax(best_rsquare_per_file)
+    print(f"OVERALL MAX R^2 = {best_rsquare_per_file[index_of_best_file]}, file {index_of_best_file}")
+
+    # calculating the mean r^2 of each (x_func, y_func) pair
+    yx_means = []
+    for i in range(len(functions_for_y)):
+        x_means = []
+        for j in range(len(functions_for_d)):
+            mean = 0
+            assert (len(FILE_NAMES) > 0)
+            for k in range(len(FILE_NAMES)):
+                mean += r_squared_per_xyfunc[k][i][j]
+            mean /= len(FILE_NAMES)
+            x_means.append(mean)
+        yx_means.append(x_means)
+
+    # printing results
+    print("\nMeans of R^2 per yfunc (how to judge the 'dropdown' given an FO), xfunc (how to calculate d):")
+    pretty_yx_means = [["Y \ X"] + [name for name, func in functions_for_d]] + yx_means
+    for i in range(1, len(yx_means) + 1):
+        pretty_yx_means[i] = [functions_for_y[i - 1][0]] + yx_means[i - 1]
+    pretty_print(pretty_yx_means)
+
+    best_mean_index = max_index_of_matrix(yx_means)
+    best_mean = yx_means[best_mean_index[0]][best_mean_index[1]]
+
+    print(f"\nBest mean functions: Y = {functions_for_y[best_mean_index[0]][0]}, X = {functions_for_d[best_mean_index[1]][0]}, with mean R^2 {best_mean}")
