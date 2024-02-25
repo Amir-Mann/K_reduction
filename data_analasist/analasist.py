@@ -5,7 +5,7 @@ from fo_funcs import *
 from utils import *
 from sklearn.linear_model import LinearRegression, Ridge
 
-stats_folder = "../tf_verify/fixed_json_stats"
+stats_folder = "../tf_verify/json_stats"
 
 filter_out_perfect_data = False
 # filter_out_all_image = True
@@ -203,9 +203,11 @@ def generate_feature_info(func_for_d, file_names):
             list_of_ds_per_k[file_name_per_k] = []
         if file_name_per_img not in list_of_ds_per_img:
             list_of_ds_per_img[file_name_per_img] = []
-        for sample in data[file_name]:
-            list_of_ds_per_k[file_name_per_k].append(func_for_d(sample))
-        list_of_ds_per_img[file_name_per_img] += list_of_ds_per_k[file_name_per_k]
+
+        ds_in_current_file = [func_for_d(sample) for sample in data[file_name]]
+
+        list_of_ds_per_k[file_name_per_k] += ds_in_current_file
+        list_of_ds_per_img[file_name_per_img] += ds_in_current_file
 
     mean_and_variance_per_k = {}
     mean_and_variance_per_img = {}
@@ -221,8 +223,8 @@ def generate_feature_info(func_for_d, file_names):
         full_image_fo = get_full_image_data_from_FO(sample)
 
         img_a, img_b = sigmoid_weighted_least_squares(full_image_fo)
-        img_k = sample["k"]
-        img_d = func_for_d(sample)
+        fo_k = sample["k"]
+        fo_d = func_for_d(sample)
 
         # ----------normalization -------------
         # initializing stats per image
@@ -235,24 +237,24 @@ def generate_feature_info(func_for_d, file_names):
 
         # getting the normalized values
         img_d_normalized = {
-            "standard": (img_d - d_mean) / d_variance,
-            "div_by_mean": img_d / d_mean,
-            "min_max": (img_d - d_min) / (d_max - d_min),
+            "standard": (fo_d - d_mean) / d_variance,
+            "div_by_mean": fo_d / d_mean,
+            "min_max": (fo_d - d_min) / (d_max - d_min),
         }
 
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
         datapoints = [
-            #([img_a, img_b, img_k, img_d],                  "a_img, b_img, k, d"),
-            ([img_k],                                       "k"),
-            #([img_k, img_d],                                "k , d"),
-            ([img_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
-            ([img_k, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s"),
-            ([img_a, img_b, img_k, img_d_normalized["standard"]],         "a_img, b_img, k, |d|s"),
-            ([img_k, img_a/img_b, 1/img_b, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s, a/b, 1/b"),
-            ([img_a, img_b, img_k, img_d_normalized["div_by_mean"]],      "a_img, b_img, k, d_normalized[\"div_by_mean\"]"),
-            ([img_a, img_b, img_k, img_d_normalized["min_max"]],          "a_img, b_img, k, d_normalized[\"min_max\"]"),
+            #([img_a, img_b, fo_k, img_d],                  "a_img, b_img, k, d"),
+            ([fo_k],                                       "k"),
+            #([fo_k, img_d],                                "k , d"),
+            ([fo_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
+            ([fo_k, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s"),
+            ([img_a, img_b, fo_k, img_d_normalized["standard"]],         "a_img, b_img, k, |d|s"),
+            ([fo_k, img_a/img_b, 1/img_b, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s, a/b, 1/b"),
+            ([img_a, img_b, fo_k, img_d_normalized["div_by_mean"]],      "a_img, b_img, k, d_normalized[\"div_by_mean\"]"),
+            ([img_a, img_b, fo_k, img_d_normalized["min_max"]],          "a_img, b_img, k, d_normalized[\"min_max\"]"),
 
-            #([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in [img_a, img_b, img_k]], "Overfit"),
+            #([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in [img_a, img_b, fo_k]], "Overfit"),
             # ([k / img_vars[1]], "k / img_b"),
             # ([img_vars[1]], "img_b"),
             # ([1 / img_vars[1]], "1 / img_b"),
@@ -298,7 +300,7 @@ def get_all_fnr_sigmoid(fo_samples, **kwargs_for_weights_calc):
     return alphas, betas
 
 
-def fit_regressor_to_data(feature_info=None, func_for_d=None):
+def fit_regressor_to_data(func_for_d=None):
     # Configuration
     if func_for_d is None:
         func_for_d = lambda sample: d_power(sample, 6)
@@ -307,15 +309,18 @@ def fit_regressor_to_data(feature_info=None, func_for_d=None):
     regressors = [LinearRegression()]
     regressor_names = ["Linear"]
 
-    file_names = [file_name for file_name in data.keys() if "IMG4" not in file_name]
+    test_images_str = "IMG4"
+    print(f"Using all images with '{test_images_str}' in their name as test")
+    file_names = [file_name for file_name in data.keys() if test_images_str not in file_name]
+    print(f"Amount of train files in use: {len(file_names)}")
     rest_of_file_names = [file_name for file_name in data.keys() if file_name not in file_names]
+    print(f"Amount of test files in use: {len(rest_of_file_names)}")
     # rest_of_file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
-    if feature_info is None:
-        train_data = generate_feature_info(func_for_d, file_names)
-        test_data = generate_feature_info(func_for_d, rest_of_file_names)
-    else:
-        train_data = feature_info
-        test_data = None
+
+    # --- Generating the feature info
+    train_data = generate_feature_info(func_for_d, file_names)
+    test_data = generate_feature_info(func_for_d, rest_of_file_names)
+
     feature_datas, feature_data_names, ys, y_names, fo_samples = train_data
     test_feature_datas, _, test_ys, _, _ = test_data
 
