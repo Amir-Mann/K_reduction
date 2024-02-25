@@ -35,12 +35,6 @@ for root, dirs, files in os.walk(stats_folder):
         else:
             dataset_to_add_to[net_name + "_" + fname[:-5]] = new_data
 
-# print(len(data))
-# for value in data.values():
-#     print(len(value), end=", ")
-# print("\b\b")
-#
-# print(full_image_data)
 
 # functions for the d
 functions_for_d = [
@@ -74,83 +68,7 @@ functions_for_y = [
 ]
 
 
-def check_correlation(functions_for_d, functions_for_y, file_names):
-    FILE_NAMES = file_names
-    best_rsquare_per_file = []
-
-    r_squared_per_xyfunc = []
-
-    for k, file_name in enumerate(FILE_NAMES):
-        samples_in_use = data[file_name]
-
-        # calculating the points
-        ys_for_plot = [[y_func(sample) for sample in samples_in_use] for name, y_func in functions_for_y]
-        xs_for_plot = [[x_func(sample) for sample in samples_in_use] for name, x_func in functions_for_d]
-
-        table_r_squared = []
-        for i, y_func_tup in enumerate(functions_for_y):
-            y = ys_for_plot[i]
-            lst_r_squared_xfunc = []
-            for j, x_func_tup in enumerate(functions_for_d):
-                x = xs_for_plot[j]
-                r_squared, = gather_statistics(x, y)
-                lst_r_squared_xfunc.append(r_squared)
-            table_r_squared.append(lst_r_squared_xfunc)
-        r_squared_per_xyfunc.append(table_r_squared)
-
-        # print stats on interpretaions
-        max_r_squared = table_r_squared[0][0]
-        for row in table_r_squared:
-            for entry in row:
-                if entry > max_r_squared:
-                    max_r_squared = entry
-
-        # updating overall max and min
-        # print(f"MAX R^2 = {max_r_squared}")
-        best_rsquare_per_file.append(max_r_squared)
-
-    # finding the best square per file
-    index_of_best_file = np.argmax(best_rsquare_per_file)
-    print(f"OVERALL MAX R^2 = {best_rsquare_per_file[index_of_best_file]}, file {index_of_best_file}")
-
-    # calculating the mean r^2 of each (x_func, y_func) pair
-    yx_means = []
-    for i in range(len(functions_for_y)):
-        x_means = []
-        for j in range(len(functions_for_d)):
-            mean = 0
-            assert (len(FILE_NAMES) > 0)
-            for k in range(len(FILE_NAMES)):
-                mean += r_squared_per_xyfunc[k][i][j]
-            mean /= len(FILE_NAMES)
-            x_means.append(mean)
-        yx_means.append(x_means)
-
-    # printing results
-    print("\nMeans of R^2 per yfunc (how to judge the 'dropdown' given an FO), xfunc (how to calculate d):")
-    pretty_yx_means = [["Y \ X"] + [name for name, func in functions_for_d]] + yx_means
-    for i in range(1, len(yx_means) + 1):
-        pretty_yx_means[i] = [functions_for_y[i - 1][0]] + yx_means[i - 1]
-    pretty_print(pretty_yx_means)
-
-    best_mean_index = max_index_of_matrix(yx_means)
-    best_mean = yx_means[best_mean_index[0]][best_mean_index[1]]
-
-    print(f"\nBest mean functions: Y = {functions_for_y[best_mean_index[0]][0]}, X = {functions_for_d[best_mean_index[1]][0]}, with mean R^2 {best_mean}")
-
-
-# for key, value in data.items():
-#     print(key, len(value))
-
-## ------ Visualization of data ------------- ##
-
-
-if False:
-    for key in data.keys():
-        visualize_d_and_y_funcs(key)
-
-
-## helper functions
+# ---------- helper functions ----------------
 def get_full_image_data_from_FO(sample):
     last_dot = sample["network"].rfind(".")
     key_name = sample["network"][13:last_dot]
@@ -168,6 +86,51 @@ def get_string_for_image(sample):
 # Returns a string that's unique for each (dataset, network, image, k) 4-tuple
 def get_string_for_k(sample):
     return f'{sample["dataset"]} -- {sample["network"]} -- {sample["image"]} -- {sample["k"]}'
+
+
+# def get_bucket_index(d, d_buckets):
+#     # for i, bucket in enumerate(d_buckets):
+#     #     if d < bucket:
+#     #         return i
+#     # return len(d_buckets) - 1
+
+
+
+def binary_search_first_above(value, sorted_list):
+    """
+    returns the index of the first element in the list that is bigger than value
+    NOTE: can return len(sorted_list) if value is bigger than all the elements in the list
+    """
+    left = 0
+    right = len(sorted_list)
+    while left < right:
+        mid = (left + right) // 2
+        if sorted_list[mid] < value:
+            left = mid + 1
+        else:
+            right = mid
+    return left
+
+
+def get_rounded_bucket_index(d, sorted_d_buckets):
+    # binary search for the bucket
+    return binary_search_first_above(d, sorted_d_buckets)
+
+
+def get_estimated_bucket_index(d, sorted_d_buckets):
+    index_above = binary_search_first_above(d, sorted_d_buckets)
+    if index_above == 0:
+        return 0
+    if index_above == len(sorted_d_buckets):
+        return len(sorted_d_buckets)
+
+    index_below = index_above - 1
+    value_above, value_below = sorted_d_buckets[index_above], sorted_d_buckets[index_below]
+    relative_pos = (d - value_below) / (value_above - value_below)
+
+    relative_index = index_below + (relative_pos * (index_above - index_below))
+    return relative_index
+
 
 
 def generate_feature_info(func_for_d, file_names):
@@ -217,6 +180,23 @@ def generate_feature_info(func_for_d, file_names):
     for file_name in list_of_ds_per_img:
         mean_and_variance_per_img[file_name] = (np.mean(list_of_ds_per_img[file_name]), np.var(list_of_ds_per_img[file_name]))
 
+
+    NUM_OF_BUCKETS = 100
+    list_of_d_buckets_per_img = {}
+    for file_name_of_img in list_of_ds_per_img:
+        ds_of_image = list_of_ds_per_img[file_name_of_img]
+        sorted_list = sorted(ds_of_image)
+
+        if len(ds_of_image) <= NUM_OF_BUCKETS:
+            list_of_d_buckets_per_img[file_name_of_img] = sorted_list
+            continue
+
+        bucket_list = []
+        for i in range(NUM_OF_BUCKETS):
+            bucket_list.append(sorted_list[int(i * len(sorted_list) / NUM_OF_BUCKETS)])
+
+        list_of_d_buckets_per_img[file_name_of_img] = bucket_list
+
     # -------------- Creating the datas for the features, and the ys --------------------
     first = True
     for sample in samples_in_use:
@@ -228,11 +208,17 @@ def generate_feature_info(func_for_d, file_names):
         fo_d = func_for_d(sample)
 
         # ----------normalization -------------
-        # initializing stats per image
-        d_mean_per_image, d_variance_per_image = mean_and_variance_per_img[get_string_for_image(sample)]
-        d_min_per_image = min(list_of_ds_per_img[get_string_for_image(sample)])
-        d_max_per_image = max(list_of_ds_per_img[get_string_for_image(sample)])
+        # initializing variables that will be used
+        string_for_img = get_string_for_image(sample)
+        ds_of_image = list_of_ds_per_img[string_for_img]
 
+        # getting per image stats
+        d_mean_per_image, d_variance_per_image = mean_and_variance_per_img[string_for_img]
+        d_min_per_image = min(ds_of_image)
+        d_max_per_image = max(ds_of_image)
+        d_buckets_for_image = list_of_d_buckets_per_img[string_for_img]
+
+        # setting the important variables, can be changed to per_K instead of per_image
         d_mean, d_variance = d_mean_per_image, d_variance_per_image
         d_min, d_max = d_min_per_image, d_max_per_image
 
@@ -241,6 +227,8 @@ def generate_feature_info(func_for_d, file_names):
             "standard": (fo_d - d_mean) / d_variance,
             "div_by_mean": fo_d / d_mean,
             "min_max": (fo_d - d_min) / (d_max - d_min),
+            "rounded_bucket": get_rounded_bucket_index(fo_d, d_buckets_for_image),
+            "estimated_bucket": get_estimated_bucket_index(fo_d, d_buckets_for_image),
         }
 
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
@@ -251,6 +239,8 @@ def generate_feature_info(func_for_d, file_names):
             ([fo_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
             ([fo_k, img_d_normalized["div_by_mean"]],      "k, d_normalized[\"div_by_mean\"]"),
             ([fo_k, img_d_normalized["min_max"]],          "k, d_normalized[\"min_max\"]"),
+            ([fo_k, img_d_normalized["rounded_bucket"]], "k, d_normalized[\"rounded_bucket\"]"),
+            ([fo_k, img_d_normalized["estimated_bucket"]], "k, d_normalized[\"estimated_bucket\"]"),
 
             ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [fo_d] for b2 in [img_a, img_b, fo_k]], "Overfit"),
             # ([k / img_vars[1]], "k / img_b"),
@@ -333,6 +323,7 @@ def fit_regressor_to_data(func_for_d=None):
     scores = []
     predictions = []
     test_scores = []
+    # predictions_and_scores = {"scores": [], "predictions": [], "test_scores": [], "test_predictions": []}
     for i, regressor in enumerate(regressors):
         scores_per_feature_data = []
         predictions_per_feature_data = []

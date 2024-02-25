@@ -183,7 +183,7 @@ def avg_successrate_scores(fo_samples, estimated_alphas, estimated_betas, score_
 
 
 drawn_fnrs = set()
-draw_fnrs = True
+draw_fnrs = False
 def get_fnr_sigmoid(img_sample, k, **kwargs_for_weights_calc):
     fnr_as_fo = get_fnr_as_fo(img_sample, k)
     alpha, beta = sigmoid_weighted_least_squares(fnr_as_fo, **kwargs_for_weights_calc)
