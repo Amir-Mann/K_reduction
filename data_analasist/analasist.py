@@ -5,7 +5,7 @@ from fo_funcs import *
 from utils import *
 from sklearn.linear_model import LinearRegression, Ridge
 
-stats_folder = "../tf_verify/fixed_json_stats"
+stats_folder = "../tf_verify/json_stats"
 
 filter_out_perfect_data = False
 # filter_out_all_image = True
@@ -27,14 +27,12 @@ for root, dirs, files in os.walk(stats_folder):
             dataset_to_add_to = full_image_data
         else:
             dataset_to_add_to = data
-
         if filter_out_perfect_data:
             dataset_to_add_to[net_name + "_" + fname[:-5]] = [fo for fo in new_data if
                                                               len([subk for subk in fo["statistics"] if
                                                                    subk["success"] != 1]) > 0]
         else:
             dataset_to_add_to[net_name + "_" + fname[:-5]] = new_data
-
 # print(len(data))
 # for value in data.values():
 #     print(len(value), end=", ")
@@ -158,6 +156,7 @@ def get_full_image_data_from_FO(sample):
     for fo in full_image_data[key_name]:
         if (fo["image"] == sample["image"]):
             return fo
+    print(full_image_data.keys())
     return None
 
 # Returns a string that's unique for each (dataset, network, image) 3-tuple
@@ -245,14 +244,17 @@ def generate_feature_info(func_for_d, file_names):
 
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
         datapoints = [
-            ([img_a, img_b, fo_k, fo_d],                  "a_img, b_img, k, d"),
+            #([img_a, img_b, fo_k, img_d],                  "a_img, b_img, k, d"),
             ([fo_k],                                       "k"),
-            ([fo_k, fo_d],                                "k , d"),
+            #([fo_k, img_d],                                "k , d"),
             ([fo_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
-            ([fo_k, img_d_normalized["div_by_mean"]],      "k, d_normalized[\"div_by_mean\"]"),
-            ([fo_k, img_d_normalized["min_max"]],          "k, d_normalized[\"min_max\"]"),
+            ([fo_k, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s"),
+            ([img_a, img_b, fo_k, img_d_normalized["standard"]],         "a_img, b_img, k, |d|s"),
+            ([fo_k, img_a/img_b, 1/img_b, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s, a/b, 1/b"),
+            ([img_a, img_b, fo_k, img_d_normalized["div_by_mean"]],      "a_img, b_img, k, d_normalized[\"div_by_mean\"]"),
+            ([img_a, img_b, fo_k, img_d_normalized["min_max"]],          "a_img, b_img, k, d_normalized[\"min_max\"]"),
 
-            ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [fo_d] for b2 in [img_a, img_b, fo_k]], "Overfit"),
+            #([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in [img_a, img_b, fo_k]], "Overfit"),
             # ([k / img_vars[1]], "k / img_b"),
             # ([img_vars[1]], "img_b"),
             # ([1 / img_vars[1]], "1 / img_b"),
@@ -267,10 +269,11 @@ def generate_feature_info(func_for_d, file_names):
             (sample_a, "a"),
             (sample_b, "b"),
             (sample_a / sample_b, "a/b"),
+            (-(sample_a + 4) / sample_b, "-(a+4)/b"),
             (1 / sample_b, "1/b"),
         ]
-        for i in range(2, 7, 2):
-            y_predictors.append((-(sample_a + i) / sample_b, f"-(a+{i})/b"))
+        #for i in range(2, 7, 2):
+        #    y_predictors.append((-(sample_a + i) / sample_b, f"-(a+{i})/b"))
 
         # adding the datapoints to the feature_data and the y_predictors to the ys
         adding_lists = [(datapoints, feature_datas, feature_data_names), (y_predictors, ys, y_names)]
@@ -306,9 +309,12 @@ def fit_regressor_to_data(func_for_d=None):
     regressors = [LinearRegression()]
     regressor_names = ["Linear"]
 
-    # file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
-    file_names = [file_name for file_name in data.keys() if "S99" not in file_name]
+    test_images_str = "IMG4"
+    print(f"Using all images with '{test_images_str}' in their name as test")
+    file_names = [file_name for file_name in data.keys() if test_images_str not in file_name]
+    print(f"Amount of train files in use: {len(file_names)}")
     rest_of_file_names = [file_name for file_name in data.keys() if file_name not in file_names]
+    print(f"Amount of test files in use: {len(rest_of_file_names)}")
     # rest_of_file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
 
     # --- Generating the feature info
@@ -331,15 +337,18 @@ def fit_regressor_to_data(func_for_d=None):
     # --------------- Fitting and scoring the regressors ----------------------
 
     scores = []
-    predictions = []
+    train_predictions = []
+    test_predictions = []
     test_scores = []
     for i, regressor in enumerate(regressors):
         scores_per_feature_data = []
-        predictions_per_feature_data = []
+        train_predictions_per_feature_data = []
+        test_predictions_per_feature_data = []
         test_scores_per_feature_data = []
         for j, feature_data in enumerate(feature_datas):
             scores_per_y = []
-            predictions_per_y = []
+            train_predictions_per_y = []
+            test_predictions_per_y = []
             test_scores_per_y = []
             for k, y in enumerate(ys):
                 if len(y) == 0:
@@ -370,14 +379,17 @@ def fit_regressor_to_data(func_for_d=None):
                 temp_test_scores = list(np.array(temp_test_scores).round(ROUNDING_PRECISION))
                 test_scores_per_y.append(temp_test_scores)
 
-                predictions_per_y.append(prediction)
+                train_predictions_per_y.append(prediction)
+                test_predictions_per_y.append(test_prediction)
 
             scores_per_feature_data.append(scores_per_y)
-            predictions_per_feature_data.append(predictions_per_y)
+            train_predictions_per_feature_data.append(train_predictions_per_y)
+            test_predictions_per_feature_data.append(test_predictions_per_y)
             test_scores_per_feature_data.append(test_scores_per_y)
 
         scores.append(scores_per_feature_data)
-        predictions.append(predictions_per_feature_data)
+        train_predictions.append(train_predictions_per_feature_data)
+        test_predictions.append(test_predictions_per_feature_data)
         test_scores.append(test_scores_per_feature_data)
 
         # printing out the results
@@ -406,9 +418,57 @@ def fit_regressor_to_data(func_for_d=None):
         #  "b_func": lambda x1, x2: -((4*x1 - 6*x2)/(x2 - x1) + 4) / x2},
         {"x1_name": "a/b", "x2_name": "b",
          "a_func": lambda x1, x2: x1 * x2},
-        {"x1_name": "a/b", "x2_name": "1/b",
-         "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
+        #{"x1_name": "a/b", "x2_name": "1/b",
+        # "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
     ]
+
+    ab_scores = get_ab_train_and_test_scores(regressors, regressor_names, feature_datas, feature_data_names, train_predictions, test_predictions, y_names, ab_formulas, fo_samples)
+    print_ab_scores(ab_scores, True)
+
+
+def print_ab_scores(ab_scores, is_test_score=False):
+    # ------------------ printing out ab results -------------------
+    print("evaluating a, b")
+    # Assuming ab_train_scores and ab_test_scores are the same length and same format
+    for regressor in ab_scores.keys():
+        for feature in ab_scores[regressor].keys():
+            print("---------------------------------------------------")
+            print("Regressor: " + regressor + ", Feature: " + feature)
+
+
+            if is_test_score:
+                # both train and test scores
+                matrix = [["formula", "--train scores--","", "", "", "", "--test scores--", "", "", "", ""]]
+                matrix += [["", *ab_scores[regressor][feature][0]["scores"]["train"].keys(), *ab_scores[regressor][feature][0]["scores"]["test"].keys()]]
+                matrix += [[ab_formula["name"], *[format(score, ".4f") for score in ab_formula["scores"]["train"].values()],
+                            *[format(score, ".4f") for score in ab_formula["scores"]["test"].values()]]
+                           for ab_formula in ab_scores[regressor][feature]]
+            else:
+                matrix = [["", *ab_scores[regressor][feature][0]["scores"].keys()]]
+                matrix += [[ab_formula["name"], *[format(score, ".4f") for score in ab_formula["scores"].values()]] for
+                           ab_formula in ab_scores[regressor][feature]]
+                matrix += [["best: ", *[
+                    format(min([ab_formula["scores"][name] for ab_formula in ab_scores[regressor][feature]]), ".4f") for
+                    name in ab_scores[regressor][feature][0]["scores"].keys()]]]
+            pretty_print(matrix)
+
+
+def get_ab_train_and_test_scores(regressors, regressor_names, feature_datas, feature_data_names, train_predictions, test_predictions, y_names, ab_formulas, fo_samples):
+    ab_train_scores = get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names, train_predictions, y_names, ab_formulas, fo_samples)
+    ab_test_scores = get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names, test_predictions, y_names, ab_formulas, fo_samples)
+
+    # uniting the train and test scores
+    ab_scores = {}
+    for regressor in ab_train_scores.keys():
+        ab_scores[regressor] = {}
+        for feature in ab_train_scores[regressor].keys():
+            ab_scores[regressor][feature] = []
+            for train_score, test_score in zip(ab_train_scores[regressor][feature], ab_test_scores[regressor][feature]):
+                ab_scores[regressor][feature].append({"name": train_score["name"], "scores": {"train": train_score["scores"], "test": test_score["scores"]}})
+    return ab_scores
+
+
+def get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names, predictions, y_names, ab_formulas, fo_samples):
     ab = {}
     for i in range(len(regressors)):
         regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
@@ -436,18 +496,7 @@ def fit_regressor_to_data(func_for_d=None):
             a, b = get_all_fnr_sigmoid(fo_samples)
             scores = avg_successrate_scores(fo_samples, a, b)
             ab[regressor_name][feature_names].append({"name": "fnr", "scores": scores})
-
-    # ------------------ printing out ab results -------------------
-    print("evaluating a, b")
-    for regressor in ab.keys():
-        for feature in ab[regressor].keys():
-            print("---------------------------------------------------")
-            print("Regressor: " + regressor + ", Feature: " + feature)
-            matrix = [["", *ab[regressor][feature][0]["scores"].keys()]]
-            matrix += [[ab_formula["name"], *[format(score, ".4f") for score in ab_formula["scores"].values()]] for ab_formula in ab[regressor][feature]]
-            matrix += [["best: ", *[format(min([ab_formula["scores"][name] for ab_formula in ab[regressor][feature]]), ".4f") for name in ab[regressor][feature][0]["scores"].keys()]]]
-            pretty_print(matrix)
-
+    return ab
 
 if __name__ == "__main__":
     fit_regressor_to_data()
