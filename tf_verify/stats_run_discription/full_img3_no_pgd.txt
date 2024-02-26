@@ -1,0 +1,1 @@
+784	1	1	500	MNIST_convSmall_NO_PGD	3	1	all_img_3

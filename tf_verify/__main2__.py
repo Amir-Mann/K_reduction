@@ -1623,7 +1623,7 @@ else:
                             if not failed_origin_found:
                                 print(f"Cound't found any FO with {NUM_ATTEMPTS_AT_FINDING_FAILING_ORIGINS} attempts.")
                                 break
-                            print("Found FO.", end=" ")
+                            print("Found FO.")
                             # create FailingOrigin with proper parameters
                             failing_origin = l0_stats.FailingOriginStats(config.dataset, config.netname, i, K1,
                                                                          chosen_pixels, label, nlb[-1], nub[-1])

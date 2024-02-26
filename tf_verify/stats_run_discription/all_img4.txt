@@ -1,0 +1,3 @@
+784	1	1	500	mnist_relu_3_50	4	1	all_image_4
+784	1	1	500	MNIST_convSmall_NO_PGD	4	1	all_image_4
+784	1	1	500	MNIST_convSmall_128_0.004_91_89_0.5_0.1	4	1	all_image_4

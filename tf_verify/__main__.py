@@ -29,6 +29,7 @@ CHECK RESULTS:
 RUNNING:
 
 TODO:
+python /root/OUR_WORK/tf_verify/run_stats.py "stats_run_discription/mnist_relu_3_50_runs.txt"
 """
 
 
