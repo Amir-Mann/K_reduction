@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import scipy
 import numpy as np
 import math
+from utils import *
 
 ## -------- Functions for d ---------------- ##
 def d_power(sample, power):
@@ -91,10 +92,6 @@ def get_average_success_rate(sample):
     return summation
 
 
-def sigmoid_array(x):
-    return 1 / (1 + np.exp(-x))
-
-
 def classic_ls_problem(vars, x, y, weights):
     # I want to change what's inside sigmoid to np.float128 to avoid , but it's not working
     # https://bobbyhadz.com/blog/runtime-warning-overflow-encountered-in-exp-in-python#:~:text=The%20NumPy%20%22RuntimeWarning%3A%20overflow%20encountered,float128%20before%20calling%20exp()%20.
@@ -133,6 +130,19 @@ def sigmoid_weighted_least_squares_aux(failing_origin, **kwargs_for_weights_calc
     bbound = (500 * 4 * 2) ** 2
     result = scipy.optimize.least_squares(classic_ls_problem, vars, args=(x, y, weights), 
                                           bounds=((-bbound, -bbound), (bbound, bbound)))
+    if result["x"][1] >= 0:
+        plt.plot(x, sigmoid_array(result["x"][0] + result["x"][1] * x))
+        plt.plot(x, y)
+        labels = [
+            f"{result['x']}",
+            "data"
+        ]
+        plt.legend(labels, ncol=1, loc='center right',
+                        bbox_to_anchor=[1, 1], fontsize=6,
+                        columnspacing=1.0, labelspacing=0.0,
+                        handletextpad=0.0, handlelength=1.5,
+                        fancybox=True, shadow=True)
+        plt.show()
     return result["x"]
 
 

@@ -4,10 +4,12 @@ from json.decoder import JSONDecodeError
 from fo_funcs import *
 from utils import *
 from sklearn.linear_model import LinearRegression, Ridge
+import numpy as np
 
 stats_folder = "../tf_verify/json_stats"
 
 filter_out_perfect_data = False
+down_sample = False
 # filter_out_all_image = True
 
 full_image_data = {}
@@ -27,6 +29,9 @@ for root, dirs, files in os.walk(stats_folder):
             dataset_to_add_to = full_image_data
         else:
             dataset_to_add_to = data
+            import random
+            if down_sample and random.random() < 0.85:
+                continue
         if filter_out_perfect_data:
             dataset_to_add_to[net_name + "_" + fname[:-5]] = [fo for fo in new_data if
                                                               len([subk for subk in fo["statistics"] if
@@ -245,14 +250,14 @@ def generate_feature_info(func_for_d, file_names):
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
         datapoints = [
             #([img_a, img_b, fo_k, img_d],                  "a_img, b_img, k, d"),
-            ([fo_k],                                       "k"),
+            #([fo_k],                                       "k"),
             #([fo_k, img_d],                                "k , d"),
-            ([fo_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
-            ([fo_k, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s"),
-            ([img_a, img_b, fo_k, img_d_normalized["standard"]],         "a_img, b_img, k, |d|s"),
+            #([fo_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
+            #([fo_k, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s"),
+            #([img_a, img_b, fo_k, img_d_normalized["standard"]],         "a_img, b_img, k, |d|s"),
             ([fo_k, img_a/img_b, 1/img_b, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s, a/b, 1/b"),
-            ([img_a, img_b, fo_k, img_d_normalized["div_by_mean"]],      "a_img, b_img, k, d_normalized[\"div_by_mean\"]"),
-            ([img_a, img_b, fo_k, img_d_normalized["min_max"]],          "a_img, b_img, k, d_normalized[\"min_max\"]"),
+            #([img_a, img_b, fo_k, img_d_normalized["div_by_mean"]],      "a_img, b_img, k, d_normalized[\"div_by_mean\"]"),
+            #([img_a, img_b, fo_k, img_d_normalized["min_max"]],          "a_img, b_img, k, d_normalized[\"min_max\"]"),
 
             #([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in [img_a, img_b, fo_k]], "Overfit"),
             # ([k / img_vars[1]], "k / img_b"),
@@ -267,10 +272,10 @@ def generate_feature_info(func_for_d, file_names):
         # y predictors
         y_predictors = [
             (sample_a, "a"),
-            (sample_b, "b"),
-            (sample_a / sample_b, "a/b"),
-            (-(sample_a + 4) / sample_b, "-(a+4)/b"),
+            #(sample_b, "b"),
             (1 / sample_b, "1/b"),
+            (sample_a / sample_b, "a/b"),
+            #(-(sample_a + 4) / sample_b, "-(a+4)/b"),
         ]
         #for i in range(2, 7, 2):
         #    y_predictors.append((-(sample_a + i) / sample_b, f"-(a+{i})/b"))
@@ -340,6 +345,7 @@ def fit_regressor_to_data(func_for_d=None):
     train_predictions = []
     test_predictions = []
     test_scores = []
+    to_graph = []
     for i, regressor in enumerate(regressors):
         scores_per_feature_data = []
         train_predictions_per_feature_data = []
@@ -351,13 +357,46 @@ def fit_regressor_to_data(func_for_d=None):
             test_predictions_per_y = []
             test_scores_per_y = []
             for k, y in enumerate(ys):
+                if  y_names[k] == "a":
+                    alpha = y
                 if len(y) == 0:
                     continue
+                y = np.array(y)
                 regressor.fit(feature_data, y)
 
                 # Calculating train scores
                 ROUNDING_PRECISION = 5
                 prediction = regressor.predict(feature_data)
+                if y_names[k] == "1/b" and feature_data_names[j] == "k, |d|s, 1/|d|s, a/b, 1/b":
+                    beta_hat = 1 / prediction
+                    beta = 1 / y
+                    
+                if y_names[k] == "a/b" and feature_data_names[j] == "k, |d|s, 1/|d|s, a/b, 1/b":
+                    r = np.mod(- y, 1)
+                    k1_hat = -y + r
+                    k0_hat = -y + r -1
+                    alpha_hat = y * beta_hat
+                    k0 = (alpha_hat - alpha) / beta + beta_hat / beta * (k0_hat)
+                    k1 = (alpha_hat - alpha) / beta + beta_hat / beta * (k1_hat)
+                    for values_array, name in zip([prediction - y, k0_hat - k0, k1_hat - k1, beta_hat - beta], ["prediction - y", "k0_hat - k0", "k1_hat - k1", "beta_hat - beta"]):
+                        density = scipy.stats.gaussian_kde(values_array)
+                        xs = np.linspace(-5,5,200)
+                        density.covariance_factor = lambda : .25
+                        density._compute_covariance()
+                        var = np.var(values_array) ** 0.5
+                        labels = [
+                            "data",
+                        ]
+                        v = 2
+                        skwish_factor
+                        t_density = 2 * math.gamma((v + 1) / 2) / (v * math.pi)**0.5/math.gamma(v / 2) * (1+(2 * xs)**2/v) **(- (v + 1) / 2)
+                        plt.plot(xs, density(xs))
+                        plt.plot(xs, t_density)
+                        labels.append(f"t density with {v=}")
+                        plt.legend(labels, ncol=1, loc='center right', bbox_to_anchor=[1, 1], fontsize=6)
+                        plt.title(name)
+                        plt.show()
+                                          
                 score1 = regressor.score(feature_data, y)  # R^2
                 score2 = np.sum(np.abs(prediction - y)) / len(y)  # L_1 / len(y)
                 score3 = (np.sum((prediction - y) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
@@ -406,20 +445,20 @@ def fit_regressor_to_data(func_for_d=None):
                 matrix = [[f"-> {y_names[r]}", scores[i][j][r], test_scores[i][j][r]] for r in range(len(ys))]
                 matrix = [["__ Y __", "__ Train __", "__ Test __"]] + matrix
                 pretty_print(matrix)
-
+    
     # ------------------ getting a, b -------------------
     ab_formulas = [
-        {"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor"},
-        {"x1_name": "a/b", "x2_name": "-(a+4)/b",
-         "a_func": lambda aDivb, a4Divb: (-4 * aDivb) / (aDivb + a4Divb),
-         "b_func": lambda aDivb, a4Divb: (-4) / (aDivb + a4Divb)},
+        #{"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor"},
+        #{"x1_name": "a/b", "x2_name": "-(a+4)/b",
+        # "a_func": lambda aDivb, a4Divb: (-4 * aDivb) / (aDivb + a4Divb),
+        # "b_func": lambda aDivb, a4Divb: (-4) / (aDivb + a4Divb)},
         # {"x1_name": "-(a+6)/b", "x2_name": "-(a+4)/b",
         #  "a_func": lambda x1, x2: (4*x1 - 6*x2)/(x2 - x1),
         #  "b_func": lambda x1, x2: -((4*x1 - 6*x2)/(x2 - x1) + 4) / x2},
-        {"x1_name": "a/b", "x2_name": "b",
-         "a_func": lambda x1, x2: x1 * x2},
-        #{"x1_name": "a/b", "x2_name": "1/b",
-        # "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
+        #{"x1_name": "a/b", "x2_name": "b",
+        # "a_func": lambda x1, x2: x1 * x2},
+        {"x1_name": "a/b", "x2_name": "1/b",
+         "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
     ]
 
     ab_scores = get_ab_train_and_test_scores(regressors, regressor_names, feature_datas, feature_data_names, train_predictions, test_predictions, y_names, ab_formulas, fo_samples)
@@ -487,11 +526,19 @@ def get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names
                     b = get_y(x1, x2, formula["b_func"])
                 else:
                     b = predictions[i][j][y_names.index(formula["x2_name"])]
-                scores = avg_successrate_scores(fo_samples, a, b)
-                name = formula["x1_name"] + ", " + formula["x2_name"]
-                if "comment" in formula:
-                    name += " (" + formula["comment"] + ")"
-                ab[regressor_name][feature_names].append({"name": name, "scores": scores})
+                a_s = a
+                for n in list(range(0, 11)) + [100, 1000]:
+                    a = []
+                    for alpha, beta, fo in zip(a_s, b, fo_samples):
+                        a_, b_ = sigmoid_weighted_least_squares(fo)
+                        def f(k, n):
+                            return np.random.binomial(n, 1 / (1 + np.exp(- (a_ + b_ * k))))
+                        a.append(correct_sigmoid(alpha, beta, f, num_samples=n, true_alpha=a_, true_beta=b_)[0])
+                    scores = avg_successrate_scores(fo_samples, a, b)
+                    name = formula["x1_name"] + ", " + formula["x2_name"] + f" {n=}"
+                    if "comment" in formula:
+                        name += " (" + formula["comment"] + ")"
+                    ab[regressor_name][feature_names].append({"name": name, "scores": scores})
 
             a, b = get_all_fnr_sigmoid(fo_samples)
             scores = avg_successrate_scores(fo_samples, a, b)
