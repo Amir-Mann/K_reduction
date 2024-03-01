@@ -53,13 +53,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.796
             }
         ]
     },
@@ -117,12 +147,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -181,13 +241,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.9460000000000001
             }
         ]
     },
@@ -359,13 +449,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.936
             }
         ]
     },
@@ -423,13 +543,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.928
             }
         ]
     },
@@ -591,13 +741,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.8740000000000001
             }
         ]
     },
@@ -655,13 +835,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
-                "sub_k": 11,
-                "samples": 10,
+                "sub_k": 7,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
+                "success": 0.9920000000000001
+            },
+            {
+                "sub_k": 11,
+                "samples": 500,
+                "success": 0.882
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.446
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.07600000000000001
             }
         ]
     },
@@ -719,12 +929,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -783,12 +1023,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -847,12 +1117,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -1129,12 +1429,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -1193,13 +1523,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9960000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.7160000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.30000000000000004
             }
         ]
     },
@@ -1257,13 +1617,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9860000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.778
             }
         ]
     },
@@ -1321,13 +1711,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9460000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.666
             }
         ]
     },
@@ -1494,12 +1914,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -1558,13 +2008,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9680000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.7220000000000001
             }
         ]
     },
@@ -1622,13 +2102,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.792
             }
         ]
     },
@@ -1924,13 +2434,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.8740000000000001
             }
         ]
     },
@@ -2206,13 +2746,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.904
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.266
             }
         ]
     },
@@ -2270,13 +2840,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9820000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.76
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.268
             }
         ]
     },
@@ -2418,12 +3018,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -2591,13 +3221,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.904
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.41600000000000004
             }
         ]
     },
@@ -2655,13 +3315,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9940000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.516
             }
         ]
     },
@@ -2719,13 +3409,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.8480000000000001
             }
         ]
     },
@@ -2783,13 +3503,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.8420000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.14200000000000002
             }
         ]
     },
@@ -2847,13 +3597,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.914
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.35000000000000003
             }
         ]
     },
@@ -2911,13 +3691,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9720000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.8400000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.258
             }
         ]
     },
@@ -3079,13 +3889,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.936
             }
         ]
     },
@@ -3143,12 +3983,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -3207,13 +4077,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9840000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.5780000000000001
             }
         ]
     },
@@ -3271,13 +4171,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9900000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.8420000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.452
             }
         ]
     },
@@ -3335,13 +4265,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9940000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.8360000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.41000000000000003
             }
         ]
     },
@@ -3503,12 +4463,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -3671,13 +4661,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9760000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.7000000000000001
             }
         ]
     },
@@ -3735,13 +4755,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.916
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.666
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.41000000000000003
             }
         ]
     },
@@ -3799,13 +4849,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9620000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.5860000000000001
             }
         ]
     },
@@ -3863,13 +4943,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9540000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.43400000000000005
             }
         ]
     },
@@ -3927,13 +5037,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
-                "sub_k": 11,
-                "samples": 10,
+                "sub_k": 7,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 11,
+                "samples": 500,
+                "success": 0.93
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.6980000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.34400000000000003
             }
         ]
     },
@@ -4204,13 +5344,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9880000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.402
             }
         ]
     },
@@ -4268,13 +5438,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.9480000000000001
             }
         ]
     },
@@ -4332,13 +5532,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9780000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.6980000000000001
             }
         ]
     },
@@ -4396,13 +5626,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.936
             }
         ]
     },
@@ -4460,13 +5720,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.78
             }
         ]
     },
@@ -4524,13 +5814,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.47800000000000004
             }
         ]
     },
@@ -4588,12 +5908,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -4652,12 +6002,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -4716,13 +6096,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9460000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.338
             }
         ]
     },
@@ -4864,12 +6274,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -4928,13 +6368,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9400000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.6240000000000001
             }
         ]
     },
@@ -5180,13 +6650,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.8380000000000001
             }
         ]
     },
@@ -5244,12 +6744,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -5308,13 +6838,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.756
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.274
             }
         ]
     },
@@ -5372,13 +6932,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9940000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.914
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.39
             }
         ]
     },
@@ -5436,13 +7026,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.924
             }
         ]
     },
@@ -5584,13 +7204,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9780000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.888
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.384
             }
         ]
     },
@@ -5732,13 +7382,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9960000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.6960000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.07800000000000001
             }
         ]
     },
@@ -5796,13 +7476,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.7300000000000001
             }
         ]
     },
@@ -5860,13 +7570,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9620000000000001
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.798
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.42000000000000004
             }
         ]
     },
@@ -5924,13 +7664,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.44
             }
         ]
     },
@@ -5988,12 +7758,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -6156,13 +7956,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9900000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.7160000000000001
             }
         ]
     },
@@ -6220,13 +8050,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.8720000000000001
             }
         ]
     },
@@ -6284,13 +8144,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.772
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.336
             }
         ]
     },
@@ -6348,13 +8238,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9600000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.524
             }
         ]
     },
@@ -6412,12 +8332,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -6476,13 +8426,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.9520000000000001
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.5800000000000001
             }
         ]
     },
@@ -6540,12 +8520,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -6604,13 +8614,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.892
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.446
             }
         ]
     },
@@ -6668,12 +8708,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -6732,13 +8802,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.908
             }
         ]
     },
@@ -6796,13 +8896,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
-                "sub_k": 11,
-                "samples": 10,
+                "sub_k": 7,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
+                "success": 0.9920000000000001
+            },
+            {
+                "sub_k": 11,
+                "samples": 500,
+                "success": 0.93
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.662
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.14
             }
         ]
     },
@@ -6969,12 +9099,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -7033,13 +9193,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.922
             }
         ]
     },
@@ -7097,12 +9287,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -7161,12 +9381,42 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
                 "success": 1.0
             }
         ]
@@ -7225,13 +9475,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 7,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.902
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.066
             }
         ]
     },
@@ -7289,13 +9569,43 @@
             },
             {
                 "sub_k": 6,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
-                "sub_k": 11,
-                "samples": 10,
+                "sub_k": 7,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 8,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 9,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 10,
+                "samples": 500,
+                "success": 0.9860000000000001
+            },
+            {
+                "sub_k": 11,
+                "samples": 500,
+                "success": 0.882
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 0.554
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.14
             }
         ]
     }

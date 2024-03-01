@@ -1641,7 +1641,7 @@ else:
 
                             sk_is_skipping_high = True
                             sk_is_skipping_low = False
-                            sk_careful_mode = (False, 0)
+                            sk_careful_mode = (False, 0)  # tuple[0]: am I in careful mode?, tuple[1]: at what subk do I exit careful mode?
                             sk_consecutive_100s = 0
                             sk_consecutive_0s = 0
                             sk_skip_over_list = []
@@ -1649,14 +1649,24 @@ else:
 
                             # go over each sub K with config.delta_sub_k intervals
                             sk_current_sub_k = SK_REGULAR_DELTA_SUBK
-                            while sk_current_sub_k <= K1:
+                            while True:
+                                if sk_current_sub_k > K1:
+                                    # I've exited the range
+                                    if sk_is_skipping_high:
+                                        sk_is_skipping_high = False  # this might not be necessary
+                                        sk_current_sub_k -= SK_SUBK_SKIP_RATE * 2
+                                        sk_careful_mode = (True, K1)
+                                        continue
+                                    else:
+                                        break
                                 sk_is_skipping = sk_is_skipping_high or sk_is_skipping_low
+
                                 # in case we already sampled this sub_k, skip it
+                                if sk_current_sub_k < 1:
+                                    sk_current_sub_k = 1
                                 if sk_current_sub_k in sk_skip_over_list:
                                     sk_current_sub_k += SK_REGULAR_DELTA_SUBK
                                     continue
-                                if sk_current_sub_k < 0:
-                                    sk_current_sub_k = 0
 
                                 # --------------------- Gathering the Statistics ---------------------------------
                                 # loop SAMPLES times over the sub K, and calculate the success rate
@@ -1667,6 +1677,7 @@ else:
                                 if sk_current_sub_k in sk_partially_done_list:
                                     sampling_amount -= SK_SAMPLING_RATE_WHEN_SKIPPING
                                 if sampling_amount == 0:
+                                    sk_current_sub_k += (SK_REGULAR_DELTA_SUBK if not sk_is_skipping else SK_SUBK_SKIP_RATE)
                                     continue
 
                                 for sample_num in range(sampling_amount):
@@ -1699,7 +1710,7 @@ else:
 
                                 # ------------------------------------------------------------------
 
-                                # print(f"sub-k = {sk_current_sub_k}, success_rate = {success_rate}, repeat_of_K1 = {repeat_of_K1}, K1 = {K1}, img_num = {i}")
+                                print(f"sub-k = {sk_current_sub_k}, success_rate = {success_rate}, repeat_of_K1 = {repeat_of_K1}, K1 = {K1}, img_num = {i}")
 
                                 # updating sk_current_sub_k
                                 if not sk_is_skipping:
@@ -1724,9 +1735,11 @@ else:
                                         sk_current_sub_k -= (SK_SUBK_SKIP_RATE + SK_REGULAR_DELTA_SUBK)
                                     elif sk_is_skipping_low and success_rate > 0:
                                         sk_is_skipping_low = False
-                                        sk_current_sub_k -= (2 * SK_SUBK_SKIP_RATE + SK_REGULAR_DELTA_SUBK)
+                                        sk_current_sub_k = sk_skip_over_list[-1]  # This brings it back to the last full check
                                         # no careful mode because that's only compatible with skipping high
                                 else:
+                                    sk_is_skipping_high = False
+                                    sk_is_skipping_low = False
                                     if sk_current_sub_k >= sk_careful_mode[1]:
                                         sk_careful_mode = (False, 0)
                                         sk_consecutive_100s = 0
@@ -1735,7 +1748,7 @@ else:
                                         sk_current_sub_k -= (SK_SUBK_SKIP_RATE + SK_REGULAR_DELTA_SUBK)
 
                                 # setting the current_sub_k
-                                sk_current_sub_k += (config.delta_sub_k if not sk_is_skipping else SK_SUBK_SKIP_RATE)
+                                sk_current_sub_k += (SK_REGULAR_DELTA_SUBK if not sk_is_skipping else SK_SUBK_SKIP_RATE)
 
                             # adding FailedOrigin object to the list of failed origins
                             print(f"K1 = {K1}, repeat_of_K1 = {repeat_of_K1},  img_num = {i}")
