@@ -260,6 +260,7 @@ def generate_feature_info(func_for_d, file_names):
 
     # -------------- Creating the datas for the features, and the ys --------------------
     first = True
+
     for sample in samples_in_use:
         # initializing variables that will be used
         full_image_fo = get_full_image_data_from_FO(sample)
@@ -272,6 +273,11 @@ def generate_feature_info(func_for_d, file_names):
         # initializing variables that will be used
         string_for_img = get_string_for_image(sample)
         ds_of_image = list_of_ds_per_img[string_for_img]
+
+        if string_for_img not in list_of_warmup_ds_per_img:
+            print(f"WARNING: no warmup samples for {string_for_img}")
+            print(" -- SKIPPING DATAPOINT -- ")
+            continue
         warmup_ds_of_image = list_of_warmup_ds_per_img[string_for_img]
 
         # check how many warmup samples there are
@@ -346,7 +352,6 @@ def generate_feature_info(func_for_d, file_names):
             # ([img_vars[1]], "img_b"),
             # ([1 / img_vars[1]], "1 / img_b"),
             # ([np.log(img_vars[1])], "ln(img_b)")
-            # example datapoint : ([alpha_img, FO_k], "alpha_img, FO_K") ---- Dont forget to add a feature name!
         ]
 
         sample_a, sample_b = sigmoid_weighted_least_squares(sample)
@@ -399,13 +404,21 @@ def fit_regressor_to_data(func_for_d=None):
     regressors = [LinearRegression()]
     regressor_names = ["Linear"]
 
-    test_images_str = "IMG4"
+    filter_out_no_warmup_data = True
+    test_images_str = "NO_PGD"
+
+    pool_of_files_to_use = list(data.keys())
+    if filter_out_no_warmup_data:
+        print("filtering out files that we haven't collected warmup data for")
+        pool_of_files_to_use = [file_name for file_name in pool_of_files_to_use if "IMG4" not in file_name]
+
+    file_names = [file_name for file_name in pool_of_files_to_use if test_images_str not in file_name]
+    rest_of_file_names = [file_name for file_name in pool_of_files_to_use if file_name not in file_names]
+
     print(f"Using all images with '{test_images_str}' in their name as test")
-    file_names = [file_name for file_name in data.keys() if test_images_str not in file_name]
     print(f"Amount of train files in use: {len(file_names)}")
-    rest_of_file_names = [file_name for file_name in data.keys() if file_name not in file_names]
     print(f"Amount of test files in use: {len(rest_of_file_names)}")
-    # rest_of_file_names = [file_name for file_name in data.keys() if "relu" not in file_name]
+
 
     # --- Generating the feature info
     train_data = generate_feature_info(func_for_d, file_names)
@@ -509,8 +522,8 @@ def fit_regressor_to_data(func_for_d=None):
         #  "b_func": lambda x1, x2: -((4*x1 - 6*x2)/(x2 - x1) + 4) / x2},
         {"x1_name": "a/b", "x2_name": "b",
          "a_func": lambda x1, x2: x1 * x2},
-        #{"x1_name": "a/b", "x2_name": "1/b",
-        # "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
+        {"x1_name": "a/b", "x2_name": "1/b",
+        "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
     ]
 
     ab_scores = get_ab_train_and_test_scores(regressors, regressor_names, feature_datas, feature_data_names, train_predictions, test_predictions, y_names, ab_formulas, fo_samples)
