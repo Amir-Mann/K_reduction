@@ -12,10 +12,9 @@ filter_out_perfect_data = False
 
 full_image_data = {}
 data = {}
+
 for root, dirs, files in os.walk(stats_folder):
     for fname in files:
-        # if filter_out_all_image and "all_image" in fname:
-        # continue
         fpath = os.path.join(root, fname)
         with open(fpath, "r") as f:
             try:
@@ -34,6 +33,29 @@ for root, dirs, files in os.walk(stats_folder):
         else:
             dataset_to_add_to[net_name + "_" + fname[:-5]] = new_data
 
+
+image_bounds_stats_folder = "../tf_verify/image_bounds_stats"
+img_bound_data = {}
+for root, dirs, files in os.walk(image_bounds_stats_folder):
+    for fname in files:
+        fpath = os.path.join(root, fname)
+        # getting the data in the current file
+        with open(fpath, "r") as f:
+            try:
+                new_data = json.load(f)
+            except JSONDecodeError:
+                print(f"--- Encountered json decode error with file : {fpath}, skipping.")
+        net_name = new_data[0]["network"][len("models/MNIST_"):-len(".onnx")]
+
+        if "all_image" in fname:
+            assert False, "There shouldn't be any all_image files in the image_bounds_stats folder"
+
+        if filter_out_perfect_data:
+            img_bound_data[net_name + "_" + fname[:-5]] = [fo for fo in new_data if
+                                                              len([subk for subk in fo["statistics"] if
+                                                                   subk["success"] != 1]) > 0]
+        else:
+            img_bound_data[net_name + "_" + fname[:-5]] = new_data
 
 # functions for the d
 functions_for_d = [
@@ -95,6 +117,11 @@ def get_string_for_k(sample):
 #     # return len(d_buckets) - 1
 
 
+def get_label_of_image(network, image):
+    for value in data.values():
+        if value[0]["network"] == network and value[0]["image"] == image:
+            return value[0]["label"]
+    return None
 
 def binary_search_first_above(value, sorted_list):
     """
@@ -131,7 +158,68 @@ def get_estimated_bucket_index(d, sorted_d_buckets):
     relative_index = index_below + (relative_pos * (index_above - index_below))
     return relative_index
 
+def get_buckets_for_d(list_of_ds_per_img, num_of_buckets):
+    list_of_d_buckets_per_img = {}
+    for file_name_of_img in list_of_ds_per_img:
+        ds_of_image = list_of_ds_per_img[file_name_of_img]
+        sorted_list = sorted(ds_of_image)
 
+        # TODO: change this! the lengths of the buckets should be the same
+        if len(ds_of_image) <= num_of_buckets:
+            print(f"WARNING: len(ds_of_image) <= NUM_OF_BUCKETS, for {file_name_of_img}: {len(ds_of_image)} ds")
+            list_of_d_buckets_per_img[file_name_of_img] = sorted_list
+            continue
+
+        bucket_list = []
+        for i in range(num_of_buckets):
+            bucket_list.append(sorted_list[int(i * len(sorted_list) / num_of_buckets)])
+
+        list_of_d_buckets_per_img[file_name_of_img] = bucket_list
+    return list_of_d_buckets_per_img
+def get_bound_data_without_successful_samples(dataset, file_names):
+    if "correct" not in dataset[file_names[0]][0]["samples"][0]:
+        print("called function with bad dataset, returning dataset as is.")
+        return dataset
+    temp_dataset = {}
+    for file_name in file_names:
+        if file_name not in temp_dataset:
+            temp_dataset[file_name] = []
+        for entry in dataset[file_name]:
+            temp_entry = entry.copy()
+            temp_entry["samples"] = [sample for sample in entry["samples"] if sample["correct"] == False]
+            temp_dataset[file_name].append(temp_entry)
+    return temp_dataset
+
+def get_list_of_ds_per_k_and_image(dataset, func_for_d, file_names=None, image_bound_stats=False):
+    if file_names == None:
+        file_names = list(dataset.keys())
+    if image_bound_stats:
+        dataset = get_bound_data_without_successful_samples(dataset, file_names)
+    # list_of_ds_per_k = {}
+    list_of_ds_per_img = {}
+    for file_name in file_names:
+        # file_name_per_k = get_string_for_k(dataset[file_name][0])
+        file_name_per_img = get_string_for_image(dataset[file_name][0])
+        # if file_name_per_k not in list_of_ds_per_k:
+        #     list_of_ds_per_k[file_name_per_k] = []
+        if file_name_per_img not in list_of_ds_per_img:
+            list_of_ds_per_img[file_name_per_img] = []
+
+        label = get_label_of_image(dataset[file_name][0]["network"], dataset[file_name][0]["image"])
+        if image_bound_stats:
+            ds_in_current_file = [func_for_d(sample, label) for entry in dataset[file_name] for sample in entry["samples"]]
+        else:
+            ds_in_current_file = [func_for_d(sample) for sample in dataset[file_name]]
+
+        # list_of_ds_per_k[file_name_per_k] += ds_in_current_file
+        list_of_ds_per_img[file_name_per_img] += ds_in_current_file
+    return list_of_ds_per_img
+#             ,list_of_ds_per_k,
+
+def get_mean_and_variance(lst):
+    mean = np.mean(lst)
+    variance = np.var(lst)
+    return mean, variance
 
 def generate_feature_info(func_for_d, file_names):
     """
@@ -158,44 +246,17 @@ def generate_feature_info(func_for_d, file_names):
 
     # --------------- pre-calculations ; currently calculating normalization for d -------------
 
-    list_of_ds_per_k = {}
-    list_of_ds_per_img = {}
-    for file_name in file_names:
-        file_name_per_k = get_string_for_k(data[file_name][0])
-        file_name_per_img = get_string_for_image(data[file_name][0])
-        if file_name_per_k not in list_of_ds_per_k:
-            list_of_ds_per_k[file_name_per_k] = []
-        if file_name_per_img not in list_of_ds_per_img:
-            list_of_ds_per_img[file_name_per_img] = []
+    list_of_ds_per_img = get_list_of_ds_per_k_and_image(data, func_for_d, file_names, False)
+    list_of_warmup_ds_per_img = get_list_of_ds_per_k_and_image(img_bound_data, func_for_d, None, True)
 
-        ds_in_current_file = [func_for_d(sample) for sample in data[file_name]]
-
-        list_of_ds_per_k[file_name_per_k] += ds_in_current_file
-        list_of_ds_per_img[file_name_per_img] += ds_in_current_file
-
-    mean_and_variance_per_k = {}
-    mean_and_variance_per_img = {}
-    for file_name in list_of_ds_per_k:
-        mean_and_variance_per_k[file_name] = (np.mean(list_of_ds_per_k[file_name]), np.var(list_of_ds_per_k[file_name]))
-    for file_name in list_of_ds_per_img:
-        mean_and_variance_per_img[file_name] = (np.mean(list_of_ds_per_img[file_name]), np.var(list_of_ds_per_img[file_name]))
-
+    mean_and_variance_per_img = {file_name: get_mean_and_variance(list_of_ds_per_img[file_name])
+                                 for file_name in list_of_ds_per_img}
+    warmup_mean_and_variance_per_img = {file_name: get_mean_and_variance(list_of_warmup_ds_per_img[file_name])
+                                        for file_name in list_of_warmup_ds_per_img}
 
     NUM_OF_BUCKETS = 100
-    list_of_d_buckets_per_img = {}
-    for file_name_of_img in list_of_ds_per_img:
-        ds_of_image = list_of_ds_per_img[file_name_of_img]
-        sorted_list = sorted(ds_of_image)
-
-        if len(ds_of_image) <= NUM_OF_BUCKETS:
-            list_of_d_buckets_per_img[file_name_of_img] = sorted_list
-            continue
-
-        bucket_list = []
-        for i in range(NUM_OF_BUCKETS):
-            bucket_list.append(sorted_list[int(i * len(sorted_list) / NUM_OF_BUCKETS)])
-
-        list_of_d_buckets_per_img[file_name_of_img] = bucket_list
+    list_of_d_buckets_per_img = get_buckets_for_d(list_of_ds_per_img, NUM_OF_BUCKETS)
+    list_of_warmup_d_buckets_per_img = get_buckets_for_d(list_of_warmup_ds_per_img, NUM_OF_BUCKETS)
 
     # -------------- Creating the datas for the features, and the ys --------------------
     first = True
@@ -211,16 +272,33 @@ def generate_feature_info(func_for_d, file_names):
         # initializing variables that will be used
         string_for_img = get_string_for_image(sample)
         ds_of_image = list_of_ds_per_img[string_for_img]
+        warmup_ds_of_image = list_of_warmup_ds_per_img[string_for_img]
+
+        # check how many warmup samples there are
+
+        if len(warmup_ds_of_image) < 10:
+            print(f"WARNING: not enough warmup samples for {string_for_img}: {len(warmup_ds_of_image)} samples")
+        if len(warmup_ds_of_image) == 0:
+            print(f"WARNING (!): no warmup samples for {string_for_img}")
+            print(" -- SKIPPING DATAPOINT -- ")
+            continue
+
 
         # getting per image stats
         d_mean_per_image, d_variance_per_image = mean_and_variance_per_img[string_for_img]
-        d_min_per_image = min(ds_of_image)
-        d_max_per_image = max(ds_of_image)
+        d_min_per_image, d_max_per_image = min(ds_of_image), max(ds_of_image)
         d_buckets_for_image = list_of_d_buckets_per_img[string_for_img]
+
+        warmup_d_mean_per_image, warmup_d_variance_per_image = warmup_mean_and_variance_per_img[string_for_img]
+        warmup_d_min_per_image, warmup_d_max_per_image = min(warmup_ds_of_image), max(warmup_ds_of_image)
+        warmup_d_buckets_for_image = list_of_warmup_d_buckets_per_img[string_for_img]
 
         # setting the important variables, can be changed to per_K instead of per_image
         d_mean, d_variance = d_mean_per_image, d_variance_per_image
         d_min, d_max = d_min_per_image, d_max_per_image
+
+        warmup_d_mean, warmup_d_variance = warmup_d_mean_per_image, warmup_d_variance_per_image
+        warmup_d_min, warmup_d_max = warmup_d_min_per_image, warmup_d_max_per_image
 
         # getting the normalized values
         img_d_normalized = {
@@ -231,12 +309,23 @@ def generate_feature_info(func_for_d, file_names):
             "estimated_bucket": get_estimated_bucket_index(fo_d, d_buckets_for_image),
         }
 
+        warmup_img_d_normalized = {
+            "standard": (fo_d - warmup_d_mean) / warmup_d_variance,
+            "div_by_mean": fo_d / warmup_d_mean,
+            "min_max": (fo_d - warmup_d_min) / (warmup_d_max - warmup_d_min),
+            "rounded_bucket": get_rounded_bucket_index(fo_d, warmup_d_buckets_for_image),
+            "estimated_bucket": get_estimated_bucket_index(fo_d, warmup_d_buckets_for_image),
+        }
+
         # creating list of datapoints and features to add to the feature list ----------- ADD HERE
         datapoints = [
             ([img_a, img_b, fo_k, fo_d],                  "a_img, b_img, k, d"),
             ([fo_k],                                       "k"),
             ([fo_k, fo_d],                                "k , d"),
             ([fo_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
+            # ([fo_k, img_d_normalized["div_by_mean"]],      "k, d_normalized[\"div_by_mean\"]"),
+            # ([fo_k, img_d_normalized["min_max"]],          "k, d_normalized[\"min_max\"]"),
+            # ([fo_k, img_d_normalized["rounded_bucket"]], "k, d_normalized[\"rounded_bucket\"]"),
             ([fo_k, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s"),
             ([img_a, img_b, fo_k, img_d_normalized["standard"]],         "a_img, b_img, k, |d|s"),
             ([fo_k, img_a/img_b, 1/img_b, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s, a/b, 1/b"),
@@ -247,6 +336,11 @@ def generate_feature_info(func_for_d, file_names):
             ([fo_k, img_d_normalized["rounded_bucket"]], "k, d_normalized[\"rounded_bucket\"]"),
             ([fo_k, img_d_normalized["estimated_bucket"]], "k, d_normalized[\"estimated_bucket\"]"),
 
+            ([fo_k, warmup_img_d_normalized["standard"]],         "k, warmup_d_normalized[\"standard\"]"),
+            ([fo_k, warmup_img_d_normalized["div_by_mean"]],      "k, warmup_d_normalized[\"div_by_mean\"]"),
+            ([fo_k, warmup_img_d_normalized["estimated_bucket"]], "k, warmup_d_normalized[\"estimated_bucket\"]"),
+
+            # ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [fo_d] for b2 in [img_a, img_b, fo_k]], "Overfit"),
             #([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [img_d] for b2 in [img_a, img_b, fo_k]], "Overfit"),
             # ([k / img_vars[1]], "k / img_b"),
             # ([img_vars[1]], "img_b"),
@@ -292,11 +386,14 @@ def get_all_fnr_sigmoid(fo_samples, **kwargs_for_weights_calc):
         betas.append(beta)
     return alphas, betas
 
+def adapt_func_for_d_for_img_bounds(func_for_d):
+    # return lambda sample:
+    pass
 
 def fit_regressor_to_data(func_for_d=None):
     # Configuration
     if func_for_d is None:
-        func_for_d = lambda sample: d_power(sample, 6)
+        func_for_d = lambda sample, label=None: d_power(sample, 6, label)
         # func_for_d = lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"]+1:]) - sample["Lbounds"][sample["label"]]
 
     regressors = [LinearRegression()]
@@ -404,9 +501,9 @@ def fit_regressor_to_data(func_for_d=None):
     # ------------------ getting a, b -------------------
     ab_formulas = [
         {"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor"},
-        {"x1_name": "a/b", "x2_name": "-(a+4)/b",
-         "a_func": lambda aDivb, a4Divb: (-4 * aDivb) / (aDivb + a4Divb),
-         "b_func": lambda aDivb, a4Divb: (-4) / (aDivb + a4Divb)},
+        # {"x1_name": "a/b", "x2_name": "-(a+4)/b",
+        #  "a_func": lambda aDivb, a4Divb: (-4 * aDivb) / (aDivb + a4Divb),
+        #  "b_func": lambda aDivb, a4Divb: (-4) / (aDivb + a4Divb)},
         # {"x1_name": "-(a+6)/b", "x2_name": "-(a+4)/b",
         #  "a_func": lambda x1, x2: (4*x1 - 6*x2)/(x2 - x1),
         #  "b_func": lambda x1, x2: -((4*x1 - 6*x2)/(x2 - x1) + 4) / x2},
@@ -494,5 +591,4 @@ def get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names
 
 if __name__ == "__main__":
     fit_regressor_to_data()
-
 
