@@ -94,8 +94,7 @@
                 "success": 0.914
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -201,8 +200,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -308,8 +306,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -415,8 +412,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -517,8 +513,7 @@
                 "success": 0.7480000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -624,8 +619,7 @@
                 "success": 0.6220000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -731,8 +725,7 @@
                 "success": 0.464
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -833,8 +826,7 @@
                 "success": 0.7040000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -930,8 +922,7 @@
                 "success": 0.806
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -1037,8 +1028,7 @@
                 "success": 0.642
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -1139,8 +1129,7 @@
                 "success": 0.8340000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -1246,8 +1235,7 @@
                 "success": 0.264
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -1353,8 +1341,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -1455,8 +1442,7 @@
                 "success": 0.75
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -1562,8 +1548,7 @@
                 "success": 0.7100000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -1664,8 +1649,7 @@
                 "success": 0.784
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -1771,8 +1755,7 @@
                 "success": 0.528
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -1878,8 +1861,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -1980,8 +1962,7 @@
                 "success": 0.7000000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -2087,8 +2068,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -2189,8 +2169,7 @@
                 "success": 0.81
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -2296,8 +2275,7 @@
                 "success": 0.6920000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -2403,8 +2381,7 @@
                 "success": 0.47000000000000003
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -2505,8 +2482,7 @@
                 "success": 0.7280000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -2602,8 +2578,7 @@
                 "success": 0.918
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -2709,8 +2684,7 @@
                 "success": 0.532
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -2811,8 +2785,7 @@
                 "success": 0.8520000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -2918,8 +2891,7 @@
                 "success": 0.508
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -3025,8 +2997,7 @@
                 "success": 0.7400000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -3127,8 +3098,7 @@
                 "success": 0.528
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -3234,8 +3204,7 @@
                 "success": 0.504
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -3341,8 +3310,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -3443,8 +3411,7 @@
                 "success": 0.8660000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -3550,8 +3517,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -3657,8 +3623,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -3764,8 +3729,7 @@
                 "success": 0.686
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -3866,8 +3830,7 @@
                 "success": 0.7120000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -3968,8 +3931,7 @@
                 "success": 0.7300000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -4065,8 +4027,7 @@
                 "success": 0.8200000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -4172,8 +4133,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -4279,8 +4239,7 @@
                 "success": 0.7320000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -4386,8 +4345,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -4488,8 +4446,7 @@
                 "success": 0.802
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -4595,8 +4552,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -4702,8 +4658,7 @@
                 "success": 0.36600000000000005
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -4799,8 +4754,7 @@
                 "success": 0.9440000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -4906,8 +4860,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -5008,8 +4961,7 @@
                 "success": 0.752
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",
@@ -5115,8 +5067,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/MNIST_convSmall_NO_PGD.onnx",

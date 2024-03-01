@@ -121,8 +121,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -235,8 +234,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -349,8 +347,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -414,17 +411,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.766
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -532,8 +553,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -597,17 +617,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -730,8 +774,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -839,8 +882,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -904,17 +946,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1037,8 +1103,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1102,17 +1167,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.8200000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1240,8 +1329,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1369,8 +1457,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1483,8 +1570,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1548,17 +1634,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
-                "success": 1.0
+                "samples": 500,
+                "success": 0.9900000000000001
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9420000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1681,8 +1791,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1746,17 +1855,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.9400000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1820,17 +1953,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -1938,8 +2095,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2077,8 +2233,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2186,8 +2341,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2300,8 +2454,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2365,17 +2518,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2498,8 +2675,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2617,8 +2793,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2741,8 +2916,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2870,8 +3044,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -2979,8 +3152,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3044,17 +3216,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
                 "success": 1.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3187,8 +3383,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3252,17 +3447,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.7100000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3390,8 +3609,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3455,17 +3673,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.894
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3529,17 +3771,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.916
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3603,17 +3869,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
-                "sub_k": 16,
-                "samples": 10,
+                "sub_k": 12,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 0.9960000000000001
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.8260000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3731,8 +4021,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3855,8 +4144,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3920,17 +4208,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.8160000000000001
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -3994,17 +4306,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
-                "sub_k": 16,
-                "samples": 10,
+                "sub_k": 12,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 0.9920000000000001
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 0.9640000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 0.93
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 0.892
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.5
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4122,8 +4458,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4246,8 +4581,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4375,8 +4709,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4489,8 +4822,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4628,8 +4960,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4737,8 +5068,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4802,17 +5132,41 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 12,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
                 "success": 1.0
             },
             {
                 "sub_k": 16,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.658
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -4935,8 +5289,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -5064,8 +5417,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -5188,8 +5540,7 @@
                 "success": 0.0
             }
         ]
-    }
-,
+    },
     {
         "dataset": "mnist",
         "network": "models/mnist_relu_3_50.onnx",
@@ -5253,13 +5604,38 @@
             },
             {
                 "sub_k": 11,
-                "samples": 10,
+                "samples": 500,
                 "success": 1.0
             },
             {
-                "sub_k": 16,
-                "samples": 10,
+                "sub_k": 12,
+                "samples": 500,
                 "success": 1.0
+            },
+            {
+                "sub_k": 13,
+                "samples": 500,
+                "success": 1.0
+            },
+            {
+                "sub_k": 14,
+                "samples": 500,
+                "success": 0.9980000000000001
+            },
+            {
+                "sub_k": 15,
+                "samples": 500,
+                "success": 0.9960000000000001
+            },
+            {
+                "sub_k": 16,
+                "samples": 500,
+                "success": 0.9520000000000001
+            },
+            {
+                "sub_k": 17,
+                "samples": 500,
+                "success": 0.7440000000000001
             }
         ]
     }
