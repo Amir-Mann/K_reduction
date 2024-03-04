@@ -148,7 +148,7 @@ class LZeroGpuWorker:
         return self.__network.test(specLB, specUB, label)
 
     def get_score(self, last_layer_bounds, label):
-        # TODO: write function to return score(d)
+        pass# TODO: write function to return score(d)
 
     def normalize(self, image):
         # normalization taken out of the network
