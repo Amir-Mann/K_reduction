@@ -31,7 +31,7 @@ class LZeroRobustnessAnalyzer:
 
         print('Starting to estimate p and w')
         estimation_start_time = time.time()
-        p_vector, w_vector = self.__estimate_p_and_w()  # index 0=t last index=100 bound, p: success rate, w: time
+        p_vector, w_vector, scores_list = self.__estimate_p_and_w()  # index 0=t last index=100 bound, p: success rate, w: time
         estimation_duration = time.time() - estimation_start_time
         print(f'Estimation took {estimation_duration:.3f}')
 
@@ -110,7 +110,7 @@ class LZeroRobustnessAnalyzer:
         return results
 
     def __estimate_p_and_w(self, plot_p_vector=False, plot_w_vector=False):
-        # TODO: should get d(score) values here
+        # TODO: should return scores list
         # p_vector = vector of success rates(of k = t-100)
         # w_vector = vector of run times(of k = t-100)
         sampling_lower_bound = self.__t
@@ -159,7 +159,7 @@ class LZeroRobustnessAnalyzer:
             plt.legend()
             plt.show()
 
-        return p_vector, w_vector
+        return p_vector, w_vector, []
 
     def __load_covering_sizes_and_aproximate_s(self, p_vector, plot_s=False):
         # S is a dictionary used to calc fnr
