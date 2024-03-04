@@ -31,7 +31,7 @@ class LZeroGpuWorker:
                     sampling_successes, sampling_time = self.__sample(image, label, sampling_lower_bound, sampling_upper_bound, repetitions)
                     conn.send((sampling_successes, sampling_time))  # TODO: send d
                     # verification
-                    image, label, strategy, worker_index, number_of_workers = conn.recv()
+                    image, label, strategy, worker_index, number_of_workers = conn.recv() #TODO: workers will receive more data
                     coverings = self.__load_coverings(strategy)
                     self.__prove(conn, image, label, strategy, worker_index, number_of_workers, coverings)
                     message = conn.recv()
@@ -144,8 +144,8 @@ class LZeroGpuWorker:
         else:
             pass
             # prop = int(target[i])
-        # TODO: analyze and return score(d) from __network.test(after Anan's change return is_correctly_classified, bounds)
-        return self.__network.test(specLB, specUB, label)
+        is_correctly_classified, bounds = self.__network.test(specLB, specUB, label)
+        return is_correctly_classified, self.get_score(bounds[-1], label)
 
     def get_score(self, last_layer_bounds, label):
         pass# TODO: write function to return score(d)
@@ -198,3 +198,8 @@ class LZeroGpuWorker:
             indexes.append(pixel * 3 + 1)
             indexes.append(pixel * 3 + 2)
         return indexes
+
+    def __get_bucket(self, buckets, score):
+        #TODO: OMER
+        bucket = None
+        return bucket
