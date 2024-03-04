@@ -31,7 +31,8 @@ class LZeroRobustnessAnalyzer:
 
         print('Starting to estimate p and w')
         estimation_start_time = time.time()
-        p_vector, w_vector, scores_list = self.__estimate_p_and_w()  # index 0=t last index=100 bound, p: success rate, w: time
+        p_vector, w_vector, scores_list = self.__estimate_p_w_and_scores()  #TODO: Omer this should return scores list
+        # TODO: Omer make buckets
         estimation_duration = time.time() - estimation_start_time
         print(f'Estimation took {estimation_duration:.3f}')
 
@@ -109,7 +110,7 @@ class LZeroRobustnessAnalyzer:
         results['groups_waiting_for_milp'] = len(waiting_adversarial_example_suspects)
         return results
 
-    def __estimate_p_and_w(self, plot_p_vector=False, plot_w_vector=False):
+    def __estimate_p_w_and_scores(self, plot_p_vector=False, plot_w_vector=False):
         # TODO: should return scores list
         # p_vector = vector of success rates(of k = t-100)
         # w_vector = vector of run times(of k = t-100)
@@ -219,6 +220,7 @@ class LZeroRobustnessAnalyzer:
         return strategy, A
 
     def __release_workers(self, strategy):
+    # TODO: send gpu workers more data(covering_sizes, running_times, buckets)
         for worker_index, gpu_worker in enumerate(self.__gpu_workers):
             gpu_worker.send((self.__image, self.__label, strategy, worker_index, len(self.__gpu_workers)))
         for cpu_worker in self.__cpu_workers:
