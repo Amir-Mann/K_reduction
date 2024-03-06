@@ -27,6 +27,12 @@ python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/M
 python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_NO_PGD.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 0 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG0_K1-250_SAMPALES50 &
 python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_NO_PGD.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 1 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG1_K1-250_SAMPALES50 &
 python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_NO_PGD.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 3 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG3_K1-250_SAMPALES50 &
+
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_NO_PGD.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 4 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG4_K1-250_SAMPLES50 &
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 4 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG4_K1-250_SAMPLES50 &
+python3 /root/OUR_WORK/tf_verify/__main3__.py --dataset mnist --netname models/mnist_relu_3_50.onnx --domain deeppoly --epsilon 0.01 --num_tests 1 --from_test 4 --k_low 1 --k_high 250 --k_delta 1 --num_samples 50 --stats_file IMG4_K1-250_SAMPLES50 &
+
+
 """
 
 
@@ -1560,7 +1566,7 @@ else:
 
 
                             # create FailingOrigin with proper parameters
-                            sample = {"pixels": chosen_pixels, "Lbounds": nlb[-1], "Ubounds": nub[-1], "correct": perturbed_label == label}
+                            sample = {"label": label, "Lbounds": nlb[-1], "Ubounds": nub[-1], "correct": perturbed_label == label}
                             samples_per_k.append(sample)
 
 
