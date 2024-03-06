@@ -59,12 +59,10 @@ def simple_evaluate_regressors(feature_data, regressors_tuple, alphas_over_betas
     for datapoint, preda, predb, truea, trueb in zip(feature_data, predicted_alphas, predicted_betas, true_alphas, true_betas):
         k = int(datapoint[0])
         x = np.array(range(1, k))
-        print(f"{preda=}, {predb=}, {truea=}, {trueb=}")
         ground_trueth = sigmoid_array(truea + trueb * x)
         estimated = sigmoid_array(preda + predb * x)
         residuals = ground_trueth - estimated
         values.append(max(np.abs(residuals)))
-        #print(residuals)
     return {"mean":sum(values) / len(values), "midian": sorted(values)[len(values) // 2]}
 
 def main():
