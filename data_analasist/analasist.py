@@ -255,7 +255,7 @@ def generate_feature_info(func_for_d, file_names):
             #([fo_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
             #([fo_k, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s"),
             #([img_a, img_b, fo_k, img_d_normalized["standard"]],         "a_img, b_img, k, |d|s"),
-            ([fo_k, img_a/img_b, 1/img_b, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s, a/b, 1/b"),
+            ([fo_k, img_d_normalized["standard"]],  "k, |d|s"),
             #([img_a, img_b, fo_k, img_d_normalized["div_by_mean"]],      "a_img, b_img, k, d_normalized[\"div_by_mean\"]"),
             #([img_a, img_b, fo_k, img_d_normalized["min_max"]],          "a_img, b_img, k, d_normalized[\"min_max\"]"),
 
@@ -266,7 +266,12 @@ def generate_feature_info(func_for_d, file_names):
             # ([np.log(img_vars[1])], "ln(img_b)")
             # example datapoint : ([alpha_img, FO_k], "alpha_img, FO_K") ---- Dont forget to add a feature name!
         ]
-
+        if sample["network"] == "models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx":
+            for key, val in sample.items():
+                break
+                if isinstance(val, (str, int, float)):
+                    print(key, val)
+            #print(f"{fo_k=} {img_d_normalized['standard']=}")
         sample_a, sample_b = sigmoid_weighted_least_squares(sample)
 
         # y predictors
@@ -357,8 +362,6 @@ def fit_regressor_to_data(func_for_d=None):
             test_predictions_per_y = []
             test_scores_per_y = []
             for k, y in enumerate(ys):
-                if  y_names[k] == "a":
-                    alpha = y
                 if len(y) == 0:
                     continue
                 y = np.array(y)
@@ -367,35 +370,6 @@ def fit_regressor_to_data(func_for_d=None):
                 # Calculating train scores
                 ROUNDING_PRECISION = 5
                 prediction = regressor.predict(feature_data)
-                if y_names[k] == "1/b" and feature_data_names[j] == "k, |d|s, 1/|d|s, a/b, 1/b":
-                    beta_hat = 1 / prediction
-                    beta = 1 / y
-                    
-                if y_names[k] == "a/b" and feature_data_names[j] == "k, |d|s, 1/|d|s, a/b, 1/b":
-                    r = np.mod(- y, 1)
-                    k1_hat = -y + r
-                    k0_hat = -y + r -1
-                    alpha_hat = y * beta_hat
-                    k0 = (alpha_hat - alpha) / beta + beta_hat / beta * (k0_hat)
-                    k1 = (alpha_hat - alpha) / beta + beta_hat / beta * (k1_hat)
-                    for values_array, name in zip([prediction - y, k0_hat - k0, k1_hat - k1, beta_hat - beta], ["prediction - y", "k0_hat - k0", "k1_hat - k1", "beta_hat - beta"]):
-                        density = scipy.stats.gaussian_kde(values_array)
-                        xs = np.linspace(-5,5,200)
-                        density.covariance_factor = lambda : .25
-                        density._compute_covariance()
-                        var = np.var(values_array) ** 0.5
-                        labels = [
-                            "data",
-                        ]
-                        v = 2
-                        skwish_factor
-                        t_density = 2 * math.gamma((v + 1) / 2) / (v * math.pi)**0.5/math.gamma(v / 2) * (1+(2 * xs)**2/v) **(- (v + 1) / 2)
-                        plt.plot(xs, density(xs))
-                        plt.plot(xs, t_density)
-                        labels.append(f"t density with {v=}")
-                        plt.legend(labels, ncol=1, loc='center right', bbox_to_anchor=[1, 1], fontsize=6)
-                        plt.title(name)
-                        plt.show()
                                           
                 score1 = regressor.score(feature_data, y)  # R^2
                 score2 = np.sum(np.abs(prediction - y)) / len(y)  # L_1 / len(y)
@@ -508,8 +482,10 @@ def get_ab_train_and_test_scores(regressors, regressor_names, feature_datas, fea
 
 
 def get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names, predictions, y_names, ab_formulas, fo_samples):
+    times_on_correcting = []
+    times_on_double_correcting = []
     ab = {}
-    for i in range(len(regressors)):
+    for i in range(1):
         regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
         ab[regressor_name] = {}
         for j in range(len(feature_datas)):
@@ -526,23 +502,85 @@ def get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names
                     b = get_y(x1, x2, formula["b_func"])
                 else:
                     b = predictions[i][j][y_names.index(formula["x2_name"])]
+                scores = avg_successrate_scores(fo_samples, a, b)
+                name = formula["x1_name"] + ", " + formula["x2_name"] + f" no correction"
+                if "comment" in formula:
+                    name += " (" + formula["comment"] + ")"
+                ab[regressor_name][feature_names].append({"name": name, "scores": scores})
                 a_s = a
-                for n in list(range(0, 11)) + [100, 1000]:
+                b_s = b
+                ns_list = [10]
+                for n in ns_list:
                     a = []
-                    for alpha, beta, fo in zip(a_s, b, fo_samples):
+                    b = []
+                    for alpha, beta, fo in zip(a_s, b_s, fo_samples):
                         a_, b_ = sigmoid_weighted_least_squares(fo)
+                        if (abs(- a_ / b_ + alpha / beta) > 20):
+                            print(f"true: {-a_/b_} estimated: {-alpha/beta}")
+                            for key, val in fo.items():
+                                if isinstance(val, (str, int, float)):
+                                    print(key, val)
+                            
                         def f(k, n):
                             return np.random.binomial(n, 1 / (1 + np.exp(- (a_ + b_ * k))))
-                        a.append(correct_sigmoid(alpha, beta, f, num_samples=n, true_alpha=a_, true_beta=b_)[0])
+                        start = time.time()
+                        a_hat, b_hat = correct_sigmoid_itertive(alpha, beta, f, num_samples=n, 
+                                                               )
+                                                               #true_alpha=a_, true_beta=b_)
+                        times_on_double_correcting.append(time.time() - start)
+                        a.append(a_hat)
+                        b.append(b_hat)
                     scores = avg_successrate_scores(fo_samples, a, b)
-                    name = formula["x1_name"] + ", " + formula["x2_name"] + f" {n=}"
+                    name = formula["x1_name"] + ", " + formula["x2_name"] + f" itertive {n=}"
                     if "comment" in formula:
                         name += " (" + formula["comment"] + ")"
                     ab[regressor_name][feature_names].append({"name": name, "scores": scores})
+                for n in ns_list:
+                    a = []
+                    b = []
+                    for alpha, beta, fo in zip(a_s, b_s, fo_samples):
+                        a_, b_ = sigmoid_weighted_least_squares(fo)
+                        def f(k, n):
+                            return np.random.binomial(n, 1 / (1 + np.exp(- (a_ + b_ * k))))
+                        start = time.time()
+                        a_hat, b_hat = correct_sigmoid_double_sample(alpha, beta, f, num_samples=int(n / 2), 
+                                                               )
+                                                               #true_alpha=a_, true_beta=b_)
+                        times_on_double_correcting.append(time.time() - start)
+                        a.append(a_hat)
+                        b.append(b_hat)
+                    scores = avg_successrate_scores(fo_samples, a, b)
+                    name = formula["x1_name"] + ", " + formula["x2_name"] + f" double_sample {n=}"
+                    if "comment" in formula:
+                        name += " (" + formula["comment"] + ")"
+                    ab[regressor_name][feature_names].append({"name": name, "scores": scores})
+                for n in ns_list:
+                    a = []
+                    b = []
+                    for alpha, beta, fo in zip(a_s, b_s, fo_samples):
+                        alpha_true, beta_true = sigmoid_weighted_least_squares(fo)
+                        def f(k, n):
+                            return np.random.binomial(n, 1 / (1 + np.exp(- (alpha_true + beta_true * k))))
+                        start = time.time()
+                        a_hat, b_hat = correct_sigmoid(alpha, beta, f, num_samples=n, 
+                                                               )
+                                                               #true_alpha=a_, true_beta=b_)
+                        times_on_correcting.append(time.time() - start)
+                        a.append(a_hat)
+                        b.append(b_hat)
+                    scores = avg_successrate_scores(fo_samples, a, b)
+                    name = formula["x1_name"] + ", " + formula["x2_name"] + f" single sample {n=}"
+                    if "comment" in formula:
+                        name += " (" + formula["comment"] + ")"
+                    ab[regressor_name][feature_names].append({"name": name, "scores": scores})
+                
 
             a, b = get_all_fnr_sigmoid(fo_samples)
             scores = avg_successrate_scores(fo_samples, a, b)
             ab[regressor_name][feature_names].append({"name": "fnr", "scores": scores})
+    avg_correcting_time = sum(times_on_correcting) / len(times_on_correcting) if times_on_correcting else None
+    avg_double_correcting_time = sum(times_on_double_correcting) / len(times_on_double_correcting)  if times_on_double_correcting else None
+    print(f"{avg_correcting_time=}\n{avg_double_correcting_time=}")
     return ab
 
 if __name__ == "__main__":
