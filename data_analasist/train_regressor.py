@@ -1,0 +1,104 @@
+from analasist import *
+import argparse
+import pickle
+
+
+def get_data(path, test_substr=None):
+    full_image_data = {}
+    ds_for_normlization = None
+    data = {}
+    for root, dirs, files in os.walk(path):
+        for fname in files:
+            # if filter_out_all_image and "all_image" in fname:
+            # continue
+            fpath = os.path.join(root, fname)
+            with open(fpath, "r") as f:
+                try:
+                    new_data = json.load(f)
+                except JSONDecodeError:
+                    print(f"--- Encountered json decode error with file : {fpath}, skipping.")
+            net_name = new_data[0]["network"][len("models/MNIST_"):-len(".onnx")]
+            if "all_image" in fname:
+                dataset_to_add_to = full_image_data
+            elif test_substr is not None and test_substr in fname:
+                continue
+            else:
+                dataset_to_add_to = data
+            dataset_to_add_to[net_name + "_" + fname[:-5]] = new_data
+    return full_image_data, ds_for_normlization, data
+
+
+def get_normelized_ds_for_regressor(full_image_data, ds_for_normalization, data):
+    feature_data = []
+    def get_normilized_d(fo):
+        return d_power(fo, 6)
+    
+    for fname, fos in data.items():
+        for fo in fos:
+            feature_data.append((fo["k"], get_normilized_d(fo)))
+    
+    return np.array(feature_data)
+            
+
+def get_ys_for_regressor(data):
+    alphas_over_betas, one_over_betas = [], []
+    for fname, fos in data.items():
+        for fo in fos:
+            alpha, beta = sigmoid_weighted_least_squares(fo)
+            alphas_over_betas.append(alpha / beta)
+            one_over_betas.append(1 / beta)
+    return np.array(alphas_over_betas), np.array(one_over_betas)
+
+
+def simple_evaluate_regressors(feature_data, regressors_tuple, alphas_over_betas, one_over_betas):
+    predicted_betas = 1 / regressors_tuple[1].predict(feature_data)
+    predicted_alphas = regressors_tuple[0].predict(feature_data) * predicted_betas
+    true_betas = 1 / one_over_betas
+    true_alphas = alphas_over_betas * true_betas
+    values = []
+    for datapoint, preda, predb, truea, trueb in zip(feature_data, predicted_alphas, predicted_betas, true_alphas, true_betas):
+        k = int(datapoint[0])
+        x = np.array(range(1, k))
+        print(f"{preda=}, {predb=}, {truea=}, {trueb=}")
+        ground_trueth = sigmoid_array(truea + trueb * x)
+        estimated = sigmoid_array(preda + predb * x)
+        residuals = ground_trueth - estimated
+        values.append(max(np.abs(residuals)))
+        #print(residuals)
+    return {"mean":sum(values) / len(values), "midian": sorted(values)[len(values) // 2]}
+
+def main():
+    parser = argparse.ArgumentParser(description="Generates a single regressor and stores it.")
+    parser.add_argument("--path_to_regressor", type=str, default="../tf_verify/regressor.pkl",
+                        help="The path to where to save the regressor. default is ../tf_verify/regressor.pkl")
+    parser.add_argument("--path_to_data", type=str, default="../tf_verify/json_stats",
+                        help="The path to the data. default is ../tf_verify/json_stats")
+    parser.add_argument("--test_substr", type=str, default=None,
+                        help="sub string of filenames that should be skipped for training. default is None (no skip)")
+    parser.add_argument("--overide_regressor", action="store_true",
+                        help="Overide the regressor if the file already exists.")
+    
+    
+    args = parser.parse_args()
+    full_image_data, ds_for_normalization, data = get_data(args.path_to_data, args.test_substr)
+    
+    feature_data = get_normelized_ds_for_regressor(full_image_data, ds_for_normalization, data)
+    alphas_over_betas, one_over_betas = get_ys_for_regressor(data)
+    
+    regressor_midpoint = LinearRegression()
+    regressor_slope = LinearRegression()
+    regressor_midpoint.fit(feature_data, alphas_over_betas)
+    regressor_slope.fit(feature_data, one_over_betas)
+    regressors_tuple = (regressor_midpoint, regressor_slope)
+    
+    print(simple_evaluate_regressors(feature_data, regressors_tuple, alphas_over_betas, one_over_betas))
+    
+    if args.overide_regressor or not os.path.isfile(args.path_to_regressor) or input("Do you wish to over write [y/(n)]? ").lower()[0] == "y":
+        with open(args.path_to_regressor, "wb") as regressor_file:
+            pickle.dump(regressors_tuple, regressor_file)
+        print(f"Saved the regressors at {args.path_to_regressor}")
+    
+    
+if __name__ == "__main__":
+    main()
+
