@@ -6,76 +6,6 @@ from utils import *
 from sklearn.linear_model import LinearRegression, Ridge
 import numpy as np
 
-stats_folder = "../tf_verify/json_stats"
-
-filter_out_perfect_data = False
-down_sample = False
-# filter_out_all_image = True
-
-full_image_data = {}
-data = {}
-for root, dirs, files in os.walk(stats_folder):
-    for fname in files:
-        # if filter_out_all_image and "all_image" in fname:
-        # continue
-        fpath = os.path.join(root, fname)
-        with open(fpath, "r") as f:
-            try:
-                new_data = json.load(f)
-            except JSONDecodeError:
-                print(f"--- Encountered json decode error with file : {fpath}, skipping.")
-        net_name = new_data[0]["network"][len("models/MNIST_"):-len(".onnx")]
-        if "all_image" in fname:
-            dataset_to_add_to = full_image_data
-        else:
-            dataset_to_add_to = data
-            import random
-            if down_sample and random.random() < 0.85:
-                continue
-        if filter_out_perfect_data:
-            dataset_to_add_to[net_name + "_" + fname[:-5]] = [fo for fo in new_data if
-                                                              len([subk for subk in fo["statistics"] if
-                                                                   subk["success"] != 1]) > 0]
-        else:
-            dataset_to_add_to[net_name + "_" + fname[:-5]] = new_data
-# print(len(data))
-# for value in data.values():
-#     print(len(value), end=", ")
-# print("\b\b")
-#
-# print(full_image_data)
-
-# functions for the d
-functions_for_d = [
-    ("L_inf", lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"] + 1:]) -
-                             sample["Lbounds"][sample["label"]]),
-    # ("L_2", lambda sample: d_power(sample, 2)),
-    ("L_10", lambda sample: d_power(sample, 10)),
-    # ("L_8", lambda sample: d_power(sample, 8)),
-    ("L_6", lambda sample: d_power(sample, 6)),
-    # ("L_4", lambda sample: d_power(sample, 4)),
-    # ("d_sum_of_mistakes", d_sum_of_mistakes),
-    # ("nonlabl_mean", d_mean_of_nonlabels),
-    # ("avg_of_mistakes", d_avg_of_mistakes)
-]
-
-# functions for the y
-functions_for_y = [
-    ("50th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.50)),
-    ("80th percentile", get_k_of_80_precntile),
-    ("90th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.90)),
-    ("99th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.99)),
-    # ("Avg of 1st and 99th %ile", lambda sample: (get_k_of_specified_percentile(sample, 0.99)+get_k_of_specified_percentile(sample, 0.01)) / 2),
-    # ("Avg of 90th, 95th, 100th %ile", lambda sample: (
-    # get_k_of_specified_percentile(sample, 1)+
-    # get_k_of_specified_percentile(sample, 0.9)+
-    # get_k_of_specified_percentile(sample, 0.95)
-    # ) / 3),
-    ("Avg of 70th and 90th %ile",
-     lambda sample: (get_k_of_specified_percentile(sample, 0.9) + get_k_of_specified_percentile(sample, 0.7)) / 2),
-    ("Average success rate", get_average_success_rate),
-]
-
 
 def check_correlation(functions_for_d, functions_for_y, file_names):
     FILE_NAMES = file_names
@@ -584,6 +514,77 @@ def get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names
     return ab
 
 if __name__ == "__main__":
+    stats_folder = "../tf_verify/json_stats"
+
+    filter_out_perfect_data = False
+    down_sample = False
+    # filter_out_all_image = True
+
+    full_image_data = {}
+    data = {}
+    for root, dirs, files in os.walk(stats_folder):
+        for fname in files:
+            # if filter_out_all_image and "all_image" in fname:
+            # continue
+            fpath = os.path.join(root, fname)
+            with open(fpath, "r") as f:
+                try:
+                    new_data = json.load(f)
+                except JSONDecodeError:
+                    print(f"--- Encountered json decode error with file : {fpath}, skipping.")
+            net_name = new_data[0]["network"][len("models/MNIST_"):-len(".onnx")]
+            if "all_image" in fname:
+                dataset_to_add_to = full_image_data
+            else:
+                dataset_to_add_to = data
+                import random
+                if down_sample and random.random() < 0.85:
+                    continue
+            if filter_out_perfect_data:
+                dataset_to_add_to[net_name + "_" + fname[:-5]] = [fo for fo in new_data if
+                                                                len([subk for subk in fo["statistics"] if
+                                                                    subk["success"] != 1]) > 0]
+            else:
+                dataset_to_add_to[net_name + "_" + fname[:-5]] = new_data
+    # print(len(data))
+    # for value in data.values():
+    #     print(len(value), end=", ")
+    # print("\b\b")
+    #
+    # print(full_image_data)
+
+    # functions for the d
+    functions_for_d = [
+        ("L_inf", lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"] + 1:]) -
+                                sample["Lbounds"][sample["label"]]),
+        # ("L_2", lambda sample: d_power(sample, 2)),
+        ("L_10", lambda sample: d_power(sample, 10)),
+        # ("L_8", lambda sample: d_power(sample, 8)),
+        ("L_6", lambda sample: d_power(sample, 6)),
+        # ("L_4", lambda sample: d_power(sample, 4)),
+        # ("d_sum_of_mistakes", d_sum_of_mistakes),
+        # ("nonlabl_mean", d_mean_of_nonlabels),
+        # ("avg_of_mistakes", d_avg_of_mistakes)
+    ]
+
+    # functions for the y
+    functions_for_y = [
+        ("50th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.50)),
+        ("80th percentile", get_k_of_80_precntile),
+        ("90th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.90)),
+        ("99th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.99)),
+        # ("Avg of 1st and 99th %ile", lambda sample: (get_k_of_specified_percentile(sample, 0.99)+get_k_of_specified_percentile(sample, 0.01)) / 2),
+        # ("Avg of 90th, 95th, 100th %ile", lambda sample: (
+        # get_k_of_specified_percentile(sample, 1)+
+        # get_k_of_specified_percentile(sample, 0.9)+
+        # get_k_of_specified_percentile(sample, 0.95)
+        # ) / 3),
+        ("Avg of 70th and 90th %ile",
+        lambda sample: (get_k_of_specified_percentile(sample, 0.9) + get_k_of_specified_percentile(sample, 0.7)) / 2),
+        ("Average success rate", get_average_success_rate),
+    ]
+
+
     fit_regressor_to_data()
 
 
