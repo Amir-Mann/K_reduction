@@ -47,8 +47,7 @@ for root, dirs, files in os.walk(image_bounds_stats_folder):
                 print(f"--- Encountered json decode error with file : {fpath}, skipping.")
         net_name = new_data[0]["network"][len("models/MNIST_"):-len(".onnx")]
 
-        if "all_image" in fname:
-            assert False, "There shouldn't be any all_image files in the image_bounds_stats folder"
+        assert "all_image" not in fname, "There shouldn't be any all_image files in the image_bounds_stats folder"
 
         if filter_out_perfect_data:
             img_bound_data[net_name + "_" + fname[:-5]] = [fo for fo in new_data if
@@ -391,9 +390,6 @@ def get_all_fnr_sigmoid(fo_samples, **kwargs_for_weights_calc):
         betas.append(beta)
     return alphas, betas
 
-def adapt_func_for_d_for_img_bounds(func_for_d):
-    # return lambda sample:
-    pass
 
 def fit_regressor_to_data(func_for_d=None):
     # Configuration
