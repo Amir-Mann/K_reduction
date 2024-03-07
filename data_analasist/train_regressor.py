@@ -3,31 +3,6 @@ import argparse
 import pickle
 
 
-def get_data(path, test_substr=None):
-    full_image_data = {}
-    ds_for_normlization = None
-    data = {}
-    for root, dirs, files in os.walk(path):
-        for fname in files:
-            # if filter_out_all_image and "all_image" in fname:
-            # continue
-            fpath = os.path.join(root, fname)
-            with open(fpath, "r") as f:
-                try:
-                    new_data = json.load(f)
-                except JSONDecodeError:
-                    print(f"--- Encountered json decode error with file : {fpath}, skipping.")
-            net_name = new_data[0]["network"][len("models/MNIST_"):-len(".onnx")]
-            if "all_image" in fname:
-                dataset_to_add_to = full_image_data
-            elif test_substr is not None and test_substr in fname:
-                continue
-            else:
-                dataset_to_add_to = data
-            dataset_to_add_to[net_name + "_" + fname[:-5]] = new_data
-    return full_image_data, ds_for_normlization, data
-
-
 def get_normelized_ds_for_regressor(full_image_data, ds_for_normalization, data):
     feature_data = []
     def get_normilized_d(fo):

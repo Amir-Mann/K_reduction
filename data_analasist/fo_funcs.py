@@ -5,9 +5,11 @@ import math
 from utils import *
 
 ## -------- Functions for d ---------------- ##
-def d_power(sample, power):
-    l = sample["Lbounds"][sample["label"]]
-    v = [(u - l) ** power for i, u in enumerate(sample["Ubounds"]) if i != sample["label"] and u > l]
+def d_power(sample, power, label=None):
+    if label == None:
+        label = sample["label"]
+    l = sample["Lbounds"][label]
+    v = [(u - l) ** power for i, u in enumerate(sample["Ubounds"]) if i != label and u > l]
     return sum(v) ** (1 / power)
 
 
