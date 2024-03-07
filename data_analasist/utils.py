@@ -177,14 +177,14 @@ def correct_sigmoid_itertive(alpha, beta, sample_func, num_samples=10, v=3.36, v
         d = round((3 + num_samples) / (3 + i))
         if d == 0:
             d = 1
-        print("k", k_to_sample, end=", ")
+        #print("k", k_to_sample, end=", ")
         if sample_func(k_to_sample, 1) == 1:
             success_ks.append(k_to_sample)
             k_to_sample += d
         else:
             fail_ks.append(k_to_sample)
             k_to_sample -= d
-    print(f"{len(success_ks)=}")
+    #print(f"{len(success_ks)=}")
     success_ks = np.array(success_ks)
     fail_ks = np.array(fail_ks)
     def func_to_minimize1(vars):

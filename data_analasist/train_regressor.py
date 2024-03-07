@@ -3,10 +3,18 @@ import argparse
 import pickle
 
 
-def get_normelized_ds_for_regressor(full_image_data, ds_for_normalization, data):
+def get_normelized_ds_for_regressor(img_bound_data, data):
     feature_data = []
+    
+    func_for_d = lambda fo, label=None: d_power(fo, 6, label=label)
+    NUM_OF_BUCKETS = 100
+    list_of_warmup_ds_per_img = get_list_of_ds_per_k_and_image(img_bound_data, func_for_d, None, True, data)
+    list_of_warmup_d_buckets_per_img = get_buckets_for_d(list_of_warmup_ds_per_img, NUM_OF_BUCKETS)
+
     def get_normilized_d(fo):
-        return d_power(fo, 6)
+        string_for_img = get_string_for_image(fo)
+        warmup_d_buckets_for_image = list_of_warmup_d_buckets_per_img[string_for_img]
+        return get_estimated_bucket_index(func_for_d(fo), warmup_d_buckets_for_image)
     
     for fname, fos in data.items():
         for fo in fos:
@@ -40,12 +48,16 @@ def simple_evaluate_regressors(feature_data, regressors_tuple, alphas_over_betas
         values.append(max(np.abs(residuals)))
     return {"mean":sum(values) / len(values), "midian": sorted(values)[len(values) // 2]}
 
+
 def main():
+    global data
     parser = argparse.ArgumentParser(description="Generates a single regressor and stores it.")
     parser.add_argument("--path_to_regressor", type=str, default="../tf_verify/regressor.pkl",
                         help="The path to where to save the regressor. default is ../tf_verify/regressor.pkl")
     parser.add_argument("--path_to_data", type=str, default="../tf_verify/json_stats",
                         help="The path to the data. default is ../tf_verify/json_stats")
+    parser.add_argument("--path_to_ds_data", type=str, default="../tf_verify/image_bounds_stats",
+                        help="The path to the data. default is ../tf_verify/image_bounds_stats")
     parser.add_argument("--test_substr", type=str, default=None,
                         help="sub string of filenames that should be skipped for training. default is None (no skip)")
     parser.add_argument("--overide_regressor", action="store_true",
@@ -53,9 +65,10 @@ def main():
     
     
     args = parser.parse_args()
-    full_image_data, ds_for_normalization, data = get_data(args.path_to_data, args.test_substr)
-    
-    feature_data = get_normelized_ds_for_regressor(full_image_data, ds_for_normalization, data)
+    full_image_data, data = get_data(args.path_to_data, args.test_substr)
+    _, ds_for_normalization = get_data(args.path_to_ds_data, None)
+        
+    feature_data = get_normelized_ds_for_regressor(ds_for_normalization, data)
     alphas_over_betas, one_over_betas = get_ys_for_regressor(data)
     
     regressor_midpoint = LinearRegression()

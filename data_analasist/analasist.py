@@ -59,8 +59,10 @@ def get_string_for_k(sample):
 #     # return len(d_buckets) - 1
 
 
-def get_label_of_image(network, image):
-    for value in data.values():
+def get_label_of_image(network, image, data_=None):
+    if data_ is None:
+        data_ = data
+    for value in data_.values():
         if value[0]["network"] == network and value[0]["image"] == image:
             return value[0]["label"]
     return None
@@ -132,7 +134,7 @@ def get_bound_data_without_successful_samples(dataset, file_names):
             temp_dataset[file_name].append(temp_entry)
     return temp_dataset
 
-def get_list_of_ds_per_k_and_image(dataset, func_for_d, file_names=None, image_bound_stats=False):
+def get_list_of_ds_per_k_and_image(dataset, func_for_d, file_names=None, image_bound_stats=False, data_=None):
     if file_names == None:
         file_names = list(dataset.keys())
     if image_bound_stats:
@@ -147,7 +149,7 @@ def get_list_of_ds_per_k_and_image(dataset, func_for_d, file_names=None, image_b
         if file_name_per_img not in list_of_ds_per_img:
             list_of_ds_per_img[file_name_per_img] = []
 
-        label = get_label_of_image(dataset[file_name][0]["network"], dataset[file_name][0]["image"])
+        label = get_label_of_image(dataset[file_name][0]["network"], dataset[file_name][0]["image"], data_=data_)
         if image_bound_stats:
             ds_in_current_file = [func_for_d(sample, label) for entry in dataset[file_name] for sample in entry["samples"]]
         else:
