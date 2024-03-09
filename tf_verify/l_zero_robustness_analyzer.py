@@ -32,7 +32,7 @@ class LZeroRobustnessAnalyzer:
         print('Starting to estimate p and w')
         estimation_start_time = time.time()
         p_vector, w_vector, scores_list = self.__estimate_p_w_and_scores()  #TODO: Omer this should return scores list
-        # TODO: Omer make buckets
+        buckets = None  # TODO: Omer make buckets
         estimation_duration = time.time() - estimation_start_time
         print(f'Estimation took {estimation_duration:.3f}')
 
@@ -44,7 +44,7 @@ class LZeroRobustnessAnalyzer:
         estimated_verification_time = A[self.__number_of_pixels][0] / len(self.__gpu_workers)
         print(f'Chosen strategy is {strategy}, estimated verification time is {estimated_verification_time:.3f} sec')
 
-        self.__release_workers(strategy)
+        self.__release_workers(strategy, covering_sizes, w_vector, buckets)
 
         gpupoly_stats_by_size = {size: {'runs': 0, 'successes': 0, 'total_duration': 0} for size in strategy}
         waiting_adversarial_example_suspects = set()
@@ -162,6 +162,7 @@ class LZeroRobustnessAnalyzer:
 
         return p_vector, w_vector, []
 
+
     def __load_covering_sizes_and_aproximate_s(self, p_vector, plot_s=False):
         # S is a dictionary used to calc fnr
         S = dict()
@@ -205,6 +206,8 @@ class LZeroRobustnessAnalyzer:
             best_k_value = None
             for k in range(self.__t, min(v, 100)):
                 if (v, k) not in covering_sizes:
+                    if k == self.__t:
+                        print("warning: no governing for t")
                     continue
                 # 1 - S[v][k] = fnr(v, k) (in normal cases where sr_k > sr_v and sr_k < 1)
                 k_value = covering_sizes[(v, k)] * (w_vector[k - self.__t] + (1 - S[v][k]) * A[k][0])
@@ -219,10 +222,10 @@ class LZeroRobustnessAnalyzer:
             move_to = A[move_to][1]
         return strategy, A
 
-    def __release_workers(self, strategy):
-    # TODO: send gpu workers more data(covering_sizes, running_times, buckets)
+    def __release_workers(self, strategy, covering_sizes, w_vector, buckets):
         for worker_index, gpu_worker in enumerate(self.__gpu_workers):
-            gpu_worker.send((self.__image, self.__label, strategy, worker_index, len(self.__gpu_workers)))
+            gpu_worker.send((self.__image, self.__label, strategy, worker_index, len(self.__gpu_workers),
+                             covering_sizes, w_vector, buckets, self.__t))
         for cpu_worker in self.__cpu_workers:
             cpu_worker.send((self.__image, self.__label))
 
