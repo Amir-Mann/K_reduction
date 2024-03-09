@@ -163,41 +163,6 @@ class LZeroRobustnessAnalyzer:
         return p_vector, w_vector, []
 
 
-
-    def __load_covering_sizes_and_aproximate_s(self, p_vector, plot_s=False):
-        # S is a dictionary used to calc fnr
-        S = dict()
-        covering_table_file = np.genfromtxt(f'coverings/{self.__t}-table.csv', delimiter=',')
-        covering_sizes = dict()
-        for v in range(self.__t, 100):
-            S[v] = dict()
-            for k in range(self.__t, v):
-                estimated_value = (p_vector[k - self.__t] - p_vector[v - self.__t]) / (1 - p_vector[v - self.__t])
-                S[v][k] = min(1, max(estimated_value, 0))
-                covering_sizes[(v, k)] = covering_table_file[v - self.__t + 1][k - self.__t + 1]
-        v = self.__number_of_pixels
-        S[v] = dict()
-        for k in range(self.__t, 100):
-            S[v][k] = min(1, max(p_vector[k - self.__t], 0))
-            if v == 784:
-                covering_sizes[(v, k)] = covering_table_file[100 - self.__t + 1][k - self.__t + 1]
-            else:
-                covering_sizes[(v, k)] = covering_table_file[101 - self.__t + 1][k - self.__t + 1]
-
-        covering_sizes = {key: value for key, value in covering_sizes.items() if value < 10 * math.pow(10, 6)}
-
-        if plot_s:
-            for v_star in range(self.__t + 1, 100):
-                x_axis = list(range(self.__t, v_star + 1))
-                y_axis = [value for key, value in sorted(S[v_star].items())] + [0]
-                plt.plot(x_axis, y_axis)
-                plt.xlabel('k')
-                plt.ylabel(f'S({v_star},k)')
-                plt.show()
-
-        return covering_sizes, S
-
-
     def __load_covering_sizes_and_aproximate_s(self, p_vector, plot_s=False):
         # S is a dictionary used to calc fnr
         S = dict()
