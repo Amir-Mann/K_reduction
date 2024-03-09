@@ -64,15 +64,17 @@ class LZeroGpuWorker:
         return sampling_successes, sampling_time
 
     def __load_covering(self, size, broken_size, t):
+        # Load a covering for a set of size {size} using sets of size {broken_size}
+        # so that every subset of size {t} is addressed.
         covering = []
         with open(f'coverings/({size},{broken_size},{t}).txt', 'r') as coverings_file:
-            for line in coverings_file:
-                # TODO: ignore last line of file
+            for line in coverings_file[:-1]:
                 block = tuple(int(item) for item in line.split(','))
                 covering.append(block)
         return covering
 
     def __load_coverings(self, strategy):
+        # load all coverings for a given strategy
         t = strategy[-1]
         coverings = dict()
         for size, broken_size in zip(strategy, strategy[1:]):
@@ -96,7 +98,7 @@ class LZeroGpuWorker:
                 if line_number % self.__number_of_workers == self.__worker_index:
                     pixels = tuple(int(item) for item in line.split(','))
                     start = time.time()
-                    verified, score = self.verify_group(self.__image, self.__label, pixels)
+                    verified, score = self.verify_group(pixels)
                     duration = time.time() - start
                     if verified:
                         conn.send((True, len(pixels), duration))
@@ -116,7 +118,7 @@ class LZeroGpuWorker:
                                     return
                                 group_to_verify = groups_to_verify.pop(0)
                                 start = time.time()
-                                verified, score = self.verify_group(self.__image, self.__label, group_to_verify)
+                                verified, score = self.verify_group(group_to_verify)
                                 duration = time.time() - start
                                 if verified:
                                     conn.send((True, len(group_to_verify), duration))
@@ -139,10 +141,10 @@ class LZeroGpuWorker:
         shuffle(permutation)
         return [tuple(sorted(permutation[item] for item in block)) for block in covering]
 
-    def verify_group(self, image, label, pixels_group):
+    def verify_group(self, pixels_group):
         if self.__config.normalized_region == True:
-            specLB = np.copy(image)
-            specUB = np.copy(image)
+            specLB = np.copy(self.__image)
+            specUB = np.copy(self.__image)
             for pixel_index in self.get_indexes_from_pixels(pixels_group):
                 specLB[pixel_index] = 0
                 specUB[pixel_index] = 1
@@ -160,8 +162,8 @@ class LZeroGpuWorker:
         else:
             pass
             # prop = int(target[i])
-        is_correctly_classified, bounds = self.__network.test(specLB, specUB, label)
-        return is_correctly_classified, self.get_score(bounds[-1], label)
+        is_correctly_classified, bounds = self.__network.test(specLB, specUB, self.__label)
+        return is_correctly_classified, self.get_score(bounds[-1], self.__label)
 
     def get_score(self, last_layer_bounds, label):
         pass# TODO: write function to return score(d)
