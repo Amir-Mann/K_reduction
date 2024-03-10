@@ -13,6 +13,15 @@ class LZeroGpuWorker:
         self.__stds = stds
         self.__is_conv = is_conv
         self.__dataset = dataset
+        self.__image = None
+        self.__label = None
+        self.__strategy = None
+        self.__worker_index = None
+        self.__number_of_workers = None
+        self.__covering_sizes = None
+        self.__w_vector = None
+        self.__buckets = None
+        self.__t = None
         if dataset == 'cifar10':
             self.__number_of_pixels = 1024
         else:
@@ -31,9 +40,10 @@ class LZeroGpuWorker:
                     sampling_successes, sampling_time = self.__sample(image, label, sampling_lower_bound, sampling_upper_bound, repetitions)
                     conn.send((sampling_successes, sampling_time))  # TODO: send d
                     # verification
-                    image, label, strategy, worker_index, number_of_workers = conn.recv() #TODO: workers will receive more data
-                    coverings = self.__load_coverings(strategy)
-                    self.__prove(conn, image, label, strategy, worker_index, number_of_workers, coverings)
+                    self.__image, self.__label, self.__strategy, self.__worker_index, self.__number_of_workers, \
+                        self.__covering_sizes, self.__w_vector, self.__buckets, self.__t = conn.recv()
+                    # coverings = self.__load_coverings(strategy)
+                    self.__prove(conn)
                     message = conn.recv()
 
     def __sample(self, image, label, sampling_lower_bound, sampling_upper_bound, repetitions):
@@ -53,8 +63,18 @@ class LZeroGpuWorker:
 
         return sampling_successes, sampling_time
 
+    def __load_covering(self, size, broken_size, t):
+        # Load a covering for a set of size {size} using sets of size {broken_size}
+        # so that every subset of size {t} is addressed.
+        covering = []
+        with open(f'coverings/({size},{broken_size},{t}).txt', 'r') as coverings_file:
+            for line in coverings_file[:-1]:
+                block = tuple(int(item) for item in line.split(','))
+                covering.append(block)
+        return covering
+
     def __load_coverings(self, strategy):
-        # TODO: only load one covering file at a time according to out next k
+        # load all coverings for a given strategy
         t = strategy[-1]
         coverings = dict()
         for size, broken_size in zip(strategy, strategy[1:]):
@@ -68,29 +88,29 @@ class LZeroGpuWorker:
                 coverings[size] = covering
         return coverings
 
-    def __prove(self, conn, image, label, strategy, worker_index, number_of_workers, coverings):
-        # TODO: replace strategy with single k
-        t = strategy[-1]
-        with open(f'coverings/({self.__number_of_pixels},{strategy[0]},{t}).txt',
+    def __prove(self, conn):
+        with open(f'coverings/({self.__number_of_pixels},{self.__strategy[0]},{self.__t}).txt',
                   'r') as shared_covering:
             for line_number, line in enumerate(shared_covering):
                 if conn.poll() and conn.recv() == 'stop':
                     conn.send('stopped')
                     return
-                if line_number % number_of_workers == worker_index:
+                if line_number % self.__number_of_workers == self.__worker_index:
                     pixels = tuple(int(item) for item in line.split(','))
                     start = time.time()
-                    verified = self.verify_group(image, label, pixels) # TODO: self.verify_group will return more date
+                    verified, score = self.verify_group(pixels)
                     duration = time.time() - start
                     if verified:
                         conn.send((True, len(pixels), duration))
                     else:
                         conn.send((False, len(pixels), duration))
-                        if len(pixels) not in coverings:
+                        if len(pixels) == self.__t:
                             # We got to the end of the covering, should be checked with a complete verifier
                             conn.send('adversarial-example-suspect')
                             conn.send(pixels)
                         else:
+                            self.__generate_new_strategy(self, pixels, score)
+                            coverings = self.__load_coverings(self, self.__strategy)
                             groups_to_verify = self.__break_failed_group(pixels, coverings[len(pixels)])
                             while len(groups_to_verify) > 0:
                                 if conn.poll() and conn.recv() == 'stop':
@@ -98,7 +118,7 @@ class LZeroGpuWorker:
                                     return
                                 group_to_verify = groups_to_verify.pop(0)
                                 start = time.time()
-                                verified = self.verify_group(image, label, group_to_verify) # TODO: self.verify_group will return more date
+                                verified, score = self.verify_group(group_to_verify)
                                 duration = time.time() - start
                                 if verified:
                                     conn.send((True, len(group_to_verify), duration))
@@ -121,11 +141,10 @@ class LZeroGpuWorker:
         shuffle(permutation)
         return [tuple(sorted(permutation[item] for item in block)) for block in covering]
 
-    def verify_group(self, image, label, pixels_group):
-        # TODO: ask Anan
+    def verify_group(self, pixels_group):
         if self.__config.normalized_region == True:
-            specLB = np.copy(image)
-            specUB = np.copy(image)
+            specLB = np.copy(self.__image)
+            specUB = np.copy(self.__image)
             for pixel_index in self.get_indexes_from_pixels(pixels_group):
                 specLB[pixel_index] = 0
                 specUB[pixel_index] = 1
@@ -138,14 +157,13 @@ class LZeroGpuWorker:
             specLB = np.round(specLB / self.__config.quant_step)
             specUB = np.round(specUB / self.__config.quant_step)
 
-        # TODO: ask Anan
         if self.__config.target == None:
             prop = -1
         else:
             pass
             # prop = int(target[i])
-        is_correctly_classified, bounds = self.__network.test(specLB, specUB, label)
-        return is_correctly_classified, self.get_score(bounds[-1], label)
+        is_correctly_classified, bounds = self.__network.test(specLB, specUB, self.__label)
+        return is_correctly_classified, self.get_score(bounds[-1], self.__label)
 
     def get_score(self, last_layer_bounds, label):
         pass# TODO: write function to return score(d)
@@ -203,3 +221,36 @@ class LZeroGpuWorker:
         #TODO: OMER
         bucket = None
         return bucket
+
+    def __get_fnr(self, p_vector, v, k):
+        return (1 - p_vector[k]) / (1 - p_vector[v])
+
+    def __choose_strategy(self, p_vector, number_of_pixels):
+        # Dynamic programming to choose the best strategy
+        assert number_of_pixels < 100
+        A = dict()
+        A[self.__t] = (0, None)
+        for v in range(self.__t + 1, number_of_pixels+1):
+            best_k = None
+            best_k_value = None
+            for k in range(self.__t, number_of_pixels):
+                if (v, k) not in self.__covering_sizes:
+                    continue
+                k_value = self.__covering_sizes[(v, k)] * (self.__w_vector[k - self.__t] + self.__get_fnr(p_vector, v, k) * A[k][0])
+                if best_k_value is None or k_value < best_k_value:
+                    best_k = k
+                    best_k_value = k_value
+            A[v] = (best_k_value, best_k)
+        strategy = []
+        move_to = A[self.__number_of_pixels][1]
+        while move_to is not None:
+            strategy.append(move_to)
+            move_to = A[move_to][1]
+        return strategy, A
+
+    def __get_p_vector(self, score, pixels, n_to_sample):
+        return []
+
+    def __generate_new_strategy(self, pixels, score):
+        p_vector = self.__get_p_vector(score, pixels, n_to_sample=10)
+        self.__strategy, _ = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
