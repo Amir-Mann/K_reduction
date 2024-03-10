@@ -44,8 +44,7 @@ class LZeroRobustnessAnalyzer:
         estimated_verification_time = A[self.__number_of_pixels][0] / len(self.__gpu_workers)
         print(f'Chosen strategy is {strategy}, estimated verification time is {estimated_verification_time:.3f} sec')
 
-        # TODO omer : send the workers the normalization_buckets ?
-        self.__release_workers(strategy, covering_sizes, w_vector, buckets)
+        self.__release_workers(strategy, covering_sizes, w_vector, normalization_buckets)
 
         gpupoly_stats_by_size = {size: {'runs': 0, 'successes': 0, 'total_duration': 0} for size in strategy}
         waiting_adversarial_example_suspects = set()
@@ -226,10 +225,10 @@ class LZeroRobustnessAnalyzer:
             move_to = A[move_to][1]
         return strategy, A
 
-    def __release_workers(self, strategy, covering_sizes, w_vector, buckets):
+    def __release_workers(self, strategy, covering_sizes, w_vector, normalization_buckets):
         for worker_index, gpu_worker in enumerate(self.__gpu_workers):
             gpu_worker.send((self.__image, self.__label, strategy, worker_index, len(self.__gpu_workers),
-                             covering_sizes, w_vector, buckets, self.__t))
+                             covering_sizes, w_vector, normalization_buckets, self.__t))
         for cpu_worker in self.__cpu_workers:
             cpu_worker.send((self.__image, self.__label))
 
@@ -365,7 +364,6 @@ class LZeroRobustnessAnalyzer:
                 message = worker.recv()
 
     def __get_normalization_buckets(self, scores_list, num_of_buckets=100):
-        # TODO omer: can make this a non-member function
         # note: the choice of 100 buckets is arbitrary
         sorted_list = sorted(scores_list)
 
