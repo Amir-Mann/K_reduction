@@ -2,6 +2,8 @@ import time
 from multiprocessing.connection import Listener
 from random import shuffle, sample
 import numpy as np
+import scipy
+import pickle
 
 
 class LZeroGpuWorker:
@@ -21,6 +23,8 @@ class LZeroGpuWorker:
         self.__covering_sizes = None
         self.__w_vector = None
         self.__buckets = None
+        with open("regressor.pkl", "r") as f:
+            self.__regeressors = pickle.load(f)
         self.__t = None
         if dataset == 'cifar10':
             self.__number_of_pixels = 1024
@@ -223,7 +227,7 @@ class LZeroGpuWorker:
         return bucket
 
     def __get_fnr(self, p_vector, v, k):
-        return (1 - p_vector[k]) / (1 - p_vector[v])
+        return (1 - p_vector[k - self.__t]) / (1 - p_vector[v - self.__t])
 
     def __choose_strategy(self, p_vector, number_of_pixels):
         # Dynamic programming to choose the best strategy
@@ -249,8 +253,64 @@ class LZeroGpuWorker:
         return strategy, A
 
     def __get_p_vector(self, score, pixels, n_to_sample):
-        return []
-
+        k = np.array(len(pixels))
+        normilized_score = np.array(self.__get_bucket(score=score))
+        alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(k, normilized_score)
+        one_over_beta = self.__regeressors["one_over_beta"].predict(k, normilized_score)
+        one_over_beta = min(one_over_beta, -0.01) # Clip if the regressor gets beta values which make no sense
+        beta = 1 / one_over_beta
+        alpha = alpha_over_beta * beta
+        def sample_func(k, n):
+            return len([i for i in range(n) if self.verify_group(sample(pixels, k))])
+        
+        alpha, beta = self.correct_sigmoid_itertive(alpha, beta, sample_func, n_to_sample)
+    
+        ks = np.array(range(self.__t, k[0] + 1))
+        p_vector = 1 / (1 + np.exp(alpha + beta * ks))
+        p_vector[-1] = 0
+        return p_vector
+    
+    @staticmethod
+    def correct_sigmoid_itertive(alpha, beta, sample_func, num_samples, v=3.36):
+        """"
+        Corrects a sigmoid using sampeling, and the assumption that the error is distributing T(v=v)
+        alpha (float): any real number
+        beta (float): smaller then 0
+        sample_func (func(int, int)->(int)): a function which takes an k, num_samples and return the amount of successes,
+                                            it samples the real probabilty distribution at that k, num_samples times.
+        num_samples (int, optional): num_times to sample real distribution.
+        return (tuple[float, float]): corrected (alpha, beta)
+        """
+        if num_samples == 0:
+            return (alpha, beta)
+        success_ks, fail_ks = [], []
+        
+        k_to_sample = round(- alpha / beta) # Iterative_sampeling
+        for i in range(num_samples):
+            d = round((3 + num_samples) / (3 + i))
+            if d == 0:
+                d = 1
+            if sample_func(k_to_sample, 1) == 1:
+                success_ks.append(k_to_sample)
+                k_to_sample += d
+            else:
+                fail_ks.append(k_to_sample)
+                k_to_sample -= d
+        
+        success_ks = np.array(success_ks)
+        fail_ks = np.array(fail_ks)
+        def func_to_minimize(s):
+            return (v + 1) / 2 * np.log((1 + s ** 2 / v)) \
+                + np.sum(np.log(1 + np.exp(- (alpha + s * beta + beta * success_ks)))) \
+                + np.sum(np.log(1 + np.exp(+ (alpha + s * beta + beta * fail_ks))))
+        
+        result = scipy.optimize.minimize_scalar(func_to_minimize)
+        if result.success:
+            alpha = alpha + beta * result.x
+        else:
+            print("\nFailed to minimize scalar (to find the best s) in correct_sigmoid_itertive\n")
+        return (alpha, beta)
+        
     def __generate_new_strategy(self, pixels, score):
         p_vector = self.__get_p_vector(score, pixels, n_to_sample=10)
         self.__strategy, _ = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
