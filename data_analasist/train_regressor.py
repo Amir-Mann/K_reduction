@@ -33,9 +33,9 @@ def get_ys_for_regressor(data):
     return np.array(alphas_over_betas), np.array(one_over_betas)
 
 
-def simple_evaluate_regressors(feature_data, regressors_tuple, alphas_over_betas, one_over_betas):
-    predicted_betas = 1 / regressors_tuple[1].predict(feature_data)
-    predicted_alphas = regressors_tuple[0].predict(feature_data) * predicted_betas
+def simple_evaluate_regressors(feature_data, regressors_dict, alphas_over_betas, one_over_betas):
+    predicted_betas = 1 / regressors_dict["one_over_beta"].predict(feature_data)
+    predicted_alphas = regressors_dict["alpha_over_beta"].predict(feature_data) * predicted_betas
     true_betas = 1 / one_over_betas
     true_alphas = alphas_over_betas * true_betas
     values = []
@@ -46,7 +46,7 @@ def simple_evaluate_regressors(feature_data, regressors_tuple, alphas_over_betas
         estimated = sigmoid_array(preda + predb * x)
         residuals = ground_trueth - estimated
         values.append(max(np.abs(residuals)))
-    return {"mean":sum(values) / len(values), "midian": sorted(values)[len(values) // 2]}
+    return {"max residual per fo mean":sum(values) / len(values), "max residual per fo midian": sorted(values)[len(values) // 2]}
 
 
 def main():
@@ -75,13 +75,13 @@ def main():
     regressor_slope = LinearRegression()
     regressor_midpoint.fit(feature_data, alphas_over_betas)
     regressor_slope.fit(feature_data, one_over_betas)
-    regressors_tuple = (regressor_midpoint, regressor_slope)
+    regressors_dict = {"alpha_over_beta" : regressor_midpoint, "one_over_beta" : regressor_slope}
     
-    print(simple_evaluate_regressors(feature_data, regressors_tuple, alphas_over_betas, one_over_betas))
+    print(simple_evaluate_regressors(feature_data, regressors_dict, alphas_over_betas, one_over_betas))
     
     if args.overide_regressor or not os.path.isfile(args.path_to_regressor) or input("Do you wish to over write [y/(n)]? ").lower()[0] == "y":
         with open(args.path_to_regressor, "wb") as regressor_file:
-            pickle.dump(regressors_tuple, regressor_file)
+            pickle.dump(regressors_dict, regressor_file)
         print(f"Saved the regressors at {args.path_to_regressor}")
     
     

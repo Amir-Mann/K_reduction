@@ -136,7 +136,7 @@ def get_bound_data_without_successful_samples(dataset, file_names):
 
 def get_list_of_ds_per_k_and_image(dataset, func_for_d, file_names=None, image_bound_stats=False, data_=None):
     # dataset is the scores for normaliztion dataset
-    # data_ is the global data variable if you don't wish to use it as a global but pass it down expilictily.
+    # data_ is a replacement for the global data variable if you don't wish to use the global.
     if file_names == None:
         file_names = list(dataset.keys())
     if image_bound_stats:
