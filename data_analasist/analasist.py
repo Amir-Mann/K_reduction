@@ -4,88 +4,31 @@ from json.decoder import JSONDecodeError
 from fo_funcs import *
 from utils import *
 from sklearn.linear_model import LinearRegression, Ridge
+import numpy as np
 
-stats_folder = "../tf_verify/json_stats"
 
-filter_out_perfect_data = False
-# filter_out_all_image = True
-
-full_image_data = {}
-data = {}
-
-for root, dirs, files in os.walk(stats_folder):
-    for fname in files:
-        fpath = os.path.join(root, fname)
-        with open(fpath, "r") as f:
-            try:
-                new_data = json.load(f)
-            except JSONDecodeError:
-                print(f"--- Encountered json decode error with file : {fpath}, skipping.")
-        net_name = new_data[0]["network"][len("models/MNIST_"):-len(".onnx")]
-        if "all_image" in fname:
-            dataset_to_add_to = full_image_data
-        else:
-            dataset_to_add_to = data
-        if filter_out_perfect_data:
-            dataset_to_add_to[net_name + "_" + fname[:-5]] = [fo for fo in new_data if
-                                                              len([subk for subk in fo["statistics"] if
-                                                                   subk["success"] != 1]) > 0]
-        else:
+def get_data(path, excluded_substr=None):
+    full_image_data = {}
+    data = {}
+    for root, dirs, files in os.walk(path):
+        for fname in files:
+            # if filter_out_all_image and "all_image" in fname:
+            # continue
+            fpath = os.path.join(root, fname)
+            with open(fpath, "r") as f:
+                try:
+                    new_data = json.load(f)
+                except JSONDecodeError:
+                    print(f"--- Encountered json decode error with file : {fpath}, skipping.")
+            net_name = new_data[0]["network"][len("models/MNIST_"):-len(".onnx")]
+            if "all_image" in fname:
+                dataset_to_add_to = full_image_data
+            elif excluded_substr is not None and excluded_substr in fname:
+                continue
+            else:
+                dataset_to_add_to = data
             dataset_to_add_to[net_name + "_" + fname[:-5]] = new_data
-
-
-image_bounds_stats_folder = "../tf_verify/image_bounds_stats"
-img_bound_data = {}
-for root, dirs, files in os.walk(image_bounds_stats_folder):
-    for fname in files:
-        fpath = os.path.join(root, fname)
-        # getting the data in the current file
-        with open(fpath, "r") as f:
-            try:
-                new_data = json.load(f)
-            except JSONDecodeError:
-                print(f"--- Encountered json decode error with file : {fpath}, skipping.")
-        net_name = new_data[0]["network"][len("models/MNIST_"):-len(".onnx")]
-
-        assert "all_image" not in fname, "There shouldn't be any all_image files in the image_bounds_stats folder"
-
-        if filter_out_perfect_data:
-            img_bound_data[net_name + "_" + fname[:-5]] = [fo for fo in new_data if
-                                                              len([subk for subk in fo["statistics"] if
-                                                                   subk["success"] != 1]) > 0]
-        else:
-            img_bound_data[net_name + "_" + fname[:-5]] = new_data
-
-# functions for the d
-functions_for_d = [
-    ("L_inf", lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"] + 1:]) -
-                             sample["Lbounds"][sample["label"]]),
-    # ("L_2", lambda sample: d_power(sample, 2)),
-    ("L_10", lambda sample: d_power(sample, 10)),
-    # ("L_8", lambda sample: d_power(sample, 8)),
-    ("L_6", lambda sample: d_power(sample, 6)),
-    # ("L_4", lambda sample: d_power(sample, 4)),
-    # ("d_sum_of_mistakes", d_sum_of_mistakes),
-    # ("nonlabl_mean", d_mean_of_nonlabels),
-    # ("avg_of_mistakes", d_avg_of_mistakes)
-]
-
-# functions for the y
-functions_for_y = [
-    ("50th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.50)),
-    ("80th percentile", get_k_of_80_precntile),
-    ("90th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.90)),
-    ("99th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.99)),
-    # ("Avg of 1st and 99th %ile", lambda sample: (get_k_of_specified_percentile(sample, 0.99)+get_k_of_specified_percentile(sample, 0.01)) / 2),
-    # ("Avg of 90th, 95th, 100th %ile", lambda sample: (
-    # get_k_of_specified_percentile(sample, 1)+
-    # get_k_of_specified_percentile(sample, 0.9)+
-    # get_k_of_specified_percentile(sample, 0.95)
-    # ) / 3),
-    ("Avg of 70th and 90th %ile",
-     lambda sample: (get_k_of_specified_percentile(sample, 0.9) + get_k_of_specified_percentile(sample, 0.7)) / 2),
-    ("Average success rate", get_average_success_rate),
-]
+    return full_image_data, data
 
 
 # ---------- helper functions ----------------
@@ -116,8 +59,10 @@ def get_string_for_k(sample):
 #     # return len(d_buckets) - 1
 
 
-def get_label_of_image(network, image):
-    for value in data.values():
+def get_label_of_image(network, image, data_=None):
+    if data_ is None:
+        data_ = data
+    for value in data_.values():
         if value[0]["network"] == network and value[0]["image"] == image:
             return value[0]["label"]
     return None
@@ -189,7 +134,9 @@ def get_bound_data_without_successful_samples(dataset, file_names):
             temp_dataset[file_name].append(temp_entry)
     return temp_dataset
 
-def get_list_of_ds_per_k_and_image(dataset, func_for_d, file_names=None, image_bound_stats=False):
+def get_list_of_ds_per_k_and_image(dataset, func_for_d, file_names=None, image_bound_stats=False, data_=None):
+    # dataset is the scores for normaliztion dataset
+    # data_ is a replacement for the global data variable if you don't wish to use the global.
     if file_names == None:
         file_names = list(dataset.keys())
     if image_bound_stats:
@@ -204,7 +151,7 @@ def get_list_of_ds_per_k_and_image(dataset, func_for_d, file_names=None, image_b
         if file_name_per_img not in list_of_ds_per_img:
             list_of_ds_per_img[file_name_per_img] = []
 
-        label = get_label_of_image(dataset[file_name][0]["network"], dataset[file_name][0]["image"])
+        label = get_label_of_image(dataset[file_name][0]["network"], dataset[file_name][0]["image"], data_=data_)
         if image_bound_stats:
             ds_in_current_file = [func_for_d(sample, label) for entry in dataset[file_name] for sample in entry["samples"]]
         else:
@@ -326,23 +273,23 @@ def generate_feature_info(func_for_d, file_names):
         datapoints = [
             ([img_a, img_b, fo_k, fo_d],                  "a_img, b_img, k, d"),
             ([fo_k],                                       "k"),
-            ([fo_k, fo_d],                                "k , d"),
+            #([fo_k, fo_d],                                "k , d"),
             ([fo_k, img_d_normalized["standard"]],         "k, d_normalized[\"standard\"]"),
             # ([fo_k, img_d_normalized["div_by_mean"]],      "k, d_normalized[\"div_by_mean\"]"),
             # ([fo_k, img_d_normalized["min_max"]],          "k, d_normalized[\"min_max\"]"),
-            # ([fo_k, img_d_normalized["rounded_bucket"]], "k, d_normalized[\"rounded_bucket\"]"),
-            ([fo_k, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s"),
-            ([img_a, img_b, fo_k, img_d_normalized["standard"]],         "a_img, b_img, k, |d|s"),
-            ([fo_k, img_a/img_b, 1/img_b, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s, a/b, 1/b"),
-            ([img_a, img_b, fo_k, img_d_normalized["div_by_mean"]],      "a_img, b_img, k, d_normalized[\"div_by_mean\"]"),
-            ([img_a, img_b, fo_k, img_d_normalized["min_max"]],          "a_img, b_img, k, d_normalized[\"min_max\"]"),
-            ([fo_k, img_d_normalized["div_by_mean"]],      "k, d_normalized[\"div_by_mean\"]"),
-            ([fo_k, img_d_normalized["min_max"]],          "k, d_normalized[\"min_max\"]"),
             ([fo_k, img_d_normalized["rounded_bucket"]], "k, d_normalized[\"rounded_bucket\"]"),
-            ([fo_k, img_d_normalized["estimated_bucket"]], "k, d_normalized[\"estimated_bucket\"]"),
+            #([fo_k, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s"),
+            #([img_a, img_b, fo_k, img_d_normalized["standard"]],         "a_img, b_img, k, |d|s"),
+            #([fo_k, img_a/img_b, 1/img_b, img_d_normalized["standard"], 1/img_d_normalized["standard"]],  "k, |d|s, 1/|d|s, a/b, 1/b"),
+            #([img_a, img_b, fo_k, img_d_normalized["div_by_mean"]],      "a_img, b_img, k, d_normalized[\"div_by_mean\"]"),
+            #([img_a, img_b, fo_k, img_d_normalized["min_max"]],          "a_img, b_img, k, d_normalized[\"min_max\"]"),
+            #([fo_k, img_d_normalized["div_by_mean"]],      "k, d_normalized[\"div_by_mean\"]"),
+            #([fo_k, img_d_normalized["min_max"]],          "k, d_normalized[\"min_max\"]"),
+            #([fo_k, img_d_normalized["rounded_bucket"]], "k, d_normalized[\"rounded_bucket\"]"),
+            #([fo_k, img_d_normalized["estimated_bucket"]], "k, d_normalized[\"estimated_bucket\"]"),
 
-            ([fo_k, warmup_img_d_normalized["standard"]],         "k, warmup_d_normalized[\"standard\"]"),
-            ([fo_k, warmup_img_d_normalized["div_by_mean"]],      "k, warmup_d_normalized[\"div_by_mean\"]"),
+            #([fo_k, warmup_img_d_normalized["standard"]],         "k, warmup_d_normalized[\"standard\"]"),
+            #([fo_k, warmup_img_d_normalized["div_by_mean"]],      "k, warmup_d_normalized[\"div_by_mean\"]"),
             ([fo_k, warmup_img_d_normalized["estimated_bucket"]], "k, warmup_d_normalized[\"estimated_bucket\"]"),
 
             # ([b1**i * b2**j for i in range(50) for j in range(20) for b1 in [fo_d] for b2 in [img_a, img_b, fo_k]], "Overfit"),
@@ -352,16 +299,21 @@ def generate_feature_info(func_for_d, file_names):
             # ([1 / img_vars[1]], "1 / img_b"),
             # ([np.log(img_vars[1])], "ln(img_b)")
         ]
-
+        if sample["network"] == "models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx":
+            for key, val in sample.items():
+                break
+                if isinstance(val, (str, int, float)):
+                    print(key, val)
+            #print(f"{fo_k=} {img_d_normalized['standard']=}")
         sample_a, sample_b = sigmoid_weighted_least_squares(sample)
 
         # y predictors
         y_predictors = [
             (sample_a, "a"),
-            (sample_b, "b"),
-            (sample_a / sample_b, "a/b"),
-            (-(sample_a + 4) / sample_b, "-(a+4)/b"),
+            #(sample_b, "b"),
             (1 / sample_b, "1/b"),
+            (sample_a / sample_b, "a/b"),
+            #(-(sample_a + 4) / sample_b, "-(a+4)/b"),
         ]
         #for i in range(2, 7, 2):
         #    y_predictors.append((-(sample_a + i) / sample_b, f"-(a+{i})/b"))
@@ -439,7 +391,6 @@ def fit_regressor_to_data(func_for_d=None):
     train_predictions = []
     test_predictions = []
     test_scores = []
-    # predictions_and_scores = {"scores": [], "predictions": [], "test_scores": [], "test_predictions": []}
     for i, regressor in enumerate(regressors):
         scores_per_feature_data = []
         train_predictions_per_feature_data = []
@@ -453,11 +404,13 @@ def fit_regressor_to_data(func_for_d=None):
             for k, y in enumerate(ys):
                 if len(y) == 0:
                     continue
+                y = np.array(y)
                 regressor.fit(feature_data, y)
 
                 # Calculating train scores
                 ROUNDING_PRECISION = 5
                 prediction = regressor.predict(feature_data)
+                                          
                 score1 = regressor.score(feature_data, y)  # R^2
                 score2 = np.sum(np.abs(prediction - y)) / len(y)  # L_1 / len(y)
                 score3 = (np.sum((prediction - y) ** 2) ** (1 / 2)) / len(y)  # L_2 / len(y)
@@ -506,20 +459,20 @@ def fit_regressor_to_data(func_for_d=None):
                 matrix = [[f"-> {y_names[r]}", scores[i][j][r], test_scores[i][j][r]] for r in range(len(ys))]
                 matrix = [["__ Y __", "__ Train __", "__ Test __"]] + matrix
                 pretty_print(matrix)
-
+    
     # ------------------ getting a, b -------------------
     ab_formulas = [
-        {"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor"},
-        # {"x1_name": "a/b", "x2_name": "-(a+4)/b",
-        #  "a_func": lambda aDivb, a4Divb: (-4 * aDivb) / (aDivb + a4Divb),
-        #  "b_func": lambda aDivb, a4Divb: (-4) / (aDivb + a4Divb)},
+        #{"x1_name": "a", "x2_name": "b", "comment": "a, b from regressor"},
+        #{"x1_name": "a/b", "x2_name": "-(a+4)/b",
+        # "a_func": lambda aDivb, a4Divb: (-4 * aDivb) / (aDivb + a4Divb),
+        # "b_func": lambda aDivb, a4Divb: (-4) / (aDivb + a4Divb)},
         # {"x1_name": "-(a+6)/b", "x2_name": "-(a+4)/b",
         #  "a_func": lambda x1, x2: (4*x1 - 6*x2)/(x2 - x1),
         #  "b_func": lambda x1, x2: -((4*x1 - 6*x2)/(x2 - x1) + 4) / x2},
-        {"x1_name": "a/b", "x2_name": "b",
-         "a_func": lambda x1, x2: x1 * x2},
+        #{"x1_name": "a/b", "x2_name": "b",
+        # "a_func": lambda x1, x2: x1 * x2},
         {"x1_name": "a/b", "x2_name": "1/b",
-        "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
+         "a_func": lambda x1, x2: x1 / x2, "b_func": lambda x1, x2: 1 / x2},
     ]
 
     ab_scores = get_ab_train_and_test_scores(regressors, regressor_names, feature_datas, feature_data_names, train_predictions, test_predictions, y_names, ab_formulas, fo_samples)
@@ -569,7 +522,10 @@ def get_ab_train_and_test_scores(regressors, regressor_names, feature_datas, fea
 
 
 def get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names, predictions, y_names, ab_formulas, fo_samples):
+    times_on_correcting = []
+    times_on_double_correcting = []
     ab = {}
+    #Note: regressors is usually a list of len 1, and it is not excessed just used for names (which again are 1)
     for i in range(len(regressors)):
         regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
         ab[regressor_name] = {}
@@ -588,16 +544,128 @@ def get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names
                 else:
                     b = predictions[i][j][y_names.index(formula["x2_name"])]
                 scores = avg_successrate_scores(fo_samples, a, b)
-                name = formula["x1_name"] + ", " + formula["x2_name"]
+                name = formula["x1_name"] + ", " + formula["x2_name"] + f" no correction"
                 if "comment" in formula:
                     name += " (" + formula["comment"] + ")"
                 ab[regressor_name][feature_names].append({"name": name, "scores": scores})
+                a_s = a
+                b_s = b
+                ns_list = [10]
+                for n in ns_list:
+                    a = []
+                    b = []
+                    for alpha, beta, fo in zip(a_s, b_s, fo_samples):
+                        a_, b_ = sigmoid_weighted_least_squares(fo)
+                        if (abs(- a_ / b_ + alpha / beta) > 20):
+                            print(f"true: {-a_/b_} estimated: {-alpha/beta}")
+                            for key, val in fo.items():
+                                if isinstance(val, (str, int, float)):
+                                    print(key, val)
+                            
+                        def f(k, n):
+                            return np.random.binomial(n, 1 / (1 + np.exp(- (a_ + b_ * k))))
+                        start = time.time()
+                        a_hat, b_hat = correct_sigmoid_itertive(alpha, beta, f, num_samples=n, 
+                                                               )
+                                                               #true_alpha=a_, true_beta=b_)
+                        times_on_double_correcting.append(time.time() - start)
+                        a.append(a_hat)
+                        b.append(b_hat)
+                    scores = avg_successrate_scores(fo_samples, a, b)
+                    name = formula["x1_name"] + ", " + formula["x2_name"] + f" itertive {n=}"
+                    if "comment" in formula:
+                        name += " (" + formula["comment"] + ")"
+                    ab[regressor_name][feature_names].append({"name": name, "scores": scores})
+                for n in ns_list:
+                    a = []
+                    b = []
+                    for alpha, beta, fo in zip(a_s, b_s, fo_samples):
+                        a_, b_ = sigmoid_weighted_least_squares(fo)
+                        def f(k, n):
+                            return np.random.binomial(n, 1 / (1 + np.exp(- (a_ + b_ * k))))
+                        start = time.time()
+                        a_hat, b_hat = correct_sigmoid_double_sample(alpha, beta, f, num_samples=int(n / 2), 
+                                                               )
+                                                               #true_alpha=a_, true_beta=b_)
+                        times_on_double_correcting.append(time.time() - start)
+                        a.append(a_hat)
+                        b.append(b_hat)
+                    scores = avg_successrate_scores(fo_samples, a, b)
+                    name = formula["x1_name"] + ", " + formula["x2_name"] + f" double_sample {n=}"
+                    if "comment" in formula:
+                        name += " (" + formula["comment"] + ")"
+                    ab[regressor_name][feature_names].append({"name": name, "scores": scores})
+                for n in ns_list:
+                    a = []
+                    b = []
+                    for alpha, beta, fo in zip(a_s, b_s, fo_samples):
+                        alpha_true, beta_true = sigmoid_weighted_least_squares(fo)
+                        def f(k, n):
+                            return np.random.binomial(n, 1 / (1 + np.exp(- (alpha_true + beta_true * k))))
+                        start = time.time()
+                        a_hat, b_hat = correct_sigmoid(alpha, beta, f, num_samples=n, 
+                                                               )
+                                                               #true_alpha=a_, true_beta=b_)
+                        times_on_correcting.append(time.time() - start)
+                        a.append(a_hat)
+                        b.append(b_hat)
+                    scores = avg_successrate_scores(fo_samples, a, b)
+                    name = formula["x1_name"] + ", " + formula["x2_name"] + f" single sample {n=}"
+                    if "comment" in formula:
+                        name += " (" + formula["comment"] + ")"
+                    ab[regressor_name][feature_names].append({"name": name, "scores": scores})
+                
 
             a, b = get_all_fnr_sigmoid(fo_samples)
             scores = avg_successrate_scores(fo_samples, a, b)
             ab[regressor_name][feature_names].append({"name": "fnr", "scores": scores})
+    avg_correcting_time = sum(times_on_correcting) / len(times_on_correcting) if times_on_correcting else None
+    avg_double_correcting_time = sum(times_on_double_correcting) / len(times_on_double_correcting)  if times_on_double_correcting else None
+    print(f"{avg_correcting_time=}\n{avg_double_correcting_time=}")
     return ab
 
 if __name__ == "__main__":
-    fit_regressor_to_data()
+    stats_folder = "../tf_verify/json_stats"
 
+    filter_out_perfect_data = False
+    down_sample = False
+    # filter_out_all_image = True
+
+    full_image_data = {}
+    full_image_data, data = get_data(stats_folder)
+    _, img_bound_data = get_data(r"../tf_verify/image_bounds_stats")
+    
+
+    # functions for the d
+    functions_for_d = [
+        ("L_inf", lambda sample: max(sample["Ubounds"][:sample["label"]] + sample["Ubounds"][sample["label"] + 1:]) -
+                                sample["Lbounds"][sample["label"]]),
+        # ("L_2", lambda sample: d_power(sample, 2)),
+        ("L_10", lambda sample: d_power(sample, 10)),
+        # ("L_8", lambda sample: d_power(sample, 8)),
+        ("L_6", lambda sample: d_power(sample, 6)),
+        # ("L_4", lambda sample: d_power(sample, 4)),
+        # ("d_sum_of_mistakes", d_sum_of_mistakes),
+        # ("nonlabl_mean", d_mean_of_nonlabels),
+        # ("avg_of_mistakes", d_avg_of_mistakes)
+    ]
+
+    # functions for the y
+    functions_for_y = [
+        ("50th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.50)),
+        ("80th percentile", get_k_of_80_precntile),
+        ("90th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.90)),
+        ("99th percentile", lambda sample: get_k_of_specified_percentile(sample, 0.99)),
+        # ("Avg of 1st and 99th %ile", lambda sample: (get_k_of_specified_percentile(sample, 0.99)+get_k_of_specified_percentile(sample, 0.01)) / 2),
+        # ("Avg of 90th, 95th, 100th %ile", lambda sample: (
+        # get_k_of_specified_percentile(sample, 1)+
+        # get_k_of_specified_percentile(sample, 0.9)+
+        # get_k_of_specified_percentile(sample, 0.95)
+        # ) / 3),
+        ("Avg of 70th and 90th %ile",
+        lambda sample: (get_k_of_specified_percentile(sample, 0.9) + get_k_of_specified_percentile(sample, 0.7)) / 2),
+        ("Average success rate", get_average_success_rate),
+    ]
+
+
+    fit_regressor_to_data()
