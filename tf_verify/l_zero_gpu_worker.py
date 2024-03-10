@@ -310,7 +310,7 @@ class LZeroGpuWorker:
         Corrects a sigmoid using sampeling, and the assumption that the error is distributing T(v=v)
         alpha (float): any real number
         beta (float): smaller then 0
-        sample_func (func(int, int)->(int)): a function which takes an k, num_samples and return the amount of successes,
+        sample_func (func(int, int)->(int)): a function which takes a k, num_samples and return the amount of successes,
                                             it samples the real probabilty distribution at that k, num_samples times.
         num_samples (int, optional): num_times to sample real distribution.
         return (tuple[float, float]): corrected (alpha, beta)
