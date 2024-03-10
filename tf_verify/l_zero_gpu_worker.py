@@ -20,7 +20,6 @@ class LZeroGpuWorker:
         self.__number_of_workers = None
         self.__covering_sizes = None
         self.__w_vector = None
-        self.__buckets = None
         self.__t = None
         self.__normalization_buckets = None
         if dataset == 'cifar10':
