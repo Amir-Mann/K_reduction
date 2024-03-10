@@ -7,7 +7,7 @@ from sklearn.linear_model import LinearRegression, Ridge
 import numpy as np
 
 
-def get_data(path, test_substr=None):
+def get_data(path, excluded_substr=None):
     full_image_data = {}
     data = {}
     for root, dirs, files in os.walk(path):
@@ -23,7 +23,7 @@ def get_data(path, test_substr=None):
             net_name = new_data[0]["network"][len("models/MNIST_"):-len(".onnx")]
             if "all_image" in fname:
                 dataset_to_add_to = full_image_data
-            elif test_substr is not None and test_substr in fname:
+            elif excluded_substr is not None and excluded_substr in fname:
                 continue
             else:
                 dataset_to_add_to = data
@@ -135,6 +135,8 @@ def get_bound_data_without_successful_samples(dataset, file_names):
     return temp_dataset
 
 def get_list_of_ds_per_k_and_image(dataset, func_for_d, file_names=None, image_bound_stats=False, data_=None):
+    # dataset is the scores for normaliztion dataset
+    # data_ is the global data variable if you don't wish to use it as a global but pass it down expilictily.
     if file_names == None:
         file_names = list(dataset.keys())
     if image_bound_stats:
@@ -523,7 +525,8 @@ def get_ab_scores(regressors, regressor_names, feature_datas, feature_data_names
     times_on_correcting = []
     times_on_double_correcting = []
     ab = {}
-    for i in range(1):
+    #Note: regressors is usually a list of len 1, and it is not excessed just used for names (which again are 1)
+    for i in range(len(regressors)):
         regressor_name = regressor_names[i] if len(regressor_names) > i else "REGRESSOR NOT NAMED"
         ab[regressor_name] = {}
         for j in range(len(feature_datas)):
