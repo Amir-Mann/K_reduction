@@ -261,7 +261,7 @@ class LZeroGpuWorker:
         beta = 1 / one_over_beta
         alpha = alpha_over_beta * beta
         def sample_func(k, n):
-            return len([i for i in range(n) if self.verify_group(sample(pixels, k))])
+            return len([i for i in range(n) if self.verify_group(sample(pixels, k))[0]])
         
         alpha, beta = self.correct_sigmoid_itertive(alpha, beta, sample_func, n_to_sample)
     
