@@ -113,8 +113,8 @@ def correct_sigmoid_double_sample(alpha, beta, sample_func, num_samples=10, v=3.
     result = scipy.optimize.minimize_scalar(func_to_minimize)
     #alpha_currection = - result / beta + r
     #alpha = alpha - beta * alpha_currection
+    prv_alpha = alpha
     if result.success:
-        prv_alpha = alpha
         alpha = alpha + beta * result.x
     else:
         print(f"\nFailed 1 correction\n", end=", ")

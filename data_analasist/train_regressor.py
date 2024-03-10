@@ -46,7 +46,7 @@ def simple_evaluate_regressors(feature_data, regressors_tuple, alphas_over_betas
         estimated = sigmoid_array(preda + predb * x)
         residuals = ground_trueth - estimated
         values.append(max(np.abs(residuals)))
-    return {"mean":sum(values) / len(values), "midian": sorted(values)[len(values) // 2]}
+    return {"max residual per fo mean":sum(values) / len(values), "max residual per fo midian": sorted(values)[len(values) // 2]}
 
 
 def main():
