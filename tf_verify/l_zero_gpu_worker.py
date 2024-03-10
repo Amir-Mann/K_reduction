@@ -20,8 +20,8 @@ class LZeroGpuWorker:
         self.__number_of_workers = None
         self.__covering_sizes = None
         self.__w_vector = None
-        self.__buckets = None
         self.__t = None
+        self.__normalization_buckets = None
         if dataset == 'cifar10':
             self.__number_of_pixels = 1024
         else:
@@ -37,31 +37,32 @@ class LZeroGpuWorker:
                 while message != 'terminate':
                     # Warmup sampling
                     image, label, sampling_lower_bound, sampling_upper_bound, repetitions = message
-                    sampling_successes, sampling_time = self.__sample(image, label, sampling_lower_bound, sampling_upper_bound, repetitions)
-                    conn.send((sampling_successes, sampling_time))  # TODO: send d
+                    sampling_successes, sampling_time, sampling_scores = self.__sample(image, label, sampling_lower_bound, sampling_upper_bound, repetitions)
+                    conn.send((sampling_successes, sampling_time, sampling_scores))
                     # verification
                     self.__image, self.__label, self.__strategy, self.__worker_index, self.__number_of_workers, \
-                        self.__covering_sizes, self.__w_vector, self.__buckets, self.__t = conn.recv()
+                        self.__covering_sizes, self.__w_vector, self.__normalization_buckets, self.__t = conn.recv()
                     # coverings = self.__load_coverings(strategy)
                     self.__prove(conn)
                     message = conn.recv()
 
     def __sample(self, image, label, sampling_lower_bound, sampling_upper_bound, repetitions):
-        # TODO: also return d
         population = list(range(0, self.__number_of_pixels))
         sampling_successes = [0] * (sampling_upper_bound - sampling_lower_bound + 1)
         sampling_time = [0] * (sampling_upper_bound - sampling_lower_bound + 1)
+        sampling_scores = []
         for size in range(sampling_lower_bound, sampling_upper_bound + 1):
             for i in range(0, repetitions):
                 pixels = sample(population, size)
                 start = time.time()
-                verified = self.verify_group(image, label, pixels)
+                verified, score = self.verify_group(image, label, pixels)
                 duration = time.time() - start
                 sampling_time[size - sampling_lower_bound] += duration
                 if verified:
                     sampling_successes[size - sampling_lower_bound] += 1
+                    sampling_scores.append(score)
 
-        return sampling_successes, sampling_time
+        return sampling_successes, sampling_time, sampling_scores
 
     def __load_covering(self, size, broken_size, t):
         # Load a covering for a set of size {size} using sets of size {broken_size}
@@ -162,11 +163,18 @@ class LZeroGpuWorker:
         else:
             pass
             # prop = int(target[i])
-        is_correctly_classified, bounds = self.__network.test(specLB, specUB, self.__label)
-        return is_correctly_classified, self.get_score(bounds[-1], self.__label)
 
-    def get_score(self, last_layer_bounds, label):
-        pass# TODO: write function to return score(d)
+        is_correctly_classified, bounds = self.__network.test(specLB, specUB, self.__label)
+        last_layer_bounds = bounds[-1]
+        score = self.__calculate_score(last_layer_bounds, self.__label) if not is_correctly_classified else None
+        return is_correctly_classified, score
+
+    def __calculate_score(self, last_layer_bounds, label):
+        # not implementing any different scoring methods for now
+        power = 6
+        label_l = last_layer_bounds[0][label]  # TODO: omer check if this is how to access lower bounds
+        v = [(u - label_l) ** power for i, u in enumerate(last_layer_bounds[1]) if i != label and u > label_l]
+        return sum(v) ** (1 / power)
 
     def normalize(self, image):
         # normalization taken out of the network
@@ -217,10 +225,37 @@ class LZeroGpuWorker:
             indexes.append(pixel * 3 + 2)
         return indexes
 
-    def __get_bucket(self, buckets, score):
-        #TODO: OMER
-        bucket = None
-        return bucket
+    def __get_bucket(self, score, buckets=None):
+        if buckets is None:
+            buckets = self.__normalization_buckets
+
+        index_above = self.__binary_search_first_above(score, buckets)
+        if index_above == 0:
+            return 0
+        if index_above == len(buckets):
+            return len(buckets)
+
+        index_below = index_above - 1
+        value_above, value_below = buckets[index_above], buckets[index_below]
+
+        relative_pos = (score - value_below) / (value_above - value_below)
+        relative_index = index_below + (relative_pos * (index_above - index_below))
+        return relative_index
+
+    def __binary_search_first_above(self, value, sorted_list):
+        """
+        returns the index of the first element in the list that is bigger than value
+        NOTE: can return len(sorted_list) if value is bigger than all the elements in the list
+        """
+        left = 0
+        right = len(sorted_list)
+        while left < right:
+            mid = (left + right) // 2
+            if sorted_list[mid] < value:
+                left = mid + 1
+            else:
+                right = mid
+        return left
 
     def __get_fnr(self, p_vector, v, k):
         return (1 - p_vector[k]) / (1 - p_vector[v])
