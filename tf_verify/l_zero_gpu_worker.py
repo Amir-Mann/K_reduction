@@ -288,10 +288,9 @@ class LZeroGpuWorker:
         return strategy, A
 
     def __get_p_vector(self, score, pixels, n_to_sample):
-        k = np.array(len(pixels))
-        normilized_score = np.array(self.__get_bucket(score=score))
-        alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(k, normilized_score)
-        one_over_beta = self.__regeressors["one_over_beta"].predict(k, normilized_score)
+        datapoints = np.array([[len(pixels), self.__get_bucket(score=score)]])
+        alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(datapoints)
+        one_over_beta = self.__regeressors["one_over_beta"].predict(datapoints)
         one_over_beta = min(one_over_beta, -0.01) # Clip if the regressor gets beta values which make no sense
         beta = 1 / one_over_beta
         alpha = alpha_over_beta * beta
@@ -300,7 +299,7 @@ class LZeroGpuWorker:
         
         alpha, beta = self.correct_sigmoid_itertive(alpha, beta, sample_func, n_to_sample)
     
-        ks = np.array(range(self.__t, k[0] + 1))
+        ks = np.array(range(self.__t, len(pixels) + 1))
         p_vector = 1 / (1 + np.exp(alpha + beta * ks))
         p_vector[-1] = 0
         return p_vector
