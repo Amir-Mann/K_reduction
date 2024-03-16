@@ -22,7 +22,7 @@ class LZeroGpuWorker:
         self.__number_of_workers = None
         self.__covering_sizes = None
         self.__w_vector = None
-        with open("regressor.pkl", "r") as f:
+        with open("regressor.pkl", "rb") as f:
             self.__regeressors = pickle.load(f)
         self.__t = None
         self.__normalization_buckets = None
@@ -40,8 +40,8 @@ class LZeroGpuWorker:
                 message = conn.recv()
                 while message != 'terminate':
                     # Warmup sampling
-                    image, label, sampling_lower_bound, sampling_upper_bound, repetitions = message
-                    sampling_successes, sampling_time, sampling_scores = self.__sample(image, label, sampling_lower_bound, sampling_upper_bound, repetitions)
+                    self.__image, self.__label, sampling_lower_bound, sampling_upper_bound, repetitions = message
+                    sampling_successes, sampling_time, sampling_scores = self.__sample(sampling_lower_bound, sampling_upper_bound, repetitions)
                     conn.send((sampling_successes, sampling_time, sampling_scores))
                     # verification
                     self.__image, self.__label, self.__strategy, self.__worker_index, self.__number_of_workers, \
@@ -50,7 +50,7 @@ class LZeroGpuWorker:
                     self.__prove(conn)
                     message = conn.recv()
 
-    def __sample(self, image, label, sampling_lower_bound, sampling_upper_bound, repetitions):
+    def __sample(self, sampling_lower_bound, sampling_upper_bound, repetitions):
         population = list(range(0, self.__number_of_pixels))
         sampling_successes = [0] * (sampling_upper_bound - sampling_lower_bound + 1)
         sampling_time = [0] * (sampling_upper_bound - sampling_lower_bound + 1)
@@ -59,7 +59,7 @@ class LZeroGpuWorker:
             for i in range(0, repetitions):
                 pixels = sample(population, size)
                 start = time.time()
-                verified, score = self.verify_group(image, label, pixels)
+                verified, score = self.verify_group(pixels)
                 duration = time.time() - start
                 sampling_time[size - sampling_lower_bound] += duration
                 if verified:

@@ -13,28 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 """
-#amir omer noa to run write :
-# /root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main__.py --dataset mnist --netname models/mnist_relu_3_50.onnx --domain deeppoly --epsilon 0.01 --num_tests 20 --from_test 0 --k1_lst 50 --failing_origins_num 20 --delta_sub_k 1 --samples_per_sub_k 100 --stats_file file_name
-
-"""
-DONE:
-/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main2__.py --domain deeppoly --epsilon 0.01 --k1_lst 784 --failing_origins_num 1 --delta_sub_k 1 --samples_per_sub_k 500 --netname models/mnist_relu_3_50.onnx --dataset mnist --from_test 0 --num_tests 3 --stats_file all_image
-/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main2__.py --domain deeppoly --epsilon 0.01 --k1_lst 784 --failing_origins_num 1 --delta_sub_k 1 --samples_per_sub_k 500 --netname models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx --dataset mnist --from_test 0 --num_tests 3 --stats_file all_image
-/root/OUR_WORK/venv/bin/python /root/OUR_WORK/tf_verify/__main2__.py --domain deeppoly --epsilon 0.01 --k1_lst 784 --failing_origins_num 1 --delta_sub_k 1 --samples_per_sub_k 500 --netname models/MNIST_convSmall_NO_PGD.onnx --dataset mnist --from_test 0 --num_tests 3 --stats_file all_image
-
-RAN PARTIALLY:
-
-CHECK RESULTS:
-
-RUNNING:
-
-TODO:
-python /root/OUR_WORK/tf_verify/run_stats.py "stats_run_discription/mnist_relu_3_50_runs.txt"
-"""
 
 
 import sys
 import os
+import json
 cpu_affinity = os.sched_getaffinity(0)
 sys.path.insert(0, '../ELINA/python_interface/')
 sys.path.insert(0, '../deepg/code/')
@@ -66,7 +49,12 @@ from pprint import pprint
 # if config.domain=='gpupoly' or config.domain=='refinegpupoly':
 from refine_gpupoly import *
 from utils import parse_vnn_lib_prop, translate_output_constraints, translate_input_to_box, negate_cstr_or_list_old
-import l0_stats
+from l_zero_robustness_analyzer import LZeroRobustnessAnalyzer
+from l_zero_gpu_worker import LZeroGpuWorker
+from l_zero_cpu_worker import LZeroCpuWorker
+from subprocess import Popen
+from multiprocessing.connection import Client
+
 
 #ZONOTOPE_EXTENSION = '.zt'
 EPS = 10**(-9)
@@ -354,16 +342,6 @@ def init_domain(d):
         return d
 
 parser = argparse.ArgumentParser(description='ERAN Example',  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-# amir omer noa START
-
-parser.add_argument('--failing_origins_num', type=int, default=50, help='number of failing origins for spesific image and K1(failing origin group size)')
-parser.add_argument('--delta_sub_k', type=int, default=1, help='delta between sub ks(sub group sizes) that getting tested after a failing origin is found')
-parser.add_argument('--samples_per_sub_k', type=int, default=100, help='number of groups tested for each sub k(sub group sizes)')
-parser.add_argument('--k1_lst', type=int, nargs='+', default=[50], help='list of k(group sizes) of failing origins')
-parser.add_argument('--stats_file', type=str, help='exported stats will be added to json_stats/netname/stats_file.json')
-
-# amir omer noa END
-
 parser.add_argument('--netname', type=isnetworkfile, default=config.netname, help='the network name, the extension can be only .pb, .pyt, .tf, .meta, and .onnx')
 parser.add_argument('--epsilon', type=float, default=config.epsilon, help='the epsilon for L_infinity perturbation')
 parser.add_argument('--zonotope', type=str, default=config.zonotope, help='file to specify the zonotope matrix')
@@ -417,6 +395,18 @@ parser.add_argument('--logdir', type=str, default=None, help='Location to save l
 parser.add_argument('--logname', type=str, default=None, help='Directory of log files in `logdir`, if not specified timestamp is used')
 
 
+parser.add_argument("--l0_t", type=int, default=2, help="l0 param")
+parser.add_argument("--l0_sampling", type=int, default=400, help="l0 param")
+parser.add_argument("--l0_timeout", type=int, default=-1, help="l0 param")
+parser.add_argument("--l0_mode", type=str, default="main", help="l0 param")
+parser.add_argument("--l0_gpu_workers", type=int, default="1", help="l0 param")
+parser.add_argument("--l0_cpu_workers", type=int, default="1", help="l0 param")
+parser.add_argument("--l0_port", type=int, default="6000", help="l0 param")
+
+
+
+
+
 args = parser.parse_args()
 for k, v in vars(args).items():
     setattr(config, k, v)
@@ -424,6 +414,7 @@ for k, v in vars(args).items():
 #     raise DeprecationWarning("'--timeout_complete' is depreciated. Use '--timeout_final_milp' instead")
 config.json = vars(args)
 pprint(config.json)
+
 
 if config.specnumber and not config.input_box and not config.output_constraints:
     config.input_box = '../data/acasxu/specs/acasxu_prop_' + str(config.specnumber) + '_input_prenormalized.txt'
@@ -1388,320 +1379,145 @@ else:
         for i, val in enumerate(epsilons):
             eps_array = val
 
-    # amir omer noa START
-    failing_origins_per_network = []
-    modified_netname = config.netname[config.netname.rfind("/") + 1:]
-    if config.stats_file is None:
-        json_file_name = f"json_stats/{modified_netname}/{config.dataset}"
-    else:
-        json_file_name = f"json_stats/{modified_netname}/{config.stats_file}"
-    if os.path.isfile(f"{json_file_name}.json"):
-        version = 1
-        while os.path.isfile(f"{json_file_name}({version}).json"):
-            version += 1
-        json_file_name = f"{json_file_name}({version}).json"
-    else:
-        json_file_name = f"{json_file_name}.json"
-    # amir omer noa END
-    for i, test in enumerate(tests):
-        # amir omer noa START
-        OAN_DEBUG = False
-        if OAN_DEBUG:
-            if i != 2:
+    if config.l0_mode == 'main':
+        for worker in range(config.l0_gpu_workers):
+            my_env = os.environ.copy()
+            my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)
+            Popen(["python3.8", ".", "--l0_mode", "gpu_worker", "--l0_port", str(6000 + worker), "--l0_t", str(config.l0_t),
+                   "--dataset", config.dataset, "--netname", config.netname,
+                   "--domain", "gpupoly"], env=my_env)
+        for worker in range(config.l0_cpu_workers):
+            my_env = os.environ.copy()
+            my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)
+            Popen(["python3.8", ".", "--l0_mode", "cpu_worker", "--l0_port", str(6000 + config.l0_gpu_workers + worker), "--l0_t", str(config.l0_t),
+                   "--dataset", config.dataset, "--netname", config.netname,
+                   "--domain", "deeppoly", "--complete", "true", "--timeout_final_milp", str(config.l0_timeout)], env=my_env)
+
+        time.sleep(10)
+        gpu_workers = []
+        print("Connecting to gpu workers")
+        for i in range(config.l0_gpu_workers):
+            address = ('localhost', 6000 + i)
+            gpu_workers.append(Client(address, authkey=b'secret password'))
+        cpu_workers = []
+        print("Connecting to cpu workers")
+        for i in range(config.l0_cpu_workers):
+            address = ('localhost', 6000 + config.l0_gpu_workers + i)
+            cpu_workers.append(Client(address, authkey=b'secret password'))
+
+        image_results_by_image_index = dict()
+        for i, test in enumerate(tests):
+            if config.from_test and i < config.from_test:
                 continue
-        failing_origins_per_image = []
-        # amir omer noa END
-        if config.from_test and i < config.from_test:
-            continue
 
-        if config.num_tests is not None and i >= config.from_test + config.num_tests:
-            break
-        image= np.float64(test[1:len(test)])/np.float64(255)
-        specLB = np.copy(image)
-        specUB = np.copy(image)
-        if config.quant_step:
-            specLB = np.round(specLB/config.quant_step)
-            specUB = np.round(specUB/config.quant_step)
-        #cifarfile = open('/home/gagandeepsi/eevbnn/input.txt', 'r')
-        
-        #cifarimages = csv.reader(cifarfile, delimiter=',')
-        #for _, image in enumerate(cifarimages):
-        #    specLB = np.float64(image)
-        #specUB = np.copy(specLB)
-        normalize(specLB, means, stds, dataset)
-        normalize(specUB, means, stds, dataset)
+            if config.num_tests is not None and i >= config.from_test + config.num_tests:
+                break
 
-        #print("specLB ", len(specLB), "specUB ", specUB)
-        is_correctly_classified = False
-        start = time.time()
-        if domain == 'gpupoly' or domain == 'refinegpupoly':
-            #specLB = np.reshape(specLB, (32,32,3))#np.ascontiguousarray(specLB, dtype=np.double)
-            #specUB = np.reshape(specUB, (32,32,3))
-            #print("specLB ", specLB)
-            is_correctly_classified = network.test(specLB, specUB, int(test[0]), True)
-        else:
-            label,nn,nlb,nub,_,_ = eran.analyze_box(specLB, specUB, init_domain(domain), config.timeout_lp, config.timeout_milp, config.use_default_heuristic)
-            print("concrete ", nlb[-1])
-            if label == int(test[0]):
-                is_correctly_classified = True
-        #for number in range(len(nub)):
-        #    for element in range(len(nub[number])):
-        #        if(nub[number][element]<=0):
-        #            print('False')
-        #        else:
-        #            print('True')
-        if config.epsfile!= None:
-            epsilon = np.float64(eps_array[i])
-
-        #if(label == int(test[0])):
-        if is_correctly_classified == True:
-            label = int(test[0])
-            perturbed_label = None
-            correctly_classified_images +=1
-            if config.normalized_region==True:
-                specLB = np.clip(image - epsilon,0,1)
-                specUB = np.clip(image + epsilon,0,1)
-                normalize(specLB, means, stds, dataset)
-                normalize(specUB, means, stds, dataset)
-            else:
-                specLB = specLB - epsilon
-                specUB = specUB + epsilon
-
+            image= np.float64(test[1:len(test)])/np.float64(255)
+            specLB = np.copy(image)
+            specUB = np.copy(image)
             if config.quant_step:
                 specLB = np.round(specLB/config.quant_step)
                 specUB = np.round(specUB/config.quant_step)
+            #cifarfile = open('/home/gagandeepsi/eevbnn/input.txt', 'r')
 
-            if config.target == None:
-                prop = -1
+            #cifarimages = csv.reader(cifarfile, delimiter=',')
+            #for _, image in enumerate(cifarimages):
+            #    specLB = np.float64(image)
+            #specUB = np.copy(specLB)
+            normalize(specLB, means, stds, dataset)
+            normalize(specUB, means, stds, dataset)
+
+            #print("specLB ", len(specLB), "specUB ", specUB)
+            is_correctly_classified = False
+            start = time.time()
+            if domain == 'gpupoly' or domain == 'refinegpupoly':
+                #specLB = np.reshape(specLB, (32,32,3))#np.ascontiguousarray(specLB, dtype=np.double)
+                #specUB = np.reshape(specUB, (32,32,3))
+                #print("specLB ", specLB)
+                is_correctly_classified, _ = network.test(specLB, specUB, int(test[0]), True)
             else:
-                prop = int(target[i])
+                label,nn,nlb,nub,_,_ = eran.analyze_box(specLB, specUB, init_domain(domain), config.timeout_lp, config.timeout_milp, config.use_default_heuristic)
+                print("concrete ", nlb[-1])
+                if label == int(test[0]):
+                    is_correctly_classified = True
+            #for number in range(len(nub)):
+            #    for element in range(len(nub[number])):
+            #        if(nub[number][element]<=0):
+            #            print('False')
+            #        else:
+            #            print('True')
+            if config.epsfile!= None:
+                epsilon = np.float64(eps_array[i])
 
-            if domain == 'gpupoly' or domain =='refinegpupoly':
-                is_verified = network.test(specLB, specUB, int(test[0]))
-                #print("res ", res)
-                if is_verified:
-                    print("img", i, "Verified", int(test[0]))
-                    verified_images+=1
-                elif domain == 'refinegpupoly':
-                    num_outputs = len(nn.weights[-1])
+            #if(label == int(test[0])):
+            image_results = dict()
+            image_results['is_correctly_classified'] = is_correctly_classified
+            label = int(test[0])
+            image_results['true_label'] = label
+            if is_correctly_classified == True:
+                perturbed_label = None
+                correctly_classified_images += 1
 
-                    # Matrix that computes the difference with the expected layer.
-                    diffMatrix = np.delete(-np.eye(num_outputs), int(test[0]), 0)
-                    diffMatrix[:, label] = 1
-                    diffMatrix = diffMatrix.astype(np.float64)
+                l_zero_robustness_analyzer = LZeroRobustnessAnalyzer(image_index=i, image=image,
+                                                                     label=label,
+                                                                     gpu_workers=gpu_workers,
+                                                                     cpu_workers=cpu_workers,
+                                                                     t=config.l0_t,
+                                                                     sampling=config.l0_sampling,
+                                                                     timeout=config.l0_timeout,
+                                                                     dataset=dataset)
+                analysis_summary = l_zero_robustness_analyzer.analyze()
+                image_results['analysis_summary'] = analysis_summary
 
-                    # gets the values from GPUPoly.
-                    res = network.evalAffineExpr(diffMatrix, back_substitute=network.BACKSUBSTITUTION_WHILE_CONTAINS_ZERO)
-
-
-                    labels_to_be_verified = []
-                    var = 0
-                    nn.specLB = specLB
-                    nn.specUB = specUB
-                    nn.predecessors = []
-
-                    for pred in range(0, nn.numlayer+1):
-                        predecessor = np.zeros(1, dtype=np.int)
-                        predecessor[0] = int(pred-1)
-                        nn.predecessors.append(predecessor)
-                    #print("predecessors ", nn.predecessors[0][0])
-                    for labels in range(num_outputs):
-                        #print("num_outputs ", num_outputs, nn.numlayer, len(nn.weights[-1]))
-                        if labels != int(test[0]):
-                            if res[var][0] < 0:
-                                labels_to_be_verified.append(labels)
-                            var = var+1
-                    #print("relu layers", relu_layers)
-
-                    is_verified, x = refine_gpupoly_results(nn, network, num_gpu_layers, relu_layers, int(test[0]),
-                                                            labels_to_be_verified, K=config.k, s=config.s,
-                                                            complete=config.complete,
-                                                            timeout_final_lp=config.timeout_final_lp,
-                                                            timeout_final_milp=config.timeout_final_milp,
-                                                            timeout_lp=config.timeout_lp,
-                                                            timeout_milp=config.timeout_milp,
-                                                            use_milp=config.use_milp,
-                                                            partial_milp=config.partial_milp,
-                                                            max_milp_neurons=config.max_milp_neurons,
-                                                            approx=config.approx_k)
-                    if is_verified:
-                        print("img", i, "Verified", int(test[0]))
-                        verified_images += 1
-                    else:
-                        if x != None:
-                            adv_image = np.array(x)
-                            res = np.argmax((network.eval(adv_image))[:,0])
-                            if res!=int(test[0]):
-                                denormalize(x,means, stds, dataset)
-                                # print("img", i, "Verified unsafe with adversarial image ", adv_image, "cex label", cex_label, "correct label ", int(test[0]))
-                                print("img", i, "Verified unsafe against label ", res, "correct label ", int(test[0]))
-                                unsafe_images += 1
-
-                            else:
-                                print("img", i, "Failed")
-                        else:
-                            print("img", i, "Failed")
-                else:
-                    print("img", i, "Failed")
-            else:
-                if domain.endswith("poly"):
-                    # amir omer noa START
-
-                    for K1 in config.k1_lst:
-                        NUM_ATTEMPTS_AT_FINDING_FAILING_ORIGINS = 50000
-
-                        failing_origins_per_K1 = []
-                        for repeat_of_K1 in range(config.failing_origins_num):
-                            failed_origin_found = False
-
-                            # find a failing origin
-                            for t in range(NUM_ATTEMPTS_AT_FINDING_FAILING_ORIGINS):
-                                chosen_pixels, specLB, specUB = l0_stats.get_rnd_sample(image, K1)
-                                perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB, "deeppoly",
-                                                                                              config.timeout_lp,
-                                                                                              config.timeout_milp,
-                                                                                              config.use_default_heuristic,
-                                                                                              label=label, prop=prop, K=0, s=0,
-                                                                                              timeout_final_lp=config.timeout_final_lp,
-                                                                                              timeout_final_milp=config.timeout_final_milp,
-                                                                                              use_milp=False,
-                                                                                              complete=False,
-                                                                                              terminate_on_failure=not config.complete,
-                                                                                              partial_milp=0,
-                                                                                              max_milp_neurons=0,
-                                                                                              approx_k=0)
-                                #print("nlb ", nlb[-1], " nub ", nub[-1],"adv labels ", failed_labels)
-
-                                # we found a failing origin
-                                if perturbed_label != label:
-                                    failed_origin_found = True
-                                    break
-
-                            # exit if haven't found a failing origin of size K1
-                            if not failed_origin_found:
-                                break
-                            print("Found FO.", end="")
-                            # create FailingOrigin with proper parameters
-                            failing_origin = l0_stats.FailingOriginStats(config.dataset, config.netname, i, K1, chosen_pixels, label, nlb[-1], nub[-1])
-
-                            # go over each sub K with config.delta_sub_k intervals
-                            for sub_k in range(config.delta_sub_k, K1, config.delta_sub_k):
-                                # loop SAMPLES times over the sub K, and calculate the success rate
-                                successes = 0
-                                for sample_num in range(config.samples_per_sub_k):
-                                    # get a random sample of size sub_k
-                                    _, specLB, specUB = l0_stats.get_rnd_sample(image, sub_k, chosen_pixels)
-                                    perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB, "deeppoly",
-                                                                                                  config.timeout_lp,
-                                                                                                  config.timeout_milp,
-                                                                                                  config.use_default_heuristic,
-                                                                                                  label=label, prop=prop, K=0, s=0,
-                                                                                                  timeout_final_lp=config.timeout_final_lp,
-                                                                                                  timeout_final_milp=config.timeout_final_milp,
-                                                                                                  use_milp=False,
-                                                                                                  complete=False,
-                                                                                                  terminate_on_failure=not config.complete,
-                                                                                                  partial_milp=0,
-                                                                                                  max_milp_neurons=0,
-                                                                                                  approx_k=0)
-                                    # print(f"sample = {sample_num}, sub-k = {sub_k}, K1 = {K1}, img_num = {i}",end="\t")
-                                    # print()
-                                    # print("nlb ", nlb[-1], " nub ", nub[-1],"adv labels ", failed_labels)
-                                    if perturbed_label == label:
-                                        successes += 1
-                                success_rate = successes / config.samples_per_sub_k
-                                failing_origin.update_stats(sub_k, config.samples_per_sub_k, success_rate)
-                                # print(f"sub-k = {sub_k}, K1 = {K1}, img_num = {i}")
-
-                            # adding FailedOrigin object to the list of failed origins
-                            print(f"K1 = {K1}, repeat_of_K1 = {repeat_of_K1},  img_num = {i}")
-                            failing_origins_per_K1.append(failing_origin)
-
-                            # TODO append to json
-                            # print(failing_origins_per_K1)
-                            l0_stats.append_json([failing_origin], json_file_name)
-
-                        # adding all the failing objects for the specific K1 to the list per image
-                        failing_origins_per_image += failing_origins_per_K1
-
-                # amir omer noa END
-
-                if not domain.endswith("poly") or not (perturbed_label==label):
-                    perturbed_label, _, nlb, nub, failed_labels, x = eran.analyze_box(specLB, specUB, domain,
-                                                                                      config.timeout_lp,
-                                                                                      config.timeout_milp,
-                                                                                      config.use_default_heuristic,
-                                                                                      label=label, prop=prop,
-                                                                                      K=config.k, s=config.s,
-                                                                                      timeout_final_lp=config.timeout_final_lp,
-                                                                                      timeout_final_milp=config.timeout_final_milp,
-                                                                                      use_milp=config.use_milp,
-                                                                                      complete=config.complete,
-                                                                                      terminate_on_failure=not config.complete,
-                                                                                      partial_milp=config.partial_milp,
-                                                                                      max_milp_neurons=config.max_milp_neurons,
-                                                                                      approx_k=config.approx_k)
-                    print("nlb ", nlb[-1], " nub ", nub[-1], "adv labels ", failed_labels)
-                if (perturbed_label==label):
-                    print("img", i, "Verified", label)
+                if analysis_summary['verified']:
                     verified_images += 1
-                else:
-                    if complete==True and failed_labels is not None:
-                        failed_labels = list(set(failed_labels))
-                        constraints = get_constraints_for_dominant_label(label, failed_labels)
-                        verified_flag, adv_image, adv_val = verify_network_with_milp(nn, specLB, specUB, nlb, nub, constraints)
-                        if(verified_flag==True):
-                            print("img", i, "Verified as Safe using MILP", label)
-                            verified_images += 1
-                        else:
-                            if adv_image != None:
-                                cex_label,_,_,_,_,_ = eran.analyze_box(adv_image[0], adv_image[0], 'deepzono', config.timeout_lp, config.timeout_milp, config.use_default_heuristic, approx_k=config.approx_k)
-                                if(cex_label!=label):
-                                    denormalize(adv_image[0], means, stds, dataset)
-                                    # print("img", i, "Verified unsafe with adversarial image ", adv_image, "cex label", cex_label, "correct label ", label)
-                                    print("img", i, "Verified unsafe against label ", cex_label, "correct label ", label)
-                                    unsafe_images+=1
-                                else:
-                                    print("img", i, "Failed with MILP, without a adeversarial example")
-                            else:
-                                print("img", i, "Failed with MILP")
-                    else:
+                elif not analysis_summary['timed_out']:
+                    unsafe_images += 1
 
-                        if x != None:
-                            cex_label,_,_,_,_,_ = eran.analyze_box(x,x,'deepzono',config.timeout_lp, config.timeout_milp, config.use_default_heuristic, approx_k=config.approx_k)
-                            print("cex label ", cex_label, "label ", label)
-                            if(cex_label!=label):
-                                denormalize(x,means, stds, dataset)
-                                # print("img", i, "Verified unsafe with adversarial image ", x, "cex label ", cex_label, "correct label ", label)
-                                print("img", i, "Verified unsafe against label ", cex_label, "correct label ", label)
-                                unsafe_images += 1
-                            else:
-                                print("img", i, "Failed, without a adversarial example")
-                        else:
-                            print("img", i, "Failed")
 
-            end = time.time()
-            cum_time += end - start # only count samples where we did try to certify
-        else:
-            print("img",i,"not considered, incorrectly classified")
-            end = time.time()
+                end = time.time()
+                cum_time += end - start  # only count samples where we did try to certify
+            else:
+                print("img",i,"not considered, incorrectly classified")
+                end = time.time()
+            image_results['running_time'] = end - start
+            image_results_by_image_index[i] = image_results
 
-        print(f"progress: {1 + i - config.from_test}/{config.num_tests}, "
-              f"correct:  {correctly_classified_images}/{1 + i - config.from_test}, "
-              f"verified: {verified_images}/{correctly_classified_images}, "
-              f"unsafe: {unsafe_images}/{correctly_classified_images}, ",
-              f"time: {end - start:.3f}; {0 if cum_time==0 else cum_time / correctly_classified_images:.3f}; {cum_time:.3f}")
+            print(f"progress: {1 + i - config.from_test}/{config.num_tests}, "
+                  f"correct:  {correctly_classified_images}/{1 + i - config.from_test}, "
+                  f"verified: {verified_images}/{correctly_classified_images}, "
+                  f"unsafe: {unsafe_images}/{correctly_classified_images}, ",
+                  f"time: {end - start:.3f}; {0 if cum_time==0 else cum_time / correctly_classified_images:.3f}; {cum_time:.3f}")
 
-        # amir omer noa START
-        # update failing origins per image
-        failing_origins_per_network += failing_origins_per_image
-        # amir omer noa END
+        for worker in itertools.chain(gpu_workers, cpu_workers):
+            worker.send('terminate')
 
-    # print(failing_origins_per_network)
-    # ENCODING_OF_VERSION = "K_50"
-    # modified_netname = config.netname[config.netname.rfind("/") + 1:]
-    # json_file_name = f"json_stats/{ENCODING_OF_VERSION}--{config.dataset}--{modified_netname}.json"
+        results = {'netname': config.netname,
+                   'dataset': config.dataset,
+                   't': config.l0_t,
+                   'sampling': config.l0_sampling,
+                   'timeout': config.l0_timeout,
+                   'from_test': config.from_test,
+                   'num_tests': config.num_tests,
+                   'cumulative_time': cum_time,
+                   'images_results_by_index': image_results_by_image_index
+                   }
+        with open(f'results/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json', 'w+') as fp:
+            json.dump(results, fp)
 
-    # l0_stats.create_json(failing_origins_per_network, json_file_name)
+        print('analysis precision ',verified_images,'/ ', correctly_classified_images)
 
-    print('analysis precision ',verified_images,'/ ', correctly_classified_images)
+    elif config.l0_mode == 'gpu_worker':
+        l_zero_gpu_worker = LZeroGpuWorker(port=config.l0_port, config=config, network=network,
+                                    means=means, stds=stds,
+                                    is_conv=is_conv, dataset=dataset)
+        l_zero_gpu_worker.work()
+
+    elif config.l0_mode == 'cpu_worker':
+        l_zero_cpu_worker = LZeroCpuWorker(port=config.l0_port, config=config, eran=eran,
+                                    means=means, stds=stds,
+                                    is_conv=is_conv, dataset=dataset)
+        l_zero_cpu_worker.work()
+
+
