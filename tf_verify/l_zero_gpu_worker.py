@@ -116,7 +116,7 @@ class LZeroGpuWorker:
                             conn.send(pixels)
                         else:
                             self.__generate_new_strategy(pixels, score)
-                            coverings = self.__load_coverings(self, self.__strategy)
+                            coverings = self.__load_coverings(self.__strategy)
                             groups_to_verify = self.__break_failed_group(pixels, coverings[len(pixels)])
                             while len(groups_to_verify) > 0:
                                 if conn.poll() and conn.recv() == 'stop':
@@ -283,7 +283,7 @@ class LZeroGpuWorker:
                     best_k_value = k_value
             A[v] = (best_k_value, best_k)
         strategy = []
-        move_to = A[self.__number_of_pixels][1]
+        move_to = A[number_of_pixels][1]
         while move_to is not None:
             strategy.append(move_to)
             move_to = A[move_to][1]
@@ -299,15 +299,14 @@ class LZeroGpuWorker:
         def sample_func(k, n):
             return len([i for i in range(n) if self.verify_group(sample(pixels, k))[0]])
         
-        alpha, beta = self.correct_sigmoid_itertive(alpha, beta, sample_func, n_to_sample)
+        alpha, beta = self.correct_sigmoid_itertive(alpha, beta, sample_func, n_to_sample, len(pixels))
     
         ks = np.array(range(self.__t, len(pixels) + 1))
         p_vector = 1 / (1 + np.exp(alpha + beta * ks))
         p_vector[-1] = 0
         return p_vector
-    
-    @staticmethod
-    def correct_sigmoid_itertive(alpha, beta, sample_func, num_samples, v=3.36):
+
+    def correct_sigmoid_itertive(self, alpha, beta, sample_func, num_samples, k, v=3.36):
         """"
         Corrects a sigmoid using sampeling, and the assumption that the error is distributing T(v=v)
         alpha (float): any real number
@@ -321,20 +320,20 @@ class LZeroGpuWorker:
             return (alpha, beta)
         success_ks, fail_ks = [], []
         
-        k_to_sample = round(- alpha / beta) # Iterative_sampeling
+        k_to_sample = max(self.__t, min(round(- alpha / beta), k - 1))  # Iterative_sampeling
         for i in range(num_samples):
             d = round((3 + num_samples) / (3 + i))
             if d == 0:
                 d = 1
             if sample_func(k_to_sample, 1) == 1:
                 success_ks.append(k_to_sample)
-                k_to_sample += d
+                k_to_sample = min(k_to_sample + d, k - 1)
             else:
                 fail_ks.append(k_to_sample)
-                k_to_sample -= d
+                k_to_sample = max(k_to_sample - d, self.__t)
         
         success_ks = np.array(success_ks)
-        fail_ks = np.array(fail_ks)
+        fail_ks = np.array(fail_ks + [k])
         def func_to_minimize(s):
             return (v + 1) / 2 * np.log((1 + s ** 2 / v)) \
                 + np.sum(np.log(1 + np.exp(- (alpha + s * beta + beta * success_ks)))) \
