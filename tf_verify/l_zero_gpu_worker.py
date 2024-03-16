@@ -64,6 +64,7 @@ class LZeroGpuWorker:
                 sampling_time[size - sampling_lower_bound] += duration
                 if verified:
                     sampling_successes[size - sampling_lower_bound] += 1
+                else:
                     sampling_scores.append(score)
 
         return sampling_successes, sampling_time, sampling_scores
@@ -114,7 +115,7 @@ class LZeroGpuWorker:
                             conn.send('adversarial-example-suspect')
                             conn.send(pixels)
                         else:
-                            self.__generate_new_strategy(self, pixels, score)
+                            self.__generate_new_strategy(pixels, score)
                             coverings = self.__load_coverings(self, self.__strategy)
                             groups_to_verify = self.__break_failed_group(pixels, coverings[len(pixels)])
                             while len(groups_to_verify) > 0:
