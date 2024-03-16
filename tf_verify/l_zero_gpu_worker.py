@@ -176,8 +176,9 @@ class LZeroGpuWorker:
     def __calculate_score(self, last_layer_bounds, label):
         # not implementing any different scoring methods for now
         power = 6
-        label_l = last_layer_bounds[0][label]  # TODO: omer check if this is how to access lower bounds
-        v = [(u - label_l) ** power for i, u in enumerate(last_layer_bounds[1]) if i != label and u > label_l]
+        label_l = last_layer_bounds[label][0]
+        upper_bounds = [bounds[1] for bounds in last_layer_bounds]
+        v = [(u - label_l) ** power for i, u in enumerate(upper_bounds) if i != label and u > label_l]
         return sum(v) ** (1 / power)
 
     def normalize(self, image):
