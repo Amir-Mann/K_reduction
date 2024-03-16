@@ -291,8 +291,8 @@ class LZeroGpuWorker:
 
     def __get_p_vector(self, score, pixels, n_to_sample):
         datapoints = np.array([[len(pixels), self.__get_bucket(score=score)]])
-        alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(datapoints)
-        one_over_beta = self.__regeressors["one_over_beta"].predict(datapoints)
+        alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(datapoints)[0]
+        one_over_beta = self.__regeressors["one_over_beta"].predict(datapoints)[0]
         one_over_beta = min(one_over_beta, -0.01) # Clip if the regressor gets beta values which make no sense
         beta = 1 / one_over_beta
         alpha = alpha_over_beta * beta
