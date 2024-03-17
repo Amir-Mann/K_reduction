@@ -282,7 +282,7 @@ class LZeroGpuWorker:
                     best_k = k
                     best_k_value = k_value
             A[v] = (best_k_value, best_k)
-        strategy = []
+        strategy = [number_of_pixels]
         move_to = A[number_of_pixels][1]
         while move_to is not None:
             strategy.append(move_to)

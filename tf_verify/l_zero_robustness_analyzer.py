@@ -46,7 +46,8 @@ class LZeroRobustnessAnalyzer:
 
         self.__release_workers(strategy, covering_sizes, w_vector, normalization_buckets)
 
-        gpupoly_stats_by_size = {size: {'runs': 0, 'successes': 0, 'total_duration': 0} for size in strategy}
+        gpupoly_stats_by_size = {size: {'runs': 0, 'successes': 0, 'total_duration': 0}
+                                 for size in range(self.__number_of_pixels + 1)}
         waiting_adversarial_example_suspects = set()
         innocent_adversarial_example_suspects = set()
 
@@ -66,7 +67,9 @@ class LZeroRobustnessAnalyzer:
             innocent_adversarial_example_suspects, covering_sizes[(self.__number_of_pixels, strategy[0])])
         iterating_covering_duration = time.time() - iterating_covering_start_time
         results['iterating_covering_duration'] = iterating_covering_duration
-
+        # Clean results for sizes not used in any worker
+        results['gpupoly_stats_by_size'] = {size: stats for size, stats in results['gpupoly_stats_by_size'].items()
+                                            if stats['runs'] != 0}
         if timed_out:
             results['verified'] = False
             results['timed_out'] = True
@@ -210,7 +213,7 @@ class LZeroRobustnessAnalyzer:
             for k in range(self.__t, min(v, 100)):
                 if (v, k) not in covering_sizes:
                     if k == self.__t:
-                        print("warning: no governing for t")
+                        print("warning: no coverning for t")
                     continue
                 # 1 - S[v][k] = fnr(v, k) (in normal cases where sr_k > sr_v and sr_k < 1)
                 k_value = covering_sizes[(v, k)] * (w_vector[k - self.__t] + (1 - S[v][k]) * A[k][0])
@@ -294,9 +297,10 @@ class LZeroRobustnessAnalyzer:
                                   f'{number_of_groups_finished_from_initial_covering}/{int(initial_covering_size)}=' \
                                   f'{100 * number_of_groups_finished_from_initial_covering / initial_covering_size:.3f}%'
         sizes_and_stats = ((size, size_stat['runs'], size_stat['successes'], size_stat['total_duration']) for
-                           (size, size_stat) in sorted(gpu_statistics_by_size.items(), reverse=True))
+                           (size, size_stat) in sorted(gpu_statistics_by_size.items(), reverse=True)
+                           if size_stat['runs'] != 0)
         sizes_string = 'gpupoly: ' + '. '.join(
-            f'{succ}/{runs}={100 * succ / runs:.3f}%, {1000 * duration / runs:.1f} ms' if runs != 0 else f'NONE'
+            f'{size}: {succ}/{runs}={100 * succ / runs:.3f}%, {1000 * duration / runs:.1f} ms;' if runs != 0 else f'NONE'
             for (size, runs, succ, duration) in sizes_and_stats)
         MILP_string = f'MILP: {len(innocent_adversarial_example_suspects)} verified, ' \
                       f'{len(waiting_adversarial_example_suspects)} waiting'
