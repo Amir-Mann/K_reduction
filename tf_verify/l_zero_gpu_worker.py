@@ -4,7 +4,8 @@ from random import shuffle, sample
 import numpy as np
 import scipy
 import pickle
-
+import os
+import json
 
 class LZeroGpuWorker:
     def __init__(self, port, config, network, means, stds, is_conv, dataset):
@@ -22,6 +23,8 @@ class LZeroGpuWorker:
         self.__number_of_workers = None
         self.__covering_sizes = None
         self.__w_vector = None
+        self.__k_reduction_statistics = {}
+        self.__depth = 0
         with open("regressor.pkl", "rb") as f:
             self.__regeressors = pickle.load(f)
         self.__t = None
@@ -94,6 +97,19 @@ class LZeroGpuWorker:
                 coverings[size] = covering
         return coverings
 
+    def __depth_enter(self):
+        if self.__depth not in self.__k_reduction_statistics:
+            self.__k_reduction_statistics[self.__depth] = {
+                "enters": 0,
+                "count_subgroups": 0,
+                "sum_estimated_prob_of_next_k": 0,
+                "sum_sr_of_next_k": 0,
+                "sum_time_spent_choosing_strategy": 0,
+                "sum_time_estimating_p_vector": 0,
+                "sum_time_loading_coverings": 0,
+            }
+        self.__k_reduction_statistics[self.__depth]["enters"] += 1
+
     def __prove(self, conn):
         with open(f'coverings/({self.__number_of_pixels},{self.__strategy[0]},{self.__t}).txt',
                   'r') as shared_covering:
@@ -115,8 +131,12 @@ class LZeroGpuWorker:
                             conn.send('adversarial-example-suspect')
                             conn.send(pixels)
                         else:
+                            self.__depth = 1
+                            self.__depth_enter()
                             self.__generate_new_strategy(pixels, score)
+                            start = time.time()
                             coverings = self.__load_coverings(self.__strategy)
+                            self.__k_reduction_statistics[self.__depth]["sum_time_loading_coverings"] += time.time() - start
                             groups_to_verify = self.__break_failed_group(pixels, coverings[len(pixels)])
                             while len(groups_to_verify) > 0:
                                 if conn.poll() and conn.recv() == 'stop':
@@ -126,7 +146,12 @@ class LZeroGpuWorker:
                                 start = time.time()
                                 verified, score = self.verify_group(group_to_verify)
                                 duration = time.time() - start
+                                if len(group_to_verify) == self.__strategy[0]:
+                                    self.__k_reduction_statistics[self.__depth]["count_subgroups"] += 1
+                                
                                 if verified:
+                                    if len(group_to_verify) == self.__strategy[0]:
+                                        self.__k_reduction_statistics[self.__depth]["sum_sr_of_next_k"] += 1
                                     conn.send((True, len(group_to_verify), duration))
                                 else:
                                     conn.send((False, len(group_to_verify), duration))
@@ -141,6 +166,9 @@ class LZeroGpuWorker:
         if message != 'stop':
             raise Exception('This should not happen')
         conn.send('stopped')
+        time_stemp = time.strftime("%y%m%d_%H%M")
+        with open(os.path.join("results", f"k_reduction_worker_statistics{self.__worker_index}_{time_stemp}.json"), "w") as res_file:
+            json.dump(self.__k_reduction_statistics, res_file)
 
     def __break_failed_group(self, pixels, covering):
         permutation = list(pixels)
@@ -284,6 +312,8 @@ class LZeroGpuWorker:
             A[v] = (best_k_value, best_k)
         strategy = [number_of_pixels]
         move_to = A[number_of_pixels][1]
+        if move_to is not None:
+            self.__k_reduction_statistics[self.__depth]["sum_estimated_prob_of_next_k"] += p_vector[move_to - self.__t]
         while move_to is not None:
             strategy.append(move_to)
             move_to = A[move_to][1]
@@ -347,5 +377,9 @@ class LZeroGpuWorker:
         return (alpha, beta)
         
     def __generate_new_strategy(self, pixels, score):
+        start = time.time()
         p_vector = self.__get_p_vector(score, pixels, n_to_sample=10)
+        self.__k_reduction_statistics[self.__depth]["sum_time_estimating_p_vector"] += time.time() - start
+        start = time.time()
         self.__strategy, _ = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
+        self.__k_reduction_statistics[self.__depth]["sum_time_spent_choosing_strategy"] += time.time() - start
