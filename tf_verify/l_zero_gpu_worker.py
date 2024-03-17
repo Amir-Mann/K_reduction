@@ -348,4 +348,6 @@ class LZeroGpuWorker:
         
     def __generate_new_strategy(self, pixels, score):
         p_vector = self.__get_p_vector(score, pixels, n_to_sample=10)
-        self.__strategy, _ = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
+        self.__strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
+        estimated_verification_time = A[len(pixels)][0]
+        print(f'Chosen strategy is {self.__strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
