@@ -274,7 +274,7 @@ class LZeroGpuWorker:
         for v in range(self.__t + 1, number_of_pixels+1):
             best_k = None
             best_k_value = None
-            for k in range(self.__t, number_of_pixels):
+            for k in range(self.__t, v):
                 if (v, k) not in self.__covering_sizes:
                     continue
                 k_value = self.__covering_sizes[(v, k)] * (self.__w_vector[k - self.__t] + self.__get_fnr(p_vector, v, k) * A[k][0])
@@ -302,7 +302,7 @@ class LZeroGpuWorker:
         alpha, beta = self.correct_sigmoid_itertive(alpha, beta, sample_func, n_to_sample, len(pixels))
     
         ks = np.array(range(self.__t, len(pixels) + 1))
-        p_vector = 1 / (1 + np.exp(alpha + beta * ks))
+        p_vector = 1 / (1 + np.exp(-(alpha + beta * ks)))
         p_vector[-1] = 0
         return p_vector
 
