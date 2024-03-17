@@ -120,9 +120,10 @@ def normalize(image, means, stds, dataset):
             image[i] -= means[i]
             if stds!=None:
                 image[i] /= stds[i]
-    elif dataset == 'mnist'  or dataset == 'fashion':
-        for i in range(len(image)):
-            image[i] = (image[i] - means[0])/stds[0]
+    elif dataset == 'mnist' or dataset == 'fashion':
+        if means[0] != 0 or stds[0] != 1:
+            for i in range(len(image)):
+                image[i] = (image[i] - means[0])/stds[0]
     elif(dataset=='cifar10'):
         count = 0
         tmp = np.zeros(3072)
@@ -1379,6 +1380,19 @@ else:
         for i, val in enumerate(epsilons):
             eps_array = val
 
+    NETS_MEANS_STDS = {"models/mnist_relu_3_50.onnx": {"means": [0], "stds": [1]},
+                       "models/128_0.005_94_92_0.5_0.1.onnx": {"means": [0.1307], "stds": [0.30810001]},
+                       "models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx": {"means": [0.1307], "stds": [0.30810001]},
+                       "models/MNIST_convSmall_NO_PGD.onnx": {"means": [0.1307], "stds": [0.30810001]},
+                       "models/MNIST_6x200_128_0.004_97_97_0.5_0.1.onnx": {"means": [0.1307], "stds": [0.30810001]}}
+    if config.netname in NETS_MEANS_STDS:
+        means = NETS_MEANS_STDS[config.netname]["means"]
+        stds = NETS_MEANS_STDS[config.netname]["stds"]
+    else:
+        print("Network means and stds not defined for network", config.netname, file=sys.stderr)
+        print("Using means = 0, std = 1 as default")
+        means = [0]
+        stds = [1]
     if config.l0_mode == 'main':
         for worker in range(config.l0_gpu_workers):
             my_env = os.environ.copy()
@@ -1413,7 +1427,7 @@ else:
             if config.num_tests is not None and i >= config.from_test + config.num_tests:
                 break
 
-            image= np.float64(test[1:len(test)])/np.float64(255)
+            image = np.float64(test[1:len(test)])/np.float64(255)
             specLB = np.copy(image)
             specUB = np.copy(image)
             if config.quant_step:
