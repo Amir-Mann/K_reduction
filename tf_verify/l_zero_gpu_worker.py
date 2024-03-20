@@ -72,7 +72,7 @@ class LZeroGpuWorker:
         return sampling_successes, sampling_time, sampling_scores
 
     @staticmethod
-    def __load_covering(self, size, broken_size, t):
+    def __load_covering(size, broken_size, t):
         # Load a covering for a set of size {size} using sets of size {broken_size}
         # so that every subset of size {t} is addressed.
         covering = []
@@ -83,7 +83,7 @@ class LZeroGpuWorker:
         return covering
 
     @staticmethod
-    def __load_coverings(self, strategy):
+    def __load_coverings(strategy):
         # load all coverings for a given strategy
         t = strategy[-1]
         coverings = dict()
@@ -136,7 +136,6 @@ class LZeroGpuWorker:
                 strategy = self.__generate_new_strategy(group_to_verify, score)
                 continue_recursion = (min_k is None or strategy[1] >= min_k) and (recursion_depth is None or recursion_depth > 0)
                 if continue_recursion:
-                    assert strategy[0] == len(group_to_verify)
                     covering = self.__load_covering(len(group_to_verify), strategy[1], self.__t)
                     groups_to_verify = self.__break_failed_group(group_to_verify, covering)
                     for group in groups_to_verify:
@@ -196,7 +195,8 @@ class LZeroGpuWorker:
         score = self.__calculate_score(last_layer_bounds, self.__label) if not is_correctly_classified else None
         return is_correctly_classified, score
 
-    def __calculate_score(self, last_layer_bounds, label):
+    @staticmethod
+    def __calculate_score(last_layer_bounds, label):
         # not implementing any different scoring methods for now
         power = 6
         label_l = last_layer_bounds[label][0]

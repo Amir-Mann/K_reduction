@@ -168,7 +168,6 @@ class LZeroRobustnessAnalyzer:
 
         return p_vector, w_vector, score_list
 
-
     def __load_covering_sizes_and_aproximate_s(self, p_vector, plot_s=False):
         # S is a dictionary used to calc fnr
         S = dict()
