@@ -379,7 +379,9 @@ class LZeroGpuWorker:
     def __generate_new_strategy(self, pixels, score):
         start = time.time()
         p_vector = self.__get_p_vector(score, pixels, n_to_sample=10)
-        self.__k_reduction_statistics[self.__depth]["sum_time_estimating_p_vector"] += time.time() - start
-        start = time.time()
-        self.__strategy, _ = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
-        self.__k_reduction_statistics[self.__depth]["sum_time_spent_choosing_strategy"] += time.time() - start
+        mid = time.time()
+        self.__k_reduction_statistics[self.__depth]["sum_time_estimating_p_vector"] += mid - start
+        self.__strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
+        self.__k_reduction_statistics[self.__depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
+        estimated_verification_time = A[len(pixels)][0]
+        print(f'Chosen strategy is {self.__strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
