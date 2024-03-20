@@ -103,7 +103,7 @@ class LZeroGpuWorker:
                 "enters": 0,
                 "count_subgroups": 0,
                 "sum_estimated_prob_of_next_k": 0,
-                "sum_sr_of_next_k": 0,
+                "sum_sr": 0,
                 "sum_time_spent_choosing_strategy": 0,
                 "sum_time_estimating_p_vector": 0,
                 "sum_time_loading_coverings": 0,
@@ -151,7 +151,7 @@ class LZeroGpuWorker:
                                 
                                 if verified:
                                     if len(group_to_verify) == self.__strategy[0]:
-                                        self.__k_reduction_statistics[self.__depth]["sum_sr_of_next_k"] += 1
+                                        self.__k_reduction_statistics[self.__depth]["sum_sr"] += 1
                                     conn.send((True, len(group_to_verify), duration))
                                 else:
                                     conn.send((False, len(group_to_verify), duration))
