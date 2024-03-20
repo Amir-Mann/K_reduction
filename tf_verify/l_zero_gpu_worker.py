@@ -146,11 +146,11 @@ class LZeroGpuWorker:
                                 start = time.time()
                                 verified, score = self.verify_group(group_to_verify)
                                 duration = time.time() - start
-                                if len(group_to_verify) == self.__strategy[0]:
+                                if len(self.__strategy) > 1 and len(group_to_verify) == self.__strategy[1]:
                                     self.__k_reduction_statistics[self.__depth]["count_subgroups"] += 1
                                 
                                 if verified:
-                                    if len(group_to_verify) == self.__strategy[0]:
+                                    if len(self.__strategy) > 1 and len(group_to_verify) == self.__strategy[1]:
                                         self.__k_reduction_statistics[self.__depth]["sum_sr"] += 1
                                     conn.send((True, len(group_to_verify), duration))
                                 else:
