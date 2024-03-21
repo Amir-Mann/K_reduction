@@ -31,8 +31,7 @@ class LZeroRobustnessAnalyzer:
 
         print('Starting to estimate p and w')
         estimation_start_time = time.time()
-        p_vector, w_vector, scores_list = self.__estimate_p_w_and_scores()
-        normalization_buckets = self.__get_normalization_buckets(scores_list)
+        p_vector, w_vector = self.__estimate_p_and_w()
         estimation_duration = time.time() - estimation_start_time
         print(f'Estimation took {estimation_duration:.3f}')
 
@@ -44,10 +43,9 @@ class LZeroRobustnessAnalyzer:
         estimated_verification_time = A[self.__number_of_pixels][0] / len(self.__gpu_workers)
         print(f'Chosen strategy is {strategy}, estimated verification time is {estimated_verification_time:.3f} sec')
 
-        self.__release_workers(strategy, covering_sizes, w_vector, normalization_buckets)
+        self.__release_workers(strategy)
 
-        gpupoly_stats_by_size = {size: {'runs': 0, 'successes': 0, 'total_duration': 0}
-                                 for size in range(self.__number_of_pixels + 1)}
+        gpupoly_stats_by_size = {size: {'runs': 0, 'successes': 0, 'total_duration': 0} for size in strategy}
         waiting_adversarial_example_suspects = set()
         innocent_adversarial_example_suspects = set()
 
@@ -67,9 +65,7 @@ class LZeroRobustnessAnalyzer:
             innocent_adversarial_example_suspects, covering_sizes[(self.__number_of_pixels, strategy[0])])
         iterating_covering_duration = time.time() - iterating_covering_start_time
         results['iterating_covering_duration'] = iterating_covering_duration
-        # Clean results for sizes not used in any worker
-        results['gpupoly_stats_by_size'] = {size: stats for size, stats in results['gpupoly_stats_by_size'].items()
-                                            if stats['runs'] != 0}
+
         if timed_out:
             results['verified'] = False
             results['timed_out'] = True
@@ -113,10 +109,7 @@ class LZeroRobustnessAnalyzer:
         results['groups_waiting_for_milp'] = len(waiting_adversarial_example_suspects)
         return results
 
-    def __estimate_p_w_and_scores(self, plot_p_vector=False, plot_w_vector=False):
-        # p_vector = vector of success rates(of k = t-100)
-        # w_vector = vector of run times(of k = t-100)
-        # score_list
+    def __estimate_p_and_w(self, plot_p_vector=False, plot_w_vector=False):
         sampling_lower_bound = self.__t
         sampling_upper_bound = 100
         repetitions = math.ceil(self.__sampling / len(self.__gpu_workers))
@@ -126,12 +119,10 @@ class LZeroRobustnessAnalyzer:
 
         sampling_successes_vector = np.zeros(sampling_upper_bound - sampling_lower_bound + 1)
         sampling_time_vector = np.zeros(sampling_upper_bound - sampling_lower_bound + 1)
-        sampling_scores_list = []
         for gpu_worker in self.__gpu_workers:
-            sampling_successes, sampling_time, sampling_scores = gpu_worker.recv()
+            sampling_successes, sampling_time = gpu_worker.recv()
             sampling_successes_vector += np.array(sampling_successes)
             sampling_time_vector += np.array(sampling_time)
-            sampling_scores_list += sampling_scores
 
         success_ratio_vector = sampling_successes_vector / (repetitions * len(self.__gpu_workers))
         average_time_vector = sampling_time_vector / (repetitions * len(self.__gpu_workers))
@@ -139,7 +130,6 @@ class LZeroRobustnessAnalyzer:
         p_vector = savgol_filter(success_ratio_vector, 15, 2)
         # w_vector = savgol_filter(average_time_vector, 15, 2)
         w_vector = np.copy(average_time_vector)
-        score_list = sampling_scores_list
 
         indexes = sorted([index for index, sample in enumerate(success_ratio_vector) if sample < 0.97])
         stop_index = min(indexes[0] + 1, len(success_ratio_vector)) if len(indexes) > 0 else len(success_ratio_vector)
@@ -166,11 +156,9 @@ class LZeroRobustnessAnalyzer:
             plt.legend()
             plt.show()
 
-        return p_vector, w_vector, score_list
-
+        return p_vector, w_vector
 
     def __load_covering_sizes_and_aproximate_s(self, p_vector, plot_s=False):
-        # S is a dictionary used to calc fnr
         S = dict()
         covering_table_file = np.genfromtxt(f'coverings/{self.__t}-table.csv', delimiter=',')
         covering_sizes = dict()
@@ -203,8 +191,6 @@ class LZeroRobustnessAnalyzer:
         return covering_sizes, S
 
     def __choose_strategy(self, covering_sizes, S,  w_vector):
-        # TODO: adjust to our new strategy (or maybe just use it differently, not sure)
-        # Dynamic programming to choose the best strategy
         A = dict()
         A[self.__t] = (0, None)
         for v in chain(range(self.__t + 1, 100), [self.__number_of_pixels]):
@@ -212,10 +198,7 @@ class LZeroRobustnessAnalyzer:
             best_k_value = None
             for k in range(self.__t, min(v, 100)):
                 if (v, k) not in covering_sizes:
-                    if k == self.__t:
-                        print("warning: no coverning for t")
                     continue
-                # 1 - S[v][k] = fnr(v, k) (in normal cases where sr_k > sr_v and sr_k < 1)
                 k_value = covering_sizes[(v, k)] * (w_vector[k - self.__t] + (1 - S[v][k]) * A[k][0])
                 if best_k_value is None or k_value < best_k_value:
                     best_k = k
@@ -228,10 +211,9 @@ class LZeroRobustnessAnalyzer:
             move_to = A[move_to][1]
         return strategy, A
 
-    def __release_workers(self, strategy, covering_sizes, w_vector, normalization_buckets):
+    def __release_workers(self, strategy):
         for worker_index, gpu_worker in enumerate(self.__gpu_workers):
-            gpu_worker.send((self.__image, self.__label, strategy, worker_index, len(self.__gpu_workers),
-                             covering_sizes, w_vector, normalization_buckets, self.__t))
+            gpu_worker.send((self.__image, self.__label, strategy, worker_index, len(self.__gpu_workers)))
         for cpu_worker in self.__cpu_workers:
             cpu_worker.send((self.__image, self.__label))
 
@@ -297,10 +279,9 @@ class LZeroRobustnessAnalyzer:
                                   f'{number_of_groups_finished_from_initial_covering}/{int(initial_covering_size)}=' \
                                   f'{100 * number_of_groups_finished_from_initial_covering / initial_covering_size:.3f}%'
         sizes_and_stats = ((size, size_stat['runs'], size_stat['successes'], size_stat['total_duration']) for
-                           (size, size_stat) in sorted(gpu_statistics_by_size.items(), reverse=True)
-                           if size_stat['runs'] != 0)
+                           (size, size_stat) in sorted(gpu_statistics_by_size.items(), reverse=True))
         sizes_string = 'gpupoly: ' + '. '.join(
-            f'{size}: {succ}/{runs}={100 * succ / runs:.3f}%, {1000 * duration / runs:.1f} ms;' if runs != 0 else f'NONE'
+            f'{succ}/{runs}={100 * succ / runs:.3f}%, {1000 * duration / runs:.1f} ms' if runs != 0 else f'NONE'
             for (size, runs, succ, duration) in sizes_and_stats)
         MILP_string = f'MILP: {len(innocent_adversarial_example_suspects)} verified, ' \
                       f'{len(waiting_adversarial_example_suspects)} waiting'
@@ -366,16 +347,3 @@ class LZeroRobustnessAnalyzer:
             message = worker.recv()
             while message != 'stopped':
                 message = worker.recv()
-
-    def __get_normalization_buckets(self, scores_list, num_of_buckets=100):
-        # note: the choice of 100 buckets is arbitrary
-        sorted_list = sorted(scores_list)
-
-        if len(scores_list) <= num_of_buckets:
-            # note: might consider to expand this to be of length num_of_buckets, but it
-            # seems we have more scores than buckets so it's not necessary
-            return sorted_list
-
-        bucket_list = [sorted_list[int(i * len(sorted_list) / num_of_buckets)] for i in range(num_of_buckets)]
-
-        return bucket_list
