@@ -166,9 +166,10 @@ class LZeroGpuWorker:
         if message != 'stop':
             raise Exception('This should not happen')
         conn.send('stopped')
+
         time_stemp = time.strftime("%y%m%d_%H%M")
-        path_name = f"k_reduction_worker_statistics{self.__worker_index}_{time_stemp}.json"
-        with open(os.path.join("results", path_name), "w") as res_file:
+        path_name = f"stats_collection-{time_stemp}-worker{self.__worker_index}.json"
+        with open(os.path.join("results", "worker_stats", path_name), "w") as res_file:
             json.dump(self.__k_reduction_statistics, res_file)
 
     def __break_failed_group(self, pixels, covering):
@@ -385,6 +386,7 @@ class LZeroGpuWorker:
         self.__strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
         self.__k_reduction_statistics[self.__depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
         estimated_verification_time = A[len(pixels)][0]
+        bucket_of_score = self.__get_bucket(score)
         print(
-            f'Worker {self.__worker_index}, Score: {score:.2f},\tChosen strategy: {self.__strategy},\test. verif. time: {estimated_verification_time:.3f} sec')
+            f'Worker {self.__worker_index}, Score: {bucket_of_score:.2f} - est. verif. time: {estimated_verification_time:.3f} sec - Chosen strategy: {self.__strategy}')
         # print(f'Chosen strategy is {self.__strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
