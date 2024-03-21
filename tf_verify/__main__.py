@@ -1435,7 +1435,7 @@ else:
                 #specLB = np.reshape(specLB, (32,32,3))#np.ascontiguousarray(specLB, dtype=np.double)
                 #specUB = np.reshape(specUB, (32,32,3))
                 #print("specLB ", specLB)
-                is_correctly_classified = network.test(specLB, specUB, int(test[0]), True)
+                is_correctly_classified = bool(network.test(specLB, specUB, int(test[0]), True))
             else:
                 label,nn,nlb,nub,_,_ = eran.analyze_box(specLB, specUB, init_domain(domain), config.timeout_lp, config.timeout_milp, config.use_default_heuristic)
                 print("concrete ", nlb[-1])
@@ -1503,7 +1503,9 @@ else:
                    'cumulative_time': cum_time,
                    'images_results_by_index': image_results_by_image_index
                    }
-        with open(f'results/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json', 'w+') as fp:
+
+        result_path_name = f'results/Results-Orignal_calzone/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json'
+        with open(result_path_name, 'w+') as fp:
             json.dump(results, fp)
 
         print('analysis precision ',verified_images,'/ ', correctly_classified_images)
