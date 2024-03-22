@@ -1504,7 +1504,7 @@ else:
                    'images_results_by_index': image_results_by_image_index
                    }
 
-        result_path_name = f'results/Results-Orignal_calzone/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json'
+        result_path_name = f'results/default_output-MOVE_AFTER_RUN/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json'
         with open(result_path_name, 'w+') as fp:
             json.dump(results, fp)
 
