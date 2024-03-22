@@ -1518,7 +1518,10 @@ else:
                    'cumulative_time': cum_time,
                    'images_results_by_index': image_results_by_image_index
                    }
-        with open(f'results/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json', 'w+') as fp:
+        # with open(f'results/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json', 'w+') as fp:
+        #     json.dump(results, fp)
+        # TODO change location back to the above
+        with open(f'results/default_output-MOVE_AFTER_RUN/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json', 'w+') as fp:
             json.dump(results, fp)
 
         print('analysis precision ',verified_images,'/ ', correctly_classified_images)

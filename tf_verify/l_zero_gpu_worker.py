@@ -385,8 +385,8 @@ class LZeroGpuWorker:
         self.__k_reduction_statistics[self.__depth]["sum_time_estimating_p_vector"] += mid - start
         self.__strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
         self.__k_reduction_statistics[self.__depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
-        estimated_verification_time = A[len(pixels)][0]
-        bucket_of_score = self.__get_bucket(score)
-        print(
-            f'Worker {self.__worker_index}, Score: {bucket_of_score:.2f} - est. verif. time: {estimated_verification_time:.3f} sec - Chosen strategy: {self.__strategy}')
+        # estimated_verification_time = A[len(pixels)][0]
+        # bucket_of_score = self.__get_bucket(score)
+        # print(
+        #     f'Worker {self.__worker_index}, Score: {bucket_of_score:.2f} | est. verif. time: {estimated_verification_time:.3f} sec | Chosen strategy: {self.__strategy}')
         # print(f'Chosen strategy is {self.__strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
