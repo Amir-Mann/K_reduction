@@ -294,6 +294,8 @@ class LZeroGpuWorker:
         return left
 
     def __get_fnr(self, p_vector, v, k):
+        if 1 - p_vector[v - self.__t] < 1e-9:
+            return 0
         return (1 - p_vector[k - self.__t]) / (1 - p_vector[v - self.__t])
 
     def __choose_strategy(self, p_vector, number_of_pixels):
@@ -380,7 +382,7 @@ class LZeroGpuWorker:
         
     def __generate_new_strategy(self, pixels, score):
         start = time.time()
-        p_vector = self.__get_p_vector(score, pixels, n_to_sample=10)
+        p_vector = self.__get_p_vector(score, pixels, n_to_sample=0)
         mid = time.time()
         self.__k_reduction_statistics[self.__depth]["sum_time_estimating_p_vector"] += mid - start
         self.__strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
