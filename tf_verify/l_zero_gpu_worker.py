@@ -100,6 +100,19 @@ class LZeroGpuWorker:
                 coverings[size] = covering
         return coverings
 
+    def __depth_enter(self):
+        if self.__depth not in self.__k_reduction_statistics:
+            self.__k_reduction_statistics[self.__depth] = {
+                "enters": 0,
+                "count_subgroups": 0,
+                "sum_estimated_prob_of_next_k": 0,
+                "sum_sr_of_next_k": 0,
+                "sum_time_spent_choosing_strategy": 0,
+                "sum_time_estimating_p_vector": 0,
+                "sum_time_loading_coverings": 0,
+            }
+        self.__k_reduction_statistics[self.__depth]["enters"] += 1
+
     def __prove_by_strategy(self, conn, groups_to_verify, strategy, coverings):
         while len(groups_to_verify) > 0:
             if conn.poll() and conn.recv() == 'stop':
@@ -167,20 +180,6 @@ class LZeroGpuWorker:
         with open(os.path.join("results", f"k_reduction_worker_statistics{self.__worker_index}_{time_stemp}.json"),
                   "w") as res_file:
             json.dump(self.__k_reduction_statistics, res_file)
-
-    def __depth_enter(self):
-        if self.__depth not in self.__k_reduction_statistics:
-            self.__k_reduction_statistics[self.__depth] = {
-                "enters": 0,
-                "count_subgroups": 0,
-                "sum_estimated_prob_of_next_k": 0,
-                "sum_sr_of_next_k": 0,
-                "sum_time_spent_choosing_strategy": 0,
-                "sum_time_estimating_p_vector": 0,
-                "sum_time_loading_coverings": 0,
-            }
-        self.__k_reduction_statistics[self.__depth]["enters"] += 1
-
 
     @staticmethod
     def __break_failed_group(self, pixels, covering):
