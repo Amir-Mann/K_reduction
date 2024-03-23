@@ -167,9 +167,8 @@ class LZeroGpuWorker:
             raise Exception('This should not happen')
         conn.send('stopped')
 
-        time_stemp = time.strftime("%y%m%d_%H%M")
-        path_name = f"stats_collection-{time_stemp}-worker{self.__worker_index}.json"
-        with open(os.path.join("results", "worker_stats", path_name), "w") as res_file:
+        path_name = f"stats_collection_worker{self.__worker_index}.json"
+        with open(os.path.join(self.__config.l0_port_results_dir, "individual_workers", path_name), "w") as res_file:
             json.dump(self.__k_reduction_statistics, res_file)
 
     def __break_failed_group(self, pixels, covering):
