@@ -1405,7 +1405,7 @@ else:
             os.mkdir(results_dir)
         if not os.path.isdir(os.path.join(results_dir, "individual_workers")):
             os.mkdir(os.path.join(results_dir, "individual_workers"))
-        with open(os.path.join(results_dir, "run_info.txt", "a")) as f:
+        with open(os.path.join(results_dir, "run_info.txt") "a") as f:
             f.write("Started at " + time.strftime("%Y.%m.%d %H:%M"))
             pprint(config.json, stream=f)
         
@@ -1537,7 +1537,7 @@ else:
             json.dump(results, fp)
 
         print('analysis precision ',verified_images,'/ ', correctly_classified_images)
-        with open(os.path.join(results_dir, "run_info.txt", "a")) as f:
+        with open(os.path.join(results_dir, "run_info.txt",) "a") as f:
             def log(str):
                 print(str)
                 f.write(str)
@@ -1560,7 +1560,7 @@ else:
                     joined_json[depth][stat_name] += worker_json[depth][stat_name]
         path_name = "stats_collection_all_workers.json"
         with open(os.path.join(results_dir, path_name), "r") as f:
-            json.dump(joined_json, f)
+            json.dump(joined_json, f, indent=4)
         
     elif config.l0_mode == 'gpu_worker':
         l_zero_gpu_worker = LZeroGpuWorker(port=config.l0_port, config=config, network=network,
