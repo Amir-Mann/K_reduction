@@ -403,7 +403,7 @@ parser.add_argument("--l0_mode", type=str, default="main", help="l0 param")
 parser.add_argument("--l0_gpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_cpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_port", type=int, default="6000", help="l0 param")
-parser.add_argument("--l0_port_results_dir", type=str, default=None, help="directory to store results, on defualt results_yymmdd_hhmm")
+parser.add_argument("--l0_results_dir", type=str, default=None, help="directory to store results, on defualt results_yymmdd_hhmm")
 
 
 
@@ -1397,10 +1397,10 @@ else:
     if config.l0_mode == 'main':
         start_time_of_main = time.time()
         time_stemp = time.strftime("%y%m%d_%H%M")
-        if config.l0_port_results_dir is None:
+        if config.l0_results_dir is None:
             results_dir = f"results/results_{time_stemp}"
         else:
-            results_dir = f"results/{config.l0_port_results_dir}"
+            results_dir = f"results/{config.l0_results_dir}"
         if not os.path.isdir(results_dir):
             os.mkdir(results_dir)
         if not os.path.isdir(os.path.join(results_dir, "individual_workers")):
@@ -1414,7 +1414,7 @@ else:
             my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)
             Popen(["python3.8", ".", "--l0_mode", "gpu_worker", "--l0_port", str(6000 + worker), "--l0_t", str(config.l0_t),
                    "--dataset", config.dataset, "--netname", config.netname,
-                   "--domain", "gpupoly", "--l0_port_results_dir", results_dir], env=my_env)
+                   "--domain", "gpupoly", "--l0_results_dir", results_dir], env=my_env)
         for worker in range(config.l0_cpu_workers):
             my_env = os.environ.copy()
             my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)

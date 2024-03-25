@@ -162,7 +162,7 @@ class LZeroGpuWorker:
                                         conn.send(group_to_verify)
                     conn.send('next')
         path_name = f"stats_collection_worker{self.__worker_index}.json"
-        with open(os.path.join(self.__config.l0_port_results_dir, "individual_workers", path_name), "w") as res_file:
+        with open(os.path.join(self.__config.l0_results_dir, "individual_workers", path_name), "w") as res_file:
             json.dump(self.__k_reduction_statistics, res_file)
             print("dumped")
 
