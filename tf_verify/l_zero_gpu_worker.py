@@ -161,15 +161,16 @@ class LZeroGpuWorker:
                                         conn.send('adversarial-example-suspect')
                                         conn.send(group_to_verify)
                     conn.send('next')
+        path_name = f"stats_collection_worker{self.__worker_index}.json"
+        with open(os.path.join(self.__config.l0_port_results_dir, "individual_workers", path_name), "w") as res_file:
+            json.dump(self.__k_reduction_statistics, res_file)
+            print("dumped")
+
         conn.send("done")
         message = conn.recv()
         if message != 'stop':
             raise Exception('This should not happen')
         conn.send('stopped')
-
-        path_name = f"stats_collection_worker{self.__worker_index}.json"
-        with open(os.path.join(self.__config.l0_port_results_dir, "individual_workers", path_name), "w") as res_file:
-            json.dump(self.__k_reduction_statistics, res_file)
 
     def __break_failed_group(self, pixels, covering):
         permutation = list(pixels)
