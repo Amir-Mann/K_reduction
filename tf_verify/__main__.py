@@ -1398,9 +1398,9 @@ else:
         start_time_of_main = time.time()
         time_stemp = time.strftime("%y%m%d_%H%M")
         if config.l0_port_results_dir is None:
-            results_dir = f"results_{time_stemp}"
+            results_dir = f"results/results_{time_stemp}"
         else:
-            results_dir = config.l0_port_results_dir
+            results_dir = f"results/{config.l0_port_results_dir}"
         if not os.path.isdir(results_dir):
             os.mkdir(results_dir)
         if not os.path.isdir(os.path.join(results_dir, "individual_workers")):
@@ -1559,7 +1559,7 @@ else:
                         joined_json[depth][stat_name] = 0
                     joined_json[depth][stat_name] += worker_json[depth][stat_name]
         path_name = "stats_collection_all_workers.json"
-        with open(os.path.join(results_dir, path_name), "r") as f:
+        with open(os.path.join(results_dir, path_name), "a") as f:
             json.dump(joined_json, f, indent=4)
         
     elif config.l0_mode == 'gpu_worker':
