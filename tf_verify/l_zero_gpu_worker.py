@@ -106,7 +106,7 @@ class LZeroGpuWorker:
                 "enters": 0,
                 "count_subgroups": 0,
                 "sum_estimated_prob_of_next_k": 0,
-                "sum_sr_of_next_k": 0,
+                "sum_sr": 0,
                 "sum_time_spent_choosing_strategy": 0,
                 "sum_time_estimating_p_vector": 0,
                 "sum_time_loading_coverings": 0,
@@ -167,19 +167,22 @@ class LZeroGpuWorker:
             for line_number, line in enumerate(shared_covering):
                 if conn.poll() and conn.recv() == 'stop':
                     conn.send('stopped')
+                    # TODO: make a function and add to every stop(maybe add somewhere else)
+                    with open(os.path.join(self.__config.l0_results_dir, "individual_workers", path_name),
+                              "w") as res_file:
+                        json.dump(self.__k_reduction_statistics, res_file)
                     return
                 if line_number % self.__number_of_workers == self.__worker_index:
                     pixels = tuple(int(item) for item in line.split(','))
                     self.__prove_recursive(conn, pixels, min_k=15, recursion_depth=None)
+        with open(os.path.join(self.__config.l0_results_dir, "individual_workers", path_name), "w") as res_file:
+            json.dump(self.__k_reduction_statistics, res_file)
+
         conn.send("done")
         message = conn.recv()
         if message != 'stop':
             raise Exception('This should not happen')
         conn.send('stopped')
-        time_stemp = time.strftime("%y%m%d_%H%M")
-        with open(os.path.join("results", f"k_reduction_worker_statistics{self.__worker_index}_{time_stemp}.json"),
-                  "w") as res_file:
-            json.dump(self.__k_reduction_statistics, res_file)
 
     @staticmethod
     def __break_failed_group(self, pixels, covering):
@@ -305,6 +308,8 @@ class LZeroGpuWorker:
         return left
 
     def __get_fnr(self, p_vector, v, k):
+        if 1 - p_vector[v - self.__t] < 1e-9:
+            return 0
         return (1 - p_vector[k - self.__t]) / (1 - p_vector[v - self.__t])
 
     def __choose_strategy(self, p_vector, number_of_pixels):
@@ -394,13 +399,14 @@ class LZeroGpuWorker:
 
     def __generate_new_strategy(self, pixels, score):
         start = time.time()
-        p_vector = self.__get_p_vector(score, pixels, n_to_sample=10)
+        p_vector = self.__get_p_vector(score, pixels, n_to_sample=0)
+        mid = time.time()
+        self.__k_reduction_statistics[self.__depth]["sum_time_estimating_p_vector"] += mid - start
         strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
-        estimated_verification_time = A[len(pixels)][0]
-        print(
-            f'Chosen strategy is {strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
+        self.__k_reduction_statistics[self.__depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
+        # estimated_verification_time = A[len(pixels)][0]
+        # bucket_of_score = self.__get_bucket(score)
+        # print(
+        #     f'Worker {self.__worker_index}, Score: {bucket_of_score:.2f} | est. verif. time: {estimated_verification_time:.3f} sec | Chosen strategy: {self.__strategy}')
+        # print(f'Chosen strategy is {self.__strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
         return strategy
-        self.__k_reduction_statistics[self.__depth]["sum_time_estimating_p_vector"] += time.time() - start
-        start = time.time()
-        self.__strategy, _ = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
-        self.__k_reduction_statistics[self.__depth]["sum_time_spent_choosing_strategy"] += time.time() - start
