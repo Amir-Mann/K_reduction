@@ -47,18 +47,22 @@ def get_cheated_time(results_path, worker_paths):
     return total_time
 
 
-def main(results_path, worker_paths):
-    results = load_dict(results_path)
-    condensed_results = convert_to_more_pleasant_dict(results)
-    pprint.pprint(condensed_results)
-    print()
+def main(results_path=None, worker_paths=None):
+    if results_path:
+        results = load_dict(results_path)
+        condensed_results = convert_to_more_pleasant_dict(results)
+        pprint.pprint(condensed_results)
+        print()
 
-    temp_path = worker_paths[0]
-    worker_stats = load_dict(temp_path)
-    pprint.pprint(worker_stats)
+    if worker_paths:
+        temp_path = worker_paths[0]
+        worker_stats = load_dict(temp_path)
+        pprint.pprint(worker_stats)
 
-    cheated_time = get_cheated_time(results_path, worker_paths)
-    print("cheated_time = ", cheated_time)
+    if results_path and worker_paths:
+        cheated_time = get_cheated_time(results_path, worker_paths)
+        print()
+        print("cheated_time = ", cheated_time, " (Make sure the results file and worker files refer to the same run)")
 
 
 def get_list_of_paths_in_dir(dir_path):
@@ -68,10 +72,11 @@ def get_list_of_paths_in_dir(dir_path):
 if __name__ == "__main__":
     results_path = "./results/script_results/original_calzone-amir_script/mnist-MNIST_convSmall_NO_PGD.onnx-3.json"
 
-    # temp_path = "./results/worker_stats/stats_collection-240322_0050-worker1.json"
-    # worker_paths = [temp_path]
+    temp_path = "./results/worker_stats/stats_collection-240322_0050-worker1.json"
+    worker_paths = [temp_path]
 
-    dir_path = ""
-    worker_paths = get_list_of_paths_in_dir(dir_path)
+    # dir_path = ""
+    # worker_paths = get_list_of_paths_in_dir(dir_path) # Need to implement this function
 
-    main(results_path, worker_paths)  # print results, worker0 stats, and cheated time
+    # main(results_path, worker_paths)  # print results, worker0 stats, and cheated time
+    main(results_path)
