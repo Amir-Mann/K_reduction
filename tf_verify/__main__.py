@@ -403,6 +403,7 @@ parser.add_argument("--l0_mode", type=str, default="main", help="l0 param")
 parser.add_argument("--l0_gpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_cpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_port", type=int, default="6000", help="l0 param")
+parser.add_argument("--l0_results_dir", type=str, default=None, help="directory to store results, on defualt results_yymmdd_hhmm")
 
 
 
@@ -1394,12 +1395,26 @@ else:
         means = [0]
         stds = [1]
     if config.l0_mode == 'main':
+        start_time_of_main = time.time()
+        time_stemp = time.strftime("%y%m%d_%H%M")
+        if config.l0_results_dir is None:
+            results_dir = f"results/results_{time_stemp}"
+        else:
+            results_dir = f"results/{config.l0_results_dir}"
+        if not os.path.isdir(results_dir):
+            os.mkdir(results_dir)
+        if not os.path.isdir(os.path.join(results_dir, "individual_workers")):
+            os.mkdir(os.path.join(results_dir, "individual_workers"))
+        with open(os.path.join(results_dir, "run_info.txt"), "a") as f:
+            f.write("Started at " + time.strftime("%Y.%m.%d %H:%M"))
+            pprint(config.json, stream=f)
+        
         for worker in range(config.l0_gpu_workers):
             my_env = os.environ.copy()
             my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)
             Popen(["python3.8", ".", "--l0_mode", "gpu_worker", "--l0_port", str(6000 + worker), "--l0_t", str(config.l0_t),
                    "--dataset", config.dataset, "--netname", config.netname,
-                   "--domain", "gpupoly"], env=my_env)
+                   "--domain", "gpupoly", "--l0_results_dir", results_dir], env=my_env)
         for worker in range(config.l0_cpu_workers):
             my_env = os.environ.copy()
             my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)
@@ -1518,11 +1533,35 @@ else:
                    'cumulative_time': cum_time,
                    'images_results_by_index': image_results_by_image_index
                    }
-        with open(f'results/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json', 'w+') as fp:
+        with open(f'{results_dir}/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json', 'w+') as fp:
             json.dump(results, fp)
 
         print('analysis precision ',verified_images,'/ ', correctly_classified_images)
-
+        with open(os.path.join(results_dir, "run_info.txt"), "a") as f:
+            def log(str):
+                print(str)
+                f.write(str)
+            log(f"Finished at " + time.strftime("%Y.%m.%d %H:%M"))
+            total_main_run_time = int(time.time() - start_time_of_main)
+            log(f"Took {total_main_run_time / 60 / 60:.2} hours or {total_main_run_time / 60:.2} minutes or {total_main_run_time} seconds.")
+            log(f"Attempted to verify {correctly_classified_images}, for {total_main_run_time / 60 / correctly_classified_images:.2} minutes per image")
+        time.sleep(1)
+        joined_json = {}
+        for worker_index in range(config.l0_gpu_workers):
+            path_name = f"stats_collection_worker{worker_index}.json"
+            with open(os.path.join(results_dir, "individual_workers", path_name), "r") as f:
+                worker_json = json.load(f)
+            for depth in worker_json:
+                if depth not in joined_json:
+                    joined_json[depth] = {}
+                for stat_name in worker_json[depth]:
+                    if stat_name not in joined_json[depth]:
+                        joined_json[depth][stat_name] = 0
+                    joined_json[depth][stat_name] += worker_json[depth][stat_name]
+        path_name = "stats_collection_all_workers.json"
+        with open(os.path.join(results_dir, path_name), "a") as f:
+            json.dump(joined_json, f, indent=4)
+        
     elif config.l0_mode == 'gpu_worker':
         l_zero_gpu_worker = LZeroGpuWorker(port=config.l0_port, config=config, network=network,
                                     means=means, stds=stds,
