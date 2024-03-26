@@ -115,14 +115,17 @@ class LZeroGpuWorker:
 
     def __prove_by_strategy(self, conn, groups_to_verify, strategy, coverings):
         while len(groups_to_verify) > 0:
-            if conn.poll() and conn.recv() == 'stop':
-                conn.send('stopped')
+            if self.__is_stop_signal(conn):
                 return
             group_to_verify = groups_to_verify.pop(0)
             start = time.time()
             verified, score = self.verify_group(group_to_verify)
             duration = time.time() - start
+            if len(strategy) > 1 and len(group_to_verify) == strategy[1]:
+                self.__k_reduction_statistics[self.__depth]["count_subgroups"] += 1
             if verified:
+                if len(strategy) > 1 and len(group_to_verify) == strategy[1]:
+                    self.__k_reduction_statistics[self.__depth]["sum_sr"] += 1
                 conn.send((True, len(group_to_verify), duration))
             else:
                 conn.send((False, len(group_to_verify), duration))
@@ -133,14 +136,19 @@ class LZeroGpuWorker:
                     conn.send('adversarial-example-suspect')
                     conn.send(group_to_verify)
 
-    def __prove_recursive(self, conn, group_to_verify, min_k = 15, recursion_depth = None):
+    def __prove_recursive(self, conn, group_to_verify, depth, min_k = 15, max_recursion_depth = None):
         # verify group of pixels, create new strategy after each fail and continue recursively util
         # size of the group is smaller than min_k or recursion_depth = 0, will stop creating new strategies
         # if min_k and recursion_depth are None, will not stop creating new strategies
+        if self.__is_stop_signal(conn):
+            return
         start = time.time()
         verified, score = self.verify_group(group_to_verify)
         duration = time.time() - start
+        self.__k_reduction_statistics[self.__depth]["count_subgroups"] += 1
+
         if verified:
+            self.__k_reduction_statistics[self.__depth]["sum_sr"] += 1
             conn.send((True, len(group_to_verify), duration))
         else:
             conn.send((False, len(group_to_verify), duration))
@@ -149,40 +157,52 @@ class LZeroGpuWorker:
                 conn.send('adversarial-example-suspect')
                 conn.send(group_to_verify)
             else:
+                self.__depth += 1
+                self.__depth_enter()
                 strategy = self.__generate_new_strategy(group_to_verify, score)
-                continue_recursion = (min_k is None or strategy[1] >= min_k) and (recursion_depth is None or recursion_depth > 0)
+                start = time.time()
+                coverings = self.__load_coverings(strategy)
+                self.__k_reduction_statistics[self.__depth]["sum_time_loading_coverings"] += time.time() - start
+                continue_recursion = (min_k is None or strategy[1] >= min_k) and (max_recursion_depth is None or max_recursion_depth > 0)
                 if continue_recursion:
                     covering = self.__load_covering(len(group_to_verify), strategy[1], self.__t)
                     groups_to_verify = self.__break_failed_group(group_to_verify, covering)
                     for group in groups_to_verify:
-                        self.__prove_recursive(conn, group, min_k, recursion_depth - 1)
+                        self.__prove_recursive(conn, group, min_k, max_recursion_depth - 1)
                 else:
                     coverings = self.__load_coverings(strategy)
                     groups_to_verify = self.__break_failed_group(group_to_verify, coverings[len(group_to_verify)])
                     self.__prove_by_strategy(conn, groups_to_verify, strategy, coverings)
+                self.__depth -= 1
 
     def __prove(self, conn):
+        self.__depth_enter()
         with open(f'coverings/({self.__number_of_pixels},{self.__original_strategy[0]},{self.__t}).txt',
                   'r') as shared_covering:
             for line_number, line in enumerate(shared_covering):
-                if conn.poll() and conn.recv() == 'stop':
-                    conn.send('stopped')
-                    # TODO: make a function and add to every stop(maybe add somewhere else)
-                    with open(os.path.join(self.__config.l0_results_dir, "individual_workers", path_name),
-                              "w") as res_file:
-                        json.dump(self.__k_reduction_statistics, res_file)
+                if self.__is_stop_signal(conn):
                     return
                 if line_number % self.__number_of_workers == self.__worker_index:
                     pixels = tuple(int(item) for item in line.split(','))
-                    self.__prove_recursive(conn, pixels, min_k=15, recursion_depth=None)
-        with open(os.path.join(self.__config.l0_results_dir, "individual_workers", path_name), "w") as res_file:
-            json.dump(self.__k_reduction_statistics, res_file)
-
+                    self.__prove_recursive(conn, pixels, min_k=15, max_recursion_depth=None)
+        self.__write_stats_to_json()
         conn.send("done")
         message = conn.recv()
         if message != 'stop':
             raise Exception('This should not happen')
         conn.send('stopped')
+
+    def __is_stop_signal(self, conn):
+        if conn.poll() and conn.recv() == 'stop':
+            self.__write_stats_to_json()
+            conn.send('stopped')
+            return True
+        return False
+
+    def __write_stats_to_json(self):
+        path_name = f"stats_collection_worker{self.__worker_index}.json"
+        with open(os.path.join(self.__config.l0_results_dir, "individual_workers", path_name), "w") as res_file:
+            json.dump(self.__k_reduction_statistics, res_file)
 
     @staticmethod
     def __break_failed_group(self, pixels, covering):
