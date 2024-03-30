@@ -136,7 +136,7 @@ class LZeroGpuWorker:
                     conn.send('adversarial-example-suspect')
                     conn.send(group_to_verify)
 
-    def __prove_recursive(self, conn, group_to_verify, depth, min_k = 15, max_recursion_depth = None):
+    def __prove_recursive(self, conn, group_to_verify, depth=1, min_k=None, max_recursion_depth=None):
         # verify group of pixels, create new strategy after each fail and continue recursively util
         # size of the group is smaller than min_k or recursion_depth = 0, will stop creating new strategies
         # if min_k and recursion_depth are None, will not stop creating new strategies
@@ -163,7 +163,7 @@ class LZeroGpuWorker:
                 start = time.time()
                 coverings = self.__load_coverings(strategy)
                 self.__k_reduction_statistics[self.__depth]["sum_time_loading_coverings"] += time.time() - start
-                continue_recursion = (min_k is None or strategy[1] >= min_k) and (max_recursion_depth is None or max_recursion_depth > 0)
+                continue_recursion = (min_k is None or strategy[1] >= min_k) and (max_recursion_depth is None or max_recursion_depth >= depth)
                 if continue_recursion:
                     covering = self.__load_covering(len(group_to_verify), strategy[1], self.__t)
                     groups_to_verify = self.__break_failed_group(group_to_verify, covering)
