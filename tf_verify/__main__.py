@@ -1372,13 +1372,20 @@ else:
         targets = csv.reader(targetfile, delimiter=',')
         for i, val in enumerate(targets):
             target = val   
-   
-   
-    if config.epsfile != None:
-        epsfile = open(config.epsfile, 'r')
-        epsilons = csv.reader(epsfile, delimiter=',')
-        for i, val in enumerate(epsilons):
-            eps_array = val
+
+    NETS_MEANS_STDS = {"models/mnist_relu_3_50.onnx": {"means": [0], "stds": [1]},
+                       "models/128_0.005_94_92_0.5_0.1.onnx": {"means": [0.1307], "stds": [0.30810001]},
+                       "models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx": {"means": [0.1307], "stds": [0.30810001]},
+                       "models/MNIST_convSmall_NO_PGD.onnx": {"means": [0.1307], "stds": [0.30810001]},
+                       "models/MNIST_6x200_128_0.004_97_97_0.5_0.1.onnx": {"means": [0.1307], "stds": [0.30810001]}}
+    if config.netname in NETS_MEANS_STDS:
+        means = NETS_MEANS_STDS[config.netname]["means"]
+        stds = NETS_MEANS_STDS[config.netname]["stds"]
+    else:
+        print("Network means and stds not defined for network", config.netname, file=sys.stderr)
+        print("Using means = 0, std = 1 as default")
+        means = [0]
+        stds = [1]
 
     if config.l0_mode == 'main':
         start_time_of_main = time.time()
