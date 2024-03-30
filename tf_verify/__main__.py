@@ -402,6 +402,7 @@ parser.add_argument("--l0_mode", type=str, default="main", help="l0 param")
 parser.add_argument("--l0_gpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_cpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_port", type=int, default="6000", help="l0 param")
+parser.add_argument("--l0_results_dir", type=str, default=None, help="directory to store results, on defualt results_yymmdd_hhmm")
 
 
 
@@ -1380,6 +1381,17 @@ else:
             eps_array = val
 
     if config.l0_mode == 'main':
+        start_time_of_main = time.time()
+        time_stemp = time.strftime("%y%m%d_%H%M")
+        if config.l0_results_dir is None:
+            results_dir = f"results/results_{time_stemp}"
+        else:
+            results_dir = f"results/{config.l0_results_dir}"
+        if not os.path.isdir(results_dir):
+            os.mkdir(results_dir)
+        with open(os.path.join(results_dir, "run_info.txt"), "a") as f:
+            f.write("Started at " + time.strftime("%Y.%m.%d %H:%M"))
+            pprint(config.json, stream=f)
         for worker in range(config.l0_gpu_workers):
             my_env = os.environ.copy()
             my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)
@@ -1504,10 +1516,20 @@ else:
                    'images_results_by_index': image_results_by_image_index
                    }
 
-        result_path_name = f'results/default_output-MOVE_AFTER_RUN/{config.dataset}-{config.netname[config.netname.find("/") + 1: ]}-{config.l0_t}.json'
-        with open(result_path_name, 'w+') as fp:
+        with open(f'{results_dir}/{config.dataset}-{config.netname[config.netname.find("/") + 1:]}-{config.l0_t}.json',
+                  'w+') as fp:
             json.dump(results, fp)
 
+        with open(os.path.join(results_dir, "run_info.txt"), "a") as f:
+            def log(str):
+                print(str)
+                f.write(str)
+
+
+            log(f"Finished at " + time.strftime("%Y.%m.%d %H:%M"))
+            total_main_run_time = int(time.time() - start_time_of_main)
+            log(f"Took {total_main_run_time / 60 / 60:.2} hours or {total_main_run_time / 60:.2} minutes or {total_main_run_time} seconds.")
+            log(f"Attempted to verify {correctly_classified_images}, for {total_main_run_time / 60 / correctly_classified_images:.2} minutes per image")
         print('analysis precision ',verified_images,'/ ', correctly_classified_images)
 
     elif config.l0_mode == 'gpu_worker':
