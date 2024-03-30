@@ -24,7 +24,6 @@ class LZeroGpuWorker:
         self.__covering_sizes = None
         self.__w_vector = None
         self.__k_reduction_statistics = {}
-        self.__depth = 0
         with open("regressor.pkl", "rb") as f:
             self.__regeressors = pickle.load(f)
         self.__t = None
@@ -80,7 +79,7 @@ class LZeroGpuWorker:
         # so that every subset of size {t} is addressed.
         covering = []
         with open(f'coverings/({size},{broken_size},{t}).txt', 'r') as coverings_file:
-            for line in coverings_file[:-1]:
+            for line in coverings_file:
                 block = tuple(int(item) for item in line.split(','))
                 covering.append(block)
         return covering
@@ -94,15 +93,15 @@ class LZeroGpuWorker:
             covering = []
             with open(f'coverings/({size},{broken_size},{t}).txt',
                       'r') as coverings_file:
-                for line in coverings_file[:-1]:
+                for line in coverings_file:
                     block = tuple(int(item) for item in line.split(','))
                     covering.append(block)
                 coverings[size] = covering
         return coverings
 
-    def __depth_enter(self):
-        if self.__depth not in self.__k_reduction_statistics:
-            self.__k_reduction_statistics[self.__depth] = {
+    def __depth_enter(self, depth):
+        if depth not in self.__k_reduction_statistics:
+            self.__k_reduction_statistics[depth] = {
                 "enters": 0,
                 "count_subgroups": 0,
                 "sum_estimated_prob_of_next_k": 0,
@@ -111,9 +110,9 @@ class LZeroGpuWorker:
                 "sum_time_estimating_p_vector": 0,
                 "sum_time_loading_coverings": 0,
             }
-        self.__k_reduction_statistics[self.__depth]["enters"] += 1
+        self.__k_reduction_statistics[depth]["enters"] += 1
 
-    def __prove_by_strategy(self, conn, groups_to_verify, strategy, coverings):
+    def __prove_by_strategy(self, conn, groups_to_verify, strategy, coverings, depth):
         while len(groups_to_verify) > 0:
             if self.__is_stop_signal(conn):
                 return
@@ -122,10 +121,10 @@ class LZeroGpuWorker:
             verified, score = self.verify_group(group_to_verify)
             duration = time.time() - start
             if len(strategy) > 1 and len(group_to_verify) == strategy[1]:
-                self.__k_reduction_statistics[self.__depth]["count_subgroups"] += 1
+                self.__k_reduction_statistics[depth]["count_subgroups"] += 1
             if verified:
                 if len(strategy) > 1 and len(group_to_verify) == strategy[1]:
-                    self.__k_reduction_statistics[self.__depth]["sum_sr"] += 1
+                    self.__k_reduction_statistics[depth]["sum_sr"] += 1
                 conn.send((True, len(group_to_verify), duration))
             else:
                 conn.send((False, len(group_to_verify), duration))
@@ -136,7 +135,7 @@ class LZeroGpuWorker:
                     conn.send('adversarial-example-suspect')
                     conn.send(group_to_verify)
 
-    def __prove_recursive(self, conn, group_to_verify, depth=1, min_k=None, max_recursion_depth=None):
+    def __prove_recursive(self, conn, group_to_verify, depth=0, min_k=None, max_recursion_depth=None):
         # verify group of pixels, create new strategy after each fail and continue recursively util
         # size of the group is smaller than min_k or recursion_depth = 0, will stop creating new strategies
         # if min_k and recursion_depth are None, will not stop creating new strategies
@@ -145,10 +144,10 @@ class LZeroGpuWorker:
         start = time.time()
         verified, score = self.verify_group(group_to_verify)
         duration = time.time() - start
-        self.__k_reduction_statistics[self.__depth]["count_subgroups"] += 1
+        self.__k_reduction_statistics[depth]["count_subgroups"] += 1
 
         if verified:
-            self.__k_reduction_statistics[self.__depth]["sum_sr"] += 1
+            self.__k_reduction_statistics[depth]["sum_sr"] += 1
             conn.send((True, len(group_to_verify), duration))
         else:
             conn.send((False, len(group_to_verify), duration))
@@ -157,26 +156,25 @@ class LZeroGpuWorker:
                 conn.send('adversarial-example-suspect')
                 conn.send(group_to_verify)
             else:
-                self.__depth += 1
-                self.__depth_enter()
-                strategy = self.__generate_new_strategy(group_to_verify, score)
+                depth = depth + 1
+                self.__depth_enter(depth)
+                strategy = self.__generate_new_strategy(group_to_verify, score, depth)
                 start = time.time()
                 coverings = self.__load_coverings(strategy)
-                self.__k_reduction_statistics[self.__depth]["sum_time_loading_coverings"] += time.time() - start
-                continue_recursion = (min_k is None or strategy[1] >= min_k) and (max_recursion_depth is None or max_recursion_depth >= depth)
+                self.__k_reduction_statistics[depth]["sum_time_loading_coverings"] += time.time() - start
+                continue_recursion = (min_k is None or strategy[1] >= min_k) and (max_recursion_depth is None or max_recursion_depth > depth)
                 if continue_recursion:
                     covering = self.__load_covering(len(group_to_verify), strategy[1], self.__t)
                     groups_to_verify = self.__break_failed_group(group_to_verify, covering)
                     for group in groups_to_verify:
-                        self.__prove_recursive(conn, group, min_k, max_recursion_depth - 1)
+                        self.__prove_recursive(conn, group, depth, min_k, max_recursion_depth)
                 else:
                     coverings = self.__load_coverings(strategy)
                     groups_to_verify = self.__break_failed_group(group_to_verify, coverings[len(group_to_verify)])
-                    self.__prove_by_strategy(conn, groups_to_verify, strategy, coverings)
-                self.__depth -= 1
+                    self.__prove_by_strategy(conn, groups_to_verify, strategy, coverings, depth)
 
     def __prove(self, conn):
-        self.__depth_enter()
+        self.__depth_enter(0)
         with open(f'coverings/({self.__number_of_pixels},{self.__original_strategy[0]},{self.__t}).txt',
                   'r') as shared_covering:
             for line_number, line in enumerate(shared_covering):
@@ -184,7 +182,7 @@ class LZeroGpuWorker:
                     return
                 if line_number % self.__number_of_workers == self.__worker_index:
                     pixels = tuple(int(item) for item in line.split(','))
-                    self.__prove_recursive(conn, pixels, min_k=15, max_recursion_depth=None)
+                    self.__prove_recursive(conn, pixels)
         self.__write_stats_to_json()
         conn.send("done")
         message = conn.recv()
@@ -205,7 +203,7 @@ class LZeroGpuWorker:
             json.dump(self.__k_reduction_statistics, res_file)
 
     @staticmethod
-    def __break_failed_group(self, pixels, covering):
+    def __break_failed_group(pixels, covering):
         permutation = list(pixels)
         shuffle(permutation)
         return [tuple(sorted(permutation[item] for item in block)) for block in covering]
@@ -332,7 +330,7 @@ class LZeroGpuWorker:
             return 0
         return (1 - p_vector[k - self.__t]) / (1 - p_vector[v - self.__t])
 
-    def __choose_strategy(self, p_vector, number_of_pixels):
+    def __choose_strategy(self, p_vector, number_of_pixels, depth):
         # Dynamic programming to choose the best strategy
         assert number_of_pixels < 100
         A = dict()
@@ -352,7 +350,7 @@ class LZeroGpuWorker:
         strategy = [number_of_pixels]
         move_to = A[number_of_pixels][1]
         if move_to is not None:
-            self.__k_reduction_statistics[self.__depth]["sum_estimated_prob_of_next_k"] += p_vector[move_to - self.__t]
+            self.__k_reduction_statistics[depth]["sum_estimated_prob_of_next_k"] += p_vector[move_to - self.__t]
         while move_to is not None:
             strategy.append(move_to)
             move_to = A[move_to][1]
@@ -417,16 +415,16 @@ class LZeroGpuWorker:
             print("\nFailed to minimize scalar (to find the best s) in correct_sigmoid_itertive\n")
         return (alpha, beta)
 
-    def __generate_new_strategy(self, pixels, score):
+    def __generate_new_strategy(self, pixels, score, depth):
         start = time.time()
         p_vector = self.__get_p_vector(score, pixels, n_to_sample=0)
         mid = time.time()
-        self.__k_reduction_statistics[self.__depth]["sum_time_estimating_p_vector"] += mid - start
-        strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
-        self.__k_reduction_statistics[self.__depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
-        # estimated_verification_time = A[len(pixels)][0]
-        # bucket_of_score = self.__get_bucket(score)
-        # print(
-        #     f'Worker {self.__worker_index}, Score: {bucket_of_score:.2f} | est. verif. time: {estimated_verification_time:.3f} sec | Chosen strategy: {self.__strategy}')
-        # print(f'Chosen strategy is {self.__strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
+        self.__k_reduction_statistics[depth]["sum_time_estimating_p_vector"] += mid - start
+        strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels), depth=depth)
+        self.__k_reduction_statistics[depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
+        estimated_verification_time = A[len(pixels)][0]
+        bucket_of_score = self.__get_bucket(score)
+        print(
+            f'Worker {self.__worker_index}, Score: {bucket_of_score:.2f} | est. verif. time: {estimated_verification_time:.3f} sec | Chosen strategy: {strategy}')
+        print(f'Chosen strategy is {strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
         return strategy
