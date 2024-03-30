@@ -53,3 +53,4 @@ Started at 2024.03.26 20:54{'approx_k': True,
  'use_milp': True,
  'vnn_lib_spec': None,
  'zonotope': None}
+Finished at 2024.03.27 16:55Took 2e+01 hours or 1.2e+03 minutes or 72012 seconds.Attempted to verify 4, for 3e+02 minutes per image

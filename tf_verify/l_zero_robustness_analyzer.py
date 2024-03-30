@@ -147,7 +147,7 @@ class LZeroRobustnessAnalyzer:
             popt, pcov = curve_fit(decreasing_exp, range(sampling_lower_bound, sampling_lower_bound + stop_index), p_vector[:stop_index], maxfev=5000)
             print(f'a={popt[0]}, b={popt[1]}')
             p_vector[:stop_index] = decreasing_exp(np.asarray(range(sampling_lower_bound, sampling_lower_bound + stop_index)), *popt)
-
+        
         if plot_p_vector:
             x_axis = list(range(sampling_lower_bound, sampling_upper_bound + 1))
             plt.plot(x_axis, success_ratio_vector, label='data')
