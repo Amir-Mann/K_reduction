@@ -139,7 +139,7 @@ class LZeroGpuWorker:
             pass
             # prop = int(target[i])
 
-        return self.__network.test(specLB, specUB, label)
+        return self.__network.test(specLB, specUB, label)[0]
 
     def normalize(self, image):
         # normalization taken out of the network

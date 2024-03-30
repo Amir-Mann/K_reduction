@@ -1447,7 +1447,7 @@ else:
                 #specLB = np.reshape(specLB, (32,32,3))#np.ascontiguousarray(specLB, dtype=np.double)
                 #specUB = np.reshape(specUB, (32,32,3))
                 #print("specLB ", specLB)
-                is_correctly_classified = bool(network.test(specLB, specUB, int(test[0]), True))
+                is_correctly_classified = bool(network.test(specLB, specUB, int(test[0]), True)[0])
             else:
                 label,nn,nlb,nub,_,_ = eran.analyze_box(specLB, specUB, init_domain(domain), config.timeout_lp, config.timeout_milp, config.use_default_heuristic)
                 print("concrete ", nlb[-1])
