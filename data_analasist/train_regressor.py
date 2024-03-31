@@ -6,7 +6,7 @@ import pickle
 def get_normelized_ds_for_regressor(img_bound_data, data):
     feature_data = []
     
-    func_for_d = lambda fo, label=None: d_power(fo, 6, label=label)
+    func_for_d = lambda fo, label=None: d_power(fo, 6, label=label) / fo["k"]
     NUM_OF_BUCKETS = 100
     list_of_warmup_ds_per_img = get_list_of_ds_per_k_and_image(img_bound_data, func_for_d, None, True, data)
     list_of_warmup_d_buckets_per_img = get_buckets_for_d(list_of_warmup_ds_per_img, NUM_OF_BUCKETS)
@@ -14,7 +14,7 @@ def get_normelized_ds_for_regressor(img_bound_data, data):
     def get_normilized_d(fo):
         string_for_img = get_string_for_image(fo)
         warmup_d_buckets_for_image = list_of_warmup_d_buckets_per_img[string_for_img]
-        return get_estimated_bucket_index(func_for_d(fo), warmup_d_buckets_for_image)
+        return get_estimated_bucket_index(func_for_d(fo), warmup_d_buckets_for_image) * fo["k"]
     
     for fname, fos in data.items():
         for fo in fos:
@@ -71,8 +71,8 @@ def main():
     feature_data = get_normelized_ds_for_regressor(ds_for_normalization, data)
     alphas_over_betas, one_over_betas = get_ys_for_regressor(data)
     
-    regressor_midpoint = LinearRegression()
-    regressor_slope = LinearRegression()
+    regressor_midpoint = LinearRegression(fit_intercept=False)
+    regressor_slope = LinearRegression(fit_intercept=False)
     regressor_midpoint.fit(feature_data, alphas_over_betas)
     regressor_slope.fit(feature_data, one_over_betas)
     regressors_dict = {"alpha_over_beta" : regressor_midpoint, "one_over_beta" : regressor_slope}

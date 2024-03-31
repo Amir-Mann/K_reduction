@@ -153,6 +153,9 @@ def get_list_of_ds_per_k_and_image(dataset, func_for_d, file_names=None, image_b
 
         label = get_label_of_image(dataset[file_name][0]["network"], dataset[file_name][0]["image"], data_=data_)
         if image_bound_stats:
+            for entry in dataset[file_name]:
+                for sample in entry["samples"]:
+                    sample["k"] = entry["k"]
             ds_in_current_file = [func_for_d(sample, label) for entry in dataset[file_name] for sample in entry["samples"]]
         else:
             ds_in_current_file = [func_for_d(sample) for sample in dataset[file_name]]

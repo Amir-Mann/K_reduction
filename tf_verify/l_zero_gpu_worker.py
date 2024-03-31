@@ -24,7 +24,7 @@ class LZeroGpuWorker:
         self.__covering_sizes = None
         self.__w_vector = None
         self.__k_reduction_statistics = {}
-        with open("regressor.pkl", "rb") as f:
+        with open("[dk]k_regressor.pkl", "rb") as f:
             self.__regeressors = pickle.load(f)
         self.__t = None
         self.__normalization_buckets = None
@@ -232,7 +232,7 @@ class LZeroGpuWorker:
 
         is_correctly_classified, bounds = self.__network.test(specLB, specUB, self.__label)
         last_layer_bounds = bounds[-1]
-        score = self.__calculate_score(last_layer_bounds, self.__label) if not is_correctly_classified else None
+        score = self.__calculate_score(last_layer_bounds, self.__label) if not is_correctly_classified else None / len(pixels_group)
         return is_correctly_classified, score
 
     @staticmethod
@@ -357,10 +357,11 @@ class LZeroGpuWorker:
         return strategy, A
 
     def __get_p_vector(self, score, pixels, n_to_sample):
-        datapoints = np.array([[len(pixels), self.__get_bucket(score=score)]])
+        datapoints = np.array([[len(pixels), self.__get_bucket(score=score) * len(pixels)]])
         alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(datapoints)[0]
+        alpha_over_beta = max(min(alpha_over_beta, len(pixels)), self.__t + 1)
         one_over_beta = self.__regeressors["one_over_beta"].predict(datapoints)[0]
-        one_over_beta = min(one_over_beta, -0.01)  # Clip if the regressor gets beta values which make no sense
+        one_over_beta = max(-100, min(one_over_beta, -0.01))  # Clip if the regressor gets beta values which make no sense
         beta = 1 / one_over_beta
         alpha = alpha_over_beta * beta
 
