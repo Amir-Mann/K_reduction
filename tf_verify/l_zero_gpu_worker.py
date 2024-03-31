@@ -32,6 +32,7 @@ class LZeroGpuWorker:
             self.__number_of_pixels = 1024
         else:
             self.__number_of_pixels = 784
+        self.__original_p_vector = None
 
     def work(self):
         address = ('localhost', self.__port)
@@ -49,7 +50,7 @@ class LZeroGpuWorker:
                     conn.send((sampling_successes, sampling_time, sampling_scores))
                     # verification
                     self.__image, self.__label, self.__original_strategy, self.__worker_index, self.__number_of_workers, \
-                    self.__covering_sizes, self.__w_vector, self.__normalization_buckets, self.__t = conn.recv()
+                    self.__covering_sizes, self.__w_vector, self.__normalization_buckets, self.__t, self.__original_p_vector = conn.recv()
                     # coverings = self.__load_coverings(strategy)
                     self.__prove(conn)
                     message = conn.recv()
@@ -417,10 +418,10 @@ class LZeroGpuWorker:
 
     def __generate_new_strategy(self, pixels, score, depth):
         start = time.time()
-        p_vector = self.__get_p_vector(score, pixels, n_to_sample=0)
+        # p_vector = self.__get_p_vector(score, pixels, n_to_sample=0)
         mid = time.time()
         self.__k_reduction_statistics[depth]["sum_time_estimating_p_vector"] += mid - start
-        strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels), depth=depth)
+        strategy, A = self.__choose_strategy(self.__original_p_vector, number_of_pixels=len(pixels), depth=depth)
         self.__k_reduction_statistics[depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
         estimated_verification_time = A[len(pixels)][0]
         bucket_of_score = self.__get_bucket(score)
