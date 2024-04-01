@@ -232,7 +232,7 @@ class LZeroGpuWorker:
 
         is_correctly_classified, bounds = self.__network.test(specLB, specUB, self.__label)
         last_layer_bounds = bounds[-1]
-        score = self.__calculate_score(last_layer_bounds, self.__label) if not is_correctly_classified else None / len(pixels_group)
+        score = self.__calculate_score(last_layer_bounds, self.__label) / len(pixels_group) if not is_correctly_classified else None
         return is_correctly_classified, score
 
     @staticmethod
