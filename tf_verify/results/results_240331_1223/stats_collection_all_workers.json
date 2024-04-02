@@ -1,0 +1,56 @@
+{
+    "0": {
+        "enters": 35,
+        "count_subgroups": 943895,
+        "sum_estimated_prob_of_next_k": 0,
+        "sum_sr": 902076,
+        "sum_time_spent_choosing_strategy": 0,
+        "sum_time_estimating_p_vector": 0,
+        "sum_time_loading_coverings": 0
+    },
+    "1": {
+        "enters": 41819,
+        "count_subgroups": 167276,
+        "sum_estimated_prob_of_next_k": 41662.881105420034,
+        "sum_sr": 159620,
+        "sum_time_spent_choosing_strategy": 9.938465356826782,
+        "sum_time_estimating_p_vector": 0.00444340705871582,
+        "sum_time_loading_coverings": 6.867271661758423
+    },
+    "2": {
+        "enters": 7656,
+        "count_subgroups": 30624,
+        "sum_estimated_prob_of_next_k": 7652.729187644072,
+        "sum_sr": 28136,
+        "sum_time_spent_choosing_strategy": 0.9887435436248779,
+        "sum_time_estimating_p_vector": 0.0008192062377929688,
+        "sum_time_loading_coverings": 1.0183167457580566
+    },
+    "3": {
+        "enters": 2488,
+        "count_subgroups": 10128,
+        "sum_estimated_prob_of_next_k": 2487.909733572691,
+        "sum_sr": 9722,
+        "sum_time_spent_choosing_strategy": 0.20846962928771973,
+        "sum_time_estimating_p_vector": 0.0002665519714355469,
+        "sum_time_loading_coverings": 0.27919673919677734
+    },
+    "4": {
+        "enters": 406,
+        "count_subgroups": 2836,
+        "sum_estimated_prob_of_next_k": 405.9988745166395,
+        "sum_sr": 2803,
+        "sum_time_spent_choosing_strategy": 0.018758058547973633,
+        "sum_time_estimating_p_vector": 4.267692565917969e-05,
+        "sum_time_loading_coverings": 0.03775835037231445
+    },
+    "5": {
+        "enters": 33,
+        "count_subgroups": 198,
+        "sum_estimated_prob_of_next_k": 32.99998422020054,
+        "sum_sr": 198,
+        "sum_time_spent_choosing_strategy": 0.0006506443023681641,
+        "sum_time_estimating_p_vector": 4.291534423828125e-06,
+        "sum_time_loading_coverings": 0.0022630691528320312
+    }
+}
