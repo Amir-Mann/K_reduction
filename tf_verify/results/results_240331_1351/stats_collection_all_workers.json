@@ -1,0 +1,56 @@
+{
+    "0": {
+        "enters": 35,
+        "count_subgroups": 64571,
+        "sum_estimated_prob_of_next_k": 0,
+        "sum_sr": 56687,
+        "sum_time_spent_choosing_strategy": 0,
+        "sum_time_estimating_p_vector": 0,
+        "sum_time_loading_coverings": 0
+    },
+    "1": {
+        "enters": 7884,
+        "count_subgroups": 31536,
+        "sum_estimated_prob_of_next_k": 7747.4127027480845,
+        "sum_sr": 28595,
+        "sum_time_spent_choosing_strategy": 7.500110864639282,
+        "sum_time_estimating_p_vector": 0.0008647441864013672,
+        "sum_time_loading_coverings": 1.5589337348937988
+    },
+    "2": {
+        "enters": 2941,
+        "count_subgroups": 17142,
+        "sum_estimated_prob_of_next_k": 2937.156954436855,
+        "sum_sr": 16215,
+        "sum_time_spent_choosing_strategy": 1.2514533996582031,
+        "sum_time_estimating_p_vector": 0.00031375885009765625,
+        "sum_time_loading_coverings": 0.44370269775390625
+    },
+    "3": {
+        "enters": 927,
+        "count_subgroups": 12826,
+        "sum_estimated_prob_of_next_k": 926.9311484353093,
+        "sum_sr": 12751,
+        "sum_time_spent_choosing_strategy": 0.1600968837738037,
+        "sum_time_estimating_p_vector": 0.00010061264038085938,
+        "sum_time_loading_coverings": 0.10903739929199219
+    },
+    "4": {
+        "enters": 75,
+        "count_subgroups": 1050,
+        "sum_estimated_prob_of_next_k": 74.99869207106809,
+        "sum_sr": 1046,
+        "sum_time_spent_choosing_strategy": 0.0026865005493164062,
+        "sum_time_estimating_p_vector": 7.62939453125e-06,
+        "sum_time_loading_coverings": 0.005814552307128906
+    },
+    "5": {
+        "enters": 4,
+        "count_subgroups": 16,
+        "sum_estimated_prob_of_next_k": 3.999951626958234,
+        "sum_sr": 16,
+        "sum_time_spent_choosing_strategy": 3.600120544433594e-05,
+        "sum_time_estimating_p_vector": 4.76837158203125e-07,
+        "sum_time_loading_coverings": 0.00018095970153808594
+    }
+}
