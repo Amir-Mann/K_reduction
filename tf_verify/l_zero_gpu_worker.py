@@ -234,7 +234,7 @@ class LZeroGpuWorker:
 
         is_correctly_classified, bounds = self.__network.test(specLB, specUB, self.__label)
         last_layer_bounds = bounds[-1]
-        score = self.__calculate_score(last_layer_bounds, self.__label) if not is_correctly_classified else None / len(pixels_group)
+        score = self.__calculate_score(last_layer_bounds, self.__label) / len(pixels_group) if not is_correctly_classified else None
         return is_correctly_classified, score
 
     @staticmethod
@@ -362,24 +362,20 @@ class LZeroGpuWorker:
         def sigmoid_array(x):
             return 1 / (1 + np.exp(-x))
         def plot_sigmoids(alphas, betas):
-            max_x = int(max([- a/b for a, b in zip(alphas, betas)]) * 1.3)
-            min_x = int(min([- a/b for a, b in zip(alphas, betas)]) * 0.7)
+            max_x = int(max([- a/b for a, b in zip(alphas, betas)]) * 1.3 + 5)
+            min_x = int(min([- a/b for a, b in zip(alphas, betas)]) * 0.7 - 5)
             x = np.linspace(min_x, max_x, (max_x - min_x) * 10)
             for a, b in zip(alphas, betas):
                 y = sigmoid_array(a + b * x)
                 plt.plot(x, y)
         datapoints = np.array([[len(pixels), self.__get_bucket(score=score) * len(pixels)]])
+        print(datapoints, self.__get_bucket(score=score))
         alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(datapoints)[0]
         alpha_over_beta = max(min(alpha_over_beta, len(pixels)), self.__t + 1)
         one_over_beta = self.__regeressors["one_over_beta"].predict(datapoints)[0]
         one_over_beta = max(-100, min(one_over_beta, -0.01))  # Clip if the regressor gets beta values which make no sense
         beta = 1 / one_over_beta
         alpha = alpha_over_beta * beta
-        if True:
-            ks = np.array(range(self.__t, len(pixels) + 1))
-            p_vector = 1 / (1 + np.exp(-(alpha + beta * ks)))
-            p_vector[-1] = 0
-            plt.draw(ks, p_vector)
 
         def sample_func(k, n):
             return len([i for i in range(n) if self.verify_group(sample(pixels, k))[0]])
@@ -390,10 +386,10 @@ class LZeroGpuWorker:
         ks = np.array(range(self.__t, len(pixels) + 1))
         p_vector = sigmoid_array(alpha + beta * ks)
         p_vector[-1] = 0
-        if np.random.random() > 0.9:
-            fnr_alpha = sum(self.__get_fnr(self.__original_p_vector, len(pixels), subk) for subk in range(self.__t, len(pixels)))
-            fnr_beta = -1
-            plot_sigmoids([old_alpha, alpha, fnr_alpha], [old_beta, beta, fnr_beta])
+        if np.random.random() > 0:
+            subks = list(range(self.__t, len(pixels)))
+            plot_sigmoids([old_alpha, alpha], [old_beta, beta])
+            plt.plot(subks, [1 - self.__get_fnr(self.__original_p_vector, len(pixels), subk) for subk in subks])
             plt.legend(["estimated", "iterative_correction", "fnr_estimate"], ncol=1, loc='center right', bbox_to_anchor=[1, 1], fontsize=6)
             plt.show()
         return p_vector
@@ -441,7 +437,7 @@ class LZeroGpuWorker:
 
     def __generate_new_strategy(self, pixels, score, depth):
         start = time.time()
-        p_vector = self.__get_p_vector(score, pixels, n_to_sample=0)
+        p_vector = self.__get_p_vector(score, pixels, n_to_sample=100)
         mid = time.time()
         self.__k_reduction_statistics[depth]["sum_time_estimating_p_vector"] += mid - start
         strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels), depth=depth)
