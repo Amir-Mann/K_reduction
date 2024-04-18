@@ -19,6 +19,7 @@ def get_normelized_ds_for_regressor(img_bound_data, data):
     for fname, fos in data.items():
         for fo in fos:
             feature_data.append((fo["k"], get_normilized_d(fo)))
+            #print(feature_data[-1], feature_data[-1][-1] / fo["k"])
     
     return np.array(feature_data)
             
@@ -33,7 +34,7 @@ def get_ys_for_regressor(data):
     return np.array(alphas_over_betas), np.array(one_over_betas)
 
 
-def simple_evaluate_regressors(feature_data, regressors_dict, alphas_over_betas, one_over_betas):
+def simple_evaluate_regressors(feature_data, regressors_dict, alphas_over_betas, one_over_betas, plot_sigmoids_p):
     predicted_betas = 1 / regressors_dict["one_over_beta"].predict(feature_data)
     predicted_alphas = regressors_dict["alpha_over_beta"].predict(feature_data) * predicted_betas
     true_betas = 1 / one_over_betas
@@ -45,6 +46,11 @@ def simple_evaluate_regressors(feature_data, regressors_dict, alphas_over_betas,
         ground_trueth = sigmoid_array(truea + trueb * x)
         estimated = sigmoid_array(preda + predb * x)
         residuals = ground_trueth - estimated
+        if np.random() < plot_sigmoids_p:
+            plot_sigmoids([preda, truea], [predb, trueb])
+            plt.legend(["estimated", "goal"], ncol=1, loc='center right', bbox_to_anchor=[1, 1], fontsize=6)
+            plt.title(f"Sigmoids for {k=}")
+            plt.show()
         values.append(max(np.abs(residuals)))
     return {"max residual per fo mean":sum(values) / len(values), "max residual per fo midian": sorted(values)[len(values) // 2]}
 
@@ -62,6 +68,8 @@ def main():
                         help="sub string of filenames that should be skipped for training. default is None (no skip)")
     parser.add_argument("--overide_regressor", action="store_true",
                         help="Overide the regressor if the file already exists.")
+    parser.add_argument("--plot_sigmoids_p", type=int, default=0,
+                        help="Probabilty to plot each sigmoid. defualt is 0 (dont plot)")
     
     
     args = parser.parse_args()
@@ -77,7 +85,7 @@ def main():
     regressor_slope.fit(feature_data, one_over_betas)
     regressors_dict = {"alpha_over_beta" : regressor_midpoint, "one_over_beta" : regressor_slope}
     
-    print(simple_evaluate_regressors(feature_data, regressors_dict, alphas_over_betas, one_over_betas))
+    print(simple_evaluate_regressors(feature_data, regressors_dict, alphas_over_betas, one_over_betas, args.plot_sigmoids_p))
     
     if args.overide_regressor or not os.path.isfile(args.path_to_regressor) or input("Do you wish to over write [y/(n)]? ").lower()[0] == "y":
         with open(args.path_to_regressor, "wb") as regressor_file:
