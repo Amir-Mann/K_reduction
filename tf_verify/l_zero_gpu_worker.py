@@ -7,6 +7,9 @@ import pickle
 import os
 import json
 
+class StopSignalException(Exception):
+    pass
+
 class LZeroGpuWorker:
     def __init__(self, port, config, network, means, stds, is_conv, dataset):
         self.__port = port
@@ -18,13 +21,12 @@ class LZeroGpuWorker:
         self.__dataset = dataset
         self.__image = None
         self.__label = None
-        self.__strategy = None
+        self.__original_strategy = None
         self.__worker_index = None
         self.__number_of_workers = None
         self.__covering_sizes = None
         self.__w_vector = None
         self.__k_reduction_statistics = {}
-        self.__depth = 0
         with open("regressor.pkl", "rb") as f:
             self.__regeressors = pickle.load(f)
         self.__t = None
@@ -44,11 +46,13 @@ class LZeroGpuWorker:
                 while message != 'terminate':
                     # Warmup sampling
                     self.__image, self.__label, sampling_lower_bound, sampling_upper_bound, repetitions = message
-                    sampling_successes, sampling_time, sampling_scores = self.__sample(sampling_lower_bound, sampling_upper_bound, repetitions)
+                    sampling_successes, sampling_time, sampling_scores = self.__sample(sampling_lower_bound,
+                                                                                       sampling_upper_bound,
+                                                                                       repetitions)
                     conn.send((sampling_successes, sampling_time, sampling_scores))
                     # verification
-                    self.__image, self.__label, self.__strategy, self.__worker_index, self.__number_of_workers, \
-                        self.__covering_sizes, self.__w_vector, self.__normalization_buckets, self.__t = conn.recv()
+                    self.__image, self.__label, self.__original_strategy, self.__worker_index, self.__number_of_workers, \
+                    self.__covering_sizes, self.__w_vector, self.__normalization_buckets, self.__t = conn.recv()
                     # coverings = self.__load_coverings(strategy)
                     self.__prove(conn)
                     message = conn.recv()
@@ -72,17 +76,19 @@ class LZeroGpuWorker:
 
         return sampling_successes, sampling_time, sampling_scores
 
-    def __load_covering(self, size, broken_size, t):
+    @staticmethod
+    def __load_covering(size, broken_size, t):
         # Load a covering for a set of size {size} using sets of size {broken_size}
         # so that every subset of size {t} is addressed.
         covering = []
         with open(f'coverings/({size},{broken_size},{t}).txt', 'r') as coverings_file:
-            for line in coverings_file[:-1]:
+            for line in coverings_file:
                 block = tuple(int(item) for item in line.split(','))
                 covering.append(block)
         return covering
 
-    def __load_coverings(self, strategy):
+    @staticmethod
+    def __load_coverings(strategy):
         # load all coverings for a given strategy
         t = strategy[-1]
         coverings = dict()
@@ -91,15 +97,14 @@ class LZeroGpuWorker:
             with open(f'coverings/({size},{broken_size},{t}).txt',
                       'r') as coverings_file:
                 for line in coverings_file:
-                    # TODO: ignore last line of file
                     block = tuple(int(item) for item in line.split(','))
                     covering.append(block)
                 coverings[size] = covering
         return coverings
 
-    def __depth_enter(self):
-        if self.__depth not in self.__k_reduction_statistics:
-            self.__k_reduction_statistics[self.__depth] = {
+    def __depth_enter(self, depth):
+        if depth not in self.__k_reduction_statistics:
+            self.__k_reduction_statistics[depth] = {
                 "enters": 0,
                 "count_subgroups": 0,
                 "sum_estimated_prob_of_next_k": 0,
@@ -108,70 +113,100 @@ class LZeroGpuWorker:
                 "sum_time_estimating_p_vector": 0,
                 "sum_time_loading_coverings": 0,
             }
-        self.__k_reduction_statistics[self.__depth]["enters"] += 1
+        self.__k_reduction_statistics[depth]["enters"] += 1
+
+    def __prove_by_strategy(self, conn, groups_to_verify, strategy, coverings, depth):
+        while len(groups_to_verify) > 0:
+            if conn.poll() and conn.recv() == 'stop':
+                raise StopSignalException()
+            group_to_verify = groups_to_verify.pop(0)
+            start = time.time()
+            verified, score = self.verify_group(group_to_verify)
+            duration = time.time() - start
+            if len(strategy) > 1 and len(group_to_verify) == strategy[1]:
+                self.__k_reduction_statistics[depth]["count_subgroups"] += 1
+            if verified:
+                if len(strategy) > 1 and len(group_to_verify) == strategy[1]:
+                    self.__k_reduction_statistics[depth]["sum_sr"] += 1
+                conn.send((True, len(group_to_verify), duration))
+            else:
+                conn.send((False, len(group_to_verify), duration))
+                if len(group_to_verify) in coverings:
+                    groups_to_verify = self.__break_failed_group(group_to_verify, coverings[
+                        len(group_to_verify)]) + groups_to_verify
+                else:
+                    conn.send('adversarial-example-suspect')
+                    conn.send(group_to_verify)
+
+    def __prove_recursive(self, conn, group_to_verify, depth=0, min_k=None, max_recursion_depth=None):
+        # verify group of pixels, create new strategy after each fail and continue recursively util
+        # size of the group is smaller than min_k or recursion_depth = 0, will stop creating new strategies
+        # if min_k and recursion_depth are None, will not stop creating new strategies
+        if conn.poll() and conn.recv() == 'stop':
+            raise StopSignalException()
+        start = time.time()
+        verified, score = self.verify_group(group_to_verify)
+        duration = time.time() - start
+        self.__k_reduction_statistics[depth]["count_subgroups"] += 1
+
+        if verified:
+            self.__k_reduction_statistics[depth]["sum_sr"] += 1
+            conn.send((True, len(group_to_verify), duration))
+        else:
+            conn.send((False, len(group_to_verify), duration))
+            if len(group_to_verify) == self.__t:
+                # We got to the end of the covering, should be checked with a complete verifier
+                conn.send('adversarial-example-suspect')
+                conn.send(group_to_verify)
+            else:
+                depth = depth + 1
+                self.__depth_enter(depth)
+                strategy = self.__generate_new_strategy(group_to_verify, score, depth)
+                start = time.time()
+                coverings = self.__load_coverings(strategy)
+                self.__k_reduction_statistics[depth]["sum_time_loading_coverings"] += time.time() - start
+                continue_recursion = (min_k is None or strategy[1] >= min_k) and (max_recursion_depth is None or max_recursion_depth > depth)
+                if continue_recursion:
+                    covering = self.__load_covering(len(group_to_verify), strategy[1], self.__t)
+                    groups_to_verify = self.__break_failed_group(group_to_verify, covering)
+                    for group in groups_to_verify:
+                        self.__prove_recursive(conn, group, depth, min_k, max_recursion_depth)
+                else:
+                    coverings = self.__load_coverings(strategy)
+                    groups_to_verify = self.__break_failed_group(group_to_verify, coverings[len(group_to_verify)])
+                    self.__prove_by_strategy(conn, groups_to_verify, strategy, coverings, depth)
 
     def __prove(self, conn):
-        with open(f'coverings/({self.__number_of_pixels},{self.__strategy[0]},{self.__t}).txt',
+        self.__depth_enter(0)
+        with open(f'coverings/({self.__number_of_pixels},{self.__original_strategy[0]},{self.__t}).txt',
                   'r') as shared_covering:
             for line_number, line in enumerate(shared_covering):
                 if conn.poll() and conn.recv() == 'stop':
+                    self.__write_stats_to_json()
                     conn.send('stopped')
                     return
                 if line_number % self.__number_of_workers == self.__worker_index:
                     pixels = tuple(int(item) for item in line.split(','))
-                    start = time.time()
-                    verified, score = self.verify_group(pixels)
-                    duration = time.time() - start
-                    if verified:
-                        conn.send((True, len(pixels), duration))
-                    else:
-                        conn.send((False, len(pixels), duration))
-                        if len(pixels) == self.__t:
-                            # We got to the end of the covering, should be checked with a complete verifier
-                            conn.send('adversarial-example-suspect')
-                            conn.send(pixels)
-                        else:
-                            self.__depth = 1
-                            self.__depth_enter()
-                            self.__generate_new_strategy(pixels, score)
-                            start = time.time()
-                            coverings = self.__load_coverings(self.__strategy)
-                            self.__k_reduction_statistics[self.__depth]["sum_time_loading_coverings"] += time.time() - start
-                            groups_to_verify = self.__break_failed_group(pixels, coverings[len(pixels)])
-                            while len(groups_to_verify) > 0:
-                                if conn.poll() and conn.recv() == 'stop':
-                                    conn.send('stopped')
-                                    return
-                                group_to_verify = groups_to_verify.pop(0)
-                                start = time.time()
-                                verified, score = self.verify_group(group_to_verify)
-                                duration = time.time() - start
-                                if len(self.__strategy) > 1 and len(group_to_verify) == self.__strategy[1]:
-                                    self.__k_reduction_statistics[self.__depth]["count_subgroups"] += 1
-                                
-                                if verified:
-                                    if len(self.__strategy) > 1 and len(group_to_verify) == self.__strategy[1]:
-                                        self.__k_reduction_statistics[self.__depth]["sum_sr"] += 1
-                                    conn.send((True, len(group_to_verify), duration))
-                                else:
-                                    conn.send((False, len(group_to_verify), duration))
-                                    if len(group_to_verify) in coverings:
-                                        groups_to_verify = self.__break_failed_group(group_to_verify, coverings[len(group_to_verify)]) + groups_to_verify
-                                    else:
-                                        conn.send('adversarial-example-suspect')
-                                        conn.send(group_to_verify)
-                    conn.send('next')
-        path_name = f"stats_collection_worker{self.__worker_index}.json"
-        with open(os.path.join(self.__config.l0_results_dir, "individual_workers", path_name), "w") as res_file:
-            json.dump(self.__k_reduction_statistics, res_file)
-
+                    try:
+                        self.__prove_recursive(conn, pixels)
+                    except StopSignalException:
+                        self.__write_stats_to_json()
+                        conn.send('stopped')
+                        return
+        self.__write_stats_to_json()
         conn.send("done")
         message = conn.recv()
         if message != 'stop':
             raise Exception('This should not happen')
         conn.send('stopped')
 
-    def __break_failed_group(self, pixels, covering):
+    def __write_stats_to_json(self):
+        path_name = f"stats_collection_worker{self.__worker_index}.json"
+        with open(os.path.join(self.__config.l0_results_dir, "individual_workers", path_name), "w") as res_file:
+            json.dump(self.__k_reduction_statistics, res_file)
+
+    @staticmethod
+    def __break_failed_group(pixels, covering):
         permutation = list(pixels)
         shuffle(permutation)
         return [tuple(sorted(permutation[item] for item in block)) for block in covering]
@@ -203,7 +238,8 @@ class LZeroGpuWorker:
         score = self.__calculate_score(last_layer_bounds, self.__label) if not is_correctly_classified else None
         return is_correctly_classified, score
 
-    def __calculate_score(self, last_layer_bounds, label):
+    @staticmethod
+    def __calculate_score(last_layer_bounds, label):
         # not implementing any different scoring methods for now
         power = 6
         label_l = last_layer_bounds[label][0]
@@ -297,18 +333,19 @@ class LZeroGpuWorker:
             return 0
         return (1 - p_vector[k - self.__t]) / (1 - p_vector[v - self.__t])
 
-    def __choose_strategy(self, p_vector, number_of_pixels):
+    def __choose_strategy(self, p_vector, number_of_pixels, depth):
         # Dynamic programming to choose the best strategy
         assert number_of_pixels < 100
         A = dict()
         A[self.__t] = (0, None)
-        for v in range(self.__t + 1, number_of_pixels+1):
+        for v in range(self.__t + 1, number_of_pixels + 1):
             best_k = None
             best_k_value = None
             for k in range(self.__t, v):
                 if (v, k) not in self.__covering_sizes:
                     continue
-                k_value = self.__covering_sizes[(v, k)] * (self.__w_vector[k - self.__t] + self.__get_fnr(p_vector, v, k) * A[k][0])
+                k_value = self.__covering_sizes[(v, k)] * (
+                            self.__w_vector[k - self.__t] + self.__get_fnr(p_vector, v, k) * A[k][0])
                 if best_k_value is None or k_value < best_k_value:
                     best_k = k
                     best_k_value = k_value
@@ -316,7 +353,7 @@ class LZeroGpuWorker:
         strategy = [number_of_pixels]
         move_to = A[number_of_pixels][1]
         if move_to is not None:
-            self.__k_reduction_statistics[self.__depth]["sum_estimated_prob_of_next_k"] += p_vector[move_to - self.__t]
+            self.__k_reduction_statistics[depth]["sum_estimated_prob_of_next_k"] += p_vector[move_to - self.__t]
         while move_to is not None:
             strategy.append(move_to)
             move_to = A[move_to][1]
@@ -326,14 +363,15 @@ class LZeroGpuWorker:
         datapoints = np.array([[len(pixels), self.__get_bucket(score=score)]])
         alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(datapoints)[0]
         one_over_beta = self.__regeressors["one_over_beta"].predict(datapoints)[0]
-        one_over_beta = min(one_over_beta, -0.01) # Clip if the regressor gets beta values which make no sense
+        one_over_beta = min(one_over_beta, -0.01)  # Clip if the regressor gets beta values which make no sense
         beta = 1 / one_over_beta
         alpha = alpha_over_beta * beta
+
         def sample_func(k, n):
             return len([i for i in range(n) if self.verify_group(sample(pixels, k))[0]])
-        
+
         alpha, beta = self.correct_sigmoid_itertive(alpha, beta, sample_func, n_to_sample, len(pixels))
-    
+
         ks = np.array(range(self.__t, len(pixels) + 1))
         p_vector = 1 / (1 + np.exp(-(alpha + beta * ks)))
         p_vector[-1] = 0
@@ -352,7 +390,7 @@ class LZeroGpuWorker:
         if num_samples == 0:
             return (alpha, beta)
         success_ks, fail_ks = [], []
-        
+
         k_to_sample = max(self.__t, min(round(- alpha / beta), k - 1))  # Iterative_sampeling
         for i in range(num_samples):
             d = round((3 + num_samples) / (3 + i))
@@ -364,30 +402,32 @@ class LZeroGpuWorker:
             else:
                 fail_ks.append(k_to_sample)
                 k_to_sample = max(k_to_sample - d, self.__t)
-        
+
         success_ks = np.array(success_ks)
         fail_ks = np.array(fail_ks + [k])
+
         def func_to_minimize(s):
             return (v + 1) / 2 * np.log((1 + s ** 2 / v)) \
-                + np.sum(np.log(1 + np.exp(- (alpha + s * beta + beta * success_ks)))) \
-                + np.sum(np.log(1 + np.exp(+ (alpha + s * beta + beta * fail_ks))))
-        
+                   + np.sum(np.log(1 + np.exp(- (alpha + s * beta + beta * success_ks)))) \
+                   + np.sum(np.log(1 + np.exp(+ (alpha + s * beta + beta * fail_ks))))
+
         result = scipy.optimize.minimize_scalar(func_to_minimize)
         if result.success:
             alpha = alpha + beta * result.x
         else:
             print("\nFailed to minimize scalar (to find the best s) in correct_sigmoid_itertive\n")
         return (alpha, beta)
-        
-    def __generate_new_strategy(self, pixels, score):
+
+    def __generate_new_strategy(self, pixels, score, depth):
         start = time.time()
         p_vector = self.__get_p_vector(score, pixels, n_to_sample=0)
         mid = time.time()
-        self.__k_reduction_statistics[self.__depth]["sum_time_estimating_p_vector"] += mid - start
-        self.__strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels))
-        self.__k_reduction_statistics[self.__depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
-        # estimated_verification_time = A[len(pixels)][0]
-        # bucket_of_score = self.__get_bucket(score)
-        # print(
-        #     f'Worker {self.__worker_index}, Score: {bucket_of_score:.2f} | est. verif. time: {estimated_verification_time:.3f} sec | Chosen strategy: {self.__strategy}')
-        # print(f'Chosen strategy is {self.__strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
+        self.__k_reduction_statistics[depth]["sum_time_estimating_p_vector"] += mid - start
+        strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels), depth=depth)
+        self.__k_reduction_statistics[depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
+        estimated_verification_time = A[len(pixels)][0]
+        bucket_of_score = self.__get_bucket(score)
+        print(
+            f'Worker {self.__worker_index}, Score: {bucket_of_score:.2f} | est. verif. time: {estimated_verification_time:.3f} sec | Chosen strategy: {strategy}')
+        print(f'Chosen strategy is {strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
+        return strategy

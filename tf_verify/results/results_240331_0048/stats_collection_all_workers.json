@@ -1,0 +1,65 @@
+{
+    "0": {
+        "enters": 35,
+        "count_subgroups": 62998,
+        "sum_estimated_prob_of_next_k": 0,
+        "sum_sr": 54813,
+        "sum_time_spent_choosing_strategy": 0,
+        "sum_time_estimating_p_vector": 0,
+        "sum_time_loading_coverings": 0
+    },
+    "1": {
+        "enters": 8185,
+        "count_subgroups": 1105258,
+        "sum_estimated_prob_of_next_k": 7653.472222596354,
+        "sum_sr": 1104775,
+        "sum_time_spent_choosing_strategy": 8.565357446670532,
+        "sum_time_estimating_p_vector": 1.6266379356384277,
+        "sum_time_loading_coverings": 3.029489278793335
+    },
+    "2": {
+        "enters": 483,
+        "count_subgroups": 1946,
+        "sum_estimated_prob_of_next_k": 481.2591054468003,
+        "sum_sr": 1881,
+        "sum_time_spent_choosing_strategy": 0.171630859375,
+        "sum_time_estimating_p_vector": 0.07726120948791504,
+        "sum_time_loading_coverings": 0.1018984317779541
+    },
+    "3": {
+        "enters": 65,
+        "count_subgroups": 260,
+        "sum_estimated_prob_of_next_k": 64.55976889329933,
+        "sum_sr": 237,
+        "sum_time_spent_choosing_strategy": 0.012030363082885742,
+        "sum_time_estimating_p_vector": 0.009634017944335938,
+        "sum_time_loading_coverings": 0.011197805404663086
+    },
+    "4": {
+        "enters": 23,
+        "count_subgroups": 92,
+        "sum_estimated_prob_of_next_k": 22.75307762285415,
+        "sum_sr": 86,
+        "sum_time_spent_choosing_strategy": 0.002346038818359375,
+        "sum_time_estimating_p_vector": 0.0032300949096679688,
+        "sum_time_loading_coverings": 0.0030906200408935547
+    },
+    "5": {
+        "enters": 6,
+        "count_subgroups": 25,
+        "sum_estimated_prob_of_next_k": 5.698089698964233,
+        "sum_sr": 24,
+        "sum_time_spent_choosing_strategy": 0.00033283233642578125,
+        "sum_time_estimating_p_vector": 0.0008416175842285156,
+        "sum_time_loading_coverings": 0.0006644725799560547
+    },
+    "6": {
+        "enters": 1,
+        "count_subgroups": 5,
+        "sum_estimated_prob_of_next_k": 0.964934430355577,
+        "sum_sr": 5,
+        "sum_time_spent_choosing_strategy": 2.5510787963867188e-05,
+        "sum_time_estimating_p_vector": 0.00012373924255371094,
+        "sum_time_loading_coverings": 8.0108642578125e-05
+    }
+}
