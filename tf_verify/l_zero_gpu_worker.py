@@ -6,7 +6,7 @@ import scipy
 import pickle
 import os
 import json
-
+buckets_found = []
 class LZeroGpuWorker:
     def __init__(self, port, config, network, means, stds, is_conv, dataset):
         self.__port = port
@@ -323,6 +323,11 @@ class LZeroGpuWorker:
         return strategy, A
 
     def __get_p_vector(self, score, pixels, n_to_sample):
+        buckets_found.append(self.__get_bucket(score=score))
+        if len(buckets_found) > 100:
+            import matplotlib.pyplot as plt
+            plt.hist(np.array(buckets_found), density=True, bins=30)
+            plt.show()
         datapoints = np.array([[len(pixels), self.__get_bucket(score=score)]])
         alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(datapoints)[0]
         one_over_beta = self.__regeressors["one_over_beta"].predict(datapoints)[0]
