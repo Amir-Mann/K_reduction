@@ -1,0 +1,11 @@
+{
+    "1": {
+        "enters": 1,
+        "count_subgroups": 2,
+        "sum_estimated_prob_of_next_k": 0.9948998875625351,
+        "sum_sr": 2,
+        "sum_time_spent_choosing_strategy": 0.0005171298980712891,
+        "sum_time_estimating_p_vector": 0.0005793571472167969,
+        "sum_time_loading_coverings": 0.00015974044799804688
+    }
+}
