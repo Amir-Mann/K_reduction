@@ -7,6 +7,9 @@ import pickle
 import os
 import json
 
+class StopSignalException(Exception):
+    pass
+
 class LZeroGpuWorker:
     def __init__(self, port, config, network, means, stds, is_conv, dataset):
         self.__port = port
@@ -114,8 +117,8 @@ class LZeroGpuWorker:
 
     def __prove_by_strategy(self, conn, groups_to_verify, strategy, coverings, depth):
         while len(groups_to_verify) > 0:
-            if self.__is_stop_signal(conn):
-                return
+            if conn.poll() and conn.recv() == 'stop':
+                raise StopSignalException()
             group_to_verify = groups_to_verify.pop(0)
             start = time.time()
             verified, score = self.verify_group(group_to_verify)
@@ -139,8 +142,8 @@ class LZeroGpuWorker:
         # verify group of pixels, create new strategy after each fail and continue recursively util
         # size of the group is smaller than min_k or recursion_depth = 0, will stop creating new strategies
         # if min_k and recursion_depth are None, will not stop creating new strategies
-        if self.__is_stop_signal(conn):
-            return
+        if conn.poll() and conn.recv() == 'stop':
+            raise StopSignalException()
         start = time.time()
         verified, score = self.verify_group(group_to_verify)
         duration = time.time() - start
@@ -178,24 +181,24 @@ class LZeroGpuWorker:
         with open(f'coverings/({self.__number_of_pixels},{self.__original_strategy[0]},{self.__t}).txt',
                   'r') as shared_covering:
             for line_number, line in enumerate(shared_covering):
-                if self.__is_stop_signal(conn):
+                if conn.poll() and conn.recv() == 'stop':
+                    self.__write_stats_to_json()
+                    conn.send('stopped')
                     return
                 if line_number % self.__number_of_workers == self.__worker_index:
                     pixels = tuple(int(item) for item in line.split(','))
-                    self.__prove_recursive(conn, pixels)
+                    try:
+                        self.__prove_recursive(conn, pixels)
+                    except StopSignalException:
+                        self.__write_stats_to_json()
+                        conn.send('stopped')
+                        return
         self.__write_stats_to_json()
         conn.send("done")
         message = conn.recv()
         if message != 'stop':
             raise Exception('This should not happen')
         conn.send('stopped')
-
-    def __is_stop_signal(self, conn):
-        if conn.poll() and conn.recv() == 'stop':
-            self.__write_stats_to_json()
-            conn.send('stopped')
-            return True
-        return False
 
     def __write_stats_to_json(self):
         path_name = f"stats_collection_worker{self.__worker_index}.json"
