@@ -1,0 +1,3161 @@
+
+mnist_relu_3_50.onnx
+
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:04:57.124043: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:05:00.910510: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9637 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+2024-03-21 14:05:00.912171: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 9646 MB memory:  -> device: 1, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+2024-03-21 14:05:00.913649: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:2 with 9646 MB memory:  -> device: 2, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+2024-03-21 14:05:00.915127: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:3 with 9646 MB memory:  -> device: 3, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 14:05:00.916606: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:4 with 9646 MB memory:  -> device: 4, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+2024-03-21 14:05:00.918098: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:5 with 9646 MB memory:  -> device: 5, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a4:00.0, compute capability: 7.5
+2024-03-21 14:05:00.919562: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:6 with 9646 MB memory:  -> device: 6, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c3:00.0, compute capability: 7.5
+2024-03-21 14:05:00.921044: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:7 with 9646 MB memory:  -> device: 7, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:03.285362: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:03.431100: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:03.447679: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:03.554676: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:03.782933: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:03.909797: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:03.992328: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:05:04.043039: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:04.085244: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:05:04.276617: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9329 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:04.336357: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:05:04.370905: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:04.433520: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:04.437406: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:04.472453: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:05:04.518851: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 14:05:04.632332: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a4:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:05:04.749532: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:05:04.874558: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+2024-03-21 14:05:04.947050: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c3:00.0, compute capability: 7.5
+2024-03-21 14:05:05.020817: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9019 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+2024-03-21 14:05:05.255414: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9334 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5
+2024-03-21 14:05:05.387279: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+2024-03-21 14:05:05.405919: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+2024-03-21 14:05:05.433185: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 14:05:05.503797: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+
+mnist_relu_3_50.onnx
+
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:29:57.681994: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:30:01.551657: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9637 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+2024-03-21 14:30:01.553387: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 9646 MB memory:  -> device: 1, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+2024-03-21 14:30:01.554895: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:2 with 9646 MB memory:  -> device: 2, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+2024-03-21 14:30:01.556422: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:3 with 9646 MB memory:  -> device: 3, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 14:30:01.557925: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:4 with 9646 MB memory:  -> device: 4, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+2024-03-21 14:30:01.559419: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:5 with 9646 MB memory:  -> device: 5, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a4:00.0, compute capability: 7.5
+2024-03-21 14:30:01.560970: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:6 with 9646 MB memory:  -> device: 6, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c3:00.0, compute capability: 7.5
+2024-03-21 14:30:01.562603: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:7 with 9646 MB memory:  -> device: 7, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:03.834429: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:04.088183: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:04.115325: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:04.313865: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:04.522131: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:04.534790: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:30:04.562229: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:04.663875: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:04.706104: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:04.777365: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:30:04.907756: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:05.008915: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:05.049885: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:30:05.059802: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9329 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+2024-03-21 14:30:05.183940: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:05.215132: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:30:05.324098: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:30:05.484988: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 14:30:05.595122: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c3:00.0, compute capability: 7.5
+2024-03-21 14:30:05.787965: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a4:00.0, compute capability: 7.5
+2024-03-21 14:30:05.830886: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9334 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5
+2024-03-21 14:30:05.888673: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9019 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+2024-03-21 14:30:06.071313: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+2024-03-21 14:30:06.101639: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+2024-03-21 14:30:06.153671: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 14:30:06.162030: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 5,
+ 'l0_gpu_workers': 8,
+ 'l0_mode': 'main',
+ 'l0_port': 6000,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': 18000,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': 10,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+Only the first 100 samples are available.
+Connecting to gpu workers
+Connecting to cpu workers
+*******************************************************
+Starting to analyze image 0
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 128.208
+Choosing strategy
+Chosen strategy is [99, 75, 60, 57, 55, 51, 50, 48, 46, 44, 33, 25, 20, 18, 14, 11, 9, 7, 6, 5, 4, 3], estimated verification time is 2.474 sec
+progress: 605/779=77.664%; gpupoly: 605/605=100.000%, 26.1 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 1/10, correct:  1/1, verified: 1/1, unsafe: 0/1,  time: 131.217; 131.217; 131.217
+*******************************************************
+Starting to analyze image 1
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 128.150
+Choosing strategy
+Chosen strategy is [99, 82, 73, 67, 64, 60, 59, 57, 55, 54, 47, 37, 28, 21, 19, 18, 15, 13, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 2.481 sec
+progress: 605/779=77.664%; gpupoly: 605/605=100.000%, 26.1 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 2/10, correct:  2/2, verified: 2/2, unsafe: 0/2,  time: 130.813; 131.015; 262.029
+*******************************************************
+Starting to analyze image 2
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 128.469
+Choosing strategy
+Chosen strategy is [99, 75, 57, 50, 48, 43, 39, 38, 37, 35, 33, 32, 31, 26, 25, 22, 18, 16, 13, 12, 10, 9, 8, 6, 5, 4, 3], estimated verification time is 2.482 sec
+progress: 606/779=77.792%; gpupoly: 606/606=100.000%, 26.1 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 3/10, correct:  3/3, verified: 3/3, unsafe: 0/3,  time: 131.119; 131.049; 393.148
+*******************************************************
+Starting to analyze image 3
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 128.476
+Choosing strategy
+Chosen strategy is [99, 77, 76, 75, 74, 66, 64, 61, 48, 47, 45, 43, 39, 30, 26, 25, 24, 19, 18, 17, 13, 10, 9, 7, 6, 5, 4, 3], estimated verification time is 2.480 sec
+progress: 601/779=77.150%; gpupoly: 601/601=100.000%, 26.3 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 4/10, correct:  4/4, verified: 4/4, unsafe: 0/4,  time: 131.155; 131.076; 524.303
+*******************************************************
+Starting to analyze image 4
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 128.735
+Choosing strategy
+Chosen strategy is [99, 78, 65, 63, 61, 58, 57, 56, 54, 49, 46, 45, 44, 43, 38, 29, 24, 21, 17, 16, 15, 14, 11, 9, 8, 6, 5, 4, 3], estimated verification time is 2.481 sec
+progress: 602/779=77.279%; gpupoly: 602/602=100.000%, 26.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 5/10, correct:  5/5, verified: 5/5, unsafe: 0/5,  time: 131.414; 131.143; 655.717
+*******************************************************
+Starting to analyze image 5
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 128.485
+Choosing strategy
+Chosen strategy is [99, 82, 63, 48, 47, 46, 45, 43, 42, 40, 35, 33, 27, 26, 25, 22, 21, 16, 13, 11, 9, 8, 7, 6, 5, 4, 3], estimated verification time is 2.481 sec
+progress: 603/779=77.407%; gpupoly: 603/603=100.000%, 26.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 6/10, correct:  6/6, verified: 6/6, unsafe: 0/6,  time: 131.157; 131.146; 786.874
+*******************************************************
+Starting to analyze image 6
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 128.464
+Choosing strategy
+Chosen strategy is [99, 86, 72, 54, 53, 42, 40, 38, 34, 33, 32, 30, 28, 23, 19, 18, 14, 13, 10, 9, 7, 6, 5, 4, 3], estimated verification time is 2.481 sec
+progress: 604/779=77.535%; gpupoly: 604/604=100.000%, 26.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 7/10, correct:  7/7, verified: 7/7, unsafe: 0/7,  time: 131.140; 131.145; 918.014
+*******************************************************
+Starting to analyze image 7
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 128.466
+Choosing strategy
+Chosen strategy is [99, 80, 60, 45, 44, 38, 34, 33, 31, 29, 27, 26, 22, 21, 17, 14, 11, 9, 8, 7, 6, 5, 4, 3], estimated verification time is 2.478 sec
+progress: 605/779=77.664%; gpupoly: 605/605=100.000%, 26.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 8/10, correct:  8/8, verified: 8/8, unsafe: 0/8,  time: 131.136; 131.144; 1049.149
+*******************************************************
+Starting to analyze image 8
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 128.723
+Choosing strategy
+Chosen strategy is [99, 78, 76, 75, 74, 73, 72, 70, 69, 67, 53, 45, 43, 39, 37, 36, 35, 32, 31, 25, 23, 22, 21, 18, 14, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 2.480 sec
+progress: 603/779=77.407%; gpupoly: 603/603=100.000%, 26.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6008,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+This network has 110 neurons.
+Only the first 100 samples are available.
+Waiting at port 6008
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6005,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+Only the first 100 samples are available.
+Waiting at port 6005
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6007,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+Only the first 100 samples are available.
+Waiting at port 6007
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6002,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+Only the first 100 samples are available.
+Waiting at port 6002
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6004,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+Only the first 100 samples are available.
+Waiting at port 6004
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6006,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+Only the first 100 samples are available.
+Waiting at port 6006
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6009,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+This network has 110 neurons.
+Only the first 100 samples are available.
+Waiting at port 6009
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6010,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+This network has 110 neurons.
+Only the first 100 samples are available.
+Waiting at port 6010
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6003,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+Only the first 100 samples are available.
+Waiting at port 6003
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6000,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+Only the first 100 samples are available.
+Waiting at port 6000
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6011,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+This network has 110 neurons.
+Only the first 100 samples are available.
+Waiting at port 6011
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6001,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+Only the first 100 samples are available.
+Waiting at port 6001
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6012,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/mnist_relu_3_50.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+Mean of [0.] extracted from network
+Std of [1.] extracted from network
+This network has 110 neurons.
+Only the first 100 samples are available.
+Waiting at port 6012
+/usr/local/lib/python3.8/dist-packages/scipy/optimize/_minpack_py.py:906: OptimizeWarning: Covariance of the parameters could not be estimated
+  warnings.warn('Covariance of the parameters could not be estimated',
+/root/OUR_WORK/tf_verify/./l_zero_robustness_analyzer.py:168: RuntimeWarning: invalid value encountered in double_scalars
+  estimated_value = (p_vector[k - self.__t] - p_vector[v - self.__t]) / (1 - p_vector[v - self.__t])
+progress: 9/10, correct:  9/9, verified: 9/9, unsafe: 0/9,  time: 131.395; 131.172; 1180.544
+*******************************************************
+Starting to analyze image 9
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 128.235
+Choosing strategy
+Chosen strategy is [99, 77, 60, 59, 58, 53, 52, 47, 45, 44, 43, 42, 40, 39, 36, 35, 29, 28, 21, 16, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 2.482 sec
+progress: 604/779=77.535%; gpupoly: 604/604=100.000%, 26.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 10/10, correct:  10/10, verified: 10/10, unsafe: 0/10,  time: 130.904; 131.145; 1311.448
+analysis precision  10 /  10
+
+MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx
+
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:08.792909: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:52:12.666678: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9637 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+2024-03-21 14:52:12.668408: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 9646 MB memory:  -> device: 1, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+2024-03-21 14:52:12.669915: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:2 with 9646 MB memory:  -> device: 2, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+2024-03-21 14:52:12.671424: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:3 with 9646 MB memory:  -> device: 3, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 14:52:12.672940: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:4 with 9646 MB memory:  -> device: 4, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+2024-03-21 14:52:12.674568: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:5 with 9646 MB memory:  -> device: 5, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a4:00.0, compute capability: 7.5
+2024-03-21 14:52:12.676130: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:6 with 9646 MB memory:  -> device: 6, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c3:00.0, compute capability: 7.5
+2024-03-21 14:52:12.677670: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:7 with 9646 MB memory:  -> device: 7, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:15.254793: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:15.426133: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:15.737245: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:15.741934: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:15.976755: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:52:15.999575: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9329 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+2024-03-21 14:52:16.145754: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:16.181133: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:16.257935: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:16.449017: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:52:16.508631: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:16.524389: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:52:16.564053: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:16.661420: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:52:16.680013: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+2024-03-21 14:52:16.850234: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c3:00.0, compute capability: 7.5
+2024-03-21 14:52:16.959348: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a4:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:16.969105: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:17.009650: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 14:52:17.102567: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 14:52:17.168852: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9168 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5
+2024-03-21 14:52:17.310230: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8853 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+2024-03-21 14:52:17.454412: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8862 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+2024-03-21 14:52:17.681107: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8862 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+2024-03-21 14:52:17.767467: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8862 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 14:52:17.852882: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8862 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 5,
+ 'l0_gpu_workers': 8,
+ 'l0_mode': 'main',
+ 'l0_port': 6000,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': 18000,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': 10,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Connecting to gpu workers
+Connecting to cpu workers
+*******************************************************
+Starting to analyze image 0
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 293.287
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.911 sec
+progress: 254/779=32.606%; gpupoly: 254/254=100.000%, 62.1 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 517/779=66.367%; gpupoly: 517/517=100.000%, 61.4 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 771/779=98.973%; gpupoly: 771/771=100.000%, 61.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 1/10, correct:  1/1, verified: 1/1, unsafe: 0/1,  time: 299.551; 299.551; 299.551
+*******************************************************
+Starting to analyze image 1
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 290.541
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.828 sec
+progress: 258/779=33.119%; gpupoly: 258/258=100.000%, 61.3 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 523/779=67.137%; gpupoly: 523/523=100.000%, 60.6 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 776/779=99.615%; gpupoly: 776/776=100.000%, 60.4 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 2/10, correct:  2/2, verified: 2/2, unsafe: 0/2,  time: 296.699; 298.125; 596.251
+*******************************************************
+Starting to analyze image 2
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 298.371
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.961 sec
+progress: 250/779=32.092%; gpupoly: 250/250=100.000%, 62.7 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 513/779=65.854%; gpupoly: 513/513=100.000%, 61.9 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 767/779=98.460%; gpupoly: 767/767=100.000%, 61.7 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 3/10, correct:  3/3, verified: 3/3, unsafe: 0/3,  time: 304.661; 300.304; 900.912
+*******************************************************
+Starting to analyze image 3
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 287.469
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.754 sec
+progress: 259/779=33.248%; gpupoly: 259/259=100.000%, 60.4 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 531/779=68.164%; gpupoly: 531/531=100.000%, 59.7 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 4/10, correct:  4/4, verified: 4/4, unsafe: 0/4,  time: 293.542; 298.613; 1194.454
+*******************************************************
+Starting to analyze image 4
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 292.905
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.874 sec
+progress: 255/779=32.734%; gpupoly: 255/255=100.000%, 61.9 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 519/779=66.624%; gpupoly: 519/519=100.000%, 61.1 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 774/779=99.358%; gpupoly: 774/774=100.000%, 60.8 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 5/10, correct:  5/5, verified: 5/5, unsafe: 0/5,  time: 299.085; 298.708; 1493.539
+*******************************************************
+Starting to analyze image 5
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 295.560
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.944 sec
+progress: 252/779=32.349%; gpupoly: 252/252=100.000%, 62.4 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 514/779=65.982%; gpupoly: 514/514=100.000%, 61.6 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 771/779=98.973%; gpupoly: 771/771=100.000%, 61.4 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 6/10, correct:  6/6, verified: 6/6, unsafe: 0/6,  time: 301.818; 299.226; 1795.357
+*******************************************************
+Starting to analyze image 6
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 293.042
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.881 sec
+progress: 254/779=32.606%; gpupoly: 254/254=100.000%, 61.7 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 519/779=66.624%; gpupoly: 519/519=100.000%, 61.0 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 774/779=99.358%; gpupoly: 774/774=100.000%, 60.8 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 7/10, correct:  7/7, verified: 7/7, unsafe: 0/7,  time: 299.251; 299.230; 2094.608
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6010,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+This network has 3604 neurons.
+Only the first 100 samples are available.
+Waiting at port 6010
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6008,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+This network has 3604 neurons.
+Only the first 100 samples are available.
+Waiting at port 6008
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6002,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6002
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6007,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6007
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6005,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6005
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6001,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6001
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6000,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6000
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6006,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6006
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6011,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+This network has 3604 neurons.
+Only the first 100 samples are available.
+Waiting at port 6011
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6012,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+This network has 3604 neurons.
+Only the first 100 samples are available.
+Waiting at port 6012
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6009,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+This network has 3604 neurons.
+Only the first 100 samples are available.
+Waiting at port 6009
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6003,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6003
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6004,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6004
+/usr/local/lib/python3.8/dist-packages/scipy/optimize/_minpack_py.py:906: OptimizeWarning: Covariance of the parameters could not be estimated
+  warnings.warn('Covariance of the parameters could not be estimated',
+/root/OUR_WORK/tf_verify/./l_zero_robustness_analyzer.py:168: RuntimeWarning: invalid value encountered in double_scalars
+  estimated_value = (p_vector[k - self.__t] - p_vector[v - self.__t]) / (1 - p_vector[v - self.__t])
+*******************************************************
+Starting to analyze image 7
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 292.799
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.888 sec
+progress: 254/779=32.606%; gpupoly: 254/254=100.000%, 61.8 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 518/779=66.496%; gpupoly: 518/518=100.000%, 61.1 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 773/779=99.230%; gpupoly: 773/773=100.000%, 60.9 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 8/10, correct:  8/8, verified: 8/8, unsafe: 0/8,  time: 299.015; 299.203; 2393.623
+*******************************************************
+Starting to analyze image 8
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 290.313
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.829 sec
+progress: 257/779=32.991%; gpupoly: 257/257=100.000%, 61.4 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 524/779=67.266%; gpupoly: 524/524=100.000%, 60.6 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 776/779=99.615%; gpupoly: 776/776=100.000%, 60.4 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 9/10, correct:  9/9, verified: 9/9, unsafe: 0/9,  time: 296.467; 298.899; 2690.090
+*******************************************************
+Starting to analyze image 9
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 290.579
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.829 sec
+progress: 256/779=32.863%; gpupoly: 256/256=100.000%, 61.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 523/779=67.137%; gpupoly: 523/523=100.000%, 60.5 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 775/779=99.487%; gpupoly: 775/775=100.000%, 60.3 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 10/10, correct:  10/10, verified: 10/10, unsafe: 0/10,  time: 296.738; 298.683; 2986.828
+analysis precision  10 /  10
+
+MNIST_convSmall_NO_PGD.onnx
+
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:16.009227: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 15:42:20.023185: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9637 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+2024-03-21 15:42:20.026365: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 9646 MB memory:  -> device: 1, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+2024-03-21 15:42:20.028174: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:2 with 9646 MB memory:  -> device: 2, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+2024-03-21 15:42:20.029932: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:3 with 9646 MB memory:  -> device: 3, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 15:42:20.031699: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:4 with 9646 MB memory:  -> device: 4, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+2024-03-21 15:42:20.034445: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:5 with 9646 MB memory:  -> device: 5, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a4:00.0, compute capability: 7.5
+2024-03-21 15:42:20.036238: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:6 with 9646 MB memory:  -> device: 6, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c3:00.0, compute capability: 7.5
+2024-03-21 15:42:20.037979: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:7 with 9646 MB memory:  -> device: 7, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:22.897610: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:22.982451: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:23.223883: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:23.275591: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:23.316742: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:23.523500: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:23.655983: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 15:42:23.730610: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9329 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:23.751668: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 15:42:23.850430: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:24.075528: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 15:42:24.081333: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:24.143032: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 15:42:24.261249: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 15:42:24.317201: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:24.360021: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:24.472149: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 15:42:24.548457: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a4:00.0, compute capability: 7.5
+GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
+This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
+
+2024-03-21 15:42:24.580197: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-03-21 15:42:24.598394: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c3:00.0, compute capability: 7.5
+2024-03-21 15:42:24.623853: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9168 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5
+2024-03-21 15:42:24.855800: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8875 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
+2024-03-21 15:42:24.922515: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8890 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
+2024-03-21 15:42:25.073996: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8888 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
+2024-03-21 15:42:25.214168: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8876 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
+2024-03-21 15:42:25.295660: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 8862 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 5,
+ 'l0_gpu_workers': 8,
+ 'l0_mode': 'main',
+ 'l0_port': 6000,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': 18000,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': 10,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Connecting to gpu workers
+Connecting to cpu workers
+*******************************************************
+Starting to analyze image 0
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 289.912
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.806 sec
+progress: 259/779=33.248%; gpupoly: 259/259=100.000%, 60.7 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 526/779=67.522%; gpupoly: 526/526=100.000%, 60.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 1/10, correct:  1/1, verified: 1/1, unsafe: 0/1,  time: 295.976; 295.976; 295.976
+*******************************************************
+Starting to analyze image 1
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 288.065
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.776 sec
+progress: 260/779=33.376%; gpupoly: 260/260=100.000%, 60.6 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 527/779=67.651%; gpupoly: 527/527=100.000%, 60.0 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 2/10, correct:  2/2, verified: 2/2, unsafe: 0/2,  time: 294.104; 295.040; 590.080
+*******************************************************
+Starting to analyze image 2
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 294.883
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.890 sec
+progress: 254/779=32.606%; gpupoly: 254/254=100.000%, 61.8 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 518/779=66.496%; gpupoly: 518/518=100.000%, 61.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 775/779=99.487%; gpupoly: 775/775=100.000%, 61.0 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 3/10, correct:  3/3, verified: 3/3, unsafe: 0/3,  time: 301.037; 297.039; 891.117
+*******************************************************
+Starting to analyze image 3
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 286.343
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.743 sec
+progress: 262/779=33.633%; gpupoly: 262/262=100.000%, 60.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 533/779=68.421%; gpupoly: 533/533=100.000%, 59.6 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 4/10, correct:  4/4, verified: 4/4, unsafe: 0/4,  time: 292.345; 295.865; 1183.462
+*******************************************************
+Starting to analyze image 4
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 290.492
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.793 sec
+progress: 258/779=33.119%; gpupoly: 258/258=100.000%, 60.9 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 527/779=67.651%; gpupoly: 527/527=100.000%, 60.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 5/10, correct:  5/5, verified: 5/5, unsafe: 0/5,  time: 296.542; 296.001; 1480.004
+*******************************************************
+Starting to analyze image 5
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 293.466
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.869 sec
+progress: 258/779=33.119%; gpupoly: 258/258=100.000%, 61.4 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 522/779=67.009%; gpupoly: 522/522=100.000%, 60.8 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 777/779=99.743%; gpupoly: 777/777=100.000%, 60.6 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 6/10, correct:  6/6, verified: 6/6, unsafe: 0/6,  time: 299.599; 296.601; 1779.603
+*******************************************************
+Starting to analyze image 6
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 290.520
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.798 sec
+progress: 259/779=33.248%; gpupoly: 259/259=100.000%, 60.7 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 527/779=67.651%; gpupoly: 527/527=100.000%, 60.1 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 7/10, correct:  7/7, verified: 7/7, unsafe: 0/7,  time: 296.574; 296.597; 2076.177
+*******************************************************
+Starting to analyze image 7
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 291.312
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.821 sec
+progress: 257/779=32.991%; gpupoly: 257/257=100.000%, 61.2 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 524/779=67.266%; gpupoly: 524/524=100.000%, 60.5 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 778/779=99.872%; {'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6004,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6004
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6011,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+This network has 3604 neurons.
+Only the first 100 samples are available.
+Waiting at port 6011
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6008,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+This network has 3604 neurons.
+Only the first 100 samples are available.
+Waiting at port 6008
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6002,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6002
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6003,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6003
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6010,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+This network has 3604 neurons.
+Only the first 100 samples are available.
+Waiting at port 6010
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6012,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+This network has 3604 neurons.
+Only the first 100 samples are available.
+Waiting at port 6012
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6005,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6005
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6001,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6001
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6000,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6000
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6007,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6007
+{'approx_k': True,
+ 'attack': False,
+ 'complete': False,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'gpupoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'gpu_worker',
+ 'l0_port': 6006,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 100,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
+Only the first 100 samples are available.
+Waiting at port 6006
+{'approx_k': True,
+ 'attack': False,
+ 'complete': True,
+ 'data_dir': None,
+ 'dataset': 'mnist',
+ 'debug': False,
+ 'delta': 0.3,
+ 'domain': 'deeppoly',
+ 'epsfile': None,
+ 'epsilon': 0,
+ 'from_test': 0,
+ 'gamma': inf,
+ 'geometric': False,
+ 'geometric_config': None,
+ 'input_box': None,
+ 'k': 3,
+ 'l0_cpu_workers': 1,
+ 'l0_gpu_workers': 1,
+ 'l0_mode': 'cpu_worker',
+ 'l0_port': 6009,
+ 'l0_sampling': 400,
+ 'l0_t': 3,
+ 'l0_timeout': -1,
+ 'logdir': None,
+ 'logname': None,
+ 'max_milp_neurons': 30,
+ 'mean': None,
+ 'n_milp_refine': 1,
+ 'netname': 'models/MNIST_convSmall_NO_PGD.onnx',
+ 'normalized_region': True,
+ 'num_params': 0,
+ 'num_tests': None,
+ 'numproc': 255,
+ 'output_constraints': None,
+ 'partial_milp': 0,
+ 'quant_step': None,
+ 'refine_neurons': False,
+ 's': -2,
+ 'sparse_n': 70,
+ 'spatial': False,
+ 'specnumber': None,
+ 'std': None,
+ 'subset': None,
+ 't_norm': 'inf',
+ 'target': None,
+ 'timeout_complete': None,
+ 'timeout_final_lp': 100,
+ 'timeout_final_milp': 18000.0,
+ 'timeout_lp': 1,
+ 'timeout_milp': 1,
+ 'use_default_heuristic': True,
+ 'use_milp': True,
+ 'vnn_lib_spec': None,
+ 'zonotope': None}
+netname  models/MNIST_convSmall_NO_PGD.onnx  epsilon  0  domain  deeppoly  dataset  mnist args complete  True  complete  True  timeout_lp  1
+This network has 3604 neurons.
+Only the first 100 samples are available.
+Waiting at port 6009
+/usr/local/lib/python3.8/dist-packages/scipy/optimize/_minpack_py.py:906: OptimizeWarning: Covariance of the parameters could not be estimated
+  warnings.warn('Covariance of the parameters could not be estimated',
+/root/OUR_WORK/tf_verify/./l_zero_robustness_analyzer.py:168: RuntimeWarning: invalid value encountered in double_scalars
+  estimated_value = (p_vector[k - self.__t] - p_vector[v - self.__t]) / (1 - p_vector[v - self.__t])
+gpupoly: 778/778=100.000%, 60.3 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 8/10, correct:  8/8, verified: 8/8, unsafe: 0/8,  time: 297.391; 296.696; 2373.568
+*******************************************************
+Starting to analyze image 8
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 288.288
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.760 sec
+progress: 260/779=33.376%; gpupoly: 260/260=100.000%, 60.3 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 529/779=67.908%; gpupoly: 529/529=100.000%, 59.7 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 9/10, correct:  9/9, verified: 9/9, unsafe: 0/9,  time: 294.306; 296.430; 2667.874
+*******************************************************
+Starting to analyze image 9
+Starting to estimate p and w
+a=0.976870985054906, b=124.57886001493307
+Estimation took 289.501
+Choosing strategy
+Chosen strategy is [99, 75, 57, 43, 33, 25, 19, 15, 12, 9, 7, 6, 5, 4, 3], estimated verification time is 5.787 sec
+progress: 259/779=33.248%; gpupoly: 259/259=100.000%, 60.7 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waitingprogress: 529/779=67.908%; gpupoly: 529/529=100.000%, 60.0 ms. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE. NONE; MILP: 0 verified, 0 waiting
+Verified!
+*******************************************************
+progress: 10/10, correct:  10/10, verified: 10/10, unsafe: 0/10,  time: 295.549; 296.342; 2963.423
+analysis precision  10 /  10
