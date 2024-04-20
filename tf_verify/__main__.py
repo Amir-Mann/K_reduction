@@ -405,8 +405,8 @@ parser.add_argument("--l0_cpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_port", type=int, default="6000", help="l0 param")
 parser.add_argument("--l0_results_dir", type=str, default=None, help="directory to store results, on defualt results_yymmdd_hhmm")
 parser.add_argument("--l0_sigmoid_correction_samples", type=int, default=0, help="Amount of times to sample the distribution function for correcting sigmoid estimation.")
-parser.add_argument("--min_k_for_new_strategy", type=int, default=None, help="minimum k for it the a new strategy will be created")
-parser.add_argument("--max_new_strategies", type=int, default=None, help="max times a new strategy will be created")
+parser.add_argument("--l0_min_k_for_new_strategy", type=int, default=None, help="minimum k for it the a new strategy will be created")
+parser.add_argument("--l0_max_new_strategies", type=int, default=None, help="max times a new strategy will be created")
 
 
 args = parser.parse_args()
@@ -1412,9 +1412,12 @@ else:
         for worker in range(config.l0_gpu_workers):
             my_env = os.environ.copy()
             my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)
+
             Popen(["python3.8", ".", "--l0_mode", "gpu_worker", "--l0_port", str(6000 + worker), "--l0_t", str(config.l0_t),
                    "--dataset", config.dataset, "--netname", config.netname,
-                   "--domain", "gpupoly", "--l0_results_dir", results_dir, "--l0_sigmoid_correction_samples", str(config.l0_sigmoid_correction_samples)],
+                   "--domain", "gpupoly", "--l0_results_dir", results_dir,
+                   "--l0_sigmoid_correction_samples", str(config.l0_sigmoid_correction_samples), "--l0_min_k_for_new_strategy", str(config.l0_min_k_for_new_strategy),
+                   "--l0_max_new_strategies", str(config.l0_max_new_strategies)],
                   env=my_env)
         for worker in range(config.l0_cpu_workers):
             my_env = os.environ.copy()

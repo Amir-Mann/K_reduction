@@ -165,8 +165,8 @@ class LZeroGpuWorker:
                 start = time.time()
                 coverings = self.__load_coverings(strategy)
                 self.__k_reduction_statistics[depth]["sum_time_loading_coverings"] += time.time() - start
-                min_k = self.__config.min_k_for_new_strategy
-                max_recursion_depth = self.__config.max_new_strategies
+                min_k = self.__config.l0_min_k_for_new_strategy
+                max_recursion_depth = self.__config.l0_max_new_strategies
                 continue_recursion = (min_k is None or strategy[1] >= min_k) and (max_recursion_depth is None or max_recursion_depth > depth)
                 if continue_recursion:
                     covering = self.__load_covering(len(group_to_verify), strategy[1], self.__t)
