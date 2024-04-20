@@ -44,7 +44,7 @@ class LZeroRobustnessAnalyzer:
         estimated_verification_time = A[self.__number_of_pixels][0] / len(self.__gpu_workers)
         print(f'Chosen strategy is {strategy}, estimated verification time is {estimated_verification_time:.3f} sec')
 
-        self.__release_workers(strategy, covering_sizes, w_vector, normalization_buckets)
+        self.__release_workers(strategy, covering_sizes, p_vector, w_vector, normalization_buckets)
 
         gpupoly_stats_by_size = {size: {'runs': 0, 'successes': 0, 'total_duration': 0}
                                  for size in range(self.__number_of_pixels + 1)}
@@ -227,10 +227,10 @@ class LZeroRobustnessAnalyzer:
             move_to = A[move_to][1]
         return strategy, A
 
-    def __release_workers(self, strategy, covering_sizes, w_vector, normalization_buckets):
+    def __release_workers(self, strategy, covering_sizes, p_vector, w_vector, normalization_buckets):
         for worker_index, gpu_worker in enumerate(self.__gpu_workers):
             gpu_worker.send((self.__image, self.__label, strategy, worker_index, len(self.__gpu_workers),
-                             covering_sizes, w_vector, normalization_buckets, self.__t))
+                             covering_sizes, w_vector, normalization_buckets, self.__t, p_vector))
         for cpu_worker in self.__cpu_workers:
             cpu_worker.send((self.__image, self.__label))
 

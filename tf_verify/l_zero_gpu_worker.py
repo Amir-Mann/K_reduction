@@ -25,6 +25,7 @@ class LZeroGpuWorker:
         self.__number_of_workers = None
         self.__covering_sizes = None
         self.__w_vector = None
+        self.__original_p_vector = None
         self.__k_reduction_statistics = {}
         with open("regressor.pkl", "rb") as f:
             self.__regeressors = pickle.load(f)
@@ -51,7 +52,9 @@ class LZeroGpuWorker:
                     conn.send((sampling_successes, sampling_time, sampling_scores))
                     # verification
                     self.__image, self.__label, self.__original_strategy, self.__worker_index, self.__number_of_workers, \
-                    self.__covering_sizes, self.__w_vector, self.__normalization_buckets, self.__t = conn.recv()
+                    self.__covering_sizes, self.__w_vector, self.__normalization_buckets, self.__t, self.__original_p_vector = conn.recv()
+                    
+                    self.__original_p_vector = [1] * self.__t + self.__original_p_vector
                     # coverings = self.__load_coverings(strategy)
                     self.__prove(conn)
                     message = conn.recv()
@@ -361,13 +364,17 @@ class LZeroGpuWorker:
         return strategy, A
 
     def __get_p_vector(self, score, pixels, n_to_sample):
-        datapoints = np.array([[len(pixels), self.__get_bucket(score=score)]])
-        alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(datapoints)[0]
-        one_over_beta = self.__regeressors["one_over_beta"].predict(datapoints)[0]
-        one_over_beta = min(one_over_beta, -0.01)  # Clip if the regressor gets beta values which make no sense
-        beta = 1 / one_over_beta
+        fnr = lambda k: self.__get_fnr(self.__original_p_vector, len(pixels), k)
+        before_midpoint = 0
+        for k in range(len(pixels)):
+            if fnr(k) < 0.5:
+                before_midpoint = k
+        # We want: t * fnr(before_midpoint) + (1 - t) * fnr(before_midpoint + 1) = 0.5
+        t = (fnr(before_midpoint + 1) - 0.5) / (fnr(before_midpoint + 1) - fnr(before_midpoint))
+        alpha_over_beta = before_midpoint + t
+        beta = self.__image_beta * self.__original_strategy[0] / len(pixels)
         alpha = alpha_over_beta * beta
-
+        
         def sample_func(k, n):
             return len([i for i in range(n) if self.verify_group(sample(pixels, k))[0]])
 
