@@ -405,9 +405,8 @@ parser.add_argument("--l0_cpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_port", type=int, default="6000", help="l0 param")
 parser.add_argument("--l0_results_dir", type=str, default=None, help="directory to store results, on defualt results_yymmdd_hhmm")
 parser.add_argument("--l0_sigmoid_correction_samples", type=int, default=0, help="Amount of times to sample the distribution function for correcting sigmoid estimation.")
-
-
-
+parser.add_argument("--min_k_for_new_strategy", type=int, default=None, help="minimum k for it the a new strategy will be created")
+parser.add_argument("--max_new_strategies", type=int, default=None, help="max times a new strategy will be created")
 
 
 args = parser.parse_args()
