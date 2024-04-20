@@ -420,7 +420,7 @@ class LZeroGpuWorker:
 
     def __generate_new_strategy(self, pixels, score, depth):
         start = time.time()
-        p_vector = self.__get_p_vector(score, pixels, n_to_sample=0)
+        p_vector = self.__get_p_vector(score, pixels, n_to_sample=self.__config.l0_sigmoid_correction_samples)
         mid = time.time()
         self.__k_reduction_statistics[depth]["sum_time_estimating_p_vector"] += mid - start
         strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels), depth=depth)
