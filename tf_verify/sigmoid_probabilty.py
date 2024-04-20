@@ -1,6 +1,7 @@
-from typing import overload
+
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy
 
 
 class SigmoidProb:
@@ -92,6 +93,27 @@ class SigmoidProb:
         ks_list = np.arange(self.__start, k)
         probs = [(1 - self[sub_k])/(1 - self[k]) for sub_k in ks_list]
         plt.plot(ks_list, probs)
+
+    @staticmethod
+    def classic_ls_problem(vars, x, y, weights):
+        inside_sigmoid = vars[0] + vars[1] * x
+        exponent = np.exp(- inside_sigmoid)
+        return ((1 / (1 + exponent)) - y) * weights
+
+    @staticmethod
+    def calc_weight_for_probabilty(p, lower_bound=0, upper_bound=1, weight_important_points=5):
+        return weight_important_points if p < upper_bound and p > lower_bound else 1
+
+    @staticmethod
+    def sigmoid_weighted_least_squares(p_vector, **kwargs_for_weights_calc):
+        ks = np.arange(len(p_vector))  # sorted([subk for subk in fo["statistics"]], key= lambda subk: subk["sub_k"])
+        weights = np.array([SigmoidProb.calc_weight_for_probabilty(p, **kwargs_for_weights_calc) for p in p_vector])
+
+        vars = np.array([20, -0.5])
+        bbound = (500 * 4 * 2) ** 2
+        result = scipy.optimize.least_squares(SigmoidProb.classic_ls_problem, vars, args=(ks, np.array(p_vector), weights),
+                                            bounds=((-bbound, -bbound), (bbound, bbound)))
+        return SigmoidProb(*result["x"])
 
 
 if __name__ == "__main__":

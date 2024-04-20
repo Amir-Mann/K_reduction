@@ -29,6 +29,7 @@ class LZeroGpuWorker:
         self.__covering_sizes = None
         self.__w_vector = None
         self.__original_p_vector = None
+        self.__original_p_vector_sigmoid = None
         self.__k_reduction_statistics = {}
         with open("regressor.pkl", "rb") as f:
             self.__regeressors = pickle.load(f)
@@ -57,7 +58,8 @@ class LZeroGpuWorker:
                     self.__image, self.__label, self.__original_strategy, self.__worker_index, self.__number_of_workers, \
                     self.__covering_sizes, self.__w_vector, self.__normalization_buckets, self.__t, self.__original_p_vector = conn.recv()
                     
-                    self.__original_p_vector = [1] * self.__t + self.__original_p_vector
+                    self.__setup_original_p_vector_data()
+                    
                     # coverings = self.__load_coverings(strategy)
                     self.__prove(conn)
                     message = conn.recv()
@@ -366,6 +368,11 @@ class LZeroGpuWorker:
             move_to = A[move_to][1]
         return strategy, A
 
+    def __setup_original_p_vector_data(self):
+        self.__original_p_vector = [1] * self.__t + self.__original_p_vector
+        self.__original_p_vector_sigmoid = SigmoidProb.sigmoid_weighted_least_squares(self.__original_p_vector)
+
+
     def __get_p_vector(self, score, pixels, n_to_sample):
         fnr = lambda k: self.__get_fnr(self.__original_p_vector, len(pixels), k)
         before_midpoint = 0
@@ -375,8 +382,8 @@ class LZeroGpuWorker:
         # We want: t * fnr(before_midpoint) + (1 - t) * fnr(before_midpoint + 1) = 0.5
         t = (fnr(before_midpoint + 1) - 0.5) / (fnr(before_midpoint + 1) - fnr(before_midpoint))
         alpha_over_beta = before_midpoint + t
-        beta = self.__image_beta * self.__original_strategy[0] / len(pixels)
-        alpha = alpha_over_beta * beta
+        beta = self.__original_p_vector_sigmoid.alpha / alpha_over_beta
+        alpha = self.__original_p_vector_sigmoid.alpha
         
         def sample_func(k, n):
             return len([i for i in range(n) if self.verify_group(sample(pixels, k))[0]])
