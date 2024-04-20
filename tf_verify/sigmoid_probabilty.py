@@ -82,16 +82,22 @@ class SigmoidProb:
     def __repr__(self):
         return f"SigmoidProbabilty(alpha={self.alpha},beta={self.beta},start={self.__start},k={self.__len})"
     
-    def plot_smart_fnr(self, k):
+    def plot_smart_fnr(self, k, plot_s=False):
         self.__check_index(k)
         ks_list = np.arange(self.__start, k)
-        probs = [self.smart_fnr(k, sub_k) for sub_k in ks_list]
+        if not plot_s:
+            probs = [self.smart_fnr(k, sub_k) for sub_k in ks_list]
+        else:
+            probs = [1 - self.smart_fnr(k, sub_k) for sub_k in ks_list]
         plt.plot(ks_list, probs)
     
-    def plot_stupid_fnr(self, k):
+    def plot_stupid_fnr(self, k, plot_s=False):
         self.__check_index(k)
         ks_list = np.arange(self.__start, k)
-        probs = [(1 - self[sub_k])/(1 - self[k]) for sub_k in ks_list]
+        if not plot_s:
+            probs = [(1 - self[sub_k])/(1 - self[k]) for sub_k in ks_list]
+        else:
+            probs = [1 - (1 - self[sub_k]) / (1 - self[k]) for sub_k in ks_list]
         plt.plot(ks_list, probs)
 
     @staticmethod

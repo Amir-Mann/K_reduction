@@ -6,6 +6,7 @@ import scipy
 import pickle
 import os
 import json
+import matplotlib.pyplot as plt
 
 from sigmoid_probabilty import SigmoidProb
 
@@ -369,7 +370,8 @@ class LZeroGpuWorker:
         return strategy, A
 
     def __setup_original_p_vector_data(self):
-        self.__original_p_vector = [1] * self.__t + self.__original_p_vector
+        for i in range(self.__t):
+            np.insert(self.__original_p_vector, 0, 1)
         self.__original_p_vector_sigmoid = SigmoidProb.sigmoid_weighted_least_squares(self.__original_p_vector)
 
 
@@ -381,16 +383,25 @@ class LZeroGpuWorker:
                 before_midpoint = k
         # We want: t * fnr(before_midpoint) + (1 - t) * fnr(before_midpoint + 1) = 0.5
         t = (fnr(before_midpoint + 1) - 0.5) / (fnr(before_midpoint + 1) - fnr(before_midpoint))
-        alpha_over_beta = before_midpoint + t
-        beta = self.__original_p_vector_sigmoid.alpha / alpha_over_beta
-        alpha = self.__original_p_vector_sigmoid.alpha
+        alpha_over_beta = -(before_midpoint + t)
+        MAGIC_SHARPEN_SIGMOIDS = 3
+        beta = self.__original_p_vector_sigmoid.alpha / alpha_over_beta * MAGIC_SHARPEN_SIGMOIDS
+        alpha = self.__original_p_vector_sigmoid.alpha * MAGIC_SHARPEN_SIGMOIDS
         
         def sample_func(k, n):
             return len([i for i in range(n) if self.verify_group(sample(pixels, k))[0]])
-
+        before_correction = SigmoidProb(alpha=alpha, beta=beta, start=self.__t, k=len(pixels))
         alpha, beta = self.correct_sigmoid_itertive(alpha, beta, sample_func, n_to_sample, len(pixels))
 
         p_vector = SigmoidProb(alpha=alpha, beta=beta, start=self.__t, k=len(pixels))
+        if False:
+            before_correction.plot()
+            p_vector.plot()
+            self.__original_p_vector_sigmoid.plot_smart_fnr(len(pixels), plot_s=True)
+            ks = list(range(before_midpoint - 2, min(before_midpoint + 3, len(pixels))))
+            plt.plot(ks, [sample_func(k, 200)/200 for k in ks])
+            plt.legend(["estimate", "corrected", "fnr", "sampled"], ncol=1, loc='center right', bbox_to_anchor=[1, 1], fontsize=6)
+            plt.show()
         return p_vector
 
     def correct_sigmoid_itertive(self, alpha, beta, sample_func, num_samples, k, v=3.36):
