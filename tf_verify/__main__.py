@@ -403,10 +403,11 @@ parser.add_argument("--l0_mode", type=str, default="main", help="l0 param")
 parser.add_argument("--l0_gpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_cpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_port", type=int, default="6000", help="l0 param")
+parser.add_argument("--l0_gpu_to_use", type=int, default=None, help="Run on a spesific GPU.")
 parser.add_argument("--l0_results_dir", type=str, default=None, help="directory to store results, on defualt results_yymmdd_hhmm")
-parser.add_argument("--l0_sigmoid_correction_samples", type=int, default=0, help="Amount of times to sample the distribution function for correcting sigmoid estimation.")
-parser.add_argument("--l0_min_k_for_new_strategy", type=int, default=None, help="minimum k for it the a new strategy will be created")
-parser.add_argument("--l0_max_new_strategies", type=int, default=None, help="max times a new strategy will be created")
+parser.add_argument("--l0g_sigmoid_correction_samples", type=int, default=0, help="Amount of times to sample the distribution function for correcting sigmoid estimation.")
+parser.add_argument("--l0g_min_k_for_new_strategy", type=int, default=None, help="minimum k for it the a new strategy will be created")
+parser.add_argument("--l0g_max_new_strategies", type=int, default=None, help="max times a new strategy will be created")
 
 
 args = parser.parse_args()
@@ -1408,20 +1409,27 @@ else:
         with open(os.path.join(results_dir, "run_info.txt"), "a") as f:
             f.write("Started at " + time.strftime("%Y.%m.%d %H:%M"))
             pprint(config.json, stream=f)
-        
+
+        l0g_params = []
+        for k, v in config.json.items():
+            if k[:4] == "l0g_" and v is not None:
+                l0g_params.append("--" + k)
+                l0g_params.append(str(v))
         for worker in range(config.l0_gpu_workers):
             my_env = os.environ.copy()
             my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)
+            if config.l0_gpu_to_use is not None:
+                my_env["CUDA_VISIBLE_DEVICES"] = str(config.l0_gpu_to_use)
 
             Popen(["python3.8", ".", "--l0_mode", "gpu_worker", "--l0_port", str(6000 + worker), "--l0_t", str(config.l0_t),
-                   "--dataset", config.dataset, "--netname", config.netname,
-                   "--domain", "gpupoly", "--l0_results_dir", results_dir,
-                   "--l0_sigmoid_correction_samples", str(config.l0_sigmoid_correction_samples), "--l0_min_k_for_new_strategy", str(config.l0_min_k_for_new_strategy),
-                   "--l0_max_new_strategies", str(config.l0_max_new_strategies)],
+                   "--dataset", config.dataset, "--netname", config.netname, "--l0_results_dir", results_dir,
+                   "--domain", "gpupoly"] + l0g_params,
                   env=my_env)
         for worker in range(config.l0_cpu_workers):
             my_env = os.environ.copy()
             my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)
+            if config.l0_gpu_to_use is not None:
+                my_env["CUDA_VISIBLE_DEVICES"] = str(config.l0_gpu_to_use)
             Popen(["python3.8", ".", "--l0_mode", "cpu_worker", "--l0_port", str(6000 + config.l0_gpu_workers + worker), "--l0_t", str(config.l0_t),
                    "--dataset", config.dataset, "--netname", config.netname,
                    "--domain", "deeppoly", "--complete", "true", "--timeout_final_milp", str(config.l0_timeout)], env=my_env)
