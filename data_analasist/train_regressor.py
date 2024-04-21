@@ -87,7 +87,7 @@ def main():
     if args.overide_regressor or not os.path.isfile(args.path_to_regressor):
         store_regressor()
     else:
-        answer = input("Do you wish to over write regressor at {args.path_to_regressor} [y/(n)]? ").lower()
+        answer = input(f"Do you wish to over write regressor at {args.path_to_regressor} [y/(n)]? ").lower()
         if answer != "" and answer[0] == "y":
             store_regressor()
     

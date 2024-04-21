@@ -7,7 +7,7 @@ class SigmoidProb:
     def __init__(self, alpha=None, beta=None, start=0, k=784):
         self.__start = start
         self.__current = self.__start
-        self.__len = k
+        self.__end = k
         self.alpha = alpha
         self.beta = beta
     
@@ -17,20 +17,20 @@ class SigmoidProb:
 
     def __next__(self): # One step in __iter__
         self.__current += 1
-        if self.__current < self.__len or self.__current == self.__start:
+        if self.__current <= self.__end and self.__current > self.__start:
             return self[self.__current - 1]
         raise StopIteration
     
     def __len__(self):
-        return self.__len
+        return self.__end - self.__start
     
     def __check_index(self, index):
         if not isinstance(index, (int, np.integer)):
             raise IndexError(f"None int or any kind of np.integer index provided to SigmoidProb index={index}, type={type(index)}")
-        if index >= self.__len:
-            raise IndexError(f"Out of range index ({index}) to SigmoidProb of length ({self.__len})")
+        if index >= self.__end:
+            raise IndexError(f"Out of range index ({index}) to SigmoidProb ending at ({self.__end})")
         if index < self.__start:
-            raise IndexError(f"Out of range idnex ({index}) SigmoidProb of starting at ({self.__start})")
+            raise IndexError(f"Out of range idnex ({index}) to SigmoidProb starting at ({self.__start})")
         
     
     def __getitem__(self, index):
@@ -60,7 +60,7 @@ class SigmoidProb:
         if start is None:
             start=self.__start
         if k is None:
-            k=self.__len
+            k=self.__end
         return SigmoidProb(alpha=self.alpha, beta=self.beta, start=start, k=k)
     
     def smart_fnr(self, large_k, sub_k): # Math at https://www.overleaf.com/read/htcqxnyjrbsz#20ed50
@@ -71,7 +71,7 @@ class SigmoidProb:
     
     def plot(self, ks_list=None):
         if ks_list is None:
-            ks_list = np.arange(self.__start, self.__len)
+            ks_list = np.arange(self.__start, self.__end)
         else:
             ks_list = np.array(ks_list)
         
@@ -79,7 +79,7 @@ class SigmoidProb:
         plt.plot(ks_list, probs)
     
     def __repr__(self):
-        return f"SigmoidProbabilty(alpha={self.alpha},beta={self.beta},start={self.__start},k={self.__len})"
+        return f"SigmoidProbabilty(alpha={self.alpha},beta={self.beta},start={self.__start},k={self.__end})"
     
     def plot_smart_fnr(self, k):
         self.__check_index(k)
