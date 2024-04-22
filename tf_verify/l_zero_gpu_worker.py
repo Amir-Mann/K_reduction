@@ -142,7 +142,7 @@ class LZeroGpuWorker:
                     conn.send('adversarial-example-suspect')
                     conn.send(group_to_verify)
 
-    def __prove_recursive(self, conn, group_to_verify, depth=0, min_k=None, max_recursion_depth=None):
+    def __prove_recursive(self, conn, group_to_verify, depth=0):
         # verify group of pixels, create new strategy after each fail and continue recursively util
         # size of the group is smaller than min_k or recursion_depth = 0, will stop creating new strategies
         # if min_k and recursion_depth are None, will not stop creating new strategies
@@ -169,12 +169,14 @@ class LZeroGpuWorker:
                 start = time.time()
                 coverings = self.__load_coverings(strategy)
                 self.__k_reduction_statistics[depth]["sum_time_loading_coverings"] += time.time() - start
+                min_k = self.__config.l0g_min_k_for_new_strategy
+                max_recursion_depth = self.__config.l0g_max_new_strategies
                 continue_recursion = (min_k is None or strategy[1] >= min_k) and (max_recursion_depth is None or max_recursion_depth > depth)
                 if continue_recursion:
                     covering = self.__load_covering(len(group_to_verify), strategy[1], self.__t)
                     groups_to_verify = self.__break_failed_group(group_to_verify, covering)
                     for group in groups_to_verify:
-                        self.__prove_recursive(conn, group, depth, min_k, max_recursion_depth)
+                        self.__prove_recursive(conn, group, depth)
                 else:
                     coverings = self.__load_coverings(strategy)
                     groups_to_verify = self.__break_failed_group(group_to_verify, coverings[len(group_to_verify)])
@@ -430,7 +432,7 @@ class LZeroGpuWorker:
 
     def __generate_new_strategy(self, pixels, score, depth):
         start = time.time()
-        p_vector = self.__get_p_vector(score, pixels, n_to_sample=0)
+        p_vector = self.__get_p_vector(score, pixels, n_to_sample=self.__config.l0g_sigmoid_correction_samples)
         mid = time.time()
         self.__k_reduction_statistics[depth]["sum_time_estimating_p_vector"] += mid - start
         strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels), depth=depth)
