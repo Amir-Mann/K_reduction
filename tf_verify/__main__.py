@@ -404,6 +404,7 @@ parser.add_argument("--l0_gpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_cpu_workers", type=int, default="1", help="l0 param")
 parser.add_argument("--l0_port", type=int, default="6000", help="l0 param")
 parser.add_argument("--l0_results_dir", type=str, default=None, help="directory to store results, on defualt results_yymmdd_hhmm")
+parser.add_argument("--l0g_use_arcsin_norm", type=str, default=None, help="Use regressor with argsin normalization of the bucketed scores")
 
 
 

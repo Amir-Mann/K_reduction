@@ -6,6 +6,7 @@ import scipy
 import pickle
 import os
 import json
+import math
 
 from sigmoid_probabilty import SigmoidProb
 
@@ -29,7 +30,8 @@ class LZeroGpuWorker:
         self.__covering_sizes = None
         self.__w_vector = None
         self.__k_reduction_statistics = {}
-        with open("regressor.pkl", "rb") as f:
+        arcsin_suffix = "_arcsin" if self.__config.l0g_use_arcsin_norm else ""
+        with open(f"regressor{arcsin_suffix}.pkl", "rb") as f:
             self.__regeressors = pickle.load(f)
         self.__t = None
         self.__normalization_buckets = None
@@ -237,7 +239,10 @@ class LZeroGpuWorker:
 
         is_correctly_classified, bounds = self.__network.test(specLB, specUB, self.__label)
         last_layer_bounds = bounds[-1]
-        score = self.__calculate_score(last_layer_bounds, self.__label) if not is_correctly_classified else None
+        if not is_correctly_classified:
+            score = self.__calculate_score(last_layer_bounds, self.__label) / len(pixels_group) / len(pixels_group)
+        else:
+            score = None
         return is_correctly_classified, score
 
     @staticmethod
@@ -304,16 +309,19 @@ class LZeroGpuWorker:
 
         index_above = self.__binary_search_first_above(score, buckets)
         if index_above == 0:
-            return 0
-        if index_above == len(buckets):
-            return len(buckets)
+            relative_index = 0
+        elif index_above == len(buckets):
+            relative_index = len(buckets)
+        else:
+            index_below = index_above - 1
+            value_above, value_below = buckets[index_above], buckets[index_below]
 
-        index_below = index_above - 1
-        value_above, value_below = buckets[index_above], buckets[index_below]
-
-        relative_pos = (score - value_below) / (value_above - value_below)
-        relative_index = index_below + (relative_pos * (index_above - index_below))
+            relative_pos = (score - value_below) / (value_above - value_below)
+            relative_index = index_below + (relative_pos * (index_above - index_below))
+        if self.__config.l0g_use_arcsin_norm:
+            return math.asin(math.asin(relative_index / 50 - 1) / math.pi * 2)
         return relative_index
+        
 
     def __binary_search_first_above(self, value, sorted_list):
         """
@@ -364,7 +372,7 @@ class LZeroGpuWorker:
         return strategy, A
 
     def __get_p_vector(self, score, pixels, n_to_sample):
-        datapoints = np.array([[len(pixels), self.__get_bucket(score=score)]])
+        datapoints = np.array([[len(pixels), self.__get_bucket(score=score) * len(pixels)]])
         alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(datapoints)[0]
         one_over_beta = self.__regeressors["one_over_beta"].predict(datapoints)[0]
         one_over_beta = min(one_over_beta, -0.01)  # Clip if the regressor gets beta values which make no sense
