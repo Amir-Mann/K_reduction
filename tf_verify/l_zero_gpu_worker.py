@@ -7,6 +7,8 @@ import pickle
 import os
 import json
 
+from sigmoid_probabilty import SigmoidProb
+
 class StopSignalException(Exception):
     pass
 
@@ -331,9 +333,11 @@ class LZeroGpuWorker:
         return left
 
     def __get_fnr(self, p_vector, v, k):
-        if 1 - p_vector[v - self.__t] < 1e-9:
+        if isinstance(p_vector, SigmoidProb):
+            return p_vector.smart_fnr(v, k)
+        if 1 - p_vector[v] < 1e-9:
             return 0
-        return (1 - p_vector[k - self.__t]) / (1 - p_vector[v - self.__t])
+        return (1 - p_vector[k]) / (1 - p_vector[v])
 
     def __choose_strategy(self, p_vector, number_of_pixels, depth):
         # Dynamic programming to choose the best strategy
@@ -355,7 +359,7 @@ class LZeroGpuWorker:
         strategy = [number_of_pixels]
         move_to = A[number_of_pixels][1]
         if move_to is not None:
-            self.__k_reduction_statistics[depth]["sum_estimated_prob_of_next_k"] += p_vector[move_to - self.__t]
+            self.__k_reduction_statistics[depth]["sum_estimated_prob_of_next_k"] += p_vector[move_to]
         while move_to is not None:
             strategy.append(move_to)
             move_to = A[move_to][1]
@@ -374,9 +378,7 @@ class LZeroGpuWorker:
 
         alpha, beta = self.correct_sigmoid_itertive(alpha, beta, sample_func, n_to_sample, len(pixels))
 
-        ks = np.array(range(self.__t, len(pixels) + 1))
-        p_vector = 1 / (1 + np.exp(-(alpha + beta * ks)))
-        p_vector[-1] = 0
+        p_vector = SigmoidProb(alpha=alpha, beta=beta, start=self.__t, k=len(pixels))
         return p_vector
 
     def correct_sigmoid_itertive(self, alpha, beta, sample_func, num_samples, k, v=3.36):

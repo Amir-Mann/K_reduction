@@ -79,10 +79,17 @@ def main():
     
     print(simple_evaluate_regressors(feature_data, regressors_dict, alphas_over_betas, one_over_betas))
     
-    if args.overide_regressor or not os.path.isfile(args.path_to_regressor) or input("Do you wish to over write [y/(n)]? ").lower()[0] == "y":
+    def store_regressor():
         with open(args.path_to_regressor, "wb") as regressor_file:
             pickle.dump(regressors_dict, regressor_file)
         print(f"Saved the regressors at {args.path_to_regressor}")
+    
+    if args.overide_regressor or not os.path.isfile(args.path_to_regressor):
+        store_regressor()
+    else:
+        answer = input(f"Do you wish to over write regressor at {args.path_to_regressor} [y/(n)]? ").lower()
+        if answer != "" and answer[0] == "y":
+            store_regressor()
     
     
 if __name__ == "__main__":
