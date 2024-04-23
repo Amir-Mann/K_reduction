@@ -305,7 +305,7 @@ class LZeroGpuWorker:
             indexes.append(pixel * 3 + 2)
         return indexes
 
-    def __get_bucket(self, score, buckets=None):
+    def __get_normlized_bucket_value(self, score, buckets=None):
         if buckets is None:
             buckets = self.__normalization_buckets
 
@@ -374,7 +374,7 @@ class LZeroGpuWorker:
         return strategy, A
 
     def __get_p_vector(self, score, pixels, n_to_sample):
-        datapoints = np.array([[len(pixels), self.__get_bucket(score=score) * len(pixels)]])
+        datapoints = np.array([[len(pixels), self.__get_normlized_bucket_value(score=score) * len(pixels)]])
         alpha_over_beta = self.__regeressors["alpha_over_beta"].predict(datapoints)[0]
         one_over_beta = self.__regeressors["one_over_beta"].predict(datapoints)[0]
         one_over_beta = min(one_over_beta, -0.01)  # Clip if the regressor gets beta values which make no sense
@@ -438,8 +438,8 @@ class LZeroGpuWorker:
         strategy, A = self.__choose_strategy(p_vector, number_of_pixels=len(pixels), depth=depth)
         self.__k_reduction_statistics[depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
         estimated_verification_time = A[len(pixels)][0]
-        bucket_of_score = self.__get_bucket(score)
+        normlized_bucket_of_score = self.__get_normlized_bucket_value(score)
         print(
-            f'Worker {self.__worker_index}, Score: {bucket_of_score:.2f} | est. verif. time: {estimated_verification_time:.3f} sec | Chosen strategy: {strategy}')
+            f'Worker {self.__worker_index}, Score: {normlized_bucket_of_score:.2f} | est. verif. time: {estimated_verification_time:.3f} sec | Chosen strategy: {strategy}')
         print(f'Chosen strategy is {strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
         return strategy
