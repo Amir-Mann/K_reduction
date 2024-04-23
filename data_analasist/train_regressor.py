@@ -50,8 +50,8 @@ def simple_evaluate_regressors(feature_data, regressors_dict, alphas_over_betas,
     buckets = []
     for i, datapoint, preda, predb, truea, trueb in zip(range(len(feature_data)), feature_data, predicted_alphas, predicted_betas, true_alphas, true_betas):
         k = int(datapoint[0])
-        buckets.append(datapoint[1] / k)
-        d = datapoint[1]
+        d = datapoint[1] / k
+        buckets.append(d)
         x = np.array(range(1, k))
         ground_trueth = sigmoid_array(truea + trueb * x)
         estimated = sigmoid_array(preda + predb * x)
@@ -60,7 +60,7 @@ def simple_evaluate_regressors(feature_data, regressors_dict, alphas_over_betas,
             plt.plot(x, estimated)
             plt.plot(x, ground_trueth)
             plt.legend(["estimated", "ground_trueth"], ncol=1, loc='center right', bbox_to_anchor=[1, 1], fontsize=6)
-            plt.title(f"{k=}, {d/k=}")
+            plt.title(f"{k=}, {d=}")
             plt.show()
         max_values.append(max(np.abs(residuals)))
         mean_values.append(sum(np.abs(residuals)) / len(residuals))

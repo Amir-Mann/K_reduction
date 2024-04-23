@@ -242,19 +242,19 @@ class LZeroGpuWorker:
         is_correctly_classified, bounds = self.__network.test(specLB, specUB, self.__label)
         last_layer_bounds = bounds[-1]
         if not is_correctly_classified:
-            score = self.__calculate_score(last_layer_bounds, self.__label) / len(pixels_group) / len(pixels_group)
+            score = self.__calculate_score(last_layer_bounds, self.__label, len(pixels_group))
         else:
             score = None
         return is_correctly_classified, score
 
     @staticmethod
-    def __calculate_score(last_layer_bounds, label):
+    def __calculate_score(last_layer_bounds, label, k):
         # not implementing any different scoring methods for now
         power = 6
         label_l = last_layer_bounds[label][0]
         upper_bounds = [bounds[1] for bounds in last_layer_bounds]
         v = [(u - label_l) ** power for i, u in enumerate(upper_bounds) if i != label and u > label_l]
-        return sum(v) ** (1 / power)
+        return sum(v) ** (1 / power) / k / k
 
     def normalize(self, image):
         # normalization taken out of the network
