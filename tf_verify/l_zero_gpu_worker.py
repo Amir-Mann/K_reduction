@@ -2,7 +2,6 @@ import time
 from multiprocessing.connection import Listener
 from random import shuffle, sample
 import numpy as np
-import scipy
 import pickle
 import os
 import json
@@ -373,54 +372,13 @@ class LZeroGpuWorker:
         beta = 1 / one_over_beta
         alpha = alpha_over_beta * beta
 
+        p_vector = SigmoidProb(alpha=alpha, beta=beta, start=self.__t, k=len(pixels))
+        
         def sample_func(k, n):
             return len([i for i in range(n) if self.verify_group(sample(pixels, k))[0]])
-
-        alpha, beta = self.correct_sigmoid_itertive(alpha, beta, sample_func, n_to_sample, len(pixels))
-
-        p_vector = SigmoidProb(alpha=alpha, beta=beta, start=self.__t, k=len(pixels))
+        p_vector = p_vector.correct_sigmoid_itertive(sample_func, n_to_sample)
+        
         return p_vector
-
-    def correct_sigmoid_itertive(self, alpha, beta, sample_func, num_samples, k, v=3.36):
-        """"
-        Corrects a sigmoid using sampeling, and the assumption that the error is distributing T(v=v)
-        alpha (float): any real number
-        beta (float): smaller then 0
-        sample_func (func(int, int)->(int)): a function which takes a k, num_samples and return the amount of successes,
-                                            it samples the real probabilty distribution at that k, num_samples times.
-        num_samples (int, optional): num_times to sample real distribution.
-        return (tuple[float, float]): corrected (alpha, beta)
-        """
-        if num_samples == 0:
-            return (alpha, beta)
-        success_ks, fail_ks = [], []
-
-        k_to_sample = max(self.__t, min(round(- alpha / beta), k - 1))  # Iterative_sampeling
-        for i in range(num_samples):
-            d = round((3 + num_samples) / (3 + i))
-            if d == 0:
-                d = 1
-            if sample_func(k_to_sample, 1) == 1:
-                success_ks.append(k_to_sample)
-                k_to_sample = min(k_to_sample + d, k - 1)
-            else:
-                fail_ks.append(k_to_sample)
-                k_to_sample = max(k_to_sample - d, self.__t)
-
-        success_ks = np.array(success_ks)
-        fail_ks = np.array(fail_ks + [k])
-
-        def func_to_minimize(s):
-            return (v + 1) / 2 * np.log((1 + s ** 2 / v)) \
-                   + np.sum(np.log(1 + np.exp(- (alpha + s * beta + beta * success_ks)))) \
-                   + np.sum(np.log(1 + np.exp(+ (alpha + s * beta + beta * fail_ks))))
-
-        result = scipy.optimize.minimize_scalar(func_to_minimize)
-        if result.success:
-            alpha = alpha + beta * result.x
-        else:
-            print("\nFailed to minimize scalar (to find the best s) in correct_sigmoid_itertive\n")
-        return (alpha, beta)
 
     def __generate_new_strategy(self, pixels, score, depth):
         start = time.time()
