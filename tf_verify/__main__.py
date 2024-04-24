@@ -1538,6 +1538,7 @@ else:
 
         results = {'netname': config.netname,
                    'dataset': config.dataset,
+                   'run_type': "arcsin" if config.l0g_use_arcsin_norm else "defult(\k^2)",
                    't': config.l0_t,
                    'sampling': config.l0_sampling,
                    'timeout': config.l0_timeout,
