@@ -1412,6 +1412,9 @@ else:
             pprint(config.json, stream=f)
 
         l0g_params = []
+        base_port = 6000
+        if config.l0_gpu_to_use is not None:
+            base_port += 1000 * config.l0_gpu_to_use + 1000
         for k, v in config.json.items():
             if k[:4] == "l0g_" and v is not None:
                 l0g_params.append("--" + k)
@@ -1422,7 +1425,7 @@ else:
             if config.l0_gpu_to_use is not None:
                 my_env["CUDA_VISIBLE_DEVICES"] = str(config.l0_gpu_to_use)
 
-            Popen(["python3.8", ".", "--l0_mode", "gpu_worker", "--l0_port", str(6000 + worker), "--l0_t", str(config.l0_t),
+            Popen(["python3.8", ".", "--l0_mode", "gpu_worker", "--l0_port", str(base_port + worker), "--l0_t", str(config.l0_t),
                    "--dataset", config.dataset, "--netname", config.netname, "--l0_results_dir", results_dir,
                    "--domain", "gpupoly"] + l0g_params,
                   env=my_env)
@@ -1431,7 +1434,7 @@ else:
             my_env["CUDA_VISIBLE_DEVICES"] = str(worker % 8)
             if config.l0_gpu_to_use is not None:
                 my_env["CUDA_VISIBLE_DEVICES"] = str(config.l0_gpu_to_use)
-            Popen(["python3.8", ".", "--l0_mode", "cpu_worker", "--l0_port", str(6000 + config.l0_gpu_workers + worker), "--l0_t", str(config.l0_t),
+            Popen(["python3.8", ".", "--l0_mode", "cpu_worker", "--l0_port", str(base_port + config.l0_gpu_workers + worker), "--l0_t", str(config.l0_t),
                    "--dataset", config.dataset, "--netname", config.netname,
                    "--domain", "deeppoly", "--complete", "true", "--timeout_final_milp", str(config.l0_timeout)], env=my_env)
 
@@ -1439,12 +1442,12 @@ else:
         gpu_workers = []
         print("Connecting to gpu workers")
         for i in range(config.l0_gpu_workers):
-            address = ('localhost', 6000 + i)
+            address = ('localhost', base_port + i)
             gpu_workers.append(Client(address, authkey=b'secret password'))
         cpu_workers = []
         print("Connecting to cpu workers")
         for i in range(config.l0_cpu_workers):
-            address = ('localhost', 6000 + config.l0_gpu_workers + i)
+            address = ('localhost', base_port + config.l0_gpu_workers + i)
             cpu_workers.append(Client(address, authkey=b'secret password'))
 
         image_results_by_image_index = dict()
