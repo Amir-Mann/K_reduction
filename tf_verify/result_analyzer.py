@@ -47,14 +47,30 @@ def get_cheated_time(results_path, worker_paths):
 
     return total_time
 
+def get_paths(results_path):
+    results_dir_path = results_path[:results_path.rfind("/") + 1]
+    worker_dir_path = results_dir_path + "individual_workers"
+    run_info_path = results_dir_path + "run_info.txt"
+    all_workers_path = results_dir_path + "stats_collection_all_workers.json"
+    return worker_dir_path, run_info_path, all_workers_path
 
-def main(results_path=None, dir_path=None):
+def print_arcsin_info(run_info_path):
+    with open(run_info_path) as f:
+        file_lines = f.readlines()
+        for line in file_lines:
+            if "arcsin" in line:
+                print(line)
+                return
+    print("* NO ARCSIN INFO")
+
+def main(results_path=None):
     if not results_path:
         print("NOTICE: add path for results of run")
         return
 
-    if not dir_path:
-        print("NOTICE: add dir path for workers")
+    worker_dir_path, run_info_path, all_workers_path = get_paths(results_path)
+    if not worker_dir_path or not run_info_path or not all_workers_path:
+        print("NOTICE: missing files in results directory")
         return
 
     # result stuff
@@ -64,19 +80,24 @@ def main(results_path=None, dir_path=None):
     pprint.pprint(condensed_results)
     print()
 
+    print("-------- ARCSIN INFO --------")
+    print_arcsin_info(run_info_path)
+    print()
+
     # worker stuff
-    worker_paths = get_list_of_paths_in_dir(dir_path)
+    worker_paths = get_list_of_paths_in_dir(worker_dir_path)
     print("-------- WORKER STATS --------")
-    for worker_path in worker_paths:
-        print(worker_path)
-        worker_stats = load_dict(worker_path)
-        pprint.pprint(worker_stats)
-        print()
+    # for worker_path in worker_paths:
+    #     print(worker_path)
+    #     worker_stats = load_dict(worker_path)
+    #     pprint.pprint(worker_stats)
+    #     print()
 
     # calculating cheated time
     cheated_time = get_cheated_time(results_path, worker_paths)
     print()
     print("-------- ANALYSIS --------")
+    # TODO do per image
     print("non cheated time = ", condensed_results["cumulative_time"])
     print("cheated time = ", cheated_time, " (Make sure the results file and worker files refer to the same run)")
 
@@ -88,7 +109,6 @@ def get_list_of_paths_in_dir(dir_path):
 
 
 if __name__ == "__main__":
-    worker_dir_path = "./results/results_240324_1218/individual_workers"
-    results_path = "./results/results_240324_1218/mnist-mnist_relu_3_50.onnx-1.json"
+    results_path = "./results/results_240504_1702/mnist-MNIST_convSmall_NO_PGD.onnx-5.json"
 
-    main(results_path, worker_dir_path)
+    main(results_path)
