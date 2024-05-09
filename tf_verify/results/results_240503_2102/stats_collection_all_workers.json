@@ -1,0 +1,110 @@
+{
+    "0": {
+        "enters": 12,
+        "count_subgroups": 1702059,
+        "sum_estimated_prob_of_next_k": 0,
+        "sum_sr": 1541895,
+        "sum_time_spent_choosing_strategy": 0,
+        "sum_time_estimating_p_vector": 0,
+        "sum_time_loading_coverings": 0
+    },
+    "1": {
+        "enters": 160164,
+        "count_subgroups": 1000279,
+        "sum_estimated_prob_of_next_k": 157754.39249602694,
+        "sum_sr": 949165,
+        "sum_time_spent_choosing_strategy": 2131.8958909511566,
+        "sum_time_estimating_p_vector": 23.88086175918579,
+        "sum_time_loading_coverings": 96.04952454566956
+    },
+    "2": {
+        "enters": 51114,
+        "count_subgroups": 322673,
+        "sum_estimated_prob_of_next_k": 50464.7962138687,
+        "sum_sr": 282216,
+        "sum_time_spent_choosing_strategy": 422.02877283096313,
+        "sum_time_estimating_p_vector": 7.366236209869385,
+        "sum_time_loading_coverings": 25.74807333946228
+    },
+    "3": {
+        "enters": 40457,
+        "count_subgroups": 244273,
+        "sum_estimated_prob_of_next_k": 40357.62897086116,
+        "sum_sr": 185761,
+        "sum_time_spent_choosing_strategy": 203.85490226745605,
+        "sum_time_estimating_p_vector": 5.816751480102539,
+        "sum_time_loading_coverings": 17.81240463256836
+    },
+    "4": {
+        "enters": 58512,
+        "count_subgroups": 351777,
+        "sum_estimated_prob_of_next_k": 58434.594649721315,
+        "sum_sr": 315828,
+        "sum_time_spent_choosing_strategy": 199.2872576713562,
+        "sum_time_estimating_p_vector": 8.407227993011475,
+        "sum_time_loading_coverings": 23.42058825492859
+    },
+    "5": {
+        "enters": 35949,
+        "count_subgroups": 216494,
+        "sum_estimated_prob_of_next_k": 35883.40708406889,
+        "sum_sr": 203729,
+        "sum_time_spent_choosing_strategy": 81.37256026268005,
+        "sum_time_estimating_p_vector": 5.158018350601196,
+        "sum_time_loading_coverings": 12.691211223602295
+    },
+    "6": {
+        "enters": 12765,
+        "count_subgroups": 77229,
+        "sum_estimated_prob_of_next_k": 12715.643912657328,
+        "sum_sr": 73342,
+        "sum_time_spent_choosing_strategy": 19.071860313415527,
+        "sum_time_estimating_p_vector": 1.8258113861083984,
+        "sum_time_loading_coverings": 4.023681402206421
+    },
+    "7": {
+        "enters": 3887,
+        "count_subgroups": 24114,
+        "sum_estimated_prob_of_next_k": 3852.8510922703153,
+        "sum_sr": 22927,
+        "sum_time_spent_choosing_strategy": 3.8968918323516846,
+        "sum_time_estimating_p_vector": 0.5552470684051514,
+        "sum_time_loading_coverings": 1.094536542892456
+    },
+    "8": {
+        "enters": 1187,
+        "count_subgroups": 7470,
+        "sum_estimated_prob_of_next_k": 1174.135848194565,
+        "sum_sr": 7256,
+        "sum_time_spent_choosing_strategy": 0.8206484317779541,
+        "sum_time_estimating_p_vector": 0.16929960250854492,
+        "sum_time_loading_coverings": 0.2963225841522217
+    },
+    "9": {
+        "enters": 214,
+        "count_subgroups": 1453,
+        "sum_estimated_prob_of_next_k": 209.84570156192817,
+        "sum_sr": 1428,
+        "sum_time_spent_choosing_strategy": 0.09734344482421875,
+        "sum_time_estimating_p_vector": 0.0305941104888916,
+        "sum_time_loading_coverings": 0.04699826240539551
+    },
+    "10": {
+        "enters": 25,
+        "count_subgroups": 164,
+        "sum_estimated_prob_of_next_k": 24.36729467913281,
+        "sum_sr": 161,
+        "sum_time_spent_choosing_strategy": 0.008141040802001953,
+        "sum_time_estimating_p_vector": 0.003513813018798828,
+        "sum_time_loading_coverings": 0.005138874053955078
+    },
+    "11": {
+        "enters": 3,
+        "count_subgroups": 18,
+        "sum_estimated_prob_of_next_k": 2.855123988309307,
+        "sum_sr": 18,
+        "sum_time_spent_choosing_strategy": 0.0005710124969482422,
+        "sum_time_estimating_p_vector": 0.00041866302490234375,
+        "sum_time_loading_coverings": 0.0004730224609375
+    }
+}

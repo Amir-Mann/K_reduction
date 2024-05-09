@@ -1,0 +1,74 @@
+{
+    "0": {
+        "enters": 15,
+        "count_subgroups": 943895,
+        "sum_estimated_prob_of_next_k": 0,
+        "sum_sr": 902076,
+        "sum_time_spent_choosing_strategy": 0,
+        "sum_time_estimating_p_vector": 0,
+        "sum_time_loading_coverings": 0
+    },
+    "1": {
+        "enters": 41819,
+        "count_subgroups": 167276,
+        "sum_estimated_prob_of_next_k": 41666.75668017703,
+        "sum_sr": 159359,
+        "sum_time_spent_choosing_strategy": 35.622440814971924,
+        "sum_time_estimating_p_vector": 6.272966146469116,
+        "sum_time_loading_coverings": 7.7326741218566895
+    },
+    "2": {
+        "enters": 7917,
+        "count_subgroups": 31668,
+        "sum_estimated_prob_of_next_k": 7728.209211421506,
+        "sum_sr": 29101,
+        "sum_time_spent_choosing_strategy": 3.6106650829315186,
+        "sum_time_estimating_p_vector": 1.105602502822876,
+        "sum_time_loading_coverings": 1.2546944618225098
+    },
+    "3": {
+        "enters": 2567,
+        "count_subgroups": 10369,
+        "sum_estimated_prob_of_next_k": 2546.8845101328307,
+        "sum_sr": 9983,
+        "sum_time_spent_choosing_strategy": 0.7277967929840088,
+        "sum_time_estimating_p_vector": 0.3469686508178711,
+        "sum_time_loading_coverings": 0.34720897674560547
+    },
+    "4": {
+        "enters": 386,
+        "count_subgroups": 1546,
+        "sum_estimated_prob_of_next_k": 376.74489617503923,
+        "sum_sr": 1432,
+        "sum_time_spent_choosing_strategy": 0.05528903007507324,
+        "sum_time_estimating_p_vector": 0.049791574478149414,
+        "sum_time_loading_coverings": 0.04842400550842285
+    },
+    "5": {
+        "enters": 114,
+        "count_subgroups": 559,
+        "sum_estimated_prob_of_next_k": 113.37854512909666,
+        "sum_sr": 540,
+        "sum_time_spent_choosing_strategy": 0.008696317672729492,
+        "sum_time_estimating_p_vector": 0.013834953308105469,
+        "sum_time_loading_coverings": 0.010283946990966797
+    },
+    "6": {
+        "enters": 19,
+        "count_subgroups": 76,
+        "sum_estimated_prob_of_next_k": 18.047036640943617,
+        "sum_sr": 70,
+        "sum_time_spent_choosing_strategy": 0.0006668567657470703,
+        "sum_time_estimating_p_vector": 0.002317667007446289,
+        "sum_time_loading_coverings": 0.0013628005981445312
+    },
+    "7": {
+        "enters": 6,
+        "count_subgroups": 24,
+        "sum_estimated_prob_of_next_k": 5.928443543681996,
+        "sum_sr": 24,
+        "sum_time_spent_choosing_strategy": 0.00012087821960449219,
+        "sum_time_estimating_p_vector": 0.0007109642028808594,
+        "sum_time_loading_coverings": 0.00027179718017578125
+    }
+}
