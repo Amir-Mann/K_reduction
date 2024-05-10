@@ -63,15 +63,12 @@ def print_arcsin_info(run_info_path):
                 return
     print("* NO ARCSIN INFO")
 
-def main(results_path=None):
+def main(results_path, is_original_calzone):
     if not results_path:
         print("NOTICE: add path for results of run")
         return
 
     worker_dir_path, run_info_path, all_workers_path = get_paths(results_path)
-    if not worker_dir_path or not run_info_path or not all_workers_path:
-        print("NOTICE: missing files in results directory")
-        return
 
     # result stuff
     results = load_dict(results_path)
@@ -85,21 +82,22 @@ def main(results_path=None):
     print()
 
     # worker stuff
-    worker_paths = get_list_of_paths_in_dir(worker_dir_path)
-    print("-------- WORKER STATS --------")
-    # for worker_path in worker_paths:
-    #     print(worker_path)
-    #     worker_stats = load_dict(worker_path)
-    #     pprint.pprint(worker_stats)
-    #     print()
+    if not is_original_calzone:
+        worker_paths = get_list_of_paths_in_dir(worker_dir_path)
+        print("-------- WORKER STATS --------")
+        for worker_path in worker_paths:
+            print(worker_path)
+            worker_stats = load_dict(worker_path)
+            pprint.pprint(worker_stats)
+            print()
 
-    # calculating cheated time
-    cheated_time = get_cheated_time(results_path, worker_paths)
-    print()
-    print("-------- ANALYSIS --------")
-    # TODO do per image
-    print("non cheated time = ", condensed_results["cumulative_time"])
-    print("cheated time = ", cheated_time, " (Make sure the results file and worker files refer to the same run)")
+        # calculating cheated time
+        cheated_time = get_cheated_time(results_path, worker_paths)
+        print()
+        print("-------- ANALYSIS --------")
+        # TODO do per image
+        print("non cheated time = ", condensed_results["cumulative_time"])
+        print("cheated time = ", cheated_time, " (The original time minus the time estimating p_vector)")
 
 
 def get_list_of_paths_in_dir(dir_path):
@@ -109,6 +107,6 @@ def get_list_of_paths_in_dir(dir_path):
 
 
 if __name__ == "__main__":
-    results_path = "./results/results_240504_1702/mnist-MNIST_convSmall_NO_PGD.onnx-5.json"
-
-    main(results_path)
+    results_path = "./results/results_240502_1533/mnist-MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx-4.json"
+    is_original_calzone = False
+    main(results_path, is_original_calzone)
