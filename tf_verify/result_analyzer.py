@@ -54,14 +54,49 @@ def get_paths(results_path):
     all_workers_path = results_dir_path + "stats_collection_all_workers.json"
     return worker_dir_path, run_info_path, all_workers_path
 
+
 def print_arcsin_info(run_info_path):
+    found_info = False
     with open(run_info_path) as f:
         file_lines = f.readlines()
         for line in file_lines:
             if "arcsin" in line:
-                print(line)
-                return
-    print("* NO ARCSIN INFO")
+                print(line, end="")
+                found_info = True
+    if not found_info:
+        print("* NO ARCSIN INFO")
+
+
+def print_iterative_info(run_info_path):
+    found_info = False
+    with open(run_info_path) as f:
+        file_lines = f.readlines()
+        for line in file_lines:
+            if "sigmoid_correction" in line:
+                print(line, end="")
+                found_info = True
+    if not found_info:
+        print("* NO ITERATIVE INFO")
+
+
+def print_recursion_info(run_info_path):
+    found_info = False
+    with open(run_info_path) as f:
+        file_lines = f.readlines()
+        for line in file_lines:
+            is_line_relevant = "l0g_min_k_for_new_strategy" in line or "l0g_max_new_strategies" in line
+            if is_line_relevant:
+                print(line, end="")
+                found_info = True
+    if not found_info:
+        print("* NO RECURSION INFO")
+
+
+def print_parameter_info(run_info_path):
+    print_arcsin_info(run_info_path)
+    print_iterative_info(run_info_path)
+    print_recursion_info(run_info_path)
+
 
 def main(results_path, is_original_calzone):
     if not results_path:
@@ -77,8 +112,8 @@ def main(results_path, is_original_calzone):
     pprint.pprint(condensed_results)
     print()
 
-    print("-------- ARCSIN INFO --------")
-    print_arcsin_info(run_info_path)
+    print("-------- PARAMETER INFO --------")
+    print_parameter_info(run_info_path)
     print()
 
     # worker stuff
@@ -107,6 +142,6 @@ def get_list_of_paths_in_dir(dir_path):
 
 
 if __name__ == "__main__":
-    results_path = "./results/results_240502_1533/mnist-MNIST_convSmall_128_0.004_91_89_0.5_0.1.onnx-4.json"
+    results_path = "./results/results_240430_1427/mnist-mnist_relu_3_50.onnx-4.json"
     is_original_calzone = False
     main(results_path, is_original_calzone)
