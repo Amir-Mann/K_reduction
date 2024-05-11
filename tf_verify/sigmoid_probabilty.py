@@ -127,7 +127,7 @@ class SigmoidProb:
 
             result = scipy.optimize.minimize_scalar(func_to_minimize)
             if result.success:
-                corrected_alpha = corrected_alpha + self.beta * result.x
+                corrected_alpha = self.alpha + self.beta * result.x
                 corrected_beta = self.beta
             else:
                 print("\nFailed to minimize scalar (to find the best s) in correct_sigmoid_itertive\n")
