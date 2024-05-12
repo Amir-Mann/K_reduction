@@ -1,163 +1,0 @@
-
-mnist_relu_3_50.onnx
-
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:49.753855: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-03-23 14:19:53.564991: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9637 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
-2024-03-23 14:19:53.566775: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 9646 MB memory:  -> device: 1, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
-2024-03-23 14:19:53.568328: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:2 with 9646 MB memory:  -> device: 2, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
-2024-03-23 14:19:53.569836: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:3 with 9646 MB memory:  -> device: 3, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
-2024-03-23 14:19:53.571402: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:4 with 9646 MB memory:  -> device: 4, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
-2024-03-23 14:19:53.584578: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:5 with 9646 MB memory:  -> device: 5, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a4:00.0, compute capability: 7.5
-2024-03-23 14:19:53.586131: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:6 with 9646 MB memory:  -> device: 6, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c3:00.0, compute capability: 7.5
-2024-03-23 14:19:53.587698: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:7 with 9646 MB memory:  -> device: 7, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:55.949158: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:56.071399: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:56.243027: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:56.251816: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:56.333960: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:56.409037: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:56.629713: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-03-23 14:19:56.667640: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9329 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:56.709364: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:56.751374: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-03-23 14:19:56.832657: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:56.884028: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:57.006091: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:57.011747: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-03-23 14:19:57.183525: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
-GPUPoly 0.13.0S Debug (built Mar 14 2024 14:02:54) - Copyright (C) 2020 Department of Computer Science, ETH Zurich.
-This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it and to modify it under the terms of the GNU LGPLv3.
-
-2024-03-23 14:19:57.192695: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-03-23 14:19:57.222561: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
-2024-03-23 14:19:57.491507: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
-2024-03-23 14:19:57.607026: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a4:00.0, compute capability: 7.5
-2024-03-23 14:19:57.905546: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9334 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c4:00.0, compute capability: 7.5
-2024-03-23 14:19:57.949093: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9019 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:27:00.0, compute capability: 7.5
-2024-03-23 14:19:58.078117: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9338 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:c3:00.0, compute capability: 7.5
-2024-03-23 14:19:58.114033: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:28:00.0, compute capability: 7.5
-2024-03-23 14:19:58.170114: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:43:00.0, compute capability: 7.5
-2024-03-23 14:19:58.190193: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:44:00.0, compute capability: 7.5
-2024-03-23 14:19:58.251864: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1510] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 9028 MB memory:  -> device: 0, name: NVIDIA GeForce RTX 2080 Ti, pci bus id: 0000:a3:00.0, compute capability: 7.5
-{'approx_k': True,
- 'attack': False,
- 'complete': False,
- 'data_dir': None,
- 'dataset': 'mnist',
- 'debug': False,
- 'delta': 0.3,
- 'domain': 'gpupoly',
- 'epsfile': None,
- 'epsilon': 0,
- 'from_test': 0,
- 'gamma': inf,
- 'geometric': False,
- 'geometric_config': None,
- 'input_box': None,
- 'k': 3,
- 'l0_cpu_workers': 5,
- 'l0_gpu_workers': 8,
- 'l0_mode': 'main',
- 'l0_port': 6000,
- 'l0_sampling': 10,
- 'l0_t': 3,
- 'l0_timeout': 18000,
- 'logdir': None,
- 'logname': None,
- 'max_milp_neurons': 30,
- 'mean': None,
- 'n_milp_refine': 1,
- 'netname': 'models/mnist_relu_3_50.onnx',
- 'normalized_region': True,
- 'num_params': 0,
- 'num_tests': 10,
- 'numproc': 255,
- 'output_constraints': None,
- 'partial_milp': 0,
- 'quant_step': None,
- 'refine_neurons': False,
- 's': -2,
- 'sparse_n': 70,
- 'spatial': False,
- 'specnumber': None,
- 'std': None,
- 'subset': None,
- 't_norm': 'inf',
- 'target': None,
- 'timeout_complete': None,
- 'timeout_final_lp': 100,
- 'timeout_final_milp': 100,
- 'timeout_lp': 1,
- 'timeout_milp': 1,
- 'use_default_heuristic': True,
- 'use_milp': True,
- 'vnn_lib_spec': None,
- 'zonotope': None}
-netname  models/mnist_relu_3_50.onnx  epsilon  0  domain  gpupoly  dataset  mnist args complete  False  complete  False  timeout_lp  1
-Mean of [0.] extracted from network
-Std of [1.] extracted from network
-Only the first 100 samples are available.
-Connecting to gpu workers
-Connecting to cpu workers
-*******************************************************
-Starting to analyze image 0
-Starting to estimate p and w
-a=1.4265065903490215, b=26.425861220903627
-Estimation took 5.508
-Choosing strategy
-warning: no coverning for t
-Chosen strategy is [24, 20, 15, 12, 9, 7, 5, 4, 3], estimated verification time is 261.601 sec
-progress: 482/74448=0.647%; gpupoly: 24: 456/483=94.410%, 25.4 ms;. 19: 36/36=100.000%, 25.3 ms;. 18: 52/52=100.000%, 25.2 ms;. 16: 18/18=100.000%, 25.3 ms;. 12: 14/14=100.000%, 24.3 ms;. 8: 32/32=100.000%, 24.5 ms;; MILP: 0 verified, 0 waitingprogress: 1017/74448=1.366%; gpupoly: 24: 981/1018=96.365%, 25.2 ms;. 19: 52/52=100.000%, 25.3 ms;. 18: 70/70=100.000%, 25.2 ms;. 16: 18/18=100.000%, 25.3 ms;. 12: 14/14=100.000%, 24.3 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 1600/74448=2.149%; gpupoly: 24: 1550/1600=96.875%, 25.2 ms;. 19: 72/72=100.000%, 25.2 ms;. 18: 104/104=100.000%, 25.1 ms;. 16: 18/18=100.000%, 25.3 ms;. 12: 14/14=100.000%, 24.3 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 2145/74448=2.881%; gpupoly: 24: 2073/2147=96.553%, 25.1 ms;. 19: 108/108=100.000%, 25.1 ms;. 18: 160/160=100.000%, 25.1 ms;. 16: 18/18=100.000%, 25.3 ms;. 12: 14/14=100.000%, 24.3 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 2644/74448=3.551%; gpupoly: 24: 2537/2644=95.953%, 25.1 ms;. 19: 180/180=100.000%, 25.1 ms;. 18: 220/220=100.000%, 25.0 ms;. 16: 24/24=100.000%, 25.3 ms;. 12: 14/14=100.000%, 24.3 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 3232/74448=4.341%; gpupoly: 24: 3114/3233=96.319%, 25.1 ms;. 19: 202/202=100.000%, 25.1 ms;. 18: 244/244=100.000%, 25.0 ms;. 16: 24/24=100.000%, 25.3 ms;. 12: 14/14=100.000%, 24.3 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 3795/74448=5.098%; gpupoly: 24: 3661/3795=96.469%, 25.1 ms;. 19: 236/236=100.000%, 25.1 ms;. 18: 268/268=100.000%, 25.0 ms;. 16: 24/24=100.000%, 25.3 ms;. 12: 28/28=100.000%, 25.0 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 4372/74448=5.873%; gpupoly: 24: 4225/4374=96.594%, 25.1 ms;. 19: 268/268=100.000%, 25.1 ms;. 18: 292/292=100.000%, 25.0 ms;. 16: 24/24=100.000%, 25.3 ms;. 12: 28/28=100.000%, 25.0 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 4965/74448=6.669%; gpupoly: 24: 4807/4965=96.818%, 25.1 ms;. 19: 288/288=100.000%, 25.1 ms;. 18: 312/312=100.000%, 25.0 ms;. 16: 24/24=100.000%, 25.3 ms;. 12: 28/28=100.000%, 25.0 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 5586/74448=7.503%; gpupoly: 24: 5425/5587=97.100%, 25.1 ms;. 19: 296/296=100.000%, 25.1 ms;. 18: 318/318=100.000%, 25.0 ms;. 16: 24/24=100.000%, 25.3 ms;. 12: 28/28=100.000%, 25.0 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 6172/74448=8.290%; gpupoly: 24: 5998/6172=97.181%, 25.1 ms;. 19: 320/320=100.000%, 25.1 ms;. 18: 344/344=100.000%, 25.0 ms;. 16: 24/24=100.000%, 25.3 ms;. 12: 28/28=100.000%, 25.0 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 6792/74448=9.123%; gpupoly: 24: 6615/6792=97.394%, 25.1 ms;. 19: 324/324=100.000%, 25.1 ms;. 18: 352/352=100.000%, 25.0 ms;. 16: 24/24=100.000%, 25.3 ms;. 12: 28/28=100.000%, 25.0 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 7383/74448=9.917%; gpupoly: 24: 7195/7383=97.454%, 25.1 ms;. 19: 344/344=100.000%, 25.1 ms;. 18: 376/376=100.000%, 25.0 ms;. 16: 24/24=100.000%, 25.3 ms;. 12: 28/28=100.000%, 25.0 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 7914/74448=10.630%; gpupoly: 24: 7702/7915=97.309%, 25.1 ms;. 19: 388/388=100.000%, 25.1 ms;. 18: 412/412=100.000%, 25.0 ms;. 16: 50/50=100.000%, 25.1 ms;. 12: 28/28=100.000%, 25.0 ms;. 8: 100/100=100.000%, 24.4 ms;; MILP: 0 verified, 0 waitingprogress: 8436/74448=11.331%; gpupoly: 24: 8208/8436=97.297%, 25.1 ms;. 19: 408/408=100.000%, 25.1 ms;. 18: 444/444=100.000%, 25.0 ms;. 16: 60/60=100.000%, 25.2 ms;. 12: 28/28=100.000%, 25.0 ms;. 8: 150/150=100.000%, 24.6 ms;; MILP: 0 verified, 0 waitingprogress: 8981/74448=12.063%; gpupoly: 24: 8735/8982=97.250%, 25.1 ms;. 19: 436/436=100.000%, 25.1 ms;. 18: 480/480=100.000%, 25.0 ms;. 16: 66/66=100.000%, 25.1 ms;. 12: 47/47=100.000%, 25.0 ms;. 8: 150/150=100.000%, 24.6 ms;; MILP: 0 verified, 0 waitingprogress: 9450/74448=12.693%; gpupoly: 24: 9172/9453=97.027%, 25.1 ms;. 19: 452/452=100.000%, 25.1 ms;. 18: 572/572=100.000%, 25.0 ms;. 16: 93/93=100.000%, 25.2 ms;. 12: 79/79=100.000%, 25.2 ms;. 8: 150/150=100.000%, 24.6 ms;; MILP: 0 verified, 0 waitingprogress: 9982/74448=13.408%; gpupoly: 24: 9679/9985=96.935%, 25.1 ms;. 19: 497/497=100.000%, 25.1 ms;. 18: 621/621=100.000%, 25.0 ms;. 16: 96/96=100.000%, 25.2 ms;. 12: 84/84=100.000%, 25.2 ms;. 8: 150/150=100.000%, 24.6 ms;; MILP: 0 verified, 0 waitingprogress: 10475/74448=14.070%; gpupoly: 24: 10134/10476=96.735%, 25.1 ms;. 19: 560/560=100.000%, 25.1 ms;. 18: 705/705=100.000%, 25.0 ms;. 16: 96/96=100.000%, 25.2 ms;. 12: 84/84=100.000%, 25.2 ms;. 8: 150/150=100.000%, 24.6 ms;; MILP: 0 verified, 0 waitingprogress: 10954/74448=14.714%; gpupoly: 24: 10577/10957=96.532%, 25.1 ms;. 19: 624/624=100.000%, 25.1 ms;. 18: 786/786=100.000%, 25.0 ms;. 16: 102/102=100.000%, 25.1 ms;. 12: 84/84=100.000%, 25.2 ms;. 8: 150/150=100.000%, 24.6 ms;; MILP: 0 verified, 0 waitingprogress: 11433/74448=15.357%; gpupoly: 24: 11020/11434=96.379%, 25.1 ms;. 19: 668/668=100.000%, 25.1 ms;. 18: 857/857=100.000%, 25.0 ms;. 16: 138/138=100.000%, 25.3 ms;. 12: 84/84=100.000%, 25.2 ms;. 8: 150/150=100.000%, 24.6 ms;; MILP: 0 verified, 0 waitingprogress: 11786/74448=15.831%; gpupoly: 24: 11326/11790=96.064%, 25.1 ms;. 19: 717/717=100.000%, 25.1 ms;. 18: 958/958=100.000%, 25.0 ms;. 16: 177/177=100.000%, 25.3 ms;. 12: 126/126=100.000%, 25.3 ms;. 10: 48/48=100.000%, 25.0 ms;. 8: 150/150=100.000%, 24.6 ms;; MILP: 0 verified, 0 waitingprogress: 12252/74448=16.457%; gpupoly: 24: 11750/12255=95.879%, 25.1 ms;. 19: 777/777=100.000%, 25.1 ms;. 18: 1048/1048=100.000%, 25.0 ms;. 16: 198/198=100.000%, 25.3 ms;. 12: 126/126=100.000%, 25.3 ms;. 10: 48/48=100.000%, 25.0 ms;. 8: 150/150=100.000%, 24.6 ms;; MILP: 0 verified, 0 waitingprogress: 12802/74448=17.196%; gpupoly: 24: 12277/12802=95.899%, 25.1 ms;. 19: 832/832=100.000%, 25.1 ms;. 18: 1080/1080=100.000%, 25.0 ms;. 16: 198/198=100.000%, 25.3 ms;. 12: 126/126=100.000%, 25.3 ms;. 10: 48/48=100.000%, 25.0 ms;. 8: 150/150=100.000%, 24.6 ms;; MILP: 0 verified, 0 waitingprogress: 13389/74448=17.984%; 
