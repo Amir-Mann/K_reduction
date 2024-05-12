@@ -194,6 +194,7 @@ class LZeroGpuWorker:
                     pixels = tuple(int(item) for item in line.split(','))
                     try:
                         self.__prove_recursive(conn, pixels)
+                        conn.send('next')
                     except StopSignalException:
                         self.__write_stats_to_json()
                         conn.send('stopped')
@@ -381,11 +382,11 @@ class LZeroGpuWorker:
         alpha = alpha_over_beta * beta
 
         p_vector = SigmoidProb(alpha=alpha, beta=beta, start=self.__t, k=len(pixels))
-        
+
         def sample_func(k, n):
             return len([i for i in range(n) if self.verify_group(sample(pixels, k))[0]])
         p_vector = p_vector.correct_sigmoid_itertive(sample_func, n_to_sample)
-        
+
         return p_vector
 
     def __generate_new_strategy(self, pixels, score, depth):
@@ -397,7 +398,7 @@ class LZeroGpuWorker:
         self.__k_reduction_statistics[depth]["sum_time_spent_choosing_strategy"] += time.time() - mid
         estimated_verification_time = A[len(pixels)][0]
         normlized_bucket_of_score = self.__get_normlized_bucket_value(score)
-        print(
-            f'Worker {self.__worker_index}, Score: {normlized_bucket_of_score:.2f} | est. verif. time: {estimated_verification_time:.3f} sec | Chosen strategy: {strategy}')
-        print(f'Chosen strategy is {strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
+#         print(
+#             f'Worker {self.__worker_index}, Score: {normlized_bucket_of_score:.2f} | est. verif. time: {estimated_verification_time:.3f} sec | Chosen strategy: {strategy}')
+#         print(f'Chosen strategy is {strategy}, estimated verification time for worker {self.__worker_index} is {estimated_verification_time:.3f} sec')
         return strategy
