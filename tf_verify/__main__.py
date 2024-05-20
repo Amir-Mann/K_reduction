@@ -1568,6 +1568,16 @@ else:
             with open(os.path.join(results_dir, "individual_workers", path_name), "r") as f:
                 worker_json = json.load(f)
             for depth in worker_json:
+
+                if depth == "images_time_for_cheating":
+                    if depth not in joined_json:
+                        joined_json[depth] = worker_json[depth]
+                    else:
+                        for i, image_time_for_cheating in enumerate(worker_json[depth]):
+                            if image_time_for_cheating > joined_json[depth][i]:
+                                joined_json[depth][i] = image_time_for_cheating
+                    continue
+
                 if depth not in joined_json:
                     joined_json[depth] = {}
                 for stat_name in worker_json[depth]:

@@ -141,18 +141,20 @@ class SigmoidProb:
             return self
         success_ks, fail_ks = [], []
 
+
         k_to_sample = max(self.__start, min(round(- self.alpha / self.beta), self.__end - 1))  # Iterative_sampeling
+        ks_to_sample = f"{k_to_sample}|"
         for i in range(num_samples):
-            d = round((3 + num_samples) / (3 + i))
+            d = round((3 + num_samples ** 0.5) / (3 + i ** 0.5))
             if d == 0:
                 d = 1
             if sample_func(k_to_sample) == 1:
                 success_ks.append(k_to_sample)
-                k_to_sample = k_to_sample + d
+                k_to_sample = min(k_to_sample + d, self.__end)
             else:
                 fail_ks.append(k_to_sample)
-                k_to_sample = k_to_sample - d
-
+                k_to_sample = max(k_to_sample - d, self.__start)
+            ks_to_sample += f"{k_to_sample}|"
         success_ks = np.array(success_ks)
         fail_ks = np.array(fail_ks + [self.__end])
         if num_samples < 69:
@@ -181,6 +183,23 @@ class SigmoidProb:
             else:
                 print(f"\nFailed to minimize scalars for double correction in correct_sigmoid_itertive\n", end=", ")
                 return self
+        if True:#corrected_beta > -0.001 or corrected_beta < -1000 or -corrected_alpha / corrected_beta > self.__end + 1 or -corrected_alpha / corrected_beta < self.__start:
+            midpoint = -corrected_alpha / corrected_beta
+            beta = corrected_beta
+            t = self.__start
+            k = self.__end
+            self.plot()
+            ks = set(success_ks)
+            ks.update(set(fail_ks))
+            success_per_k = {k: len([k_ for k_ in success_ks if k_ == k]) for k in ks}
+            fail_per_k = {k: len([k_ for k_ in fail_ks if k_ == k]) for k in ks}
+            plt.plot(sorted(ks), [success_per_k[k] / (success_per_k[k] + fail_per_k[k]) for k in ks])
+            SigmoidProb(corrected_alpha, corrected_beta, self.__start, self.__end).plot()
+            plt.legend(["original", "sampled", "'corrected'"], ncol=1, loc='center right',bbox_to_anchor=[1, 1])
+            plt.title(f"{t=} {k=} {beta=} {midpoint=}")
+            print(ks_to_sample)
+            plt.show()
+
         return SigmoidProb(corrected_alpha, corrected_beta, self.__start, self.__end)
 
 

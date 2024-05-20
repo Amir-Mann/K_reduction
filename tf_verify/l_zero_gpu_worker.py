@@ -397,7 +397,7 @@ class LZeroGpuWorker:
                 return 0
             elif k < self.__t:
                 return 1
-            return 0 if self.verify_group(sample(pixels, k))[0] else 1
+            return 1 if self.verify_group(sample(pixels, k))[0] else 0
         p_vector = p_vector.correct_sigmoid_itertive(sample_func, n_to_sample)
 
         return p_vector
