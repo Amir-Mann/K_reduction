@@ -28,7 +28,9 @@ class LZeroGpuWorker:
         self.__number_of_workers = None
         self.__covering_sizes = None
         self.__w_vector = None
-        self.__k_reduction_statistics = {}
+        self.__k_reduction_statistics = {
+            "images_time_for_cheating": []
+        }
         arcsin_suffix = "_arcsin" if self.__config.l0g_use_arcsin_norm else ""
         with open(f"regressor{arcsin_suffix}.pkl", "rb") as f:
             self.__regeressors = pickle.load(f)
@@ -58,6 +60,7 @@ class LZeroGpuWorker:
                     self.__covering_sizes, self.__w_vector, self.__normalization_buckets, self.__t = conn.recv()
                     # coverings = self.__load_coverings(strategy)
                     self.__prove(conn)
+                    self.__write_stats_to_json()
                     message = conn.recv()
 
     def __sample(self, sampling_lower_bound, sampling_upper_bound, repetitions):
@@ -187,7 +190,6 @@ class LZeroGpuWorker:
                   'r') as shared_covering:
             for line_number, line in enumerate(shared_covering):
                 if conn.poll() and conn.recv() == 'stop':
-                    self.__write_stats_to_json()
                     conn.send('stopped')
                     return
                 if line_number % self.__number_of_workers == self.__worker_index:
@@ -196,10 +198,8 @@ class LZeroGpuWorker:
                         self.__prove_recursive(conn, pixels)
                         conn.send('next')
                     except StopSignalException:
-                        self.__write_stats_to_json()
                         conn.send('stopped')
                         return
-        self.__write_stats_to_json()
         conn.send("done")
         message = conn.recv()
         if message != 'stop':
@@ -208,6 +208,15 @@ class LZeroGpuWorker:
 
     def __write_stats_to_json(self):
         path_name = f"stats_collection_worker{self.__worker_index}.json"
+        
+        #update total time for cheating on this image
+        time_spent_for_cheating = sum([
+            sum([v for k, v in self.__k_reduction_statistics[depth].items()
+                 if "sum_time_" in k])
+            for depth in self.__k_reduction_statistics if isinstance(depth, int)])
+        prv_time_spen_for_cheating = sum(self.__k_reduction_statistics["images_time_for_cheating"])
+        self.__k_reduction_statistics["images_time_for_cheating"].append(time_spent_for_cheating - prv_time_spen_for_cheating)
+        
         with open(os.path.join(self.__config.l0_results_dir, "individual_workers", path_name), "w") as res_file:
             json.dump(self.__k_reduction_statistics, res_file)
 
