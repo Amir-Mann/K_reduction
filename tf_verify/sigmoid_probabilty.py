@@ -92,7 +92,43 @@ class SigmoidProb:
         ks_list = np.arange(self.__start, k)
         probs = [(1 - self[sub_k])/(1 - self[k]) for sub_k in ks_list]
         plt.plot(ks_list, probs)
-    
+
+    @staticmethod
+    def create_sigmoid_from_sampling(sample_func, k):
+        baseline = [sample_func(sub_k) for sub_k in range(k + 1)]
+        fail_ks = [i for i, sample_result in enumerate(baseline) if sample_result == 0]
+        success_ks = [i for i, sample_result in enumerate(baseline) if sample_result == 1]
+        alpha = -k
+        beta = -1
+        k_to_sample = success_ks[-1]
+        while True:
+            for i in range(15):
+                if sample_func(k_to_sample) == 1:
+                    success_ks.append(k_to_sample)
+                    k_to_sample -= 1
+                else:
+                    fail_ks.append(k_to_sample)
+                    k_to_sample += 1
+            np_success_ks = np.array(success_ks)
+            np_fail_ks = np.array(fail_ks)
+
+            def func_to_minimize1(vars):
+                a, b = vars
+                return np.sum(np.log(1 + np.exp(- (a + b * success_ks)))) \
+                    + np.sum(np.log(1 + np.exp(+ (a + b * fail_ks))))
+
+            result = scipy.optimize.minimize(func_to_minimize1, [alpha, beta])
+            if result.success:
+                alpha, beta = result.x
+            else:
+                print(f"\nFailed to minimize scalars for double correction in correct_sigmoid_itertive\n", end=", ")
+                return self
+            prv_alpha = alpha
+            prv_beta = beta
+        return SigmoidProb(corrected_alpha, corrected_beta, self.__start, self.__end)
+
+
+
     def correct_sigmoid_itertive(self, sample_func, num_samples, v=3.36, var_beta=1):
         """"
         Corrects a sigmoid using sampeling, and the assumption that the error is distributing T(v=v)
@@ -110,16 +146,16 @@ class SigmoidProb:
             d = round((3 + num_samples) / (3 + i))
             if d == 0:
                 d = 1
-            if sample_func(k_to_sample, 1) == 1:
+            if sample_func(k_to_sample) == 1:
                 success_ks.append(k_to_sample)
-                k_to_sample = min(k_to_sample + d, self.__end - 1)
+                k_to_sample = k_to_sample + d
             else:
                 fail_ks.append(k_to_sample)
-                k_to_sample = max(k_to_sample - d, self.__start)
+                k_to_sample = k_to_sample - d
 
         success_ks = np.array(success_ks)
         fail_ks = np.array(fail_ks + [self.__end])
-        if num_samples < 20:
+        if num_samples < 69:
             def func_to_minimize(s):
                 return (v + 1) / 2 * np.log((1 + s ** 2 / v)) \
                     + np.sum(np.log(1 + np.exp(- (self.alpha + s * self.beta + self.beta * success_ks)))) \
@@ -134,18 +170,14 @@ class SigmoidProb:
                 return self
         else: # Double correction (correct both beta and alpha)
             def func_to_minimize1(vars):
-                s, m = vars
-                alphat = (self.alpha / self.beta + s) * m
-                return (v + 1) / 2 * np.log((1 + s ** 2 / v)) \
-                    + (self.beta - m) ** 2 / 2 / var_beta \
-                    + np.sum(np.log(1 + np.exp(- (alphat + m * success_ks)))) \
-                    + np.sum(np.log(1 + np.exp(+ (alphat + m * fail_ks))))
+                return np.sum(np.log(1 + np.exp(- (vars[0] + vars[1] * success_ks)))) \
+                     + np.sum(np.log(1 + np.exp(+ (vars[0] + vars[1] * fail_ks))))
             
             result = scipy.optimize.minimize(func_to_minimize1, [0, self.beta])
             if result.success:
-                s, m = result.x
-                corrected_alpha = (self.alpha / self.beta + s) * m
-                corrected_beta = m
+                a, b = result.x
+                corrected_alpha = a
+                corrected_beta = b
             else:
                 print(f"\nFailed to minimize scalars for double correction in correct_sigmoid_itertive\n", end=", ")
                 return self

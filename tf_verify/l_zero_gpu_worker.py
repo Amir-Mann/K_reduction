@@ -383,8 +383,12 @@ class LZeroGpuWorker:
 
         p_vector = SigmoidProb(alpha=alpha, beta=beta, start=self.__t, k=len(pixels))
 
-        def sample_func(k, n):
-            return len([i for i in range(n) if self.verify_group(sample(pixels, k))[0]])
+        def sample_func(k):
+            if k >= len(pixels):
+                return 0
+            elif k < self.__t:
+                return 1
+            return 0 if self.verify_group(sample(pixels, k))[0] else 1
         p_vector = p_vector.correct_sigmoid_itertive(sample_func, n_to_sample)
 
         return p_vector
