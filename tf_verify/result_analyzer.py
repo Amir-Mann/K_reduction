@@ -1,6 +1,7 @@
 import json
 import os
 import pprint
+import argparse
 
 
 def load_dict(path):
@@ -98,18 +99,59 @@ def print_parameter_info(run_info_path):
     print_recursion_info(run_info_path)
 
 
-def main(results_path, is_original_calzone):
-    if not results_path:
-        print("NOTICE: add path for results of run")
-        return
+def main():
+    parser = argparse.ArgumentParser(description='Calzone run results analyzer')
+    parser.add_argument('-r', '--results_path', type=str, default=None, help='Path to the results file, None will use the last one.')
+    parser.add_argument('subset_images', nargs="*", default=[], help='show also statistics from a spesific list of images.')
+    args = parser.parse_args()
+    
+    if args.results_path is None:
+        args.results_path = os.path.join(".", "results", max(os.listdir("./results")))
+        print(f"No results path provided, using latest {args.results_path}")
+    for filename in os.listdir(args.results_path):
+        if filename != "stats_collection_all_workers.json" and filename[-5:] == ".json":
+            args.results_path = os.path.join(args.results_path, filename)
+            break
+    else:
+        print("Couldn't find the calzone json")
+        exit()
 
-    worker_dir_path, run_info_path, all_workers_path = get_paths(results_path)
+    worker_dir_path, run_info_path, all_workers_path = get_paths(args.results_path)
 
     # result stuff
-    results = load_dict(results_path)
+    results = load_dict(args.results_path)
     condensed_results = convert_to_more_pleasant_dict(results)
     print("-------- THE RESULTS OF THE RUN --------")
     pprint.pprint(condensed_results)
+    print()
+    
+    print("-------- THE AVERAGES OF THE RUN --------")
+    times = {}
+    times["all"] = []
+    times["verified"] = []
+    times["not_timed_out"] = []
+    times["none_robust"] = []
+    times["subset_images"] = []
+    for image_index, image_results in results["images_results_by_index"].items():
+        rt = image_results['running_time']
+        image_as = image_results["analysis_summary"]
+        times["all"].append(rt)
+        if image_as["verified"]:
+            times["verified"].append(rt)
+            print(f"image {image_index} verified")
+        if not image_as["timed_out"]:
+            times["not_timed_out"].append(rt)
+        else:
+            print(f"image {image_index} timedout")
+        if not image_as["timed_out"] and not image_as["verified"]:
+            times["none_robust"].append(rt)
+            print(f"image {image_index} proven none robust")
+        if image_index in args.subset_images:
+            times["subset_images"].append(rt)
+    for category, times_list in times.items():
+        if len(times_list) != 0:
+            avg_sec = sum(times_list) / len(times_list)
+            print(f"avg for {category} {avg_sec:.2f} sec or {avg_sec / 60:.2f} min")
     print()
 
     print("-------- PARAMETER INFO --------")
@@ -117,17 +159,17 @@ def main(results_path, is_original_calzone):
     print()
 
     # worker stuff
-    if not is_original_calzone:
+    if os.path.isfile(all_workers_path):
         worker_paths = get_list_of_paths_in_dir(worker_dir_path)
         print("-------- WORKER STATS --------")
         for worker_path in worker_paths:
-            print(worker_path)
+            #print(worker_path)
             worker_stats = load_dict(worker_path)
-            pprint.pprint(worker_stats)
-            print()
+            #pprint.pprint(worker_stats)
+            #print()
 
         # calculating cheated time
-        cheated_time = get_cheated_time(results_path, worker_paths)
+        cheated_time = get_cheated_time(args.results_path, worker_paths)
         print()
         print("-------- ANALYSIS --------")
         # TODO do per image
@@ -142,6 +184,4 @@ def get_list_of_paths_in_dir(dir_path):
 
 
 if __name__ == "__main__":
-    results_path = "./results/results_240430_1427/mnist-mnist_relu_3_50.onnx-4.json"
-    is_original_calzone = False
-    main(results_path, is_original_calzone)
+    main()
