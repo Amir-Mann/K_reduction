@@ -1383,9 +1383,9 @@ else:
         stds = NETS_MEANS_STDS[config.netname]["stds"]
     else:
         print("Network means and stds not defined for network", config.netname, file=sys.stderr)
-        print("Using means = 0, std = 1 as default")
-        means = [0]
-        stds = [1]
+        print("Using means = 0.1307, std = 0.30810001 as default")
+        means = [0.1307]
+        stds = [0.30810001]
 
     if config.l0_mode == 'main':
         start_time_of_main = time.time()
