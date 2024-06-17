@@ -1,0 +1,20 @@
+{
+    "0": {
+        "enters": 48,
+        "count_subgroups": 100,
+        "sum_estimated_prob_of_next_k": 0,
+        "sum_sr": 97,
+        "sum_time_spent_choosing_strategy": 0,
+        "sum_time_estimating_p_vector": 0,
+        "sum_time_loading_coverings": 0
+    },
+    "1": {
+        "enters": 3,
+        "count_subgroups": 6,
+        "sum_estimated_prob_of_next_k": 2.99999973121068,
+        "sum_sr": 6,
+        "sum_time_spent_choosing_strategy": 0.0236208438873291,
+        "sum_time_estimating_p_vector": 0.0014638900756835938,
+        "sum_time_loading_coverings": 0.0006053447723388672
+    }
+}
